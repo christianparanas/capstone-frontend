@@ -1,9 +1,31 @@
-<div class="">
-  <div class="">
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_400px] py-4 mt-20">
-      <div class="hidden lg:block">image</div>
+<div class="relative min-h-fit h-screen pt-2 md:pt-12 md:overflow-hidden">
 
-      <div class="p-6">
+  <img src="../../../../assets/logo/evsu_logo_3.png" alt="" class="hidden md:block absolute -bottom-40 -left-20 opacity-20">
+
+  <div class="">
+    <div class="max-w-7xl mx-auto grid gap-5 lg:grid-cols-[1fr_400px] py-4">
+      <div class="hidden lg:block">
+        <div class="bg-slate-800 p-4 rounded-md w-fit pr-6 min-h-[96px]">
+          <img src="../../../../assets/logo/evsu_logo.png" alt="EVSU Logo" class="w-[320px]">
+        </div>
+
+        <div class="mt-14">
+          <h1 class="font-black text-5xl">Eastern Visayas State University <div class=""><span class="text-red-500">Elections</span> System</div></h1>
+        </div>
+      </div>
+
+      <div class="p-6 pt-0">
+        <div class="md:hidden mb-10">
+          <div class="bg-slate-800 p-4 rounded-md w-fit pr-6 min-h-[96px]">
+            <img src="../../../../assets/logo/evsu_logo.png" alt="EVSU Logo" class="w-[320px]">
+          </div>
+  
+          <div class="mt-3 text-center">
+            <h1 class="font-black text-2xl">EVSU Election <span class="text-red-500">System</span></h1>
+          </div>
+        </div>
+
+
         <div class="">
           <h1 class="font-bold text-red-500 text-center">
             Choose Account Type
@@ -12,7 +34,7 @@
           <div class="grid grid-cols-[1fr_1fr_1fr] my-7 gap-3">
             <div
               (click)="changeLoginAcctType('student')"
-              class="relative grid place-items-center bg-white p-2 px-4 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
+              class="min-h-[121px] relative grid place-items-center bg-white p-2 px-4 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
               [ngClass]="
                 loginAcctType == 'student' ? 'border-red-500' : 'border-white'
               "
@@ -37,7 +59,7 @@
             </div>
             <div
               (click)="changeLoginAcctType('faculty')"
-              class="relative grid place-items-center bg-white p-3 px-5 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
+              class="min-h-[121px]  relative grid place-items-center bg-white p-3 px-5 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
               [ngClass]="
                 loginAcctType == 'faculty' ? 'border-red-500' : 'border-white'
               "
@@ -60,7 +82,7 @@
             </div>
             <div
               (click)="changeLoginAcctType('admin')"
-              class="relative grid place-items-center bg-white p-3 px-5 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
+              class="min-h-[121px] relative grid place-items-center bg-white p-3 px-5 rounded-md shadow-sm text-sm border-2 border-white cursor-pointer hover:border-red-500 transition-all"
               [ngClass]="
                 loginAcctType == 'admin' ? 'border-red-500' : 'border-white'
               "
@@ -85,7 +107,7 @@
 
           <div class="text-center mb-4">
             <h2 class="capitalize text-[15px]">Hello {{ loginAcctType }}!</h2>
-            <p class="text-[13px]">Please fill out the form below to get started.</p>
+            <p class="text-[13px]">Please fill out the form below to get Login.</p>
           </div>
         </div>
 
