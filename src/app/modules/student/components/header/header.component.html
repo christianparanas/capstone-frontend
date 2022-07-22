@@ -1,0 +1,38 @@
+<div class="">
+  <div
+    class="bg-white flex justify-between items-center p-3 border-b border-gray-300"
+  >
+    <div class="flex items-center">
+      <img
+        src="../../../../../assets/logo/evsu_logo_3.png"
+        alt=""
+        class="w-[30px] mr-2"
+      />
+      <h1 class="font-semibold">EVSU Election</h1>
+    </div>
+
+    <div class="flex items-center">
+      <div class="mr-3">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+          alt=""
+          class="w-[30px] object-cover rounded-full"
+        />
+      </div>
+      <div class="p-2" (click)="openCloseNavOverlay()">
+        <i class="fal fa-bars text-[20px]"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="" [ngClass]="isNavOpen ? 'block' : 'hidden'">
+    <div class="bg-gray-600 opacity-20 w-full h-full fixed top-0"></div>
+
+    <div class="w-[300px] bg-white h-full fixed top-0 right-0 p-4">
+      <div class="flex items-center justify-between">
+        <div class=""></div>
+        <i class="fal fa-times text-[20px]" (click)="openCloseNavOverlay()"></i>
+      </div>
+    </div>
+  </div>
+</div>
