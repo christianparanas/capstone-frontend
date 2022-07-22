@@ -1,1 +1,81 @@
-<p>signup works!</p>
+<div class="">
+  <div class="">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_400px] py-4 mt-20">
+      <div class="hidden lg:block">image</div>
+
+      <div class="p-6">
+
+        <div class="mb-4">
+          <h1 class="font-bold text-2xl text-slate-800">Account Creation</h1>
+          <p class="text-[14px] text-slate-700">Student</p>
+        </div>
+
+        <form action="" class="grid gap-3">
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="text"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="First name"
+            />
+          </div>
+
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="text"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Middle name"
+            />
+          </div>
+
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="text"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Last name"
+            />
+          </div>
+
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="text"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="ID number"
+            />
+          </div>
+
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="email"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Email"
+            />
+          </div>
+
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input
+              type="password"
+              name="password"
+              class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Password"
+            />
+          </div>
+
+          <button
+            class="bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 hover:bg-red-500/80 transition-all"
+          >
+            Sign up
+          </button>
+
+          <div class="text-[14px] text-center">
+            <p>
+              Already have an account?
+              <span class="text-red-500 cursor-pointer" routerLink="/login"
+                >Login</span
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

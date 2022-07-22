@@ -137,14 +137,14 @@
           </div>
 
           <button
-            class="bg-red-500 rounded-md shadow-sm text-slate-50 py-2 hover:bg-red-500/80 transition-all"
+            class="font-semibold bg-red-500 rounded-md shadow-sm text-slate-50 py-2 hover:bg-red-500/80 transition-all"
           >
             Login
           </button>
 
           <div class="text-[14px] text-center"
           [ngClass]="loginAcctType == 'student' ? 'block' : 'hidden' ">
-            <p>No account? <span class="text-red-500">Signup</span></p>
+            <p>No account? <span class="text-red-500 cursor-pointer" routerLink="/signup">Signup</span></p>
           </div>
         </form>
       </div>
