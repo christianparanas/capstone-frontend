@@ -13,7 +13,14 @@ export class HeaderComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.currentRoute = this.route.snapshot.routeConfig?.path
+    const route = this.route.snapshot.children[0].routeConfig?.path
+    route == '' ? this.currentRoute = '/' : this.currentRoute = route; 
+  }
+
+  getCurrentRouteURL(route: any) {
+    route == '' ? this.currentRoute = '/' : this.currentRoute = route;
+
+    this.openCloseNavOverlay()
   }
 
   openCloseNavOverlay() {
