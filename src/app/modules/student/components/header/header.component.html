@@ -1,7 +1,7 @@
 <div class="">
   <div class="">
     <div
-      class="lg:hidden bg-white flex justify-between items-center px-5 py-3 border-b border-gray-200"
+      class="lg:hidden flex justify-between items-center px-5 py-3"
     >
       <div class="flex items-center">
         <img
@@ -26,14 +26,14 @@
       </div>
     </div>
 
-    <div class="md:hidden" [ngClass]="isNavOpen ? 'block' : 'hidden'">
+    <div class="md:hidden transition-all" [ngClass]="isNavOpen ? 'block' : 'hidden'">
       <div class="bg-gray-600 opacity-20 w-full h-full fixed top-0" (click)="openCloseNavOverlay()"></div>
 
       <div class="w-[300px] bg-white h-full fixed top-0 right-0 p-5">
         <div class="flex items-center justify-between">
           <div class=""></div>
           <i
-            class="fal fa-times text-[20px] cursor-pointer"
+            class="fal fa-times text-[20px] cursor-pointer px-3"
             (click)="openCloseNavOverlay()"
           ></i>
         </div>
