@@ -9,10 +9,13 @@ import { Router, ActivatedRoute  } from '@angular/router';
 export class HeaderComponent implements OnInit {
   isNavOpen: boolean = false
   currentRoute: any;
+  onScroll: boolean = false;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    window.addEventListener('scroll', this.listenScrollEvent);
+
     const route = this.route.snapshot.children[0].routeConfig?.path
     route == '' ? this.currentRoute = '/' : this.currentRoute = route; 
   }
@@ -31,5 +34,9 @@ export class HeaderComponent implements OnInit {
 
     this.isNavOpen = true
   }
+
+  listenScrollEvent = () => {
+    window.scrollY > 15 ? (this.onScroll = true) : (this.onScroll = false);
+  };
 
 }
