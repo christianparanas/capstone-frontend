@@ -1,7 +1,7 @@
 <div class="">
   <div class="">
     <div
-      class="lg:hidden bg-white flex justify-between items-center p-3 border-b border-gray-300"
+      class="lg:hidden bg-white flex justify-between items-center p-3 py-2 border-b border-gray-300"
     >
       <div class="flex items-center">
         <img
@@ -39,54 +39,34 @@
         </div>
 
         <div class="grid gap-1 mt-4">
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == '' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-chart-line"></i> Dashboard
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'elections' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-box-ballot"></i> Election
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'campaign' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-ad"></i> Campaign
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'tweets' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-retweet"></i> Tweets
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'polls' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-poll-people"></i> Polls
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'receips' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-receipt"></i> Vote Receipts
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'logs' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-pallet"></i> Logs
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'updates' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-heart-rate"></i> Live Updates
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'feedbacks' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-comment"></i> Feedbacks
           </div>
-          <div
-            class="hover:bg-red-400 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-          >
+          <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == 'about' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-info-circle"></i> About
           </div>
         </div>
