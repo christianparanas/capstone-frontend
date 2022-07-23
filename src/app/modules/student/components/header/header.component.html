@@ -1,7 +1,7 @@
 <div class="">
   <div class="">
     <div
-      class="lg:hidden bg-white flex justify-between items-center p-3 py-2 border-b border-gray-300"
+      class="lg:hidden bg-white flex justify-between items-center px-5 py-3 border-b border-gray-200"
     >
       <div class="flex items-center">
         <img
@@ -15,9 +15,9 @@
       <div class="flex items-center">
         <div class="mr-3">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+            src="https://avatars.githubusercontent.com/u/59472122?v=4"
             alt=""
-            class="w-[30px] object-cover rounded-full"
+            class="w-[35px] object-cover rounded-full"
           />
         </div>
         <div class="p-2 cursor-pointer" (click)="openCloseNavOverlay()">
@@ -27,9 +27,9 @@
     </div>
 
     <div class="md:hidden" [ngClass]="isNavOpen ? 'block' : 'hidden'">
-      <div class="bg-gray-600 opacity-20 w-full h-full fixed top-0"></div>
+      <div class="bg-gray-600 opacity-20 w-full h-full fixed top-0" (click)="openCloseNavOverlay()"></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0 p-4">
+      <div class="w-[300px] bg-white h-full fixed top-0 right-0 p-5">
         <div class="flex items-center justify-between">
           <div class=""></div>
           <i
@@ -38,7 +38,7 @@
           ></i>
         </div>
 
-        <div class="grid gap-1 mt-4">
+        <div class="grid gap-1 mt-6">
           <div class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer" [ngClass]="currentRoute == '' ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3' : '' ">
             <i class="fal fa-chart-line"></i> Dashboard
           </div>
