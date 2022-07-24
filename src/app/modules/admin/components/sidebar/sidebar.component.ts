@@ -65,6 +65,9 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentRouteURL(this.route.snapshot.children[0].routeConfig?.path);
+    
+    console.log(this.currentRoute);
+    
   }
 
   getCurrentRouteURL(route: any) {

@@ -6,7 +6,7 @@
       *ngFor="let route of routesArr"
       (click)="getCurrentRouteURL(route.route)"
       class="hover:bg-red-400/80 hover:text-white py-2 hover:px-3 transition-all rounded-md cursor-pointer"
-      [routerLink]="'/' + route.route"
+      [routerLink]="'/admin/' + route.route"
       [ngClass]="
         currentRoute == route.route
           ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3'
