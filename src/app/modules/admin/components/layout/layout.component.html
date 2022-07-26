@@ -2,11 +2,14 @@
   <div class="grid lg:grid-cols-[280px_1fr]">
     <app-sidebar></app-sidebar>
 
-    <div class="">
+    <div class="w-full">
       <app-header></app-header>
 
-      <div class="p-5 max-w-[1200px] w-full mx-auto">
-        <router-outlet></router-outlet>
+      <div class="relative">
+        <div class="absolute w-full bg-slate-50 h-[260px] border-b-2 border-gray-200 z-10"></div>
+        <div class="p-5 max-w-[1200px] w-full mx-auto z-20 pt-20">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
   </div>
