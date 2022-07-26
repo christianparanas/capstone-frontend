@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       title: "Live Updates",
-      route: "polls",
+      route: "updates",
       icon: "fal fa-heart-rate"
     },
     {
