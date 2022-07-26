@@ -8,6 +8,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { ElectionComponent } from './pages/election/election.component';
+import { CampaignComponent } from './pages/campaign/campaign.component';
+import { TweetsComponent } from './pages/tweets/tweets.component';
+import { PollsComponent } from './pages/polls/polls.component';
+import { ReceiptsComponent } from './pages/receipts/receipts.component';
+import { LogsComponent } from './pages/logs/logs.component';
+import { UpdatesComponent } from './pages/updates/updates.component';
+import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
 
 
 
@@ -17,7 +25,15 @@ import { LayoutComponent } from './components/layout/layout.component';
     HeaderComponent,
     SidebarComponent,
     AboutComponent,
-    LayoutComponent
+    LayoutComponent,
+    ElectionComponent,
+    CampaignComponent,
+    TweetsComponent,
+    PollsComponent,
+    ReceiptsComponent,
+    LogsComponent,
+    UpdatesComponent,
+    FeedbacksComponent
   ],
   imports: [
     CommonModule,

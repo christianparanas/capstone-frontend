@@ -1,9 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LayoutComponent } from './components/layout/layout.component';
+
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AboutComponent } from './pages/about/about.component';
-import { LayoutComponent } from './components/layout/layout.component';
+import { ElectionComponent } from './pages/election/election.component';
+import { CampaignComponent } from './pages/campaign/campaign.component';
+import { TweetsComponent } from './pages/tweets/tweets.component';
+import { PollsComponent } from './pages/polls/polls.component';
+import { ReceiptsComponent } from './pages/receipts/receipts.component';
+import { LogsComponent } from './pages/logs/logs.component';
+import { UpdatesComponent } from './pages/updates/updates.component';
+import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
+
 
 const routes: Routes = [
   {
@@ -11,6 +21,14 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: DashboardComponent },
+      { path: 'election', component: ElectionComponent },
+      { path: 'campaign', component: CampaignComponent },
+      { path: 'tweets', component: TweetsComponent },
+      { path: 'polls', component: PollsComponent },
+      { path: 'receipts', component: ReceiptsComponent },
+      { path: 'logs', component: LogsComponent },
+      { path: 'updates', component: UpdatesComponent },
+      { path: 'feedbacks', component: FeedbacksComponent },
       { path: 'about', component: AboutComponent },
     ],
   },
