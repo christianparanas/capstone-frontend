@@ -36,8 +36,8 @@
         (click)="openCloseNavOverlay()"
       ></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0 p-5">
-        <div class="flex items-center justify-between">
+      <div class="w-[300px] bg-white h-full fixed top-0 right-0">
+        <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
             class="fal fa-times text-[20px] cursor-pointer px-3"
@@ -45,19 +45,21 @@
           ></i>
         </div>
 
-        <div class="grid gap-1 mt-6">
-          <div
-            *ngFor="let route of routesArr"
-            class="hover:bg-red-400/80 hover:text-white py-2 px-2 hover:px-3 transition-all rounded-md cursor-pointer"
-            [routerLink]="'/faculty/' + route.route"
-            (click)="getCurrentRouteURL(route.route)"
-            [ngClass]="
-              currentRoute == route.route
-                ? 'bg-red-400 hover:bg-red-400 text-white py-2 px-3'
-                : ''
-            "
-          >
-            <i [class]="route.icon"></i> {{ route.title }}
+        <div class="grid gap-1 mt-2">
+          <div class="grid gap-1 mt-6">
+            <div
+              *ngFor="let route of routesArr"
+              class="text-slate-800 py-2 px-6 transition-all cursor-pointer border-l-4 border-white hover:text-red-500 font-semibold grid grid-cols-[35px_1fr] items-center"
+              [routerLink]="'/faculty/' + route.route"
+              (click)="getCurrentRouteURL(route.route)"
+              [ngClass]="
+                currentRoute == route.route
+                  ? 'border-red-500 text-red-600'
+                  : 'text-slate-800'
+              "
+            >
+              <i [class]="route.icon"></i> {{ route.title }}
+            </div>
           </div>
         </div>
       </div>
