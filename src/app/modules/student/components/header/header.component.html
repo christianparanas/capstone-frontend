@@ -1,8 +1,8 @@
-<div class="w-full relative z-50">
+<div class="w-full relative z-50 text-white">
   <div class="">
     <div
       class="lg:hidden flex justify-between items-center px-5 py-3 fixed w-full"
-      [ngClass]="{ 'bg-white shadow-md': onScroll }"
+      [ngClass]="{ 'bg-white shadow-md text-slate-800': onScroll }"
     >
       <div class="flex items-center">
         <img
@@ -40,7 +40,7 @@
         <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
-            class="fal fa-times text-[20px] cursor-pointer px-3"
+            class="fal fa-times text-[20px] cursor-pointer px-3 text-slate-800"
             (click)="openCloseNavOverlay()"
           ></i>
         </div>

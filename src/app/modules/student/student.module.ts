@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { StudentRoutingModule } from './student-routing.module';
 
@@ -16,7 +18,7 @@ import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UpdatesComponent } from './pages/updates/updates.component';
 
-
+import { PrimengModule } from '../primeng/primeng.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,11 @@ import { UpdatesComponent } from './pages/updates/updates.component';
   ],
   imports: [
     CommonModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PrimengModule,
+    HttpClientModule,
   ]
 })
 export class StudentModule { }
