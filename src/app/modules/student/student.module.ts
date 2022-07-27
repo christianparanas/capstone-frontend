@@ -15,7 +15,6 @@ import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UpdatesComponent } from './pages/updates/updates.component';
-import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
 
 
 
@@ -33,7 +32,6 @@ import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
     ReceiptsComponent,
     LogsComponent,
     UpdatesComponent,
-    FeedbacksComponent
   ],
   imports: [
     CommonModule,

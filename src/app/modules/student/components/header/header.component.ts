@@ -53,11 +53,6 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-heart-rate',
     },
     {
-      title: 'Feedbacks',
-      route: 'feedbacks',
-      icon: 'fal fa-comment',
-    },
-    {
       title: 'About',
       route: 'about',
       icon: 'fal fa-info-circle',

@@ -12,7 +12,6 @@ import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UpdatesComponent } from './pages/updates/updates.component';
-import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
 
 
 const routes: Routes = [
@@ -28,7 +27,6 @@ const routes: Routes = [
       { path: 'receipts', component: ReceiptsComponent },
       { path: 'logs', component: LogsComponent },
       { path: 'updates', component: UpdatesComponent },
-      { path: 'feedbacks', component: FeedbacksComponent },
       { path: 'about', component: AboutComponent },
     ],
   },
