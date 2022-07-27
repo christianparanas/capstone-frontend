@@ -14,7 +14,7 @@
       </div>
 
       <div class="flex items-center">
-        <div class="mr-3">
+        <div class="mr-3 cursor-pointer"  routerLink="/account">
           <img
             src="https://avatars.githubusercontent.com/u/59472122?v=4"
             alt=""
@@ -77,9 +77,15 @@
         </div>
       </div>
 
-      <div class="flex items-center cursor-pointer">
-        <h1 class="font-semibold mr-2">Hi, Christian</h1>
-        <img src="https://avatars.githubusercontent.com/u/59472122?v=4" alt="" class="w-[35px] h-[35px] object-cover rounded-full shadow-md">
+      <div class="flex items-center">
+        <div class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2" routerLink="/account">
+          <h1 class="font-semibold mr-2">Hi, Christian</h1>
+          <img src="https://avatars.githubusercontent.com/u/59472122?v=4" alt="" class="w-[35px] h-[35px] object-cover rounded-full shadow-md">
+        </div>
+
+        <div class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center">
+          <i class="fad fa-sign-out"></i>
+        </div>
       </div>
     </div>
   </div>

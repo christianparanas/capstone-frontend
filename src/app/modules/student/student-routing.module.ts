@@ -12,6 +12,7 @@ import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UpdatesComponent } from './pages/updates/updates.component';
+import { AccountComponent } from './pages/account/account.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
     ],
   },
+  { path: 'account', component: AccountComponent },
 ];
 
 @NgModule({

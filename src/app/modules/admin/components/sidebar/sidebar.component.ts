@@ -16,49 +16,48 @@ export class SidebarComponent implements OnInit {
       icon: "fal fa-chart-line"
     },
     {
-      title: "Election",
-      route: "election",
+      title: "Administer on Election",
+      route: "administer",
       icon: "fal fa-box-ballot"
+    },
+    {
+      title: "Polls",
+      route: "poll",
+      icon: "fal fa-ad"
     },
     {
       title: "Campaign",
       route: "campaign",
-      icon: "fal fa-ad"
-    },
-    {
-      title: "Tweets",
-      route: "tweets",
       icon: "fal fa-retweet"
     },
     {
-      title: "Polls",
-      route: "polls",
+      title: "Prediction",
+      route: "prediction",
       icon: "fal fa-poll-people"
     },
     {
-      title: "Vote Receipts",
-      route: "receipts",
+      title: "Manage Users",
+      route: "users",
       icon: "fal fa-receipt"
     },{
+      
+      title: "Feedbacks",
+      route: "feedbacks",
+      icon: "fal fa-pallet"
+    },
+    {
+      
+      title: "Messages",
+      route: "messages",
+      icon: "fal fa-pallet"
+    },
+    {
+      
       title: "Logs",
       route: "logs",
       icon: "fal fa-pallet"
     },
-    {
-      title: "Live Updates",
-      route: "polls",
-      icon: "fal fa-heart-rate"
-    },
-    {
-      title: "Feedbacks",
-      route: "feedbacks",
-      icon: "fal fa-comment"
-    },
-    {
-      title: "About",
-      route: "about",
-      icon: "fal fa-info-circle"
-    }
+
   ]
 
   constructor(private route: ActivatedRoute) { }
