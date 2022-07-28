@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { StudentModule } from './modules/student/student.module';
 import { FacultyModule } from './modules/faculty/faculty.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminModule } from './modules/admin/admin.module';
     CoreModule,
     StudentModule,
     FacultyModule,
-    AdminModule
+    AdminModule,
+    HotToastModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
