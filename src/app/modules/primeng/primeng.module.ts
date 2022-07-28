@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {RatingModule} from 'primeng/rating';
 import {TimelineModule} from 'primeng/timeline';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {TimelineModule} from 'primeng/timeline';
   ],
   exports: [
     RatingModule,
-    TimelineModule
+    TimelineModule,
+    CheckboxModule
   ]
 })
 export class PrimengModule { }

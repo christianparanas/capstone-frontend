@@ -109,7 +109,7 @@
             <h1 class="font-semibold">Attachments</h1>
 
             <div class="grid gap-3 mt-4">
-              <div class="bg-slate-50 p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-100 transition-all border">
+              <div (click)="openCamera = !openCamera" class="bg-slate-50 p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-100 transition-all border">
                 <img src="../../../../assets/images/faculty.png" alt="" class="w-[50px] h-p[50px] object-cover">
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Documents</h3>
@@ -117,7 +117,7 @@
                 </div>
               </div>
 
-              <div class="bg-white p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-50 transition-all border">
+              <div (click)="openCamera = !openCamera" class="bg-white p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-50 transition-all border">
                 <img src="../../../../assets/images/faculty.png" alt="" class="w-[50px] h-p[50px] object-cover">
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Selfie with Documents</h3>
@@ -146,53 +146,36 @@
 </div>
 
 
+<div class="absolute top-0 h-screen w-full grid place-items-center" *ngIf="openCamera">
+  <div class="absolute w-full h-full bg-slate-800/30" (click)="openCamera = !openCamera"></div>
 
+  <div class="w-full max-w-[400px] mx-auto bg-white relative z-20 p-5 rounded-lg">
+    <div class="flex justify-between items-center mb-3">
+      <div class=""></div>
+      <div class="bg-slate-50 px-2 cursor-pointer hover:bg-slate-100 transition-all" (click)="openCamera = !openCamera">
+        <i class="fal fa-times"></i>
+      </div>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-<div style="text-align:center">
-  <h1>
-    Ngx-Webcam Demo
-  </h1>
-
-  <div>
-    <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
-            [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
-            [videoOptions]="videoOptions"
-            [imageQuality]="1"
-            (cameraSwitched)="cameraWasSwitched($event)"
-            (initError)="handleInitError($event)"
-    ></webcam>
-    <br/>
-    <button class="actionBtn" (click)="triggerSnapshot();">Take A Snapshot</button>
-    <button class="actionBtn" (click)="toggleWebcam();">Toggle Webcam</button>
-    <br/>
-    <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>
-    <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
-    <br/>
-
-    <br>
-    Preferred facing mode:
-    <input type="radio" value="user" name="facingMode" [(ngModel)]="facingMode"> User
-    <input type="radio" value="environment" name="facingMode" [(ngModel)]="facingMode"> Environment
-    <input type="radio" value="" name="facingMode" [(ngModel)]="facingMode"> No preference
-  </div>
+    <div class="">
+      <app-webcam></app-webcam>
+    </div>
+  </div> 
 </div>
 
-<div class="snapshot" *ngIf="webcamImage">
-  <img [src]="webcamImage.imageAsDataUrl"/>
-</div>
 
-<h4 *ngIf="errors.length > 0">Messages:</h4>
-<ul *ngFor="let error of errors">
-  <li>{{error | json}}</li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
