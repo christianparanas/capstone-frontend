@@ -8,6 +8,7 @@ import { CourseService } from '../../shared/services/course.service';
 })
 export class SignupComponent implements OnInit {
   courses: any;
+  isNextStep: boolean = false
 
   constructor(private courseService: CourseService) {}
 
