@@ -18,6 +18,11 @@ export class SignupComponent implements OnInit {
   isNextStep: boolean = false;
   openCamera: boolean = false;
 
+  dateForVerification: any = {
+    document: "",
+    selfie: ""
+  }
+
   constructor(
     private courseService: CourseService,
     public router: Router,
