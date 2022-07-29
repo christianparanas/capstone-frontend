@@ -27,10 +27,18 @@
       </div>
 
       <div class="p-6 pt-0">
-                <div class="absolute top-0 left-0 w-full md:hidden mb-10 z-50 bg-slate-800 py-4">
+        <div
+          class="absolute top-0 left-0 w-full md:hidden mb-10 z-50 bg-slate-800 py-4"
+        >
           <div class="text-center flex items-center w-fit mx-auto">
-            <img src="../../../../assets/logo/evsu_logo_3.png" alt="EVSU Logo" class="w-[35px] mr-2">
-            <h1 class="font-black text-2xl text-slate-50">EVSU Election <span class="text-red-500">System</span></h1>
+            <img
+              src="../../../../assets/logo/evsu_logo_3.png"
+              alt="EVSU Logo"
+              class="w-[35px] mr-2"
+            />
+            <h1 class="font-black text-2xl text-slate-50">
+              EVSU Election <span class="text-red-500">System</span>
+            </h1>
           </div>
         </div>
 
@@ -39,86 +47,119 @@
           <p class="text-[14px] text-slate-700">Student</p>
         </div>
 
-        <form action="" class="grid gap-3">
+        <form
+          (ngSubmit)="onSubmit()"
+          [formGroup]="signupForm"
+          class="grid gap-3"
+        >
           <div class="grid gap-3" *ngIf="!isNextStep">
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
                 placeholder="First name"
+                formControlName="firstName"
               />
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
                 placeholder="Middle name"
+                formControlName="middleName"
               />
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
                 placeholder="Last name"
+                formControlName="lastName"
               />
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
                 placeholder="ID number"
+                formControlName="studentID"
               />
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
-              <select class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer">
-                <option value="" selected disabled hidden class="">Course</option>
-                <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+              <select
+                formControlName="course"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">
+                  Course
+                </option>
+                <option *ngFor="let course of courses" [value]="course.id">
+                  {{ course.title }}
+                </option>
               </select>
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="email"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md bg-slate-50"
                 placeholder="Email"
+                formControlName="email"
               />
             </div>
-  
+
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="password"
                 name="password"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 rounded-md bg-slate-50"
                 placeholder="Password"
+                formControlName="password"
               />
             </div>
-  
-            <div
-              (click)="isNextStep = true"
+
+            <button
+              type="submit"
               class="bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 hover:bg-red-500/80 transition-all text-center cursor-pointer"
             >
               Next
-            </div>
+            </button>
           </div>
 
           <div class="" *ngIf="isNextStep">
             <h1 class="font-semibold">Attachments</h1>
 
             <div class="grid gap-3 mt-4">
-              <div (click)="openCamera = !openCamera" class="bg-slate-50 p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-100 transition-all border">
-                <img src="../../../../assets/images/faculty.png" alt="" class="w-[50px] h-p[50px] object-cover">
+              <div
+                (click)="openCamera = !openCamera"
+                class="bg-slate-50 p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-100 transition-all border"
+              >
+                <img
+                  src="../../../../assets/images/faculty.png"
+                  alt=""
+                  class="w-[50px] h-p[50px] object-cover"
+                />
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Documents</h3>
-                  <p class="text-[12px]">Student ID, COR or Free Education Form</p>
+                  <p class="text-[12px]">
+                    Student ID, COR or Free Education Form
+                  </p>
                 </div>
               </div>
 
-              <div (click)="openCamera = !openCamera" class="bg-white p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-50 transition-all border">
-                <img src="../../../../assets/images/faculty.png" alt="" class="w-[50px] h-p[50px] object-cover">
+              <div
+                (click)="openCamera = !openCamera"
+                class="bg-white p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-50 transition-all border"
+              >
+                <img
+                  src="../../../../assets/images/faculty.png"
+                  alt=""
+                  class="w-[50px] h-p[50px] object-cover"
+                />
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Selfie with Documents</h3>
                 </div>
@@ -126,8 +167,17 @@
             </div>
 
             <div class="grid grid-cols-[80px_1fr] gap-2 items-center">
-              <div class="bg-slate-50 font-semibold rounded-md text-center border shadow-sm text-slate-800 py-2 hover:bg-slate-100 transition-all w-full mt-5 cursor-pointer" (click)="isNextStep = false">Back</div>
-              <button class="bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full mt-5">Submit</button>
+              <div
+                class="bg-slate-50 font-semibold rounded-md text-center border shadow-sm text-slate-800 py-2 hover:bg-slate-100 transition-all w-full mt-5 cursor-pointer"
+                (click)="isNextStep = false"
+              >
+                Back
+              </div>
+              <button
+                class="bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full mt-5"
+              >
+                Submit
+              </button>
             </div>
           </div>
 
@@ -145,14 +195,21 @@
   </div>
 </div>
 
-
 <div class="absolute top-0 min-h-fit h-screen w-full z-50" *ngIf="openCamera">
-  <div class="absolute w-full h-full bg-slate-800/30" (click)="openCamera = !openCamera"></div>
+  <div
+    class="absolute w-full h-full bg-slate-800/30"
+    (click)="openCamera = !openCamera"
+  ></div>
 
-  <div class="w-full max-w-[400px] mx-auto bg-white relative z-20 p-5 rounded-lg mt-14">
+  <div
+    class="w-full max-w-[400px] mx-auto bg-white relative z-20 p-5 rounded-lg mt-14"
+  >
     <div class="flex justify-between items-center mb-3">
       <div class=""></div>
-      <div class="bg-slate-50 px-2 cursor-pointer hover:bg-slate-100 transition-all" (click)="openCamera = !openCamera">
+      <div
+        class="bg-slate-50 px-2 cursor-pointer hover:bg-slate-100 transition-all"
+        (click)="openCamera = !openCamera"
+      >
         <i class="fal fa-times"></i>
       </div>
     </div>
@@ -160,22 +217,5 @@
     <div class="">
       <app-webcam></app-webcam>
     </div>
-  </div> 
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
