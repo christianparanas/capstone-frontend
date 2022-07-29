@@ -35,7 +35,7 @@
 
     <div class="grid grid-cols-2 gap-2 mt-5">
       <button class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg" (click)="retryCapture()">Retry</button>
-      <button class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg">Confirm</button>
+      <button class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg" (click)="attachFile(webcamImage.imageAsDataUrl)">Confirm</button>
     </div>
   </div>
 </div>

@@ -16,11 +16,56 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   submitLoading: boolean = false;
   isNextStep: boolean = false;
-  openCamera: boolean = false;
+  isOpenCamera: boolean = false;
 
-  dateForVerification: any = {
-    document: "",
-    selfie: ""
+  typeOfAttachment: any = null;
+
+  attachments: any = {
+    document: '',
+    selfie: '',
+  };
+
+  attachFile(file: any) {
+    if (this.typeOfAttachment == 'document') {
+      this.attachments.document = file;
+    }
+
+    if (this.typeOfAttachment == 'selfie') {
+      this.attachments.selfie = file;
+    }
+
+    this.isOpenCamera = false;
+  }
+
+  openCamera(param: number) {
+    if (param == 1) {
+      this.typeOfAttachment = 'document';
+    }
+
+    if (param == 2) {
+      this.typeOfAttachment = 'selfie';
+    }
+
+    this.isOpenCamera = true;
+  }
+
+  submitApplication() {
+    if (
+      this.signupForm.status == 'VALID' &&
+      this.signupForm.controls.password.value.trim() && this.attachments.ducument != "" && this.attachments.selfie != ""
+    ) {
+      const data = {
+        ...this.signupForm.value,
+        ...this.attachments
+      }
+
+      console.log(data)
+    }
+    else {
+      this.toast.info('Please attach the needed documents.', {
+        position: 'top-right',
+      });
+    }
   }
 
   constructor(
@@ -32,7 +77,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCourses();
-
 
     this.signupForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
@@ -50,10 +94,11 @@ export class SignupComponent implements OnInit {
       this.signupForm.status == 'VALID' &&
       this.signupForm.controls.password.value.trim()
     ) {
-      this.isNextStep = true
-    }
-    else {
-      this.toast.error('Please fill out all the fields.', { position: 'top-right' });
+      this.isNextStep = true;
+    } else {
+      this.toast.error('Please fill out all the fields.', {
+        position: 'top-right',
+      });
     }
   }
 

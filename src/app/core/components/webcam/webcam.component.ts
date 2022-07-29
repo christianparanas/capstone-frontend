@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 
@@ -8,8 +8,13 @@ import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
   styleUrls: ['./webcam.component.scss']
 })
 export class WebcamComponent implements OnInit {
+  @Output() attachFileEvent = new EventEmitter();
 
   constructor() { }
+
+  attachFile(value: string) {
+    this.attachFileEvent.emit(value);
+  }
 
   ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs()
@@ -69,7 +74,6 @@ export class WebcamComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
   }
 

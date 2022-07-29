@@ -135,7 +135,7 @@
 
             <div class="grid gap-3 mt-4">
               <div
-                (click)="openCamera = !openCamera"
+                (click)="openCamera(1)"
                 class="bg-slate-50 p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-100 transition-all border"
               >
                 <img
@@ -149,10 +149,12 @@
                     Student ID, COR or Free Education Form
                   </p>
                 </div>
+
+                <div class="text-red-500 text-[12px] text-center w-full mt-3" *ngIf="attachments.document">File attached</div>
               </div>
 
               <div
-                (click)="openCamera = !openCamera"
+                (click)="openCamera(2)"
                 class="bg-white p-5 grid place-items-center rounded-md shadow-md cursor-pointer hover:bg-slate-50 transition-all border"
               >
                 <img
@@ -163,6 +165,7 @@
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Selfie with Documents</h3>
                 </div>
+                <div class="text-red-500 text-[12px] text-center w-full mt-3" *ngIf="attachments.selfie">File attached</div>
               </div>
             </div>
 
@@ -174,6 +177,7 @@
                 Back
               </div>
               <button
+                (click)="submitApplication()"
                 class="bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full mt-5"
               >
                 Submit
@@ -195,10 +199,10 @@
   </div>
 </div>
 
-<div class="absolute top-0 min-h-fit h-screen w-full z-50" *ngIf="openCamera">
+<div class="absolute top-0 min-h-fit h-screen w-full z-50" *ngIf="isOpenCamera">
   <div
     class="absolute w-full h-full bg-slate-800/30"
-    (click)="openCamera = !openCamera"
+    (click)="isOpenCamera = !isOpenCamera"
   ></div>
 
   <div
@@ -208,14 +212,14 @@
       <div class=""></div>
       <div
         class="bg-slate-50 px-2 cursor-pointer hover:bg-slate-100 transition-all"
-        (click)="openCamera = !openCamera"
+        (click)="isOpenCamera = !isOpenCamera"
       >
         <i class="fal fa-times"></i>
       </div>
     </div>
 
     <div class="">
-      <app-webcam></app-webcam>
+      <app-webcam (attachFileEvent)="attachFile($event)"></app-webcam>
     </div>
   </div>
 </div>
