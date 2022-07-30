@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   courses: any;
   signupForm: FormGroup;
   submitLoading: boolean = false;
-  isNextStep: boolean = true;
+  isNextStep: boolean = false;
   isOpenCamera: boolean = false;
 
   typeOfAttachment: any = null;
