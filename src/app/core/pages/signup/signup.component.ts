@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   courses: any;
   signupForm: FormGroup;
   submitLoading: boolean = false;
-  isNextStep: boolean = false;
+  isNextStep: boolean = true;
   isOpenCamera: boolean = false;
 
   typeOfAttachment: any = null;
@@ -24,6 +24,13 @@ export class SignupComponent implements OnInit {
     document: '',
     selfie: '',
   };
+
+  constructor(
+    private courseService: CourseService,
+    public router: Router,
+    private toast: HotToastService,
+    private authStudentService: AuthStudentService
+  ) {}
 
   attachFile(file: any) {
     if (this.typeOfAttachment == 'document') {
@@ -52,28 +59,46 @@ export class SignupComponent implements OnInit {
   submitApplication() {
     if (
       this.signupForm.status == 'VALID' &&
-      this.signupForm.controls.password.value.trim() && this.attachments.ducument != "" && this.attachments.selfie != ""
+      this.signupForm.controls.password.value.trim() &&
+      this.attachments.ducument != '' &&
+      this.attachments.selfie != ''
     ) {
+
+      this.submitLoading = true
+
       const data = {
         ...this.signupForm.value,
-        ...this.attachments
-      }
+        verificationFiles: {
+          ...this.attachments,
+        },
+      };
 
-      console.log(data)
-    }
-    else {
+      this.authStudentService.register(data).subscribe(
+        (response: any) => {
+          this.submitLoading = false
+
+          this.router.navigate(['/login'])
+
+          this.toast.success(response.message, {
+            position: 'top-right',
+            autoClose: false,
+            dismissible: true
+          });
+        },
+        (error: any) => {
+          this.toast.info(error.error.message, {
+            position: 'top-right',
+          });
+
+          this.submitLoading = false
+        }
+      );
+    } else {
       this.toast.info('Please attach the needed documents.', {
         position: 'top-right',
       });
     }
   }
-
-  constructor(
-    private courseService: CourseService,
-    public router: Router,
-    private toast: HotToastService,
-    private authStudentService: AuthStudentService
-  ) {}
 
   ngOnInit(): void {
     this.getCourses();
