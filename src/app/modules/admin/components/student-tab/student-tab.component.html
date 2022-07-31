@@ -1,58 +1,162 @@
 <div class="text-sm w-full relative mt-10 grid gap-20">
   <div class="">
-    <h1 class="font-bold text-lg text-slate-900 mb-3">Account Application Request</h1>
+    <h1 class="font-bold text-lg text-slate-900 mb-3">
+      Account Application Request
+    </h1>
 
     <div class="">
-      <p-table [value]="students" responsiveLayout="scroll">
+      <p-table
+        [value]="students"
+        #dt1
+        dataKey="id"
+        responsiveLayout="scroll"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        styleClass="p-datatable-gridlines"
+        [globalFilterFields]="[
+          'studentId',
+          'firstName',
+          'lastName',
+          'Course.acronym',
+          'email'
+        ]"
+      >
+        >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <div class=""></div>
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                #textInput
+                (input)="dt1.filterGlobal(textInput.value, 'contains')"
+                placeholder="Search keyword"
+              />
+            </span>
+          </div>
+        </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th>Student ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Email</th>
+            <th field="studentId">Student ID</th>
+            <th field="firstName">First Name</th>
+            <th field="lastName">Last Name</th>
+            <th field="Course.acronym">Course</th>
+            <th field="email">Email</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
           <tr class="text-sm">
             <td>{{ student.studentId }}</td>
-            <td>{{ student.firstName }} {{ student.lastName }}</td>
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
             <td>{{ student.Course.acronym }}</td>
             <td>{{ student.email }}</td>
-            <td><div class="cursor-pointer" [routerLink]="['/admin/user']" [queryParams]="{ type: 'student', id: student.id}"><i class="fad fa-eye"></i> View</div></td>
+            <td>
+              <div
+                class="cursor-pointer"
+                [routerLink]="['/admin/user']"
+                [queryParams]="{ type: 'student', id: student.id }"
+              >
+                <i class="fad fa-eye"></i> View
+              </div>
+            </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
 
-
-
   <div class="">
     <h1 class="font-bold text-lg text-slate-900 mb-3">Student Accounts</h1>
 
     <div class="">
-      <p-table [value]="students" responsiveLayout="scroll">
+      <p-table
+        [value]="students"
+        #dt2
+        dataKey="id"
+        responsiveLayout="scroll"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        styleClass="p-datatable-gridlines"
+        [globalFilterFields]="[
+          'studentId',
+          'firstName',
+          'lastName',
+          'Course.acronym',
+          'email',
+          'verificationStatus',
+          'accountStatus'
+        ]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex justify-between">
+            <div class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                #textInput
+                (input)="dt2.filterGlobal(textInput.value, 'contains')"
+                placeholder="Search keyword"
+              />
+            </div>
+            
+            <div pButton class="bg-red-800 text-white font-bold hover:bg-red-800/80 transition-all py-2 px-4 rounded-md flex items-center border-red-800">
+              <i class="fad fa-plus-circle mr-2"></i> Create
+            </div>
+          </div>
+        </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th>Student ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Email</th>
-            <th>Verification Status</th>
-            <th>Account Status</th>
+            <th field="studentId">Student ID</th>
+            <th field="firstName">First Name</th>
+            <th field="lastName">Last Name</th>
+            <th field="Course.acronym">Course</th>
+            <th field="email">Email</th>
+            <th field="verificationStatus">Verification</th>
+            <th field="accountStatus">Account Status</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
           <tr class="text-sm">
             <td>{{ student.studentId }}</td>
-            <td>{{ student.firstName }} {{ student.lastName }}</td>
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
             <td>{{ student.Course.acronym }}</td>
             <td>{{ student.email }}</td>
-            <td><div class="bg-orange-200 text-orange-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize">{{ student.verificationStatus }}</div></td>
-            <td><div class="bg-green-200 text-green-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize">{{ student.accountStatus }}</div></td>
-            <td><div class="cursor-pointer" [routerLink]="['/admin/user']" [queryParams]="{ type: 'student', id: student.id}"><i class="fad fa-eye"></i> View</div></td>
+            <td>
+              <div
+                class="bg-orange-200 text-orange-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+              >
+                {{ student.verificationStatus }}
+              </div>
+            </td>
+            <td>
+              <div
+                class="bg-green-200 text-green-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+              >
+                {{ student.accountStatus }}
+              </div>
+            </td>
+            <td>
+              <div
+                class="cursor-pointer"
+                [routerLink]="['/admin/user']"
+                [queryParams]="{ type: 'student', id: student.id }"
+              >
+                <i class="fad fa-eye"></i> View
+              </div>
+            </td>
           </tr>
         </ng-template>
       </p-table>

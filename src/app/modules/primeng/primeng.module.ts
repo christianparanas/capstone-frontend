@@ -6,7 +6,9 @@ import { TimelineModule } from 'primeng/timeline';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
-import {ImageModule} from 'primeng/image';
+import { ImageModule } from 'primeng/image';
+import { InputTextModule } from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [],
@@ -17,7 +19,9 @@ import {ImageModule} from 'primeng/image';
     CheckboxModule,
     TabMenuModule,
     TableModule,
-    ImageModule
+    ImageModule,
+    InputTextModule,
+    ButtonModule
   ],
 })
 export class PrimengModule {}
