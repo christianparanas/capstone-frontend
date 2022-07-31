@@ -1,0 +1,18 @@
+<div class="relative z-40 mt-20 pb-20">
+  <h1 class="font-bold text-xl md:text-3xl text-white">Manage Users</h1>
+
+  <div class="mt-20 pb-10">
+    <p-tabMenu
+      #tab
+      [model]="tabItems"
+      [activeItem]="activeItem"
+      (click)="changeTab(tab)"
+    ></p-tabMenu>
+
+    <div class="">
+      <app-student-tab *ngIf="activeItem.label == 'Student'"></app-student-tab>
+      <app-faculty-tab *ngIf="activeItem.label == 'Faculty'"></app-faculty-tab>
+      <app-admin-tab *ngIf="activeItem.label == 'Admin'"></app-admin-tab>
+    </div>
+  </div>
+</div>
