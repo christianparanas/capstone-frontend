@@ -31,8 +31,8 @@ export class UserComponent implements OnInit {
     this.getUserData();
   }
 
-  getApp() {
-    this.studentService.application().subscribe(
+  sendDecision() {
+    this.studentService.studentAccountApplication().subscribe(
       (response: any) => {
         console.log(response);
       },

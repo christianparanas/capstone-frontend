@@ -19,7 +19,7 @@ export class StudentService {
     return this.http.get(`${BASEURL}/api/user/student`);
   }
 
-  application(): any {
+  studentAccountApplication(): any {
     return this.http.get(`${BASEURL}/api/user/application`);
   }
 }
