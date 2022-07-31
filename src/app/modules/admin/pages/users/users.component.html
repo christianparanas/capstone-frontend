@@ -9,7 +9,7 @@
       (click)="changeTab(tab)"
     ></p-tabMenu>
 
-    <div class="">
+    <div class="w-full">
       <app-student-tab *ngIf="activeItem.label == 'Student'"></app-student-tab>
       <app-faculty-tab *ngIf="activeItem.label == 'Faculty'"></app-faculty-tab>
       <app-admin-tab *ngIf="activeItem.label == 'Admin'"></app-admin-tab>

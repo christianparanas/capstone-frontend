@@ -1,7 +1,7 @@
 <div class="w-full">
   <div class="bg-red-800 w-full h-[230px] absolute z-10"></div>
 
-  <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-52">
+  <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-5">
     <div
       (click)="goBack()"
       class="font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/80 hover:shadow-md transition-all w-fit rounded-md"
@@ -10,15 +10,18 @@
     </div>
 
     <div
-      class="mt-24"
+      class="mt-20 lg:mt-24"
       *ngIf="userData && userData.verificationStatus == 'pending'"
     >
       <h1 class="font-bold text-3xl text-white">
         Student Account Application Request
       </h1>
 
-      <div class="grid grid-cols-2">
-        <div class="mt-20 grid gap-4">
+      <div class="grid lg:grid-cols-[1fr_500px] mt-20">
+        <div class="grid gap-4">
+
+          <div class="text-[12px]">Date Submitted: {{ userData.createdAt }}</div>
+
           <div class="">
             <div class="text-sm text-slate-900 mb-2">Student ID number</div>
             <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
@@ -48,33 +51,59 @@
             </div>
           </div>
 
-          <div class="mt-10">
+          <hr>
+
+          <div class="mt-8">
             <h2
               class="text-sm font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md mb-5"
             >
               Attachments
             </h2>
 
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-2 gap-4">
               <div class="">
                 <h3 class="text-sm mb-2 font-semibold">Document</h3>
 
                 <div class="">
-                  <img [src]="userData.document" alt="" class="rounded-md object-cover" />
+                  <p-image
+                    [src]="userData.document"
+                    alt="Image"
+                    [preview]="true"
+                  ></p-image>
                 </div>
               </div>
               <div class="">
                 <h3 class="text-sm mb-2 font-semibold">Selfie with document</h3>
 
                 <div class="">
-                  <img [src]="userData.selfieWithDocument" alt="" class="rounded-md object-cover" />
+                  <p-image
+                    [src]="userData.selfieWithDocument"
+                    alt="Image"
+                    [preview]="true"
+                  ></p-image>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class=""></div>
+        <div class="p-5 px-0 lg:pl-10">
+          <div class="">
+            <h2 class="text-sm mb-3">Decision</h2>
+
+            <div class="flex">
+              <button
+                class="bg-red-200 text-red-900 font-bold py-2 rounded-md shadow-md w-fit px-4 mr-2 hover:bg-red-300 transition-all"
+              >
+                Disapprove</button
+              ><button
+                class="bg-green-200 text-green-900 font-bold py-2 rounded-md shadow-md w-fit px-4 hover:bg-green-300 transition-all"
+              >
+                Approve
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

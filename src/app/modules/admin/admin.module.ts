@@ -17,6 +17,8 @@ import { FacultyTabComponent } from './components/faculty-tab/faculty-tab.compon
 import { AdminTabComponent } from './components/admin-tab/admin-tab.component';
 import { UserComponent } from './pages/user/user.component';
 
+
+
 @NgModule({
   declarations: [
     DashboardComponent,
