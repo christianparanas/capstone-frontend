@@ -11,7 +11,9 @@ import { StudentService } from '../../shared/services/student.service';
 export class UserComponent implements OnInit {
   userType: string = '';
   userId: number;
-  userData: any
+  userData: any;
+  declineModal: boolean = false;
+  approveModal: boolean = false;
 
   constructor(
     private location: Location,
@@ -26,8 +28,18 @@ export class UserComponent implements OnInit {
       this.userId = value.id;
     });
 
+    this.getUserData();
+  }
 
-    this.getUserData()
+  getApp() {
+    this.studentService.application().subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getUserData() {
@@ -36,7 +48,7 @@ export class UserComponent implements OnInit {
         (response: any) => {
           console.log(response);
 
-          this.userData = response
+          this.userData = response;
         },
         (error: any) => {
           console.log(error);

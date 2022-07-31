@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,8 @@ import {ButtonModule} from 'primeng/button';
     TableModule,
     ImageModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    DialogModule
   ],
 })
 export class PrimengModule {}

@@ -18,4 +18,8 @@ export class StudentService {
   getStudents(): any {
     return this.http.get(`${BASEURL}/api/user/student`);
   }
+
+  application(): any {
+    return this.http.get(`${BASEURL}/api/user/application`);
+  }
 }

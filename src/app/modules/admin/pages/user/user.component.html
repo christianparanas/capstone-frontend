@@ -1,7 +1,7 @@
 <div class="w-full">
   <div class="bg-red-800 w-full h-[230px] absolute z-10"></div>
 
-  <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-5">
+  <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-10">
     <div
       (click)="goBack()"
       class="font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/80 hover:shadow-md transition-all w-fit rounded-md"
@@ -13,14 +13,69 @@
       class="mt-20 lg:mt-24"
       *ngIf="userData && userData.verificationStatus == 'pending'"
     >
+      <p-dialog
+        header="Decline?"
+        [(visible)]="declineModal"
+        [modal]="true"
+        [style]="{ maxWidth: '400px' }"
+      >
+        <div class="">
+          <div class="">
+            <p class="text-sm mt-3">
+              If yes, then construct a message about why you declined the
+              request.
+            </p>
+            <textarea
+              rows="8"
+              class="w-full bg-slate-100 outline-none text-sm my-2 mt-3 p-3 rounded-md resize-none"
+              placeholder="Type your message here."
+            ></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              (click)="declineModal = false"
+              class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all"
+            >
+              <i class="fad fa-ban"></i> Cancel</button
+            ><button
+              class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all"
+            >
+              <i class="fad fa-paper-plane"></i> Send Decision
+            </button>
+          </div>
+        </div>
+      </p-dialog>
+
+      <p-dialog
+        header="Approve?"
+        [(visible)]="approveModal"
+        [modal]="true"
+        [style]="{ width: '400px', maxWidth: '400px' }"
+      >
+        <div class="grid grid-cols-2 gap-2 mt-3">
+          <button
+            (click)="approveModal = false"
+            class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all"
+          >
+            <i class="fad fa-ban"></i> Cancel</button
+          ><button
+            (click)="getApp()"
+            class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all"
+          >
+            <i class="fad fa-paper-plane"></i> Send Decision
+          </button>
+        </div>
+      </p-dialog>
+
       <h1 class="font-bold text-3xl text-white">
         Student Account Application Request
       </h1>
 
       <div class="grid lg:grid-cols-[1fr_500px] mt-20">
         <div class="grid gap-4">
-
-          <div class="text-[12px]">Date Submitted: {{ userData.createdAt }}</div>
+          <div class="text-[12px]">
+            Date Submitted: {{ userData.createdAt }}
+          </div>
 
           <div class="">
             <div class="text-sm text-slate-900 mb-2">Student ID number</div>
@@ -51,18 +106,24 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
-          <div class="mt-8">
+          <div class="mt-5">
             <h2
-              class="text-sm font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md mb-5"
+              class="text-sm font-semibold text-slate-900 w-fit py-1 px-3 rounded-md mb-5"
             >
               Attachments
             </h2>
 
-            <div class="grid grid-cols-2 gap-4">
-              <div class="">
-                <h3 class="text-sm mb-2 font-semibold">Document</h3>
+            <div
+              class="grid grid-cols-2 gap-4 bg-slate-100 p-3 py-2 rounded-md shadow-md border-gray-300 relative h-fit"
+            >
+              <div class="h-fit">
+                <h3
+                  class="text-[12px] mb-2 font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md"
+                >
+                  Document
+                </h3>
 
                 <div class="">
                   <p-image
@@ -73,7 +134,11 @@
                 </div>
               </div>
               <div class="">
-                <h3 class="text-sm mb-2 font-semibold">Selfie with document</h3>
+                <h3
+                  class="text-[12px] mb-2 font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md"
+                >
+                  Selfie with document
+                </h3>
 
                 <div class="">
                   <p-image
@@ -93,10 +158,12 @@
 
             <div class="flex">
               <button
+                (click)="declineModal = true"
                 class="bg-red-200 text-red-900 font-bold py-2 rounded-md shadow-md w-fit px-4 mr-2 hover:bg-red-300 transition-all"
               >
-                Disapprove</button
+                Decline</button
               ><button
+                (click)="approveModal = true"
                 class="bg-green-200 text-green-900 font-bold py-2 rounded-md shadow-md w-fit px-4 hover:bg-green-300 transition-all"
               >
                 Approve
