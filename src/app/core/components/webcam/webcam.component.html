@@ -16,17 +16,16 @@
     </div>
 
     <div class="mt-4">
-
       <button
         class="actionBtn"
         (click)="triggerSnapshot()"
         class="bg-red-500 text-white font-semibold py-2 text-center text-sm rounded-md shadow-sm w-full hover:bg-red-500/80 transition-all cursor-pointer"
       >
+        <i class="fad fa-camera-alt"></i>
         Capture
       </button>
     </div>
   </div>
-
 
   <div class="" *ngIf="isCaptured">
     <div class="h-fit bg-slate-50">
@@ -34,9 +33,20 @@
     </div>
 
     <div class="grid grid-cols-2 gap-2 mt-5">
-      <button class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg" (click)="retryCapture()">Retry</button>
-      <button class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg" (click)="attachFile(webcamImage.imageAsDataUrl)">Confirm</button>
+      <button
+        class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg"
+        (click)="retryCapture()"
+      >
+        <i class="fad fa-redo-alt"></i>
+        Retry
+      </button>
+      <button
+        class="bg-red-500 text-white font-semibold text-center hover:bg-red-500/80 transition-all py-2 rounded-lg"
+        (click)="attachFile(webcamImage.imageAsDataUrl)"
+      >
+        <i class="fad fa-check-circle"></i>
+        Confirm
+      </button>
     </div>
   </div>
 </div>
-
