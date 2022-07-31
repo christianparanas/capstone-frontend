@@ -11,6 +11,10 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
+  getStudent(studentId: number): any {
+    return this.http.get(`${BASEURL}/api/user/student/${studentId}`);
+  }
+
   getStudents(): any {
     return this.http.get(`${BASEURL}/api/user/student`);
   }

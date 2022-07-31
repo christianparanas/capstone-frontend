@@ -17,8 +17,6 @@ import { FacultyTabComponent } from './components/faculty-tab/faculty-tab.compon
 import { AdminTabComponent } from './components/admin-tab/admin-tab.component';
 import { UserComponent } from './pages/user/user.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -32,12 +30,8 @@ import { UserComponent } from './pages/user/user.component';
     StudentTabComponent,
     FacultyTabComponent,
     AdminTabComponent,
-    UserComponent
+    UserComponent,
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    PrimengModule
-  ]
+  imports: [CommonModule, AdminRoutingModule, PrimengModule],
 })
-export class AdminModule { }
+export class AdminModule {}

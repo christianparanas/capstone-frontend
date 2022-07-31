@@ -1,48 +1,80 @@
-<div class="">
-  <div class="p-5 lg:p-0 max-w-[1200px] mx-auto">
+<div class="w-full">
+  <div class="bg-red-800 w-full h-[230px] absolute z-10"></div>
+
+  <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-52">
     <div
-      class="flex items-center text-slate-800 my-10 cursor-pointer hover:text-red-400 transition-all w-fit"
       (click)="goBack()"
+      class="font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/80 hover:shadow-md transition-all w-fit rounded-md"
     >
-      <i class="fal fa-arrow-left mr-2"></i>
-      <h2>Return</h2>
+      <i class="fal fa-arrow-left"></i> Return
     </div>
 
-    <div class="relative">
-      <img
-        src="../../../../../assets/images/background.jpg"
-        alt=""
-        class="h-[300px] object-cover w-full rounded-2xl"
-      />
+    <div
+      class="mt-24"
+      *ngIf="userData && userData.verificationStatus == 'pending'"
+    >
+      <h1 class="font-bold text-3xl text-white">
+        Student Account Application Request
+      </h1>
 
-      <div
-        class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
-      >
-        <div class="md:flex relative w-fit mx-auto md:mx-0">
-          <img
-            src="https://avatars.githubusercontent.com/u/59472122?v=4"
-            alt=""
-            class="w-[200px] h-[200px] rounded-full mr-4"
-          />
-          <div class="mt-5 lg:mt-20 mx-auto text-center md:text-start">
-            <h1 class="font-semibold text-2xl">Christian Paranas</h1>
-            <p>Student</p>
-          </div>
-        </div>
-
-<div class=""></div>
-      </div>
-
-      <div class="mb-20">
-        <h2>Information</h2>
-
-        <div class="w-fit mt-3 border rounded-lg p-3 grid gap-2 text-sm">
-          <div class="">Student ID number: 2018-02022</div>
-          <div class="">Email: christian.paranas@evsu.edu.ph</div>
+      <div class="grid grid-cols-2">
+        <div class="mt-20 grid gap-4">
           <div class="">
-            Course: Bachelor of Science in Information Technology
+            <div class="text-sm text-slate-900 mb-2">Student ID number</div>
+            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+              {{ userData.studentId }}
+            </div>
+          </div>
+
+          <div class="">
+            <div class="text-sm text-slate-900 mb-2">Name</div>
+            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+              {{ userData.firstName }} {{ userData.middleName }}
+              {{ userData.lastName }}
+            </div>
+          </div>
+
+          <div class="">
+            <div class="text-sm text-slate-900 mb-2">Course</div>
+            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+              {{ userData.Course.title }}
+            </div>
+          </div>
+
+          <div class="">
+            <div class="text-sm text-slate-900 mb-2">Email</div>
+            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+              {{ userData.email }}
+            </div>
+          </div>
+
+          <div class="mt-10">
+            <h2
+              class="text-sm font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md mb-5"
+            >
+              Attachments
+            </h2>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div class="">
+                <h3 class="text-sm mb-2 font-semibold">Document</h3>
+
+                <div class="">
+                  <img [src]="userData.document" alt="" class="rounded-md object-cover" />
+                </div>
+              </div>
+              <div class="">
+                <h3 class="text-sm mb-2 font-semibold">Selfie with document</h3>
+
+                <div class="">
+                  <img [src]="userData.selfieWithDocument" alt="" class="rounded-md object-cover" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div class=""></div>
       </div>
     </div>
   </div>
