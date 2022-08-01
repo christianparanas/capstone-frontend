@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit{
   rating: any
-  isRating: boolean = false
 
   constructor() { }
 
@@ -15,7 +14,7 @@ export class AboutComponent implements OnInit{
   }
 
   onRating() {
-    this.isRating = true
+
   }
 
 }

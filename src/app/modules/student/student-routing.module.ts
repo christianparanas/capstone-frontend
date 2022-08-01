@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { StudentGuard } from 'src/app/core/shared/guards/student.guard';
 import { LayoutComponent } from './components/layout/layout.component';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [StudentGuard],
     children: [
       { path: '', component: DashboardComponent },
       { path: 'election', component: ElectionComponent },

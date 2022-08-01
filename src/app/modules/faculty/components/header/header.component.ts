@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute  } from '@angular/router';
 
+import { AuthFacultyService } from 'src/app/core/shared/services/auth-faculty.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -63,7 +65,7 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private authFacultyService: AuthFacultyService) { }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.listenScrollEvent);
@@ -76,6 +78,10 @@ export class HeaderComponent implements OnInit {
     route == '' ? this.currentRoute = '/' : this.currentRoute = route;
 
     this.openCloseNavOverlay()
+  }
+
+  logout() {
+    this.authFacultyService.logout()
   }
 
   openCloseNavOverlay() {
