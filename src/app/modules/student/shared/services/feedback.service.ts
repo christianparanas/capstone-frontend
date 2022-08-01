@@ -11,7 +11,11 @@ export class FeedbackService {
 
   constructor(private http: HttpClient) {}
 
-  getStudent(studentId: number): any {
-    return this.http.get(`${BASEURL}/api/user/student/${studentId}`);
+  getFeedbacks(): any {
+    return this.http.get(`${BASEURL}/api/feedback`);
+  }
+
+  addFeedback(data: any): any {
+    return this.http.post(`${BASEURL}/api/feedback`, data);
   }
 }

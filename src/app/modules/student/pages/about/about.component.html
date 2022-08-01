@@ -64,31 +64,18 @@
     <div class="">
       <h1 class="font-semibold text-lg md:text-xl text-slate-800">Ratings and Reviews</h1>
 
-      <div class="mt-5 grid gap-5">
-        <div class="bg-slate-50 p-4 rounded-md shadow-sm ">
+      <div class="mt-5 grid gap-3 max-h-[540px] overflow-y-scroll">
+        <div *ngFor="let feedback of feedbacks" class="bg-slate-50 p-4 rounded-md shadow-sm">
           <div class="flex items-center">
             <img src="https://avatars.githubusercontent.com/u/59472122?v=4" alt="" class="w-[35px] h-[35px] rounded-full mr-4">
-            <h2 class="font-semibold text-md">Christian Paranas</h2>
+            <h2 class="font-semibold text-md">{{ feedback.Student.firstName }} {{ feedback.Student.lastName }}</h2>
           </div>
   
           <div class="mt-3 flex items-center text-sm">
-            <p-rating class="reb-rate" [ngModel]="rating" [readonly]="true" [cancel]="false"></p-rating>
-            <div class="ml-3 text-[12px]">7/8/22</div>
+            <p-rating class="reb-rate" [ngModel]="feedback.rating" [readonly]="true" [cancel]="false"></p-rating>
+            <div class="ml-3 text-[12px]">{{ feedback.createdAt }}</div>
           </div>
-          <p class="text-[12px] mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nam asperiores suscipit beatae non ducimus cum quidem dicta dolores nostrum?</p>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-md shadow-sm ">
-          <div class="flex items-center">
-            <img src="https://avatars.githubusercontent.com/u/59472122?v=4" alt="" class="w-[35px] h-[35px] rounded-full mr-4">
-            <h2 class="font-semibold text-md">Christian Paranas</h2>
-          </div>
-  
-          <div class="mt-3 flex items-center text-sm">
-            <p-rating class="reb-rate" [ngModel]="rating" [readonly]="true" [cancel]="false"></p-rating>
-            <div class="ml-3 text-[12px]">7/8/22</div>
-          </div>
-          <p class="text-[12px] mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nam asperiores suscipit beatae non ducimus cum quidem dicta dolores nostrum?</p>
+          <p *ngIf="feedback.message" class="text-[12px] mt-2">{{ feedback.message }}</p>
         </div>
 
       </div>
@@ -105,8 +92,8 @@
         <p-rating [(ngModel)]="rating" (onRate)="onRating()" [cancel]="false"></p-rating>
   
         <form class="mt-5 w-full md:w-[300px]">
-          <textarea name="" id="" cols="30" rows="6" class="shadow-sm rounded-md outline-none border border-gray-200 mb-2 bg-slate-50 p-3 text-sm resize-none w-full" placeholder="Describe your experience (optional)"></textarea>
-          <button type="submit" class="bg-red-800 text-white font-semibold rounded-md py-2 hover:bg-red-800/80 transition-all w-full">POST</button>
+          <textarea [(ngModel)]="message" [ngModelOptions]="{standalone: true}" cols="30" rows="6" class="shadow-sm rounded-md outline-none border border-gray-200 mb-2 bg-slate-50 p-3 text-sm resize-none w-full" placeholder="Describe your experience (optional)"></textarea>
+          <button (click)="postFeedback()" type="submit" class="cursor-pointer bg-red-800 text-white font-semibold rounded-md py-2 hover:bg-red-800/80 transition-all w-full">POST</button>
         </form>
       </div>
     </div>
