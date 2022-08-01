@@ -1,12 +1,12 @@
 <div class="text-sm w-full relative mt-10 grid gap-20">
-  <div class="">
+  <div class="" *ngIf="pendingStudentApplications">
     <h1 class="font-bold text-lg text-slate-900 mb-3">
       Account Application Request
     </h1>
 
     <div class="">
       <p-table
-        [value]="students"
+        [value]="pendingStudentApplications"
         #dt1
         dataKey="id"
         responsiveLayout="scroll"
@@ -21,7 +21,8 @@
           'firstName',
           'lastName',
           'Course.acronym',
-          'email'
+          'email',
+          'verificationStatus'
         ]"
       >
         >
@@ -47,6 +48,7 @@
             <th field="lastName">Last Name</th>
             <th field="Course.acronym">Course</th>
             <th field="email">Email</th>
+            <th field="verificationStatus">Verification</th>
             <th>Action</th>
           </tr>
         </ng-template>
@@ -57,6 +59,8 @@
             <td>{{ student.lastName }}</td>
             <td>{{ student.Course.acronym }}</td>
             <td>{{ student.email }}</td>
+            <td><div
+              class="bg-orange-200 text-orange-800 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize">{{ student.verificationStatus }}</div></td>
             <td>
               <div
                 class="cursor-pointer"
@@ -72,7 +76,7 @@
     </div>
   </div>
 
-  <div class="">
+  <div class="" *ngIf="students">
     <h1 class="font-bold text-lg text-slate-900 mb-3">Student Accounts</h1>
 
     <div class="">
@@ -109,8 +113,11 @@
                 placeholder="Search keyword"
               />
             </div>
-            
-            <div pButton class="bg-red-800 text-white font-bold hover:bg-red-800/80 transition-all py-2 px-4 rounded-md flex items-center border-red-800">
+
+            <div
+              pButton
+              class="bg-red-800 text-white font-bold hover:bg-red-800/80 transition-all py-2 px-4 rounded-md flex items-center border-red-800"
+            >
               <i class="fad fa-plus-circle mr-2"></i> Create
             </div>
           </div>
@@ -136,14 +143,24 @@
             <td>{{ student.email }}</td>
             <td>
               <div
-                class="bg-orange-200 text-orange-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+                [ngClass]="
+                  student.verificationStatus == 'verified'
+                    ? 'bg-green-200 text-green-900'
+                    : 'bg-red-200 text-red-900'
+                "
               >
                 {{ student.verificationStatus }}
               </div>
             </td>
             <td>
               <div
-                class="bg-green-200 text-green-900 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+                [ngClass]="
+                  student.accountStatus == 'active'
+                    ? 'bg-green-200 text-green-900'
+                    : 'bg-red-200 text-red-900'
+                "
               >
                 {{ student.accountStatus }}
               </div>

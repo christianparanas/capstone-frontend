@@ -9,17 +9,30 @@ import { StudentService } from '../../shared/services/student.service';
 })
 export class StudentTabComponent implements OnInit {
   students: any;
+  pendingStudentApplications: any;
 
   constructor(private studentService: StudentService) {}
 
   ngOnInit(): void {
-    this.getCourses();
+    this.getStudents();
+    this.getPendingStudentAccountApplications();
   }
 
-  getCourses() {
+  getStudents() {
     this.studentService.getStudents().subscribe(
       (response: any) => {
         this.students = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getPendingStudentAccountApplications() {
+    this.studentService.getPendingStudentAccountApplications().subscribe(
+      (response: any) => {
+        this.pendingStudentApplications = response;
 
         console.log(response)
       },

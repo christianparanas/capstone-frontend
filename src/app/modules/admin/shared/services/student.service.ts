@@ -5,11 +5,10 @@ import { environment } from 'src/environments/environment';
 const BASEURL = environment.baseURL;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StudentService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getStudent(studentId: number): any {
     return this.http.get(`${BASEURL}/api/user/student/${studentId}`);
@@ -17,6 +16,10 @@ export class StudentService {
 
   getStudents(): any {
     return this.http.get(`${BASEURL}/api/user/student`);
+  }
+
+  getPendingStudentAccountApplications(): any {
+    return this.http.get(`${BASEURL}/api/user/studentpendingapplication`);
   }
 
   studentAccountApplication(data: any): any {
