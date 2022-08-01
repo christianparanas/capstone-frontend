@@ -9,10 +9,7 @@
       <i class="fal fa-arrow-left"></i> Return
     </div>
 
-    <div
-      class="mt-20 lg:mt-24"
-      *ngIf="userData && userData.verificationStatus == 'pending'"
-    >
+    <div class="mt-20 lg:mt-24">
       <p-dialog
         header="Decline?"
         [(visible)]="declineModal"
@@ -69,14 +66,45 @@
         </div>
       </p-dialog>
 
-      <h1 class="font-bold text-3xl text-white">
+      <h1
+        *ngIf="userData && userData.verificationStatus == 'pending'"
+        class="font-bold text-3xl text-white"
+      >
         Student Account Application Request
       </h1>
+
+      <div
+        *ngIf="userData && userData.verificationStatus != 'pending'"
+        class="flex justify-between items-center"
+      >
+        <div class="md:flex">
+          <div class="bg-red-900 w-fit rounded-full">
+            <img
+              src="../../../../../assets/images/student.png"
+              alt=""
+              class="w-[200px] h-[200px] rounded-full"
+            />
+          </div>
+
+          <div class="md:ml-5 mt-5 md:mt-24">
+            <h1 class="font-bold text-2xl md:text-3xl text-slate-900">
+              {{ userData.firstName }} {{ userData.lastName }}
+            </h1>
+            <p>Student</p>
+          </div>
+        </div>
+
+        <div
+          class="md:mt-5 bg-red-900 text-white text-sm font-bold py-2 rounded-md w-fit px-4 hover:bg-red-900/80 transition-all cursor-pointer"
+        >
+          Edit Profile
+        </div>
+      </div>
 
       <div class="grid lg:grid-cols-[1fr_500px] mt-20">
         <div class="grid gap-4">
           <div class="text-[12px]">
-            Date Submitted: {{ userData.createdAt }}
+            Account Created: {{ userData.createdAt }}
           </div>
 
           <div class="">
@@ -154,7 +182,10 @@
           </div>
         </div>
 
-        <div class="p-5 px-0 lg:pl-10">
+        <div
+          *ngIf="userData && userData.verificationStatus == 'pending'"
+          class="p-5 px-0 lg:pl-10"
+        >
           <div class="">
             <h2 class="text-sm mb-3">Decision</h2>
 
