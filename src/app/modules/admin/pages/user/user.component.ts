@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
   sendDecision() {
     const data = {
       receiver: {
+        userId: this.userData.id,
         firstName: this.userData.firstName,
         email: this.userData.email,
       },
@@ -46,9 +47,13 @@ export class UserComponent implements OnInit {
     this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
         console.log(response);
+
+        this.router.navigate(['/admin/users'])
       },
       (error: any) => {
         console.log(error);
+
+        this.router.navigate(['/admin/users'])
       }
     );
   }
