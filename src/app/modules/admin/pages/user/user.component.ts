@@ -14,6 +14,8 @@ export class UserComponent implements OnInit {
   userData: any;
   declineModal: boolean = false;
   approveModal: boolean = false;
+  requestDecision: any;
+  requestDecisionMessage: any;
 
   constructor(
     private location: Location,
@@ -32,7 +34,16 @@ export class UserComponent implements OnInit {
   }
 
   sendDecision() {
-    this.studentService.studentAccountApplication().subscribe(
+    const data = {
+      receiver: {
+        firstName: this.userData.firstName,
+        email: this.userData.email,
+      },
+      decision: this.requestDecision,
+      message: this.requestDecisionMessage,
+    };
+
+    this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
         console.log(response);
       },

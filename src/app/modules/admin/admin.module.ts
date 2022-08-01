@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimengModule } from '../primeng/primeng.module';
+import { FormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 
@@ -17,8 +18,6 @@ import { FacultyTabComponent } from './components/faculty-tab/faculty-tab.compon
 import { AdminTabComponent } from './components/admin-tab/admin-tab.component';
 import { UserComponent } from './pages/user/user.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -34,6 +33,6 @@ import { UserComponent } from './pages/user/user.component';
     AdminTabComponent,
     UserComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, PrimengModule],
+  imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule],
 })
 export class AdminModule {}
