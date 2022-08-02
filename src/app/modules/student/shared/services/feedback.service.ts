@@ -15,6 +15,10 @@ export class FeedbackService {
     return this.http.get(`${BASEURL}/api/feedback`);
   }
 
+  getApprovedFeedbacks(): any {
+    return this.http.get(`${BASEURL}/api/feedback/approved`);
+  }
+
   addFeedback(data: any): any {
     return this.http.post(`${BASEURL}/api/feedback`, data);
   }

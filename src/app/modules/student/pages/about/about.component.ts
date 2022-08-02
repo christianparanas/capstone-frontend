@@ -9,9 +9,10 @@ import { FeedbackService } from '../../shared/services/feedback.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  feedbacks: any
+  feedbacks: any = false
   rating: any = 0;
   message: any = "";
+  submitLoading: boolean = false
 
   constructor(
     private feedbackService: FeedbackService,
@@ -19,18 +20,18 @@ export class AboutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFeedbacks();
+    this.getApprovedFeedbacks();
   }
 
   onRating() {}
 
   postFeedback() {
-    console.log(this.rating)
-
     if (this.rating == 0) {
       this.toast.info('Please select a rating.', { position: 'top-right' });
       return
     }
+
+    this.submitLoading = true
 
     this.feedbackService
       .addFeedback({
@@ -39,25 +40,25 @@ export class AboutComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-          console.log(response);
-
-          this.getFeedbacks()
+          this.getApprovedFeedbacks()
 
           // clear data
           this.rating = 0
           this.message = ""
 
+          this.submitLoading = false
+
           this.toast.info('Your feedback has been recorded. It will undergo a checking before being published to avoid spamming.', { position: 'top-right' });
         },
         (error: any) => {
-          console.log(error);
           this.toast.error(error.error.message, { position: 'top-right' });
+          this.submitLoading = false
         }
       );
   }
 
-  getFeedbacks() {
-    this.feedbackService.getFeedbacks().subscribe(
+  getApprovedFeedbacks() {
+    this.feedbackService.getApprovedFeedbacks().subscribe(
       (response: any) => {
         console.log(response);
 
