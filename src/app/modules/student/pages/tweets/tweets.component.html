@@ -16,22 +16,50 @@
         </div>
 
         <textarea
-          name=""
-          id=""
-          cols="30"
+          [(ngModel)]="tweet"
           rows="5"
           class="bg-slate-50/80 resize-none outline-none text-sm p-5 border border-gray-100 rounded-xl"
           placeholder="What's happening?"
         ></textarea>
         <button
-          class="absolute -bottom-3 right-2 lg:right-8 lg:bottom-2 text-sm bg-red-800 font-semibold text-white hover:bg-red-800/80 transition-all px-5 py-2 rounded-3xl"
+          (click)="postTweet()"
+          [disabled]="submitLoading"
+          class="grid place-items-center items-center absolute -bottom-3 right-2 lg:right-8 lg:bottom-2 text-sm bg-red-800 font-semibold text-white hover:bg-red-800/80 transition-all px-5 py-2 rounded-3xl"
         >
-          Tweet
+          <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+
+            <span>Tweeting...</span>
+          </div>
+
+          <span *ngIf="!submitLoading">Tweet</span>
         </button>
       </div>
 
       <div class="mt-20 pb-10 grid gap-2">
-        <div class="p-5 rounded-xl border border-gray-100">
+        <div
+          *ngFor="let tweet of tweets"
+          class="p-5 rounded-xl border border-gray-100"
+        >
           <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
             <div class="bg-slate-100 w-fit h-fit rounded-full">
               <img
@@ -41,57 +69,15 @@
               />
             </div>
             <div class="">
-              <div class="font-semibold">Christian Paranas</div>
-              <p class="text-[12px]">12:35am - July 22, 1998</p>
+              <div class="font-semibold">
+                {{ tweet.Student.firstName }} {{ tweet.Student.lastName }}
+              </div>
+              <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
             </div>
           </div>
 
           <div class="mt-3 text-sm">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint
-            architecto nostrum id quod nesciunt ipsa necessitatibus, aliquid
-            quibusdam asperiores quaerat ullam.
-          </div>
-        </div>
-
-        <div class="p-5 rounded-xl border border-gray-100">
-          <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-            <div class="bg-slate-100 w-fit h-fit rounded-full">
-              <img
-                src="../../../../../assets/images/student.png"
-                class="w-[40px] h-[40px] rounded-full"
-                alt=""
-              />
-            </div>
-            <div class="">
-              <div class="font-semibold">Christian Paranas</div>
-              <p class="text-[12px]">12:35am - July 22, 1998</p>
-            </div>
-          </div>
-
-          <div class="mt-3 text-sm">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore,
-            eos!
-          </div>
-        </div>
-
-        <div class="p-5 rounded-xl border border-gray-100">
-          <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-            <div class="bg-slate-100 w-fit h-fit rounded-full">
-              <img
-                src="../../../../../assets/images/student.png"
-                class="w-[40px] h-[40px] rounded-full"
-                alt=""
-              />
-            </div>
-            <div class="">
-              <div class="font-semibold">Christian Paranas</div>
-              <p class="text-[12px]">12:35am - July 22, 1998</p>
-            </div>
-          </div>
-
-          <div class="mt-3 text-sm">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore,
-            eos!
+            {{ tweet.message }}
           </div>
         </div>
       </div>
@@ -101,8 +87,9 @@
       <h2>People</h2>
 
       <div class="bg-slate-50 rounded-md mt-3">
-
-        <div class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md">
+        <div
+          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
+        >
           <div class="bg-slate-200 w-fit h-fit rounded-full">
             <img
               src="../../../../../assets/images/student.png"
@@ -116,7 +103,9 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md">
+        <div
+          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
+        >
           <div class="bg-slate-200 w-fit h-fit rounded-full">
             <img
               src="../../../../../assets/images/student.png"
@@ -130,7 +119,9 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md">
+        <div
+          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
+        >
           <div class="bg-slate-200 w-fit h-fit rounded-full">
             <img
               src="../../../../../assets/images/student.png"
@@ -143,7 +134,6 @@
             <p class="text-[12px]">dev.christianparanas@gmail.com</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
