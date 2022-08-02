@@ -21,6 +21,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@ngneat/hot-toast": "^4.1.0",
     "@ngneat/overview": "^3.0.0",
+    "moment": "^2.29.4",
     "ngx-webcam": "^0.4.1",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.0",

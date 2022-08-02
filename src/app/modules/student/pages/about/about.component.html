@@ -78,16 +78,16 @@
         No ratings or reviews yet.
       </div>
 
-      <div *ngIf="feedbacks.length != 0" class="mt-5 grid gap-3">
+      <div *ngIf="feedbacks.length != 0" class="mt-5 grid gap-4 divide-y">
         <div
           *ngFor="let feedback of feedbacks"
-          class="bg-white border border-gray-200 p-4 rounded-md shadow-sm"
+          class="pt-4"
         >
           <div class="flex items-center">
             <img
               src="https://avatars.githubusercontent.com/u/59472122?v=4"
               alt=""
-              class="w-[35px] h-[35px] rounded-full mr-4"
+              class="w-[35px] h-[35px] rounded-full mr-2"
             />
             <h2 class="font-semibold text-md">
               {{ feedback.Student.firstName }} {{ feedback.Student.lastName }}
@@ -101,7 +101,7 @@
               [readonly]="true"
               [cancel]="false"
             ></p-rating>
-            <div class="ml-3 text-[12px]">{{ feedback.createdAt }}</div>
+            <div class="ml-3 text-[12px]">{{ momentFormatL(feedback.createdAt) }}</div>
           </div>
           <p *ngIf="feedback.message" class="text-[12px] mt-2">
             {{ feedback.message }}

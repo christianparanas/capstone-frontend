@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as moment from 'moment';
 
 import { FeedbackService } from '../../shared/services/feedback.service';
 
@@ -9,10 +10,10 @@ import { FeedbackService } from '../../shared/services/feedback.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  feedbacks: any = false
+  feedbacks: any = false;
   rating: any = 0;
-  message: any = "";
-  submitLoading: boolean = false
+  message: any = '';
+  submitLoading: boolean = false;
 
   constructor(
     private feedbackService: FeedbackService,
@@ -28,31 +29,40 @@ export class AboutComponent implements OnInit {
   postFeedback() {
     if (this.rating == 0) {
       this.toast.info('Please select a rating.', { position: 'top-right' });
-      return
+      return;
     }
 
-    this.submitLoading = true
+    this.submitLoading = true;
 
     this.feedbackService
       .addFeedback({
         rating: this.rating,
-        message: this.message
+        message: this.message,
       })
       .subscribe(
         (response: any) => {
-          this.getApprovedFeedbacks()
+          this.getApprovedFeedbacks();
+
+          this.submitLoading = false;
+
+          if (this.message) {
+            this.toast.info(
+              'Your feedback has been recorded. It will undergo a checking before being published to avoid spamming.',
+              { position: 'top-right' }
+            );
+          } else {
+            this.toast.success('Your rating has been added. Many thanks!', {
+              position: 'top-right',
+            });
+          }
 
           // clear data
-          this.rating = 0
-          this.message = ""
-
-          this.submitLoading = false
-
-          this.toast.info('Your feedback has been recorded. It will undergo a checking before being published to avoid spamming.', { position: 'top-right' });
+          this.rating = 0;
+          this.message = '';
         },
         (error: any) => {
           this.toast.error(error.error.message, { position: 'top-right' });
-          this.submitLoading = false
+          this.submitLoading = false;
         }
       );
   }
@@ -62,11 +72,15 @@ export class AboutComponent implements OnInit {
       (response: any) => {
         console.log(response);
 
-        this.feedbacks = response
+        this.feedbacks = response;
       },
       (error: any) => {
         console.log(error);
       }
     );
+  }
+
+  momentFormatL(date: any) {
+    return moment(date).format('l');
   }
 }
