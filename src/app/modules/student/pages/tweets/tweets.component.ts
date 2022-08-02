@@ -20,7 +20,7 @@ export class TweetsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTweets()
+    this.getTweets();
   }
 
   getTweets() {
@@ -50,8 +50,10 @@ export class TweetsComponent implements OnInit {
 
     this.tweetService.postTweet(data).subscribe(
       (response: any) => {
+        this.getTweets();
         this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
+
         this.tweet = '';
       },
       (error: any) => {
