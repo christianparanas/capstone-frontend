@@ -33,8 +33,6 @@ export class StudentTabComponent implements OnInit {
     this.studentService.getPendingStudentAccountApplications().subscribe(
       (response: any) => {
         this.pendingStudentApplications = response;
-
-        console.log(response)
       },
       (error: any) => {
         console.log(error);
