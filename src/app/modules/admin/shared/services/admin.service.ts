@@ -10,7 +10,11 @@ const BASEURL = environment.baseURL;
 export class AdminService {
   constructor(private http: HttpClient) {}
 
-  getStudent(studentId: number): any {
-    return this.http.get(`${BASEURL}/api/user/student/${studentId}`);
+  getAdmins(): any {
+    return this.http.get(`${BASEURL}/api/user/admin`);
+  }
+
+  addAdmin(data: any): any {
+    return this.http.post(`${BASEURL}/api/user/admin`, data);
   }
 }
