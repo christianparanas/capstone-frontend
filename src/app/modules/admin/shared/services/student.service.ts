@@ -19,7 +19,7 @@ export class StudentService {
   }
 
   getPendingStudentAccountApplications(): any {
-    return this.http.get(`${BASEURL}/api/user/studentpendingapplication`);
+    return this.http.get(`${BASEURL}/api/user/student/pending`);
   }
 
   studentAccountApplication(data: any): any {
