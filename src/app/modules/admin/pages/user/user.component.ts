@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+
 import { StudentService } from '../../shared/services/student.service';
 
 @Component({
@@ -21,7 +23,8 @@ export class UserComponent implements OnInit {
     private location: Location,
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -46,14 +49,11 @@ export class UserComponent implements OnInit {
 
     this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
-        console.log(response);
-
-        this.router.navigate(['/admin/users'])
+        this.router.navigate(['/admin/users?type=student'])
+        this.toast.success(response.message, { position: "top-right" })
       },
       (error: any) => {
-        console.log(error);
-
-        this.router.navigate(['/admin/users'])
+        this.toast.error(error.error.message, { position: "top-right" })
       }
     );
   }
