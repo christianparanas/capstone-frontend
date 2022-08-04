@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthStudentService } from '../../shared/services/auth-student.service';
 import { AuthFacultyService } from '../../shared/services/auth-faculty.service';
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     private toast: HotToastService,
+    private route: ActivatedRoute,
     private authStudentService: AuthStudentService,
     private authFacultyService: AuthFacultyService,
     private authAdminService: AuthAdminService
@@ -31,20 +32,44 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
+
+    this.route.queryParams.subscribe((value) => {
+      switch (value.type) {
+        case 'student':
+          this.loginAcctType = 'student';
+          break;
+        case 'faculty':
+          this.loginAcctType = 'faculty';
+          break;
+
+        case 'admin':
+          this.loginAcctType = 'admin';
+          break;
+      }
+    });
   }
 
   changeLoginAcctType(type: string) {
     switch (type) {
       case 'student':
         this.loginAcctType = 'student';
+        this.router.navigate([`/login`], {
+          queryParams: { type: 'student' },
+        });
         break;
 
       case 'faculty':
         this.loginAcctType = 'faculty';
+        this.router.navigate([`/login`], {
+          queryParams: { type: 'faculty' },
+        });
         break;
 
       case 'admin':
         this.loginAcctType = 'admin';
+        this.router.navigate([`/login`], {
+          queryParams: { type: 'admin' },
+        });
         break;
 
       default:

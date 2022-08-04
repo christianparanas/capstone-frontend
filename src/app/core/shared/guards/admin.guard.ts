@@ -31,7 +31,9 @@ export class AdminGuard implements CanActivate {
     | UrlTree {
     if (this.authAdminService.isLoggedIn()) return true;
 
-    this.router.navigate(['/login']);
+    this.router.navigate([`/login`], {
+      queryParams: { type: 'admin' },
+    });
     this.toast.info('Please login!', { position: 'top-right' });
     return false;
   }

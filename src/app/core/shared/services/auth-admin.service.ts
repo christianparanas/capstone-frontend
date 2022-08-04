@@ -37,6 +37,8 @@ export class AuthAdminService {
 
   logout() {
     localStorage.removeItem('admin_access_token');
-    this.router.navigate(['/login']);
+    this.router.navigate([`/login`], {
+      queryParams: { type: 'admin' },
+    });
   }
 }
