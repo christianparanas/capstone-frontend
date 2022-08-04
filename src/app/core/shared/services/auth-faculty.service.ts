@@ -19,12 +19,6 @@ export class AuthFacultyService {
     });
   }
 
-  register(data: any): any {
-    return this.http.post(`${BASEURL}/api/auth/facultyregister`, data, {
-      headers: { skip: 'true' },
-    });
-  }
-
   isLoggedIn(): boolean {
     const token: any = localStorage.getItem('faculty_access_token');
 

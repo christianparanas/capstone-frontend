@@ -22,12 +22,6 @@ export class AuthAdminService {
     });
   }
 
-  register(data: any): any {
-    return this.http.post(`${BASEURL}/api/auth/adminregister`, data, {
-      headers: { skip: 'true' },
-    });
-  }
-
   isLoggedIn(): boolean {
     const token: any = localStorage.getItem('admin_access_token');
 

@@ -32,7 +32,7 @@ export class AdminGuard implements CanActivate {
     if (this.authAdminService.isLoggedIn()) return true;
 
     this.router.navigate(['/login']);
-    this.toast.info('Please login first!', { position: 'top-right' });
+    this.toast.info('Please login!', { position: 'top-right' });
     return false;
   }
 }

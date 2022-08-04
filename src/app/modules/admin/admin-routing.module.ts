@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminGuard } from 'src/app/core/shared/guards/admin.guard';
+
 import { LayoutComponent } from './components/layout/layout.component';
 import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -14,6 +16,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: LayoutComponent,
+    canActivate: [AdminGuard],
     children: [
       { path: '', component: DashboardComponent },
       { path: 'users', component: UsersComponent },

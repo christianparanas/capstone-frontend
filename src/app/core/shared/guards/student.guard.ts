@@ -32,7 +32,7 @@ export class StudentGuard implements CanActivate {
     if (this.authStudentService.isLoggedIn()) return true;
 
     this.router.navigate(['/login']);
-    this.toast.info('Please login first!', { position: 'top-right' });
+    this.toast.info('Please login!', { position: 'top-right' });
     return false;
   }
 }
