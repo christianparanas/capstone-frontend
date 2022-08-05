@@ -5,11 +5,26 @@
     <div class="flex justify-between items-center">
       <div class=""></div>
       <button
+        (click)="createPollModal = true"
         class="bg-red-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-900 cursor-pointer transition-all"
       >
         Create Poll
       </button>
     </div>
+
+    <div class="relative z-50">
+      <p-dialog
+        header="Create account"
+        [(visible)]="createPollModal"
+        [modal]="true"
+        [style]="{ maxWidth: '400px', width: '400px' }"
+      >
+        <div class="mt-3">
+          nfmdnfm
+        </div>
+      </p-dialog>
+    </div>
+
 
     <div class="mt-10 grid gap-3">
       <div class="p-5 rounded-xl border border-slate-200 shadow-sm">

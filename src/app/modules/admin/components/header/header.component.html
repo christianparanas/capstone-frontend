@@ -14,7 +14,7 @@
       </div>
 
       <div class="flex items-center">
-        <div class="mr-3 cursor-pointer"  routerLink="/account">
+        <div class="mr-3 cursor-pointer" routerLink="/account">
           <img
             src="https://avatars.githubusercontent.com/u/59472122?v=4"
             alt=""
@@ -66,24 +66,44 @@
     </div>
   </div>
 
-  <div class="hidden lg:block fixed w-full bg-transparent z-20 text-white bg-red-800">
-    <div class="w-[calc(100%_-_280px)] flex justify-between items-center p-5 pb-3 bg-red-800">
+  <div
+    class="hidden lg:block fixed w-full bg-transparent z-20 text-white bg-red-800"
+  >
+    <div
+      class="w-[calc(100%_-_280px)] flex justify-between items-center p-5 pb-3 bg-red-800"
+    >
       <div class="flex items-center">
         <h1 class="mr-6 font-semibold">Admin Panel</h1>
 
         <div class="relative">
-          <input type="text" class="bg-red-900 shadow-sm p-2 pl-8 outline-none text-sm rounded-md text-gray-50 placeholder-slate-50" placeholder="Search" />
-          <i class="fal fa-search absolute left-2 top-2 text-sm text-gray-50"></i>
+          <input
+            type="text"
+            class="bg-red-900 shadow-sm p-2 pl-8 outline-none text-sm rounded-md text-gray-50 placeholder-slate-50"
+            placeholder="Search"
+          />
+          <i
+            class="fal fa-search absolute left-2 top-2 text-sm text-gray-50"
+          ></i>
         </div>
       </div>
 
       <div class="flex items-center">
-        <div class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2" routerLink="/account">
+        <div
+          class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
+          routerLink="/account"
+        >
           <h1 class="font-semibold mr-2">Hi, Christian</h1>
-          <img src="https://avatars.githubusercontent.com/u/59472122?v=4" alt="" class="w-[35px] h-[35px] object-cover rounded-full shadow-md">
+          <img
+            src="https://avatars.githubusercontent.com/u/59472122?v=4"
+            alt=""
+            class="w-[35px] h-[35px] object-cover rounded-full shadow-md"
+          />
         </div>
 
-        <button (click)="logout()" class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center">
+        <button
+          (click)="logout()"
+          class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center"
+        >
           <i class="fad fa-sign-out"></i>
         </button>
       </div>

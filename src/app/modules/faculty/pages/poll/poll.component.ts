@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./poll.component.scss']
 })
 export class PollComponent implements OnInit {
+  createPollModal: boolean = false
 
   constructor() { }
 
