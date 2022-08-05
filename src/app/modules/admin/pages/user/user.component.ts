@@ -49,8 +49,8 @@ export class UserComponent implements OnInit {
 
     this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
-        this.router.navigate(['/admin/users?type=student'])
         this.toast.success(response.message, { position: "top-right" })
+        this.router.navigate(['/admin/users?type=student'])
       },
       (error: any) => {
         this.toast.error(error.error.message, { position: "top-right" })
