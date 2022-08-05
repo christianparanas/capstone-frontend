@@ -1,77 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   currentRoute: any;
 
   routesArr: any = [
     {
-      title: "Dashboard",
-      route: "/",
-      icon: "fal fa-chart-line"
+      title: 'Dashboard',
+      route: '/',
+      icon: 'fal fa-chart-line',
     },
     {
-      title: "Election",
-      route: "election",
-      icon: "fal fa-box-ballot"
+      title: 'Election',
+      route: 'election',
+      icon: 'fal fa-box-ballot',
     },
     {
-      title: "Campaign",
-      route: "campaign",
-      icon: "fal fa-ad"
+      title: 'Campaign',
+      route: 'campaign',
+      icon: 'fal fa-ad',
     },
     {
-      title: "Tweets",
-      route: "tweets",
-      icon: "fal fa-retweet"
+      title: 'Tweets',
+      route: 'tweets',
+      icon: 'fal fa-retweet',
     },
     {
-      title: "Polls",
-      route: "polls",
-      icon: "fal fa-poll-people"
+      title: 'Polls',
+      route: 'poll',
+      icon: 'fal fa-poll-people',
     },
     {
-      title: "Vote Receipts",
-      route: "receipts",
-      icon: "fal fa-receipt"
-    },{
-      title: "Logs",
-      route: "logs",
-      icon: "fal fa-pallet"
+      title: 'Updates',
+      route: 'updates',
+      icon: 'fal fa-heart-rate',
     },
     {
-      title: "Live Updates",
-      route: "polls",
-      icon: "fal fa-heart-rate"
+      title: 'Logs',
+      route: 'logs',
+      icon: 'fal fa-pallet',
     },
-    {
-      title: "Feedbacks",
-      route: "feedbacks",
-      icon: "fal fa-comment"
-    },
-    {
-      title: "About",
-      route: "about",
-      icon: "fal fa-info-circle"
-    }
-  ]
+  ];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getCurrentRouteURL(this.route.snapshot.children[0].routeConfig?.path);
-    
+
     console.log(this.currentRoute);
-    
   }
 
   getCurrentRouteURL(route: any) {
-    route == '' ? this.currentRoute = '/' : this.currentRoute = route;
+    route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
   }
-
 }
