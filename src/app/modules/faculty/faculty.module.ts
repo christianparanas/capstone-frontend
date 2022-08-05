@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { PrimengModule } from '../primeng/primeng.module';
 import { FacultyRoutingModule } from './faculty-routing.module';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -27,6 +28,6 @@ import { CampaignComponent } from './pages/campaign/campaign.component';
     TweetsComponent,
     CampaignComponent,
   ],
-  imports: [CommonModule, FacultyRoutingModule],
+  imports: [CommonModule, FacultyRoutingModule, PrimengModule],
 })
 export class FacultyModule {}
