@@ -5,23 +5,37 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.scss']
+  styleUrls: ['./poll.component.scss'],
 })
 export class PollComponent implements OnInit {
-  createPollModal: boolean = false
-  courses: any
-  currentDate: string
-  nextPanel: boolean = false
-  submitLoading: false
+  createPollModal: boolean = false;
+  courses: any;
+  currentDate: string;
+  nextPanel: boolean = false;
+  submitLoading: false;
 
-  constructor(private courseService: CourseService) { }
+  pollData: any;
+
+  constructor(private courseService: CourseService) {
+    this.pollData = {
+      question: '',
+      options: [{ content: 'option1' }, { content: 'option2' }],
+    };
+  }
 
   ngOnInit(): void {
     this.currentDate = new Date().toISOString().slice(0, 16);
+    this.getCourses();
+  }
 
-    console.log(new Date().toISOString().slice(0, 16))
+  addAnotherOption() {
+    this.pollData.options.push({
+      content: '',
+    });
+  }
 
-    this.getCourses()
+  openNextPanel() {
+    this.nextPanel = true;
   }
 
   getCourses() {
@@ -34,5 +48,4 @@ export class PollComponent implements OnInit {
       }
     );
   }
-
 }

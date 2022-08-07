@@ -79,12 +79,13 @@
                 rows="4"
                 placeholder="Question"
                 class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-              ></textarea>
+                ></textarea
+              >
             </div>
           </div>
 
           <div class="grid gap-3">
-            <div>
+            <div *ngFor="let option of pollData.options">
               <label class="block text-sm font-medium text-gray-700"
                 >Poll option</label
               >
@@ -97,20 +98,8 @@
               </div>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700"
-                >Poll option</label
-              >
-              <div class="mt-1 relative rounded-md">
-                <input
-                  type="text"
-                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                  placeholder="Eg. Option 2"
-                />
-              </div>
-            </div>
-
             <button
+              (click)="addAnotherOption()"
               class="grid place-items-center cursor-pointer bg-red-100 text-red-800 text-[12px] font-semibold rounded-md py-3 hover:bg-red-300/80 transition-all w-full"
             >
               Add another option
@@ -155,7 +144,7 @@
                   <span>Processing</span>
                 </div>
 
-                <span *ngIf="!submitLoading">Submit</span>
+                <span *ngIf="true">Submit</span>
               </button>
             </div>
           </div>

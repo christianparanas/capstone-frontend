@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PrimengModule } from '../primeng/primeng.module';
 import { FacultyRoutingModule } from './faculty-routing.module';
+
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -28,6 +30,6 @@ import { CampaignComponent } from './pages/campaign/campaign.component';
     TweetsComponent,
     CampaignComponent,
   ],
-  imports: [CommonModule, FacultyRoutingModule, PrimengModule],
+  imports: [CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
 })
 export class FacultyModule {}
