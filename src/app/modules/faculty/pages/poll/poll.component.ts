@@ -8,10 +8,10 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
   styleUrls: ['./poll.component.scss']
 })
 export class PollComponent implements OnInit {
-  createPollModal: boolean = true
+  createPollModal: boolean = false
   courses: any
   currentDate: string
-  nextPanel: boolean = true
+  nextPanel: boolean = false
   submitLoading: false
 
   constructor(private courseService: CourseService) { }
