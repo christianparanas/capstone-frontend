@@ -6,8 +6,8 @@
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
     <div class="mt-3">
-      <div class="">
-        <form class="grid gap-3">
+      <form class="">
+        <div *ngIf="!nextPanel" class="grid gap-3">
           <div>
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <div class="mt-1 relative rounded-md">
@@ -40,9 +40,7 @@
               <select
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
               >
-                <option value="" selected class="">
-                  All Courses
-                </option>
+                <option value="" selected class="">All Courses</option>
                 <option *ngFor="let course of courses" [value]="course.id">
                   {{ course.title }}
                 </option>
@@ -51,16 +49,109 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700">Poll end date</label>
+            <label class="block text-sm font-medium text-gray-700"
+              >Poll end date</label
+            >
             <div class="mt-1 relative rounded-md">
               <input
                 type="datetime-local"
+                [min]="currentDate"
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
               />
             </div>
           </div>
-        </form>
-      </div>
+
+          <button
+            class="grid place-items-center cursor-pointer bg-red-800 text-white font-semibold rounded-md py-3 hover:bg-red-800/80 transition-all w-full"
+          >
+            Next
+          </button>
+        </div>
+
+        <div *ngIf="nextPanel" class="grid gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
+              >Poll Question</label
+            >
+            <div class="mt-1 relative rounded-md">
+              <textarea
+                rows="4"
+                placeholder="Question"
+                class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="grid gap-3">
+            <div>
+              <label class="block text-sm font-medium text-gray-700"
+                >Poll option</label
+              >
+              <div class="mt-1 relative rounded-md">
+                <input
+                  type="text"
+                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+                  placeholder="Eg. Option 1"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700"
+                >Poll option</label
+              >
+              <div class="mt-1 relative rounded-md">
+                <input
+                  type="text"
+                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+                  placeholder="Eg. Option 2"
+                />
+              </div>
+            </div>
+
+            <button
+              class="grid place-items-center cursor-pointer bg-red-100 text-red-800 text-[12px] font-semibold rounded-md py-3 hover:bg-red-300/80 transition-all w-full"
+            >
+              Add another option
+            </button>
+
+            <button
+              [disabled]="submitLoading"
+              class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full mt-5"
+            >
+              <div
+                class="flex items-center w-fit mx-autoo"
+                *ngIf="submitLoading"
+              >
+                <svg
+                  class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+
+                <span>Processing</span>
+              </div>
+
+              <span *ngIf="!submitLoading">Submit</span>
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </p-dialog>
 </div>

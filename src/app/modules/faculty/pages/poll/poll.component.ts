@@ -10,10 +10,17 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 export class PollComponent implements OnInit {
   createPollModal: boolean = true
   courses: any
+  currentDate: string
+  nextPanel: boolean = true
+  submitLoading: false
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
+    this.currentDate = new Date().toISOString().slice(0, 16);
+
+    console.log(new Date().toISOString().slice(0, 16))
+
     this.getCourses()
   }
 
