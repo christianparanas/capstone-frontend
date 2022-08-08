@@ -20,7 +20,6 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'users', component: UsersComponent },
       { path: 'feedbacks', component: FeedbacksComponent },
       { path: 'logs', component: LogsComponent },
       { path: 'about', component: AboutComponent },

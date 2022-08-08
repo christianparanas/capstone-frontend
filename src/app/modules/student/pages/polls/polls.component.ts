@@ -12,7 +12,10 @@ import { ProfileService } from '../../shared/services/profile.service';
 })
 export class PollsComponent implements OnInit {
   polls: any;
+  poll: any;
   user: any;
+  votePollModal: boolean = false;
+  submitLoading: boolean = false;
 
   constructor(
     private toast: HotToastService,
@@ -23,6 +26,49 @@ export class PollsComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
   }
+
+  openPoll(id: any) {
+    this.polls.forEach(async (poll: any) => {
+      if (poll.id == id) {
+        const options: any = [];
+
+        for (
+          let index = 0;
+          index < poll.PollQuestion.PollAnswers.length;
+          index++
+        ) {
+          options.push({
+            ...poll.PollQuestion.PollAnswers[index],
+            isSelected: false,
+          });
+        }
+
+        this.poll = {
+          id: id,
+          question: poll.PollQuestion.question,
+          options: options,
+        };
+
+        console.log(this.poll);
+
+        this.votePollModal = true;
+      }
+    });
+  }
+
+  selectOption(id: any) {
+    for (let index = 0; index < this.poll.options.length; index++) {
+      if (this.poll.options[index].id == id) {
+        this.poll.options[index].isSelected = true;
+      }
+      else {
+        this.poll.options[index].isSelected = false;
+      }
+    }
+
+    console.log(this.poll)
+  }
+
 
   getUser() {
     this.profileService.getProfile().subscribe(

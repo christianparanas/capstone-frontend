@@ -1,3 +1,69 @@
+<div class="" *ngIf="poll">
+  <p-dialog
+    header="Vote Poll"
+    [(visible)]="votePollModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="mt-3">
+      <div class="">
+        <div class="">
+          <h1 class="font-semibold text-slate-800 text-md">
+            {{ poll.question }}
+          </h1>
+
+          <div class="grid gap-2 my-4">
+            <div
+              *ngFor="let option of poll.options"
+              class="text-[12px] py-3 px-4 font-semibold rounded-xl capitalize cursor-pointer transition-all"
+              (click)="selectOption(option.id)"
+              [ngClass]="
+                option.isSelected == true
+                  ? ' bg-green-200 text-green-800 hover:bg-green-200/80'
+                  : ' bg-gray-100 text-slate-800 hover:bg-gray-200/80'
+              "
+            >
+              {{ option.answer }}
+            </div>
+          </div>
+        </div>
+
+        <button
+          [disabled]="submitLoading"
+          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+        >
+          <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+
+            <span>Processing</span>
+          </div>
+
+          <span *ngIf="!submitLoading">Vote</span>
+        </button>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
 <div class="relative z-40 mt-20 pb-20">
   <div class="">
     <h1 class="font-bold text-xl md:text-3xl text-white">Polls</h1>
@@ -8,22 +74,30 @@
     <div class="grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
+        (click)="openPoll(poll.id)"
         class="shadow-lg border-2 border-gray-200 p-5 rounded-xl bg-white hover:bg-slate-50 transition-all cursor-pointer h-fit"
       >
-
         <div class="">
           <h1 class="text-2xl font-bold text-slate-800">{{ poll.title }}</h1>
           <p class="text-[12px] text-slate-800">{{ poll.description }}</p>
         </div>
 
         <div class="mt-5">
-          <div *ngIf="poll.allowed == '0'" class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm">
+          <div
+            *ngIf="poll.allowed == '0'"
+            class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
+          >
             This poll is available for all the students of EVSU.
           </div>
-          <div *ngIf="poll.allowed != '0'" class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm">
+          <div
+            *ngIf="poll.allowed != '0'"
+            class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
+          >
             This poll intended for {{ poll.allowed }} course.
           </div>
-          <div class="text-[10px] mt-2 ml-1 text-slate-800">Ends by {{ dateFormat(poll.endsAt) }}</div>
+          <div class="text-[10px] mt-2 ml-1 text-slate-800">
+            Ends by {{ dateFormat(poll.endsAt) }}
+          </div>
         </div>
       </div>
     </div>
