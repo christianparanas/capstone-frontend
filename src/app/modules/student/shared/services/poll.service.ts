@@ -14,4 +14,8 @@ export class PollService {
   getPolls(courseId: any): any {
     return this.http.get(`${BASEURL}/api/poll/student/${courseId}`);
   }
+
+  votePoll(data: any): any {
+    return this.http.post(`${BASEURL}/api/poll/vote`, data);
+  }
 }

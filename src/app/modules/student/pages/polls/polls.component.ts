@@ -60,15 +60,42 @@ export class PollsComponent implements OnInit {
     for (let index = 0; index < this.poll.options.length; index++) {
       if (this.poll.options[index].id == id) {
         this.poll.options[index].isSelected = true;
-      }
-      else {
+      } else {
         this.poll.options[index].isSelected = false;
       }
     }
 
-    console.log(this.poll)
+    console.log(this.poll);
   }
 
+  votePoll() {
+    let selectedId: any;
+    this.submitLoading = true;
+
+    this.poll.options.forEach((option: any) => {
+      if (option.isSelected == true) {
+        selectedId = option.id;
+      }
+    });
+
+    const data: any = {
+      pollId: this.poll.id,
+      answerId: selectedId,
+    };
+
+    this.pollService.votePoll(data).subscribe(
+      (response: any) => {
+        console.log(response);
+
+        this.submitLoading = false;
+      },
+      (error: any) => {
+        console.log(error);
+
+        this.submitLoading = false;
+      }
+    );
+  }
 
   getUser() {
     this.profileService.getProfile().subscribe(
