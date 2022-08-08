@@ -12,7 +12,7 @@ export class PollService {
   constructor(private http: HttpClient) {}
 
   getPolls(): any {
-    return this.http.get(`${BASEURL}/api/poll`);
+    return this.http.get(`${BASEURL}/api/poll/current`);
   }
 
   addPoll(data: any): any {

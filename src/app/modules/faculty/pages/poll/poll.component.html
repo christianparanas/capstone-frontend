@@ -185,7 +185,7 @@
       </button>
     </div>
 
-    <div class="mt-10 grid gap-2">
+    <div class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
         class="p-4 shadow-md rounded-xl border-2 border-gray-200"
@@ -214,7 +214,7 @@
         </div>
 
         <div class="flex items-center justify-between mt-5">
-          <div class="text-[12px] ml-2">
+          <div class="text-[12px] ml-2 text-slate-800">
             Poll will expire by {{ dateFormat(poll.endsAt) }}
           </div>
           <div class=""></div>
