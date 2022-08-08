@@ -105,7 +105,11 @@
                 [placeholder]="'Eg. Option ' + (index + 1)"
               />
 
-              <div *ngIf="index > 1" (click)="removeOption(index)" class="cursor-pointer absolute -top-3 right-1 bg-red-500 text-white w-[20px] h-[20px] grid place-items-center rounded-full hover:bg-red-600 transition-all">
+              <div
+                *ngIf="index > 1"
+                (click)="removeOption(index)"
+                class="cursor-pointer absolute -top-3 right-1 bg-red-500 text-white w-[20px] h-[20px] grid place-items-center rounded-full hover:bg-red-600 transition-all"
+              >
                 <i class="fal fa-times text-[10px]"></i>
               </div>
             </div>
@@ -181,8 +185,11 @@
       </button>
     </div>
 
-    <div class="mt-10 grid">
-      <div class="p-5 border-l-2 border-r-2 border-b-2">
+    <div class="mt-10 grid gap-2">
+      <div
+        *ngFor="let poll of polls"
+        class="p-4 shadow-md rounded-xl border-2 border-gray-200"
+      >
         <div class="">
           <div
             class="text-[12px] font-semibold bg-slate-100 text-gray-800 rounded-2xl w-fit py-1 px-3"
@@ -192,67 +199,23 @@
         </div>
 
         <div class="">
-          <div class="my-5 font-semibold">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-            modi, veniam aperiam odit repudiandae rem magnam placeat ipsam
-            facere accusamus?
+          <div class="my-5 ml-2  font-semibold text-slate-800">
+            {{ poll.PollQuestion.question }}
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid gap-1">
             <div
-              class="text-sm bg-slate-100 border border-gray-100 py-2 px-3 font-semibold rounded-sm text-gray-800"
+              *ngFor="let answer of poll.PollQuestion.PollAnswers"
+              class="text-[12px] py-3 px-4 font-semibold rounded-xl text-slate-800 capitalize bg-gray-100"
             >
-              True
-            </div>
-            <div
-              class="text-sm bg-slate-100 border border-gray-100 py-2 px-3 font-semibold rounded-sm text-gray-800"
-            >
-              False
+              {{ answer.answer }}
             </div>
           </div>
         </div>
 
         <div class="flex items-center justify-between mt-5">
-          <div class="text-[12px]">
-            Poll will expire by February 12, 2002, 2:30 PM
-          </div>
-          <div class=""></div>
-        </div>
-      </div>
-
-      <div class="p-5 border-l-2 border-r-2 border-b-2">
-        <div class="">
-          <div
-            class="text-[12px] font-semibold bg-slate-100 text-gray-800 rounded-2xl w-fit py-1 px-3"
-          >
-            Faculty
-          </div>
-        </div>
-
-        <div class="">
-          <div class="my-5 font-semibold">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-            modi, veniam aperiam odit repudiandae rem magnam placeat ipsam
-            facere accusamus?
-          </div>
-
-          <div class="grid gap-2">
-            <div
-              class="text-sm bg-slate-100 border border-gray-100 py-2 px-3 font-semibold rounded-sm text-gray-800"
-            >
-              True
-            </div>
-            <div
-              class="text-sm bg-slate-100 border border-gray-100 py-2 px-3 font-semibold rounded-sm text-gray-800"
-            >
-              False
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between mt-5">
-          <div class="text-[12px]">
-            Poll will expire by February 12, 2002, 2:30 PM
+          <div class="text-[12px] ml-2">
+            Poll will expire by {{ dateFormat(poll.endsAt) }}
           </div>
           <div class=""></div>
         </div>
