@@ -1,1 +1,31 @@
-<p>polls works!</p>
+<div class="relative z-40 mt-20 pb-20">
+  <div class="">
+    <h1 class="font-bold text-xl md:text-3xl text-white">Polls</h1>
+    <p class="text-slate-100 text-[12px]">Voice of the crowd</p>
+  </div>
+
+  <div class="mt-16">
+    <div class="grid gap-3 lg:grid-cols-2">
+      <div
+        *ngFor="let poll of polls"
+        class="shadow-lg border-2 border-gray-200 p-5 rounded-xl bg-white hover:bg-slate-50 transition-all cursor-pointer h-fit"
+      >
+
+        <div class="">
+          <h1 class="text-2xl font-bold text-slate-800">{{ poll.title }}</h1>
+          <p class="text-[12px] text-slate-800">{{ poll.description }}</p>
+        </div>
+
+        <div class="mt-5">
+          <div *ngIf="poll.allowed == '0'" class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm">
+            This poll is available for all the students of EVSU.
+          </div>
+          <div *ngIf="poll.allowed != '0'" class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm">
+            This poll intended for {{ poll.allowed }} course.
+          </div>
+          <div class="text-[10px] mt-2 ml-1 text-slate-800">Ends by {{ dateFormat(poll.endsAt) }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

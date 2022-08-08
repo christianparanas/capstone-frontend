@@ -188,13 +188,14 @@
     <div class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
-        class="p-4 shadow-md rounded-xl border-2 border-gray-200"
+        class="p-4 shadow-lg rounded-xl border-2 border-gray-200 h-fit"
       >
         <div class="">
           <div
-            class="text-[12px] font-semibold bg-slate-100 text-gray-800 rounded-2xl w-fit py-1 px-3"
+            class="bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm text-[12px]"
           >
-            Faculty
+            <div class="" *ngIf="poll.allowed == '0'">Intented for all undergraduate students of EVSU.</div>
+            <div class="" *ngIf="poll.allowed != '0'">BSIT</div>
           </div>
         </div>
 
