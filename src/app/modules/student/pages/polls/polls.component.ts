@@ -45,6 +45,7 @@ export class PollsComponent implements OnInit {
 
         this.poll = {
           id: id,
+          voted: poll.voted,
           question: poll.PollQuestion.question,
           options: options,
         };
@@ -64,19 +65,25 @@ export class PollsComponent implements OnInit {
         this.poll.options[index].isSelected = false;
       }
     }
-
-    console.log(this.poll);
   }
 
   votePoll() {
     let selectedId: any;
-    this.submitLoading = true;
 
     this.poll.options.forEach((option: any) => {
       if (option.isSelected == true) {
         selectedId = option.id;
       }
     });
+
+    if (!selectedId) {
+      this.toast.info('Please select an option to vote.', {
+        position: 'top-right',
+      });
+      return;
+    }
+
+    this.submitLoading = true;
 
     const data: any = {
       pollId: this.poll.id,
@@ -85,12 +92,15 @@ export class PollsComponent implements OnInit {
 
     this.pollService.votePoll(data).subscribe(
       (response: any) => {
-        console.log(response);
+        this.toast.success(response.message, { position: 'top-right' });
 
         this.submitLoading = false;
+        this.votePollModal = false;
+        this.getPolls()
       },
       (error: any) => {
         console.log(error);
+        this.toast.error(error.error.message, { position: 'top-right' });
 
         this.submitLoading = false;
       }
@@ -102,6 +112,7 @@ export class PollsComponent implements OnInit {
       (response: any) => {
         this.user = response;
         this.getPolls();
+
       },
       (error: any) => {
         console.log(error);
@@ -111,9 +122,18 @@ export class PollsComponent implements OnInit {
 
   getPolls() {
     this.pollService.getPolls(this.user.Course.id).subscribe(
-      (response: any) => {
-        console.log(response);
+      async (response: any) => {
+        let id = await this.user.id
 
+        for (let i = 0; i < response.length; i++) {
+          for (let j = 0; j < response[i].PollVotes.length; j++) {
+            if (response[i].PollVotes[j].StudentId == id) {
+              response[i].voted = true;
+            }
+          }
+        }
+
+        console.log(response)
         this.polls = response;
       },
       (error: any) => {}

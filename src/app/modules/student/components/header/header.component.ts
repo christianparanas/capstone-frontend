@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthStudentService } from 'src/app/core/shared/services/auth-student.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ export class HeaderComponent implements OnInit {
   isNavOpen: boolean = false;
   currentRoute: any;
   onScroll: boolean = false;
+  user: any;
 
   routesArr: any = [
     {
@@ -61,13 +63,29 @@ export class HeaderComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute, private authStudentService: AuthStudentService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authStudentService: AuthStudentService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
+    this.getUser()
     window.addEventListener('scroll', this.listenScrollEvent);
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
+  }
+
+  getUser() {
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.user = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getCurrentRouteURL(route: any) {

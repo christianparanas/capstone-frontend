@@ -92,7 +92,7 @@
           class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
           routerLink="/account"
         >
-          <h1 class="font-semibold mr-2">Hi, Christian</h1>
+          <h1 *ngIf="user" class="font-semibold mr-2">Hi, {{ user.firstName }}</h1>
           <img
             src="https://avatars.githubusercontent.com/u/59472122?v=4"
             alt=""

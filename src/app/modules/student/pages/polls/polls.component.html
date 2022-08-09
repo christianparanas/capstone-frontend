@@ -12,7 +12,7 @@
             {{ poll.question }}
           </h1>
 
-          <div class="grid gap-2 my-4">
+          <div *ngIf="!poll.voted" class="grid gap-2 mt-4">
             <div
               *ngFor="let option of poll.options"
               class="text-[12px] py-3 px-4 font-semibold rounded-xl capitalize cursor-pointer transition-all"
@@ -26,12 +26,31 @@
               {{ option.answer }}
             </div>
           </div>
+
+          <div *ngIf="poll.voted == true" class="grid gap-2 mt-4">
+            <div
+              *ngFor="let option of poll.options"
+              class="flex justify-between items-center bg-gray-100 text-slate-800 text-[12px] py-3 px-4 font-semibold rounded-xl  cursor-pointer transition-all"
+            >
+              <div class="capitalize">{{ option.answer }}</div>
+              <div class="">
+                {{
+                  option.PollVotes.length > 0
+                    ? option.PollVotes.length > 1
+                      ? option.PollVotes.length + " votes"
+                      : option.PollVotes.length + " vote"
+                    : ""
+                }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <button
+          *ngIf="!poll.voted"
           (click)="votePoll()"
           [disabled]="submitLoading"
-          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+          class="mt-4 grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
         >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
             <svg
@@ -72,12 +91,28 @@
   </div>
 
   <div class="mt-16">
-    <div class="grid gap-3 lg:grid-cols-2">
+    <div *ngIf="polls" class="grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
         (click)="openPoll(poll.id)"
-        class="shadow-lg border-2 border-gray-200 p-5 rounded-xl bg-white hover:bg-slate-50 transition-all cursor-pointer h-fit"
+        class="relative shadow-lg border-2 border-gray-200 p-5 rounded-xl bg-white hover:bg-slate-50 transition-all cursor-pointer h-fit"
       >
+        <div class="absolute right-2 -top-2 flex items-center">
+          <div
+            *ngIf="poll.PollVotes.length != 0"
+            class="shadow-sm bg-gray-100 text-slate-800 font-semibold py-1 px-2 rounded-md text-[12px] w-fit"
+          >
+            {{ poll.PollVotes.length }}
+            {{ poll.PollVotes.length > 1 ? "votes" : "vote" }}
+          </div>
+          <div
+            *ngIf="poll.voted == true"
+            class="ml-2 shadow-sm bg-green-100 h-fit text-green-800 font-semibold py-1 px-2 rounded-md text-[12px] w-fit"
+          >
+            Voted
+          </div>
+        </div>
+
         <div class="">
           <h1 class="text-2xl font-bold text-slate-800">{{ poll.title }}</h1>
           <p class="text-[12px] text-slate-800">{{ poll.description }}</p>
@@ -86,15 +121,15 @@
         <div class="mt-5">
           <div
             *ngIf="poll.allowed == '0'"
-            class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
+            class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
-            This poll is available for all the students of EVSU.
+            All courses
           </div>
           <div
             *ngIf="poll.allowed != '0'"
-            class="text-[12px] bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
+            class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
-            This poll intended for {{ poll.allowed }} course.
+            Bachelor of Science in Information Technology.
           </div>
           <div class="text-[10px] mt-2 ml-1 text-slate-800">
             Ends by {{ dateFormat(poll.endsAt) }}
