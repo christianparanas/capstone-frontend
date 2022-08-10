@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { PollService } from '../../shared/services/poll.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-polls',
@@ -21,11 +22,22 @@ export class PollsComponent implements OnInit {
   constructor(
     private toast: HotToastService,
     private pollService: PollService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
+
+    this.getPollUpdate()
+    this.eventService.sendMessage()
+  }
+
+  getPollUpdate() {
+    this.eventService.getPollUpdate().subscribe((response) => {
+      this.getPolls()
+    });
+  
   }
 
   openPoll(id: any) {

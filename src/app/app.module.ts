@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { HotToastModule } from '@ngneat/hot-toast';
 
+import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { CoreModule } from './core/core.module';
@@ -13,7 +14,7 @@ import { StudentModule } from './modules/student/student.module';
 import { FacultyModule } from './modules/faculty/faculty.module';
 import { AdminModule } from './modules/admin/admin.module';
 
-import { AppComponent } from './app.component';
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { AppComponent } from './app.component';
     AdminModule,
     HotToastModule.forRoot(),
     BrowserAnimationsModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent],
