@@ -91,6 +91,13 @@
   </div>
 
   <div class="mt-16">
+    <div *ngIf="!polls" class="grid place-items-center">
+      <div class="">
+        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[400px] object-cover">
+        <h1 class="text-center mt-10 font-semibold text-slate-800">No poll available.</h1>
+      </div>
+    </div>
+
     <div *ngIf="polls" class="grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
