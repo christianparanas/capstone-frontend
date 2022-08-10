@@ -14,6 +14,7 @@ export class PollsComponent implements OnInit {
   polls: any;
   poll: any;
   user: any;
+  isLoading: boolean = true
   votePollModal: boolean = false;
   submitLoading: boolean = false;
 
@@ -133,10 +134,13 @@ export class PollsComponent implements OnInit {
           }
         }
 
-        console.log(response)
+        this.isLoading = false
+
         this.polls = response;
       },
-      (error: any) => {}
+      (error: any) => {
+        this.isLoading = false
+      }
     );
   }
 

@@ -8,9 +8,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
-
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -24,7 +24,8 @@ import {DialogModule} from 'primeng/dialog';
     ImageModule,
     InputTextModule,
     ButtonModule,
-    DialogModule
+    DialogModule,
+    SkeletonModule,
   ],
 })
 export class PrimengModule {}
