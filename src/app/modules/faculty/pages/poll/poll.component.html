@@ -188,37 +188,60 @@
     <div class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
-        class="p-4 shadow-lg rounded-xl border-2 border-gray-200 h-fit"
+        class="grid divide-y p-4 shadow-md relative rounded-xl border-2 border-gray-100 h-fit"
       >
-        <div class="">
-          <div
-            class="bg-red-100 text-red-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm text-[12px]"
+        <div class="pb-2">
+          <h1 class="text-2xl font-bold text-slate-800">{{ poll.title }}</h1>
+          <p
+            class="bg-slate-50 mt-2 py-1 px-2 rounded-md text-[12px] text-slate-800"
           >
-            <div class="" *ngIf="poll.allowed == '0'">Intented for all undergraduate students of EVSU.</div>
-            <div class="" *ngIf="poll.allowed != '0'">BSIT</div>
+            {{ poll.description }}
+          </p>
+
+          <div class="flex items-center mt-3">
+            <div
+              class="bg-slate-800 text-white w-fit py-1 px-2 font-semibold rounded-md text-[10px]"
+            >
+              <div class="" *ngIf="poll.allowed == '0'">All Courses</div>
+              <div class="" *ngIf="poll.allowed != '0'">BSIT</div>
+            </div>
+            <div
+              *ngIf="poll.published"
+              class="text-[12px] ml-2 text-slate-800"
+            >
+              Poll ends: {{ dateFormat(poll.endsAt) }}
+            </div>
+            <div
+              *ngIf="!poll.published"
+              class="text-[10px] ml-1 text-white font-semibold bg-red-500 px-2 py-1 rounded-md"
+            >
+              Poll ended
+            </div>
           </div>
         </div>
 
         <div class="">
-          <div class="my-5 ml-2  font-semibold text-slate-800">
+          <div class="my-5 ml-2 font-semibold text-slate-800">
             {{ poll.PollQuestion.question }}
           </div>
 
           <div class="grid gap-1">
             <div
               *ngFor="let answer of poll.PollQuestion.PollAnswers"
-              class="text-[12px] py-3 px-4 font-semibold rounded-xl text-slate-800 capitalize bg-gray-100"
+              class="flex justify-between items-center text-[12px] py-3 px-4 font-semibold rounded-xl text-slate-800 bg-gray-100"
             >
-              {{ answer.answer }}
+            <div class="capitalize">{{ answer.answer }}</div>
+            <div class="">
+              {{
+                answer.PollVotes.length > 0
+                  ? answer.PollVotes.length > 1
+                    ? answer.PollVotes.length + " votes"
+                    : answer.PollVotes.length + " vote"
+                  : ""
+              }}
+            </div>
             </div>
           </div>
-        </div>
-
-        <div class="flex items-center justify-between mt-5">
-          <div class="text-[12px] ml-2 text-slate-800">
-            Poll will expire by {{ dateFormat(poll.endsAt) }}
-          </div>
-          <div class=""></div>
         </div>
       </div>
     </div>
