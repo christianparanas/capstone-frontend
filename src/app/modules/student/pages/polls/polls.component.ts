@@ -15,7 +15,7 @@ export class PollsComponent implements OnInit {
   polls: any;
   poll: any;
   user: any;
-  isLoading: boolean = true
+  isLoading: boolean = true;
   votePollModal: boolean = false;
   submitLoading: boolean = false;
 
@@ -28,16 +28,17 @@ export class PollsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-
-    this.getPollUpdate()
-    this.eventService.sendMessage()
+    this.getPollStatus();
   }
 
-  getPollUpdate() {
-    this.eventService.getPollUpdate().subscribe((response) => {
-      this.getPolls()
+  getPollStatus() {
+    this.eventService.getPollStatus().subscribe((response: any) => {
+      console.log(response)
+
+      if (response == this.user.courseId || response == '0') {
+        this.getPolls();
+      }
     });
-  
   }
 
   openPoll(id: any) {
@@ -58,6 +59,7 @@ export class PollsComponent implements OnInit {
 
         this.poll = {
           id: id,
+          facultyId: poll.FacultyId,
           voted: poll.voted,
           question: poll.PollQuestion.question,
           options: options,
@@ -109,7 +111,8 @@ export class PollsComponent implements OnInit {
 
         this.submitLoading = false;
         this.votePollModal = false;
-        this.getPolls()
+        this.eventService.sendPollVoteEvent(this.poll.facultyId)
+        this.getPolls();
       },
       (error: any) => {
         console.log(error);
@@ -125,7 +128,6 @@ export class PollsComponent implements OnInit {
       (response: any) => {
         this.user = response;
         this.getPolls();
-
       },
       (error: any) => {
         console.log(error);
@@ -136,7 +138,7 @@ export class PollsComponent implements OnInit {
   getPolls() {
     this.pollService.getPolls(this.user.Course.id).subscribe(
       async (response: any) => {
-        let id = await this.user.id
+        let id = await this.user.id;
 
         for (let i = 0; i < response.length; i++) {
           for (let j = 0; j < response[i].PollVotes.length; j++) {
@@ -146,12 +148,13 @@ export class PollsComponent implements OnInit {
           }
         }
 
-        this.isLoading = false
-
+        this.isLoading = false;
         this.polls = response;
+
+        console.log(this.polls)
       },
       (error: any) => {
-        this.isLoading = false
+        this.isLoading = false;
       }
     );
   }

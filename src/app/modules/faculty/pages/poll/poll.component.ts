@@ -5,6 +5,8 @@ import * as moment from 'moment';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { PollService } from '../../shared/services/poll.service';
+import { EventService } from '../../shared/services/event.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-poll',
@@ -19,13 +21,15 @@ export class PollComponent implements OnInit {
   nextPanel: boolean = false;
   submitLoading: boolean = false;
   pollForm: FormGroup;
-
   pollData: any;
+  user: any
 
   constructor(
     private courseService: CourseService,
     private toast: HotToastService,
-    private pollService: PollService
+    private pollService: PollService,
+    private eventService: EventService,
+    private profileService: ProfileService
   ) {
     this.pollData = {
       question: '',
@@ -44,13 +48,35 @@ export class PollComponent implements OnInit {
       allowedCourse: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
     });
+
+    this.getUser()
+  }
+
+  getPollStatus() {
+    this.eventService.getPollStatus().subscribe((response: any) => {
+      console.log(response)
+
+      if (response == this.user.id) {
+        this.getPolls();
+      }
+    });
+  }
+
+  getUser() {
+    this.profileService.getProfile().subscribe(
+      async (response: any) => {
+        this.user = await response;
+        this.getPollStatus()
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getPolls() {
     this.pollService.getPolls().subscribe(
       (response: any) => {
-        console.log(response);
-
         this.polls = response;
       },
       (error: any) => {}
@@ -86,24 +112,24 @@ export class PollComponent implements OnInit {
       polldata: this.pollData,
     };
 
-    console.log(data);
-
     this.submitLoading = true;
 
     this.pollService.addPoll(data).subscribe(
       (response: any) => {
         this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
-        this.pollForm.reset();
-        this.createPollModal = false
+        this.createPollModal = false;
 
-        this.getPolls()
+        this.eventService.sendNewPollEvent(this.pollForm.value.allowedCourse);
+
+        this.getPolls();
 
         this.pollData = {
           question: '',
           options: [{ content: '' }, { content: '' }],
         };
 
+        this.pollForm.reset();
       },
       (error: any) => {
         this.toast.error(error.error.message, { position: 'top-right' });
