@@ -10,6 +10,10 @@ const BASEURL = environment.baseURL;
 export class TweetService {
   constructor(private http: HttpClient) {}
 
+  getTweet(tweetId: any): any {
+    return this.http.get(`${BASEURL}/api/tweet/${tweetId}`);
+  }
+
   getTweets(): any {
     return this.http.get(`${BASEURL}/api/tweet`);
   }

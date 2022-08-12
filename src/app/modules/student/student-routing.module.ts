@@ -14,6 +14,7 @@ import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UpdatesComponent } from './pages/updates/updates.component';
 import { AccountComponent } from './pages/account/account.component';
+import { TweetComponent } from './pages/tweet/tweet.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
     ],
   },
   { path: 'account', component: AccountComponent },
+  { path: 'tweet', component: TweetComponent },
 ];
 
 @NgModule({

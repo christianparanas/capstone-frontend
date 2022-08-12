@@ -20,6 +20,7 @@ import { UpdatesComponent } from './pages/updates/updates.component';
 
 import { PrimengModule } from '../primeng/primeng.module';
 import { AccountComponent } from './pages/account/account.component';
+import { TweetComponent } from './pages/tweet/tweet.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AccountComponent } from './pages/account/account.component';
     LogsComponent,
     UpdatesComponent,
     AccountComponent,
+    TweetComponent,
   ],
   imports: [
     CommonModule,
