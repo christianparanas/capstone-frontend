@@ -13,6 +13,7 @@ export class TweetsComponent implements OnInit {
   tweet: string = '';
   tweets: any;
   submitLoading: boolean = false;
+  isLoading: boolean = false
 
   constructor(
     private toast: HotToastService,
@@ -27,6 +28,8 @@ export class TweetsComponent implements OnInit {
     this.tweetService.getTweets().subscribe(
       (response: any) => {
         console.log(response);
+
+        this.isLoading = true
 
         this.tweets = response;
       },
