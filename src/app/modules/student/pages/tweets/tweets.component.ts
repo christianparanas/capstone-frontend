@@ -3,6 +3,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
 
 import { TweetService } from '../../shared/services/tweet.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-tweets',
@@ -12,16 +13,42 @@ import { TweetService } from '../../shared/services/tweet.service';
 export class TweetsComponent implements OnInit {
   tweet: string = '';
   tweets: any;
+  user: any;
   submitLoading: boolean = false;
-  isLoading: boolean = false
+  isLoading: boolean = false;
+  reactLoading: boolean = false;
 
   constructor(
     private toast: HotToastService,
-    private tweetService: TweetService
+    private tweetService: TweetService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.getTweets();
+  }
+
+  getUser() {
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.user = response;
+      },
+      (error: any) => {}
+    );
+  }
+
+  checkReactors(reactors: any) {
+    let bool;
+
+    reactors.forEach((reactor: any) => {
+      if (reactor.StudentId == this.user.id) {
+        bool = true;
+        return;
+      }
+    });
+
+    return bool;
   }
 
   getTweets() {
@@ -29,12 +56,31 @@ export class TweetsComponent implements OnInit {
       (response: any) => {
         console.log(response);
 
-        this.isLoading = true
+        this.isLoading = true;
 
         this.tweets = response;
       },
       (error: any) => {
         console.log(error);
+      }
+    );
+  }
+
+  reactTweet(tweetId: number) {
+    if (this.reactLoading == true) {
+      return;
+    }
+
+    this.reactLoading = true;
+
+    this.tweetService.reactTweet({ tweetId: tweetId }).subscribe(
+      (response: any) => {
+        this.reactLoading = false;
+        this.getTweets()
+      },
+      (error: any) => {
+        console.log(error);
+        this.reactLoading = false;
       }
     );
   }
