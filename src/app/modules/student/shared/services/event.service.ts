@@ -15,4 +15,12 @@ export class EventService {
   getPollStatus(): Observable<any> {
     return this.socket.fromEvent<any>('pollStatus');
   }
+
+  sendTweetEvent() {
+    this.socket.emit('tweetEvent');
+  }
+
+  getTweetEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('tweetEvent');
+  }
 }

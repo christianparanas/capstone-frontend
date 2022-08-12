@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-tweets',
@@ -21,12 +22,20 @@ export class TweetsComponent implements OnInit {
   constructor(
     private toast: HotToastService,
     private tweetService: TweetService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getTweets();
+    this.getTweetEvent();
+  }
+
+  getTweetEvent() {
+    this.eventService.getTweetEvent().subscribe((response: any) => {
+      this.getTweets();
+    });
   }
 
   getUser() {
@@ -76,7 +85,8 @@ export class TweetsComponent implements OnInit {
     this.tweetService.reactTweet({ tweetId: tweetId }).subscribe(
       (response: any) => {
         this.reactLoading = false;
-        this.getTweets()
+        this.getTweets();
+        this.eventService.sendTweetEvent();
       },
       (error: any) => {
         console.log(error);
@@ -102,6 +112,7 @@ export class TweetsComponent implements OnInit {
         this.getTweets();
         this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
+        this.eventService.sendTweetEvent();
 
         this.tweet = '';
       },
