@@ -37,7 +37,7 @@ export class TweetsComponent implements OnInit {
   }
 
   postTweet() {
-    if (this.tweet == '') {
+    if (this.tweet.trim() == '') {
       this.toast.info('Please type something.', { position: 'top-right' });
       return;
     }
