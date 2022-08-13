@@ -12,7 +12,6 @@ import { TweetsComponent } from './pages/tweets/tweets.component';
 import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
-import { UpdatesComponent } from './pages/updates/updates.component';
 import { AccountComponent } from './pages/account/account.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 
@@ -30,7 +29,6 @@ const routes: Routes = [
       { path: 'polls', component: PollsComponent },
       { path: 'receipts', component: ReceiptsComponent },
       { path: 'logs', component: LogsComponent },
-      { path: 'updates', component: UpdatesComponent },
       { path: 'about', component: AboutComponent },
     ],
   },

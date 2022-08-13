@@ -16,7 +16,6 @@ import { TweetsComponent } from './pages/tweets/tweets.component';
 import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
-import { UpdatesComponent } from './pages/updates/updates.component';
 
 import { PrimengModule } from '../primeng/primeng.module';
 import { AccountComponent } from './pages/account/account.component';
@@ -35,7 +34,6 @@ import { TweetComponent } from './pages/tweet/tweet.component';
     PollsComponent,
     ReceiptsComponent,
     LogsComponent,
-    UpdatesComponent,
     AccountComponent,
     TweetComponent,
   ],
