@@ -39,12 +39,6 @@ export class HeaderComponent implements OnInit {
       route: 'poll',
       icon: 'fal fa-poll-people',
     },
-
-    {
-      title: 'Updates',
-      route: 'updates',
-      icon: 'fal fa-heart-rate',
-    },
     {
       title: 'Logs',
       route: 'logs',

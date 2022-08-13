@@ -36,11 +36,6 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-poll-people',
     },
     {
-      title: 'Updates',
-      route: 'updates',
-      icon: 'fal fa-heart-rate',
-    },
-    {
       title: 'Logs',
       route: 'logs',
       icon: 'fal fa-pallet',

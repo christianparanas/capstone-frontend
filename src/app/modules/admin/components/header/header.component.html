@@ -4,7 +4,7 @@
       class="lg:hidden flex justify-between items-center px-5 py-3 fixed w-full"
       [ngClass]="{ 'bg-white shadow-md text-slate-800': onScroll }"
     >
-      <div class="flex items-center">
+      <div class="flex items-center" routerLink="/admin/">
         <img
           src="../../../../../assets/logo/evsu_logo_3.png"
           alt=""
@@ -45,7 +45,7 @@
           ></i>
         </div>
 
-        <div class="grid gap-1 mt-2">
+        <div class="grid gap-1 mt-2 overflow-y-auto">
           <div class="grid gap-1 mt-6">
             <div
               *ngFor="let route of routesArr"
@@ -59,6 +59,14 @@
             >
               <i [class]="route.icon"></i> {{ route.title }}
             </div>
+
+            <button
+              (click)="logout()"
+              class="mx-auto flex justify-center items-center bg-red-800 w-[80%] mt-5 h-[40px] p-2 rounded-full hover:bg-red-900 transition-all cursor-pointer"
+            >
+              <i class="fad fa-sign-out mr-2"></i>
+              <div class="">Logout</div>
+            </button>
           </div>
         </div>
       </div>

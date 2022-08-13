@@ -13,7 +13,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PollComponent } from './pages/poll/poll.component';
 import { ElectionComponent } from './pages/election/election.component';
 import { LogsComponent } from './pages/logs/logs.component';
-import { UpdatesComponent } from './pages/updates/updates.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 
@@ -26,7 +25,6 @@ import { CampaignComponent } from './pages/campaign/campaign.component';
     PollComponent,
     ElectionComponent,
     LogsComponent,
-    UpdatesComponent,
     TweetsComponent,
     CampaignComponent,
   ],
