@@ -36,7 +36,9 @@
         (click)="openCloseNavOverlay()"
       ></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0 overflow-y-auto pb-10">
+      <div
+        class="w-[300px] bg-white h-full fixed top-0 right-0 overflow-y-auto pb-10"
+      >
         <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
@@ -75,10 +77,10 @@
   </div>
 
   <div
-    class="hidden lg:block fixed w-full bg-transparent z-20 text-white bg-red-500"
+    class="hidden lg:block fixed w-full bg-transparent z-20 text-white bg-red-800"
   >
     <div
-      class="w-[calc(100%_-_280px)] flex justify-between items-center p-5 pb-3 bg-red-500"
+      class="w-[calc(100%_-_280px)] flex justify-between items-center p-5 pb-3 bg-red-800"
     >
       <div class="flex items-center">
         <h1 class="mr-6 font-semibold">Faculty Panel</h1>
@@ -86,7 +88,7 @@
         <div class="relative">
           <input
             type="text"
-            class="bg-red-600 shadow-sm p-2 pl-8 outline-none text-sm rounded-md text-gray-50 placeholder-slate-50"
+            class="bg-red-900 shadow-sm p-2 pl-8 outline-none text-sm rounded-md text-gray-50 placeholder-slate-50"
             placeholder="Search"
           />
           <i
@@ -97,8 +99,8 @@
 
       <div class="flex items-center">
         <div
-          class="flex items-center cursor-pointer hover:bg-red-600 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
-          routerLink="/faculty/account"
+          class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
+          routerLink="/account"
         >
           <h1 class="font-semibold mr-2">Hi, Christian</h1>
           <img
@@ -108,12 +110,12 @@
           />
         </div>
 
-        <div
+        <button
           (click)="logout()"
-          class="bg-red-600 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-700/80 transition-all cursor-pointer grid place-items-center"
+          class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center"
         >
           <i class="fad fa-sign-out"></i>
-        </div>
+        </button>
       </div>
     </div>
   </div>
