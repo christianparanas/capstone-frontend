@@ -14,7 +14,10 @@ import { StudentModule } from './modules/student/student.module';
 import { FacultyModule } from './modules/faculty/faculty.module';
 import { AdminModule } from './modules/admin/admin.module';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+import { environment } from 'src/environments/environment';
+const BASEURL = environment.baseURL;
+
+const config: SocketIoConfig = { url: BASEURL, options: {} };
 
 @NgModule({
   declarations: [AppComponent],
