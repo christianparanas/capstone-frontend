@@ -52,6 +52,10 @@ export class TweetComponent implements OnInit {
     );
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   getUser() {
     this.profileService.getProfile().subscribe(
       (response: any) => {

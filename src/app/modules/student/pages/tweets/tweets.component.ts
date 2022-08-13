@@ -18,6 +18,10 @@ export class TweetsComponent implements OnInit {
   submitLoading: boolean = false;
   isLoading: boolean = false;
   reactLoading: boolean = false;
+  tweetCommentsModal: boolean = false;
+  comment: string = '';
+  comments: any = [];
+  commentTweetId: any = '';
 
   constructor(
     private toast: HotToastService,
@@ -36,6 +40,44 @@ export class TweetsComponent implements OnInit {
     this.eventService.getTweetEvent().subscribe((response: any) => {
       this.getTweets();
     });
+  }
+
+  openCommentModal(tweetId: any) {
+    this.tweetCommentsModal = true;
+
+    this.tweets.forEach((tweet: any) => {
+      if (tweet.id == tweetId) {
+        this.comments = tweet.TweetComments;
+      }
+    });
+
+    this.commentTweetId = tweetId;
+  }
+
+  commentTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
+  }
+
+  postComment() {
+    if (this.comment.trim() == '') {
+      this.toast.info('Please type something.', { position: 'top-right' });
+      return;
+    }
+
+    const data: any = {
+      tweetId: this.commentTweetId,
+      comment: this.comment,
+    };
+
+    this.tweetService.postTweetComment(data).subscribe(
+      (response: any) => {
+        this.getTweets();
+        this.comment = '';
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getUser() {
@@ -63,11 +105,14 @@ export class TweetsComponent implements OnInit {
   getTweets() {
     this.tweetService.getTweets().subscribe(
       (response: any) => {
-        console.log(response);
-
         this.isLoading = true;
-
         this.tweets = response;
+        
+        response.forEach((tweet: any) => {
+          if (tweet.id == this.commentTweetId) {
+            this.comments = tweet.TweetComments;
+          }
+        });
       },
       (error: any) => {
         console.log(error);

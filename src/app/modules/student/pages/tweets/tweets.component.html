@@ -1,3 +1,68 @@
+<div *ngIf="tweetCommentsModal" class="relative z-50">
+  <p-dialog
+    header="Comments"
+    [(visible)]="tweetCommentsModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="">
+      <div
+        class="border-y border-gray-200 mb-2 min-h-[250px] max-h-[250px] overflow-y-auto py-2"
+      >
+        <div *ngIf="comments.length == 0" class="text-sm grid place-items-center pt-5">
+          <div class="">
+            <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[100px] h-[100px]" />
+            <p>No comments yet.</p>
+          </div>
+        </div>
+
+        <div *ngIf="comments" class="">
+          <div
+            *ngFor="let com of comments; trackBy: commentTrack"
+            class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
+          >
+            <div class="w-fit h-fit bg-slate-100 rounded-full">
+              <img
+                src="../../../../../assets/images/student.png"
+                alt=""
+                class="w-[40px] h-[40px] rounded-full"
+              />
+            </div>
+
+            <div class="bg-slate-50 text-sm p-2">
+              <div class="">
+                <h1 class="font-semibold">
+                  {{ com.Student.firstName }} {{ com.Student.lastName }}
+                </h1>
+                <p class="text-[11px] text-slate-700/80">
+                  {{ dateFormat(com.createdAt) }}
+                </p>
+              </div>
+
+              <div class="mt-2">{{ com.content }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative w-full">
+        <input
+          type="text"
+          [(ngModel)]="comment"
+          placeholder="Write a comment"
+          class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
+        />
+        <div
+          (click)="postComment()"
+          class="absolute right-1 top-1 hover:bg-slate-200 transition-all w-[40px] h-[40px] rounded-full grid place-items-center cursor-pointer"
+        >
+          <i class="fal fa-paper-plane"></i>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
 <div class="relative z-40 mt-20 pb-20">
   <div class="">
     <h1 class="font-bold text-xl md:text-3xl text-white">Tweets</h1>
@@ -131,9 +196,8 @@
             </div>
 
             <div
-              [routerLink]="['/tweet']"
-              [queryParams]="{ id: tweet.id }"
-               class="cursor-pointer hover:bg-gray-200 w-fit px-4 h-[30px] rounded-full grid place-items-center transition-all"
+              (click)="openCommentModal(tweet.id)"
+              class="cursor-pointer hover:bg-gray-200 w-fit px-4 h-[30px] rounded-full grid place-items-center transition-all"
             >
               <div class="flex items-center">
                 <i class="fal fa-comment mr-1"></i>
