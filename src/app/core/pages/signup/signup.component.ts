@@ -105,7 +105,7 @@ export class SignupComponent implements OnInit {
 
     this.signupForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
-      middleName: new FormControl('', Validators.required),
+      middleName: new FormControl(''),
       lastName: new FormControl('', Validators.required),
       studentID: new FormControl('', Validators.required),
       course: new FormControl('', Validators.required),
@@ -121,7 +121,7 @@ export class SignupComponent implements OnInit {
     ) {
       this.isNextStep = true;
     } else {
-      this.toast.error('Please fill out all the fields.', {
+      this.toast.error('Please fill out all the required fields.', {
         position: 'top-right',
       });
     }
