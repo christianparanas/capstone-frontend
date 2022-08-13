@@ -36,7 +36,7 @@
         (click)="openCloseNavOverlay()"
       ></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0">
+      <div class="w-[300px] bg-white h-full fixed top-0 right-0  overflow-y-auto pb-10">
         <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
@@ -45,7 +45,7 @@
           ></i>
         </div>
 
-        <div class="grid gap-1 mt-2 overflow-y-auto">
+        <div class="grid gap-1 mt-2">
           <div class="grid gap-1 mt-6">
             <div
               *ngFor="let route of routesArr"
