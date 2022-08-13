@@ -181,10 +181,10 @@
         (click)="createPollModal = true"
         class="bg-red-500 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
       >
+        <i class="fal fa-file-plus mr-1"></i>
         Create Poll
       </button>
     </div>
-
 
     <div *ngIf="isLoading" class="grid md:grid-cols-2 gap-3 mt-20">
       <p-skeleton
@@ -194,13 +194,21 @@
       ></p-skeleton>
     </div>
 
-    <div *ngIf="!isLoading && polls.length == 0" class="grid place-items-center">
+    <div
+      *ngIf="!isLoading && polls.length == 0"
+      class="grid place-items-center"
+    >
       <div class="">
-        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[300px] object-cover">
-        <h1 class="text-center mt-10 font-semibold text-slate-800">No polls. Create one.</h1>
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          alt=""
+          class="w-[300px] object-cover"
+        />
+        <h1 class="text-center mt-10 font-semibold text-slate-800">
+          No polls. Create one.
+        </h1>
       </div>
     </div>
-
 
     <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
@@ -222,10 +230,7 @@
               <div class="" *ngIf="poll.allowed == '0'">All Courses</div>
               <div class="" *ngIf="poll.allowed != '0'">BSIT</div>
             </div>
-            <div
-              *ngIf="poll.published"
-              class="text-[12px] ml-2 text-slate-800"
-            >
+            <div *ngIf="poll.published" class="text-[12px] ml-2 text-slate-800">
               Poll ends: {{ dateFormat(poll.endsAt) }}
             </div>
             <div
@@ -247,16 +252,16 @@
               *ngFor="let answer of poll.PollQuestion.PollAnswers"
               class="flex justify-between items-center text-[12px] py-3 px-4 font-semibold rounded-xl text-slate-800 bg-gray-100"
             >
-            <div class="capitalize">{{ answer.answer }}</div>
-            <div class="">
-              {{
-                answer.PollVotes.length > 0
-                  ? answer.PollVotes.length > 1
-                    ? answer.PollVotes.length + " votes"
-                    : answer.PollVotes.length + " vote"
-                  : ""
-              }}
-            </div>
+              <div class="capitalize">{{ answer.answer }}</div>
+              <div class="">
+                {{
+                  answer.PollVotes.length > 0
+                    ? answer.PollVotes.length > 1
+                      ? answer.PollVotes.length + " votes"
+                      : answer.PollVotes.length + " vote"
+                    : ""
+                }}
+              </div>
             </div>
           </div>
         </div>
