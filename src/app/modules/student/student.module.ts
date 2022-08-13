@@ -19,7 +19,6 @@ import { LogsComponent } from './pages/logs/logs.component';
 
 import { PrimengModule } from '../primeng/primeng.module';
 import { AccountComponent } from './pages/account/account.component';
-import { TweetComponent } from './pages/tweet/tweet.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { TweetComponent } from './pages/tweet/tweet.component';
     ReceiptsComponent,
     LogsComponent,
     AccountComponent,
-    TweetComponent,
   ],
   imports: [
     CommonModule,
