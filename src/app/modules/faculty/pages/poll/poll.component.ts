@@ -23,6 +23,7 @@ export class PollComponent implements OnInit {
   pollForm: FormGroup;
   pollData: any;
   user: any
+  isLoading: boolean = true
 
   constructor(
     private courseService: CourseService,
@@ -78,6 +79,8 @@ export class PollComponent implements OnInit {
     this.pollService.getPolls().subscribe(
       (response: any) => {
         this.polls = response;
+
+        this.isLoading = false
       },
       (error: any) => {}
     );
