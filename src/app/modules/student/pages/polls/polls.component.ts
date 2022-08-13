@@ -57,7 +57,7 @@ export class PollsComponent implements OnInit {
 
         this.poll = {
           id: id,
-          courseId: poll.CourseId,
+          courseId: poll.allowed,
           facultyId: poll.FacultyId,
           voted: poll.voted,
           question: poll.PollQuestion.question,
