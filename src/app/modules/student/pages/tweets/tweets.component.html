@@ -9,9 +9,16 @@
       <div
         class="border-y border-gray-200 mb-2 min-h-[250px] max-h-[250px] overflow-y-auto py-2"
       >
-        <div *ngIf="comments.length == 0" class="text-sm grid place-items-center pt-5">
+        <div
+          *ngIf="comments.length == 0"
+          class="text-sm grid place-items-center pt-5"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[100px] h-[100px]" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[100px] h-[100px]"
+            />
             <p>No comments yet.</p>
           </div>
         </div>
@@ -144,7 +151,7 @@
         </div>
       </div>
 
-      <div *ngIf="isLoading" class="mt-20 pb-10 grid gap-2">
+      <div *ngIf="isLoading && user" class="mt-20 pb-10 grid gap-2">
         <div
           *ngFor="let tweet of tweets"
           class="p-5 pb-2 rounded-xl border border-gray-200"
@@ -171,10 +178,20 @@
             </div>
           </div>
 
-          <div class="mt-5">
+          <div class="mt-5 flex items-center">
             <div *ngIf="tweet.reactCount > 0" class="text-[12px]">
               {{ tweet.reactCount }}
               {{ tweet.reactCount > 1 ? "likes" : "like" }}
+            </div>
+
+            <span
+              *ngIf="tweet.reactCount > 0 && tweet.TweetComments.length > 0"
+              class="mx-2 text-[12px]"
+              >&#183;</span
+            >
+            <div *ngIf="tweet.TweetComments.length > 0" class="text-[12px]">
+              {{ tweet.TweetComments.length }}
+              {{ tweet.TweetComments.length > 1 ? "comments" : "comment" }}
             </div>
           </div>
 
