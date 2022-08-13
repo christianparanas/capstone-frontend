@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
       params: null,
     },
     {
-      title: 'Administer on Election',
+      title: 'Election',
       route: 'administer',
       params: null,
       icon: 'fal fa-box-ballot',
@@ -45,6 +45,12 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-poll-people',
     },
     {
+      title: 'Tweet',
+      route: 'tweet',
+      params: null,
+      icon: 'fal fa-poll-people',
+    },
+    {
       title: 'Manage Users',
       route: 'users',
       params: 'student',
@@ -57,10 +63,10 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-pallet',
     },
     {
-      title: 'Messages',
-      route: 'messages',
+      title: 'Customer Support',
+      route: 'support',
       params: null,
-      icon: 'fal fa-pallet',
+      icon: 'fal fa-comment',
     },
     {
       title: 'Logs',

@@ -9,7 +9,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AboutComponent } from './pages/about/about.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UsersComponent } from './pages/users/users.component';
 import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
@@ -17,6 +16,12 @@ import { StudentTabComponent } from './components/student-tab/student-tab.compon
 import { FacultyTabComponent } from './components/faculty-tab/faculty-tab.component';
 import { AdminTabComponent } from './components/admin-tab/admin-tab.component';
 import { UserComponent } from './pages/user/user.component';
+import { ElectionComponent } from './pages/election/election.component';
+import { CampaignComponent } from './pages/campaign/campaign.component';
+import { PollComponent } from './pages/poll/poll.component';
+import { TweetComponent } from './pages/tweet/tweet.component';
+import { SupportComponent } from './pages/support/support.component';
+import { PredictionComponent } from './pages/prediction/prediction.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,6 @@ import { UserComponent } from './pages/user/user.component';
     SidebarComponent,
     LayoutComponent,
     HeaderComponent,
-    AboutComponent,
     UsersComponent,
     LogsComponent,
     FeedbacksComponent,
@@ -32,6 +36,12 @@ import { UserComponent } from './pages/user/user.component';
     FacultyTabComponent,
     AdminTabComponent,
     UserComponent,
+    ElectionComponent,
+    CampaignComponent,
+    PollComponent,
+    TweetComponent,
+    SupportComponent,
+    PredictionComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule],
 })
