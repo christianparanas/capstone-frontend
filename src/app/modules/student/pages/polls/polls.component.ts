@@ -33,8 +33,6 @@ export class PollsComponent implements OnInit {
 
   getPollStatus() {
     this.eventService.getPollStatus().subscribe((response: any) => {
-      console.log(response)
-
       if (response == this.user.courseId || response == '0') {
         this.getPolls();
       }
@@ -59,6 +57,7 @@ export class PollsComponent implements OnInit {
 
         this.poll = {
           id: id,
+          courseId: poll.CourseId,
           facultyId: poll.FacultyId,
           voted: poll.voted,
           question: poll.PollQuestion.question,
@@ -111,7 +110,10 @@ export class PollsComponent implements OnInit {
 
         this.submitLoading = false;
         this.votePollModal = false;
-        this.eventService.sendPollVoteEvent(this.poll.facultyId)
+        this.eventService.sendPollVoteEvent({
+          facultyId: this.poll.facultyId,
+          courseId: this.poll.courseId,
+        });
         this.getPolls();
       },
       (error: any) => {
@@ -151,7 +153,7 @@ export class PollsComponent implements OnInit {
         this.isLoading = false;
         this.polls = response;
 
-        console.log(this.polls)
+        console.log(this.polls);
       },
       (error: any) => {
         this.isLoading = false;

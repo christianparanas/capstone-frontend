@@ -73,6 +73,7 @@ export class TweetsComponent implements OnInit {
       (response: any) => {
         this.getTweets();
         this.comment = '';
+        this.eventService.sendTweetEvent();
       },
       (error: any) => {
         console.log(error);
