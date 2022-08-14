@@ -13,4 +13,8 @@ export class ProfileService {
   getProfile(): any {
     return this.http.get(`${BASEURL}/api/user/student/profile`);
   }
+
+  updateProfile(data: any): any {
+    return this.http.put(`${BASEURL}/api/user/student/profile`, data);
+  }
 }

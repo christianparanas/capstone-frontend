@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   currentRoute: any;
   onScroll: boolean = false;
   user: any;
+  defaultImg: any = '../../../../../assets/images/student.png';
 
   routesArr: any = [
     {

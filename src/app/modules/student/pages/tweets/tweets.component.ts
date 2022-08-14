@@ -12,6 +12,7 @@ import { EventService } from '../../shared/services/event.service';
   styleUrls: ['./tweets.component.scss'],
 })
 export class TweetsComponent implements OnInit {
+  defaultImg: any = '../../../../../assets/images/student.png';
   tweet: string = '';
   tweets: any;
   user: any;

@@ -10,6 +10,7 @@ import { FeedbackService } from '../../shared/services/feedback.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
+  defaultImg: any = '../../../../../assets/images/student.png';
   feedbacks: any = false;
   rating: any = 0;
   message: any = '';
