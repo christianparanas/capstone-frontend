@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as moment from 'moment';
 
 import { StudentService } from '../../shared/services/student.service';
 
@@ -18,6 +19,8 @@ export class UserComponent implements OnInit {
   approveModal: boolean = false;
   requestDecision: any;
   requestDecisionMessage: any;
+  isLoading: boolean = true
+  defaultImg: any = '../../../../../assets/images/student.png'
 
   constructor(
     private location: Location,
@@ -64,9 +67,8 @@ export class UserComponent implements OnInit {
     if (this.userType == 'student') {
       this.studentService.getStudent(this.userId).subscribe(
         (response: any) => {
-          console.log(response);
-
           this.userData = response;
+          this.isLoading = false
         },
         (error: any) => {
           console.log(error);
@@ -77,5 +79,9 @@ export class UserComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  momentFormatLLL(date: any) {
+    return moment(date).format('lll');
   }
 }

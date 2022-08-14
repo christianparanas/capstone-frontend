@@ -18,4 +18,8 @@ export class FacultyService {
   addFaculty(data: any): any {
     return this.http.post(`${BASEURL}/api/user/faculty`, data);
   }
+
+  updateFaculty(data: any): any {
+    return this.http.put(`${BASEURL}/api/user/faculty`, data);
+  }
 }

@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
 import { FacultyService } from '../../shared/services/faculty.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-faculty-tab',
@@ -15,6 +16,13 @@ export class FacultyTabComponent implements OnInit {
   createAccountModal: boolean = false;
   submitLoading: boolean = false;
   createForm: FormGroup;
+  editAccountModal: boolean = false;
+
+  editForm: any = {
+    id: null,
+    name: null,
+    email: null,
+  };
 
   constructor(
     private facultyService: FacultyService,
@@ -30,6 +38,42 @@ export class FacultyTabComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
+  }
+
+  openEditModal(data: any) {
+    this.editForm = {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+    };
+
+    this.editAccountModal = true;
+  }
+
+  editFormSubmit() {
+    if (this.editForm.name == '') {
+      return this.toast.info('Name is required.', { position: 'top-right' });
+    }
+
+    if (this.editForm.email == '') {
+      return this.toast.info('Email is required.', { position: 'top-right' });
+    }
+
+    this.submitLoading = true
+
+    this.facultyService.updateFaculty(this.editForm).subscribe(
+      (response: any) => {
+        this.toast.success(response.message, { position: 'top-right' });
+        this.getFaculties();
+        this.submitLoading = false
+        this.editAccountModal = false;
+      },
+      (error: any) => {
+        this.submitLoading = false
+        this.toast.error(error.error.message, { position: 'top-right' });
+        console.log(error);
+      }
+    );
   }
 
   getFaculties() {
@@ -48,7 +92,7 @@ export class FacultyTabComponent implements OnInit {
       this.toast.warning('Please fill out the fields with valid data.', {
         position: 'top-right',
       });
-      return
+      return;
     }
 
     this.submitLoading = true;
@@ -66,5 +110,9 @@ export class FacultyTabComponent implements OnInit {
         this.toast.error(error.error.message, { position: 'top-right' });
       }
     );
+  }
+
+  momentFormatLLL(date: any) {
+    return moment(date).format('lll');
   }
 }

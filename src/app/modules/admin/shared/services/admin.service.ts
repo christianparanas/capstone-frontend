@@ -17,4 +17,8 @@ export class AdminService {
   addAdmin(data: any): any {
     return this.http.post(`${BASEURL}/api/user/admin`, data);
   }
+
+  updateAdmin(data: any): any {
+    return this.http.put(`${BASEURL}/api/user/admin`, data);
+  }
 }

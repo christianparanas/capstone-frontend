@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
 import { AdminService } from '../../shared/services/admin.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-admin-tab',
@@ -13,8 +14,15 @@ import { AdminService } from '../../shared/services/admin.service';
 export class AdminTabComponent implements OnInit {
   admins: any;
   createAccountModal: boolean = false;
+  editAccountModal: boolean = false;
   submitLoading: boolean = false;
   createForm: FormGroup;
+
+  editForm: any = {
+    id: null,
+    name: null,
+    email: null,
+  };
 
   constructor(
     private adminService: AdminService,
@@ -32,10 +40,47 @@ export class AdminTabComponent implements OnInit {
     });
   }
 
+  openEditModal(data: any) {
+    this.editForm = {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+    };
+
+    this.editAccountModal = true;
+  }
+
+  editFormSubmit() {
+    if (this.editForm.name == '') {
+      return this.toast.info('Name is required.', { position: 'top-right' });
+    }
+
+    if (this.editForm.email == '') {
+      return this.toast.info('Email is required.', { position: 'top-right' });
+    }
+
+    this.submitLoading = true;
+
+    this.adminService.updateAdmin(this.editForm).subscribe(
+      (response: any) => {
+        this.submitLoading = false;
+        this.toast.success(response.message, { position: 'top-right' });
+        this.getAdmins();
+        this.editAccountModal = false;
+      },
+      (error: any) => {
+        this.submitLoading = false;
+        this.toast.error(error.error.message, { position: 'top-right' });
+        console.log(error);
+      }
+    );
+  }
+
   getAdmins() {
     this.adminService.getAdmins().subscribe(
       (response: any) => {
         this.admins = response;
+        console.log(response);
       },
       (error: any) => {
         this.toast.error(error.error.message, { position: 'top-right' });
@@ -66,5 +111,9 @@ export class AdminTabComponent implements OnInit {
         this.toast.error(error.error.message, { position: 'top-right' });
       }
     );
+  }
+
+  momentFormatLLL(date: any) {
+    return moment(date).format('lll');
   }
 }

@@ -9,7 +9,20 @@
       <i class="fal fa-arrow-left"></i> Return
     </div>
 
-    <div class="mt-20 lg:mt-24">
+    <div *ngIf="!isLoading && !userData" class="mt-52 grid place-items-center">
+      <div class="text-slate-800 text-center">
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          class="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]"
+          alt=""
+        />
+        <h1 class="text-center mt-5 font-semibold">
+          Oops! There's nothing here.
+        </h1>
+      </div>
+    </div>
+
+    <div *ngIf="userData" class="mt-20 lg:mt-24">
       <p-dialog
         header="Decline?"
         [(visible)]="declineModal"
@@ -80,9 +93,9 @@
         <div class="md:flex">
           <div class="bg-red-900 w-fit rounded-full">
             <img
-              src="../../../../../assets/images/student.png"
+              [src]="userData.image == null ? defaultImg : userData.image"
               alt=""
-              class="w-[200px] h-[200px] rounded-full"
+              class="w-[200px] h-[200px] rounded-full object-cover"
             />
           </div>
 
@@ -104,7 +117,7 @@
       <div class="grid lg:grid-cols-[1fr_500px] mt-20">
         <div class="grid gap-4">
           <div class="text-[12px]">
-            Account Created: {{ userData.createdAt }}
+            Account Created: {{ momentFormatLLL(userData.createdAt) }}
           </div>
 
           <div class="">
