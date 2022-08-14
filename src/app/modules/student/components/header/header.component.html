@@ -16,9 +16,9 @@
       <div class="flex items-center">
         <div class="mr-3 cursor-pointer" routerLink="/account">
           <img
-            src="https://avatars.githubusercontent.com/u/59472122?v=4"
+            [src]="user.image != null ? user.image : defaultImg"
             alt=""
-            class="w-[35px] object-cover rounded-full"
+            class="w-[35px] h-[35px] rounded-full object-cover"
           />
         </div>
         <div class="p-2 cursor-pointer" (click)="openCloseNavOverlay()">
@@ -36,7 +36,9 @@
         (click)="openCloseNavOverlay()"
       ></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0 overflow-y-auto pb-10">
+      <div
+        class="w-[300px] bg-white h-full fixed top-0 right-0 overflow-y-auto pb-10"
+      >
         <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
@@ -105,10 +107,10 @@
           </h1>
           <div class="w-fit h-fit rounded-full bg-red-700">
             <img
-            [src]="user.image != null ? user.image : defaultImg "
-            alt=""
-            class="w-[35px] h-[35px] object-cover rounded-full shadow-md"
-          />
+              [src]="user.image != null ? user.image : defaultImg"
+              alt=""
+              class="w-[35px] h-[35px] object-cover rounded-full shadow-md"
+            />
           </div>
         </div>
 
