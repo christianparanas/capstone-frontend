@@ -50,7 +50,9 @@ export class UserComponent implements OnInit {
     this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
         this.toast.success(response.message, { position: "top-right" })
-        this.router.navigate(['/admin/users?type=student'])
+        this.router.navigate([`/admin/users`], {
+          queryParams: { type: 'student' },
+        });
       },
       (error: any) => {
         this.toast.error(error.error.message, { position: "top-right" })

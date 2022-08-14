@@ -86,6 +86,8 @@ export class HeaderComponent implements OnInit {
     window.addEventListener('scroll', this.listenScrollEvent);
 
     this.getCurrentRouteURL(this.route.snapshot.children[0].routeConfig?.path);
+
+    this.isNavOpen = false
   }
 
   getCurrentRouteURL(route: any) {
