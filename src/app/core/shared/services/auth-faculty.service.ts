@@ -30,6 +30,8 @@ export class AuthFacultyService {
 
   setSession(data: any) {
     localStorage.setItem('faculty_access_token', data.token);
+
+    this.router.navigate([`/faculty`])
   }
 
   logout() {

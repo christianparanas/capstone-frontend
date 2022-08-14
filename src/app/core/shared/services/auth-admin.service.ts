@@ -33,6 +33,8 @@ export class AuthAdminService {
 
   setSession(data: any) {
     localStorage.setItem('admin_access_token', data.token);
+
+    this.router.navigate([`/admin`]);
   }
 
   logout() {

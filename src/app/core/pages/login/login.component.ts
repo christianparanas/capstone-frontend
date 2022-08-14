@@ -104,17 +104,9 @@ export class LoginComponent implements OnInit {
       this.tempService.login(this.loginForm.value).subscribe(
         (response: any) => {
           this.submitLoading = false;
-
           this.tempService.setSession(response);
-
           this.toast.success(response.message, { position: 'top-right' });
-
           this.loginForm.reset();
-
-          if (this.loginAcctType == 'student') this.router.navigate(['/']);
-          if (this.loginAcctType == 'faculty')
-            this.router.navigate(['/faculty']);
-          if (this.loginAcctType == 'admin') this.router.navigate(['/admin']);
         },
         (error: any) => {
           this.submitLoading = false;
