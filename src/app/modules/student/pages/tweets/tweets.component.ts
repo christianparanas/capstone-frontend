@@ -17,7 +17,7 @@ export class TweetsComponent implements OnInit {
   tweets: any;
   user: any;
   submitLoading: boolean = false;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
   reactLoading: boolean = false;
   tweetCommentsModal: boolean = false;
   comment: string = '';
@@ -107,7 +107,7 @@ export class TweetsComponent implements OnInit {
   getTweets() {
     this.tweetService.getTweets().subscribe(
       (response: any) => {
-        this.isLoading = true;
+        this.isLoading = false;
         this.tweets = response;
 
         console.log(response)
