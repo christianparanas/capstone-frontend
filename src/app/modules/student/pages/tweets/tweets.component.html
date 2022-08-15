@@ -30,7 +30,9 @@
           >
             <div class="w-fit h-fit bg-slate-100 rounded-full">
               <img
-                [src]="com.Student.image == null ? defaultImg : com.Student.image"
+                [src]="
+                  com.Student.image == null ? defaultImg : com.Student.image
+                "
                 alt=""
                 class="w-[40px] h-[40px] rounded-full object-cover"
               />
@@ -151,7 +153,10 @@
         </div>
       </div>
 
-      <div *ngIf="!isLoading && tweets.length != 0" class="mt-20 pb-10 grid gap-2">
+      <div
+        *ngIf="!isLoading && tweets.length != 0"
+        class="mt-20 pb-10 grid gap-2"
+      >
         <div
           *ngFor="let tweet of tweets"
           class="p-5 pb-2 rounded-xl border border-gray-200"
@@ -160,7 +165,11 @@
             <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
               <div class="bg-slate-100 w-fit h-fit rounded-full">
                 <img
-                  [src]="tweet.Student.image == null ? defaultImg : tweet.Student.image"
+                  [src]="
+                    tweet.Student.image == null
+                      ? defaultImg
+                      : tweet.Student.image
+                  "
                   class="w-[40px] h-[40px] rounded-full object-cover"
                   alt=""
                 />
