@@ -63,6 +63,18 @@ export class PollComponent implements OnInit {
     });
   }
 
+  getCourse(courseId: any) {
+    let courseTitle = null
+
+    this.courses.forEach((course: any) => {
+      if(course.id == courseId) {
+        courseTitle = course.acronym
+      }
+    });
+
+    return courseTitle
+  }
+
   getUser() {
     this.profileService.getProfile().subscribe(
       async (response: any) => {

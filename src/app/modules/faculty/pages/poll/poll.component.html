@@ -228,7 +228,7 @@
               class="bg-slate-800 text-white w-fit py-1 px-2 font-semibold rounded-md text-[10px]"
             >
               <div class="" *ngIf="poll.allowed == '0'">All Courses</div>
-              <div class="" *ngIf="poll.allowed != '0'">BSIT</div>
+              <div class="" *ngIf="poll.allowed != '0'">{{ getCourse(poll.allowed) }}</div>
             </div>
             <div *ngIf="poll.published" class="text-[12px] ml-2 text-slate-800">
               Poll ends: {{ dateFormat(poll.endsAt) }}

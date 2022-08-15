@@ -11,4 +11,8 @@ export class EventService {
   getTweetEvent(): Observable<any> {
     return this.socket.fromEvent<any>('tweetEvent');
   }
+
+  getPollStatus(): Observable<any> {
+    return this.socket.fromEvent<any>('facultyPollStatus');
+  }
 }
