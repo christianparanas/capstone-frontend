@@ -60,5 +60,4 @@ export class SidebarComponent implements OnInit {
   getCurrentRouteURL(route: any) {
     route == '' ? this.currentRoute = '/' : this.currentRoute = route;
   }
-
 }

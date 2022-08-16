@@ -20,9 +20,9 @@ export class AccountComponent implements OnInit {
   previewImg: any = '';
 
   profiledata: any = {
-    firstName: null,
-    middleName: null,
-    lastName: null,
+    name: null,
+    section: null,
+    year: null,
     image: null,
     email: null,
     CourseId: null,
@@ -92,12 +92,12 @@ export class AccountComponent implements OnInit {
         this.profile = response;
 
         this.profiledata = {
-          firstName: response.firstName,
-          middleName: response.middleName,
-          lastName: response.lastName,
+          name: response.name,
+          section: response.StudentCredential.section,
+          year: response.StudentCredential.year,
           image: response.image,
           email: response.email,
-          CourseId: response.CourseId,
+          CourseId: response.StudentCredential.courseId,
         };
 
         if(response.image != null) {

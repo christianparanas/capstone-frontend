@@ -17,12 +17,13 @@
         [rowsPerPageOptions]="[10, 25, 50]"
         styleClass="p-datatable-gridlines"
         [globalFilterFields]="[
-          'studentId',
-          'firstName',
-          'lastName',
-          'Course.acronym',
+          'StudentCredential.schoolId',
+          'name',
           'email',
-          'verificationStatus'
+          'StudentCredential.section',
+          'StudentCredential.year',
+          'StudentCredential.Course.acronym',
+          'StudentCredential.verificationStatus'
         ]"
       >
         >
@@ -43,24 +44,31 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th field="studentId">Student ID</th>
-            <th field="firstName">First Name</th>
-            <th field="lastName">Last Name</th>
-            <th field="Course.acronym">Course</th>
+            <th field="StudentCredential.schoolId">Student ID</th>
+            <th field="name">Name</th>
+            <th field="StudentCredential.Course.acronym">Course</th>
+            <th field="StudentCredential.section">Section</th>
+            <th field="StudentCredential.year">Year</th>
             <th field="email">Email</th>
-            <th field="verificationStatus">Verification</th>
+            <th field="StudentCredential.verificationStatus">Verification</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
           <tr class="text-sm">
-            <td>{{ student.studentId }}</td>
-            <td>{{ student.firstName }}</td>
-            <td>{{ student.lastName }}</td>
-            <td>{{ student.Course.acronym }}</td>
+            <td>{{ student.StudentCredential.schoolId }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.StudentCredential.Course.acronym }}</td>
+            <td>{{ student.StudentCredential.section }}</td>
+            <td>{{ student.StudentCredential.year }}</td>
             <td>{{ student.email }}</td>
-            <td><div
-              class="bg-orange-200 text-orange-800 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize">{{ student.verificationStatus }}</div></td>
+            <td>
+              <div
+                class="bg-orange-200 text-orange-800 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
+              >
+                {{ student.StudentCredential.verificationStatus }}
+              </div>
+            </td>
             <td>
               <div
                 class="cursor-pointer"
@@ -92,13 +100,13 @@
         [rowsPerPageOptions]="[10, 25, 50]"
         styleClass="p-datatable-gridlines"
         [globalFilterFields]="[
-          'studentId',
-          'firstName',
-          'lastName',
-          'Course.acronym',
+          'StudentCredential.schoolId',
+          'name',
           'email',
-          'verificationStatus',
-          'accountStatus'
+          'StudentCredential.section',
+          'StudentCredential.year',
+          'StudentCredential.Course.acronym',
+          'StudentCredential.verificationStatus'
         ]"
       >
         <ng-template pTemplate="caption">
@@ -124,45 +132,29 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th field="studentId">Student ID</th>
-            <th field="firstName">First Name</th>
-            <th field="lastName">Last Name</th>
-            <th field="Course.acronym">Course</th>
+            <th field="StudentCredential.schoolId">Student ID</th>
+            <th field="name">Name</th>
+            <th field="StudentCredential.Course.acronym">Course</th>
+            <th field="StudentCredential.section">Section</th>
+            <th field="StudentCredential.year">Year</th>
             <th field="email">Email</th>
-            <th field="verificationStatus">Verification</th>
-            <th field="accountStatus">Account Status</th>
+            <th field="StudentCredential.verificationStatus">Verification</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
           <tr class="text-sm">
-            <td>{{ student.studentId }}</td>
-            <td>{{ student.firstName }}</td>
-            <td>{{ student.lastName }}</td>
-            <td>{{ student.Course.acronym }}</td>
+            <td>{{ student.StudentCredential.schoolId }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.StudentCredential.Course.acronym }}</td>
+            <td>{{ student.StudentCredential.section }}</td>
+            <td>{{ student.StudentCredential.year }}</td>
             <td>{{ student.email }}</td>
             <td>
               <div
-                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
-                [ngClass]="
-                  student.verificationStatus == 'verified'
-                    ? 'bg-green-200 text-green-900'
-                    : 'bg-red-200 text-red-900'
-                "
+                class="bg-green-200 text-green-800 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
               >
-                {{ student.verificationStatus }}
-              </div>
-            </td>
-            <td>
-              <div
-                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
-                [ngClass]="
-                  student.accountStatus == 'active'
-                    ? 'bg-green-200 text-green-900'
-                    : 'bg-red-200 text-red-900'
-                "
-              >
-                {{ student.accountStatus }}
+                {{ student.StudentCredential.verificationStatus }}
               </div>
             </td>
             <td>

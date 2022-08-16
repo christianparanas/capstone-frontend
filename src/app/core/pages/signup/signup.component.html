@@ -37,7 +37,7 @@
               class="w-[35px] mr-2"
             />
             <h1 class="font-black text-2xl text-slate-50">
-              EVSU Election <span class="text-red-500">System</span>
+              EVSU Election <span class="text-red-400">System</span>
             </h1>
           </div>
         </div>
@@ -57,50 +57,9 @@
               <input
                 type="text"
                 class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
-                placeholder="First name"
-                formControlName="firstName"
+                placeholder="Full name"
+                formControlName="name"
               />
-            </div>
-
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <input
-                type="text"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
-                placeholder="Middle name (Optional)"
-                formControlName="middleName"
-              />
-            </div>
-
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <input
-                type="text"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
-                placeholder="Last name"
-                formControlName="lastName"
-              />
-            </div>
-
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <input
-                type="text"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
-                placeholder="ID number"
-                formControlName="studentID"
-              />
-            </div>
-
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <select
-                formControlName="course"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
-              >
-                <option value="" selected disabled hidden class="">
-                  Course
-                </option>
-                <option *ngFor="let course of courses" [value]="course.id">
-                  {{ course.title }}
-                </option>
-              </select>
             </div>
 
             <div class="mt-1 relative rounded-md shadow-sm">
@@ -110,6 +69,60 @@
                 placeholder="Email"
                 formControlName="email"
               />
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <input
+                type="text"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md"
+                placeholder="School ID number"
+                formControlName="schoolId"
+              />
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <select
+                formControlName="section"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">
+                  Section
+                </option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+                <option value="e">E</option>
+                <option value="f">F</option>
+              </select>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <select
+                formControlName="year"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">Year</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <select
+                formControlName="courseId"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">
+                  Course
+                </option>
+                <option *ngFor="let course of courses" [value]="course.id">
+                  {{ course.title }}
+                </option>
+              </select>
             </div>
 
             <div class="mt-1 relative rounded-md shadow-sm">
@@ -150,7 +163,12 @@
                   </p>
                 </div>
 
-                <div class="text-red-500 text-[12px] text-center w-full mt-3" *ngIf="attachments.document">File attached</div>
+                <div
+                  class="text-red-500 text-[12px] text-center w-full mt-3"
+                  *ngIf="attachments.document"
+                >
+                  File attached
+                </div>
               </div>
 
               <div
@@ -165,7 +183,12 @@
                 <div class="text-center mt-3">
                   <h3 class="font-semibold">Selfie with Documents</h3>
                 </div>
-                <div class="text-red-500 text-[12px] text-center w-full mt-3" *ngIf="attachments.selfie">File attached</div>
+                <div
+                  class="text-red-500 text-[12px] text-center w-full mt-3"
+                  *ngIf="attachments.selfie"
+                >
+                  File attached
+                </div>
               </div>
             </div>
 
@@ -181,16 +204,33 @@
                 [disabled]="submitLoading"
                 class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full mt-5"
               >
-              
+                <div
+                  class="flex items-center w-fit mx-autoo"
+                  *ngIf="submitLoading"
+                >
+                  <svg
+                    class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
 
-              <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-                <svg  class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-
-                <span>Processing</span>
-              </div>
+                  <span>Processing</span>
+                </div>
 
                 <span *ngIf="!submitLoading">Submit</span>
               </button>

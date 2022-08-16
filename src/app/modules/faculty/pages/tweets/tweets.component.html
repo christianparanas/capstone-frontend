@@ -41,7 +41,7 @@
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
                 <h1 class="font-semibold">
-                  {{ com.Student.firstName }} {{ com.Student.lastName }}
+                  {{ com.Student.name }}
                 </h1>
                 <p class="text-[11px] text-slate-700/80">
                   {{ dateFormat(com.createdAt) }}
@@ -113,7 +113,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ tweet.Student.firstName }} {{ tweet.Student.lastName }}
+                  {{ tweet.Student.name }}
                 </div>
                 <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
               </div>

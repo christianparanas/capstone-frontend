@@ -16,13 +16,53 @@ export class HeaderComponent implements OnInit {
   user: any;
   defaultImg: any = '../../../../../assets/images/student.png';
 
-  routesArr: any = []
-
   constructor(
     private route: ActivatedRoute,
     private authStudentService: AuthStudentService,
     private profileService: ProfileService
   ) {}
+
+  routesArr: any = [
+    {
+      title: "Dashboard",
+      route: "/",
+      icon: "fal fa-chart-line"
+    },
+    {
+      title: "Election",
+      route: "election",
+      icon: "fal fa-box-ballot"
+    },
+    {
+      title: "Campaign",
+      route: "campaign",
+      icon: "fal fa-ad"
+    },
+    {
+      title: "Tweets",
+      route: "tweets",
+      icon: "fal fa-retweet"
+    },
+    {
+      title: "Polls",
+      route: "polls",
+      icon: "fal fa-poll-people"
+    },
+    {
+      title: "Vote Receipts",
+      route: "receipts",
+      icon: "fal fa-receipt"
+    },{
+      title: "Logs",
+      route: "logs",
+      icon: "fal fa-pallet"
+    },
+    {
+      title: "About",
+      route: "about",
+      icon: "fal fa-info-circle"
+    }
+  ]
 
   ngOnInit(): void {
     this.getUser()
@@ -30,48 +70,6 @@ export class HeaderComponent implements OnInit {
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
-
-    this.routesArr = [
-      {
-        title: "Dashboard",
-        route: "/",
-        icon: "fal fa-chart-line"
-      },
-      {
-        title: "Election",
-        route: "election",
-        icon: "fal fa-box-ballot"
-      },
-      {
-        title: "Campaign",
-        route: "campaign",
-        icon: "fal fa-ad"
-      },
-      {
-        title: "Tweets",
-        route: "tweets",
-        icon: "fal fa-retweet"
-      },
-      {
-        title: "Polls",
-        route: "polls",
-        icon: "fal fa-poll-people"
-      },
-      {
-        title: "Vote Receipts",
-        route: "receipts",
-        icon: "fal fa-receipt"
-      },{
-        title: "Logs",
-        route: "logs",
-        icon: "fal fa-pallet"
-      },
-      {
-        title: "About",
-        route: "about",
-        icon: "fal fa-info-circle"
-      }
-    ]
   }
 
   getUser() {

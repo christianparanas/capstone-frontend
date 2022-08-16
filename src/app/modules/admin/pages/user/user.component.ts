@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     const data = {
       receiver: {
         userId: this.userData.id,
-        firstName: this.userData.firstName,
+        name: this.userData.name,
         email: this.userData.email,
       },
       decision: this.requestDecision,

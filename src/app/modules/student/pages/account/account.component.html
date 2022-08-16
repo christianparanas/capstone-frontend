@@ -9,7 +9,11 @@
       <form (ngSubmit)="onSubmit()">
         <div class="w-fit relative mx-auto mb-5 bg-slate-50 rounded-full h-fit">
           <img
-            [src]="profile.image == null && previewImg == '' ? defaultImg : previewImg"
+            [src]="
+              profile.image == null && previewImg == ''
+                ? defaultImg
+                : previewImg
+            "
             alt=""
             class="w-[150px] h-[150px] object-cover rounded-full"
           />
@@ -33,14 +37,14 @@
         <div class="grid gap-2">
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
-              >First name</label
+              >Full name</label
             >
             <div class="mt-1 relative rounded-md">
               <input
                 type="text"
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
                 placeholder="Your first name"
-                [(ngModel)]="profiledata.firstName"
+                [(ngModel)]="profiledata.name"
                 [ngModelOptions]="{ standalone: true }"
                 required
               />
@@ -49,32 +53,46 @@
 
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
-              >Middle name (Optional)</label
+              >Section</label
             >
             <div class="mt-1 relative rounded-md">
-              <input
-                type="text"
-                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                placeholder="Your middle name"
-                [(ngModel)]="profiledata.middleName"
+              <select
+                [(ngModel)]="profiledata.section"
                 [ngModelOptions]="{ standalone: true }"
-              />
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">
+                  Section
+                </option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+                <option value="e">E</option>
+                <option value="f">F</option>
+              </select>
             </div>
           </div>
 
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
-              >Last name</label
+              >Year</label
             >
             <div class="mt-1 relative rounded-md">
-              <input
-                type="text"
-                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                placeholder="Your last name"
-                [(ngModel)]="profiledata.lastName"
+              <select
+                [(ngModel)]="profiledata.year"
                 [ngModelOptions]="{ standalone: true }"
-                required
-              />
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="" selected disabled hidden class="">
+                  Year
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
             </div>
           </div>
 
@@ -168,7 +186,7 @@
         class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
       >
         <div class="md:flex relative w-fit mx-auto md:mx-0">
-          <div class="bg-slate-50/50 w-fit h-fit rounded-full  mr-4">
+          <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4">
             <img
               [src]="profile.image == null ? defaultImg : profile.image"
               alt=""
@@ -178,7 +196,7 @@
 
           <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
             <h1 class="font-semibold text-2xl">
-              {{ profile.firstName }} {{ profile.lastName }}
+              {{ profile.name }}
             </h1>
             <p>Student</p>
           </div>
@@ -196,9 +214,9 @@
         <div
           class="w-fit mt-3 border rounded-lg p-3 grid gap-2 text-sm bg-gray-50"
         >
-          <div class="">Student ID number: {{ profile.studentId }}</div>
+          <div class="">Student ID number: {{ profile.StudentCredential.studentId }}</div>
           <div class="">Email: {{ profile.email }}</div>
-          <div class="">Course: {{ profile.Course.title }}</div>
+          <div class="">Course: {{ profile.StudentCredential.Course.title }}</div>
         </div>
       </div>
 
@@ -220,7 +238,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ profile.firstName }} {{ profile.lastName }}
+                  {{ profile.name }}
                 </div>
                 <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
               </div>

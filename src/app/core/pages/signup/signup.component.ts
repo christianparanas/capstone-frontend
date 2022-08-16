@@ -104,12 +104,12 @@ export class SignupComponent implements OnInit {
     this.getCourses();
 
     this.signupForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      middleName: new FormControl(''),
-      lastName: new FormControl('', Validators.required),
-      studentID: new FormControl('', Validators.required),
-      course: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
+      schoolId: new FormControl('', Validators.required),
+      section: new FormControl(''),
+      year: new FormControl('', Validators.required),
+      courseId: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }

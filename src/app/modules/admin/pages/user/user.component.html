@@ -80,14 +80,14 @@
       </p-dialog>
 
       <h1
-        *ngIf="userData && userData.verificationStatus == 'pending'"
+        *ngIf="userData && userData.StudentCredential.verificationStatus == 'pending'"
         class="font-bold text-3xl text-white"
       >
         Student Account Application Request
       </h1>
 
       <div
-        *ngIf="userData && userData.verificationStatus != 'pending'"
+        *ngIf="userData && userData.StudentCredential.verificationStatus != 'pending'"
         class="flex justify-between items-center"
       >
         <div class="md:flex">
@@ -101,7 +101,7 @@
 
           <div class="md:ml-5 mt-5 md:mt-24">
             <h1 class="font-bold text-2xl md:text-3xl text-slate-900">
-              {{ userData.firstName }} {{ userData.lastName }}
+              {{ userData.name }}
             </h1>
             <p>Student</p>
           </div>
@@ -123,22 +123,21 @@
           <div class="">
             <div class="text-sm text-slate-900 mb-2">Student ID number</div>
             <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.studentId }}
+              {{ userData.StudentCredential.schoolId }}
             </div>
           </div>
 
           <div class="">
             <div class="text-sm text-slate-900 mb-2">Name</div>
             <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.firstName }} {{ userData.middleName }}
-              {{ userData.lastName }}
+              {{ userData.name }}
             </div>
           </div>
 
           <div class="">
             <div class="text-sm text-slate-900 mb-2">Course</div>
             <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.Course.title }}
+              {{ userData.StudentCredential.Course.title }}
             </div>
           </div>
 
@@ -170,7 +169,7 @@
 
                 <div class="">
                   <p-image
-                    [src]="userData.document"
+                    [src]="userData.StudentCredential.document"
                     alt="Image"
                     [preview]="true"
                   ></p-image>
@@ -185,7 +184,7 @@
 
                 <div class="">
                   <p-image
-                    [src]="userData.selfieWithDocument"
+                    [src]="userData.StudentCredential.selfieWithDocument"
                     alt="Image"
                     [preview]="true"
                   ></p-image>
@@ -196,7 +195,7 @@
         </div>
 
         <div
-          *ngIf="userData && userData.verificationStatus == 'pending'"
+          *ngIf="userData && userData.StudentCredential.verificationStatus == 'pending'"
           class="p-5 px-0 lg:pl-10"
         >
           <div class="">

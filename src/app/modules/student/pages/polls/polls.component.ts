@@ -33,7 +33,7 @@ export class PollsComponent implements OnInit {
 
   getPollStatus() {
     this.eventService.getPollStatus().subscribe((response: any) => {
-      if (response == this.user.courseId || response == '0') {
+      if (response == this.user.StudentCredential.courseId || response == '0') {
         this.getPolls();
       }
     });
@@ -63,8 +63,6 @@ export class PollsComponent implements OnInit {
           question: poll.PollQuestion.question,
           options: options,
         };
-
-        console.log(this.poll);
 
         this.votePollModal = true;
       }
@@ -138,7 +136,7 @@ export class PollsComponent implements OnInit {
   }
 
   getPolls() {
-    this.pollService.getPolls(this.user.Course.id).subscribe(
+    this.pollService.getPolls(this.user.StudentCredential.courseId).subscribe(
       async (response: any) => {
         let id = await this.user.id;
 
@@ -152,8 +150,6 @@ export class PollsComponent implements OnInit {
 
         this.isLoading = false;
         this.polls = response;
-
-        console.log(this.polls);
       },
       (error: any) => {
         this.isLoading = false;
