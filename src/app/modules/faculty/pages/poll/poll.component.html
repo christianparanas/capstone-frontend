@@ -42,7 +42,7 @@
             >
             <div class="mt-1 relative rounded-md">
               <select
-                formControlName="allowedCourse"
+                formControlName="course"
                 required
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
               >
@@ -50,6 +50,48 @@
                 <option *ngFor="let course of courses" [value]="course.id">
                   {{ course.title }}
                 </option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
+              >Allowed Section</label
+            >
+            <div class="mt-1 relative rounded-md">
+              <select
+                formControlName="section"
+                required
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
+              >
+                <option value="0" selected class="">All Sections</option>
+
+                <option value="A" selected class="">A</option>
+                <option value="B" selected class="">B</option>
+                <option value="C" selected class="">C</option>
+                <option value="D" selected class="">D</option>
+                <option value="E" selected class="">E</option>
+                <option value="F" selected class="">F</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
+              >Allowed Year Level</label
+            >
+            <div class="mt-1 relative rounded-md">
+              <select
+                formControlName="year"
+                required
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
+              >
+                <option value="0" selected class="">All year level</option>
+                <option value="1" selected class="">1st year</option>
+                <option value="2" selected class="">2nd year</option>
+                <option value="3" selected class="">3rd year</option>
+                <option value="4" selected class="">4th year</option>
+                <option value="5" selected class="">5th year</option>
               </select>
             </div>
           </div>
@@ -223,19 +265,30 @@
             {{ poll.description }}
           </p>
 
-          <div class="flex items-center mt-3">
-            <div
-              class="bg-slate-800 text-white w-fit py-1 px-2 font-semibold rounded-md text-[10px]"
-            >
-              <div class="" *ngIf="poll.allowed == '0'">All Courses</div>
-              <div class="" *ngIf="poll.allowed != '0'">{{ getCourse(poll.allowed) }}</div>
+          <div class="grid items-center mt-3">
+            <div class="text-[12px]">
+              <h2 class="font-bold">Restrictions:</h2>
+
+              <div class="p-1 grid divide-y w-fit">
+                <div class="py-1">
+                  Course:
+                  {{ poll.course == 0 ? "All Courses" : getCourse(poll.course) }}
+                </div>
+                <div class="py-1">
+                  Section: {{ poll.section == 0 ? "All section" : poll.section }}
+                </div>
+                <div class="py-1">
+                  Year level: {{ poll.year == 0 ? "All year levels" : poll.year }}
+                </div>
+              </div>
             </div>
-            <div *ngIf="poll.published" class="text-[12px] ml-2 text-slate-800">
+
+            <div *ngIf="poll.published" class="text-[10px] text-white font-semibold bg-slate-800 px-2 py-1 rounded-md w-fit">
               Poll ends: {{ dateFormat(poll.endsAt) }}
             </div>
             <div
               *ngIf="!poll.published"
-              class="text-[10px] ml-1 text-white font-semibold bg-red-500 px-2 py-1 rounded-md"
+              class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
             >
               Poll ended
             </div>

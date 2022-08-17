@@ -53,6 +53,8 @@ export class PollComponent implements OnInit {
       (response: any) => {
         this.polls = response;
 
+        console.log(response)
+
         this.isLoading = false;
       },
       (error: any) => {}
@@ -63,7 +65,6 @@ export class PollComponent implements OnInit {
     this.courseService.getCourses().subscribe(
       (response: any) => {
         this.courses = response;
-        console.log(response)
       },
       (error: any) => {
         console.log(error);

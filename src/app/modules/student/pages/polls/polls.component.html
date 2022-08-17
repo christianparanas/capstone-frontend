@@ -131,13 +131,13 @@
 
         <div class="mt-5">
           <div
-            *ngIf="poll.allowed == '0'"
+            *ngIf="poll.course == '0'"
             class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
             All courses
           </div>
           <div
-            *ngIf="poll.allowed != '0'"
+            *ngIf="poll.course != '0'"
             class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
             Bachelor of Science in Information Technology.

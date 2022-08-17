@@ -46,7 +46,9 @@ export class PollComponent implements OnInit {
     this.pollForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      allowedCourse: new FormControl('', Validators.required),
+      course: new FormControl('', Validators.required),
+      section: new FormControl('', Validators.required),
+      year: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
     });
 
@@ -135,7 +137,7 @@ export class PollComponent implements OnInit {
         this.submitLoading = false;
         this.createPollModal = false;
 
-        this.eventService.sendNewPollEvent(this.pollForm.value.allowedCourse);
+        this.eventService.sendNewPollEvent(this.pollForm.value.course);
 
         this.getPolls();
 
