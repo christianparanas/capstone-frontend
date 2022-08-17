@@ -182,12 +182,12 @@
               </div>
             </div>
 
-            <div class="mt-3 text-sm whitespace-pre">
+            <div class="mt-3 text-sm whitespace-pre-line h-fit">
               {{ tweet.message }}
             </div>
           </div>
 
-          <div class="mt-5 flex items-center">
+          <div class="mt-3 h-[26px] flex items-center">
             <div *ngIf="tweet.reactCount > 0" class="text-[12px]">
               {{ tweet.reactCount }}
               {{ tweet.reactCount > 1 ? "likes" : "like" }}
