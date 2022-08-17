@@ -24,48 +24,49 @@ export class HeaderComponent implements OnInit {
 
   routesArr: any = [
     {
-      title: "Dashboard",
-      route: "/",
-      icon: "fal fa-chart-line"
+      title: 'Dashboard',
+      route: '/',
+      icon: 'fal fa-chart-line',
     },
     {
-      title: "Election",
-      route: "election",
-      icon: "fal fa-box-ballot"
+      title: 'Election',
+      route: 'election',
+      icon: 'fal fa-box-ballot',
     },
     {
-      title: "Campaign",
-      route: "campaign",
-      icon: "fal fa-ad"
+      title: 'Campaign',
+      route: 'campaign',
+      icon: 'fal fa-ad',
     },
     {
-      title: "Tweets",
-      route: "tweets",
-      icon: "fal fa-retweet"
+      title: 'Tweets',
+      route: 'tweets',
+      icon: 'fal fa-retweet',
     },
     {
-      title: "Polls",
-      route: "polls",
-      icon: "fal fa-poll-people"
+      title: 'Polls',
+      route: 'polls',
+      icon: 'fal fa-poll-people',
     },
     {
-      title: "Vote Receipts",
-      route: "receipts",
-      icon: "fal fa-receipt"
-    },{
-      title: "Logs",
-      route: "logs",
-      icon: "fal fa-pallet"
+      title: 'Vote Receipts',
+      route: 'receipts',
+      icon: 'fal fa-receipt',
     },
     {
-      title: "About",
-      route: "about",
-      icon: "fal fa-info-circle"
-    }
-  ]
+      title: 'Logs',
+      route: 'logs',
+      icon: 'fal fa-pallet',
+    },
+    {
+      title: 'About',
+      route: 'about',
+      icon: 'fal fa-info-circle',
+    },
+  ];
 
   ngOnInit(): void {
-    this.getUser()
+    this.getUser();
     window.addEventListener('scroll', this.listenScrollEvent);
 
     const route = this.route.snapshot.children[0].routeConfig?.path;

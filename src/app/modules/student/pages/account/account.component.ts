@@ -41,14 +41,8 @@ export class AccountComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.profiledata.firstName == '') {
-      return this.toast.info('First name is required.', {
-        position: 'top-right',
-      });
-    }
-
-    if (this.profiledata.lastName == '') {
-      return this.toast.info('Last name is required.', {
+    if (this.profiledata.name == '') {
+      return this.toast.info('Name is required.', {
         position: 'top-right',
       });
     }
@@ -100,8 +94,8 @@ export class AccountComponent implements OnInit {
           CourseId: response.StudentCredential.courseId,
         };
 
-        if(response.image != null) {
-          this.previewImg = response.image
+        if (response.image != null) {
+          this.previewImg = response.image;
         }
       },
       (error: any) => {

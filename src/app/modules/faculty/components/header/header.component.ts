@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthFacultyService } from 'src/app/core/shared/services/auth-faculty.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,8 @@ export class HeaderComponent implements OnInit {
   isNavOpen: boolean = false;
   currentRoute: any;
   onScroll: boolean = false;
+  user: any;
+  defaultImg: any = '../../../../../assets/images/faculty.png';
 
   routesArr: any = [
     {
@@ -48,10 +51,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authFacultyService: AuthFacultyService
+    private authFacultyService: AuthFacultyService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    this.getUser();
     window.addEventListener('scroll', this.listenScrollEvent);
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
@@ -62,6 +67,17 @@ export class HeaderComponent implements OnInit {
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
 
     this.openCloseNavOverlay();
+  }
+
+  getUser() {
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.user = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   logout() {

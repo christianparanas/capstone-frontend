@@ -102,12 +102,16 @@
           class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
           routerLink="/faculty/account"
         >
-          <h1 class="font-semibold mr-2">Hi, Christian</h1>
-          <img
-            src="https://avatars.githubusercontent.com/u/59472122?v=4"
-            alt=""
-            class="w-[35px] h-[35px] object-cover rounded-full shadow-md"
-          />
+          <h1 *ngIf="user" class="font-semibold mr-2 capitalize">
+            Hi, {{ user.name }}
+          </h1>
+          <div class="w-fit h-fit rounded-full bg-red-700">
+            <img
+              [src]="user.image != null ? user.image : defaultImg"
+              alt=""
+              class="w-[30px] h-[30px] object-cover rounded-full shadow-md"
+            />
+          </div>
         </div>
 
         <button
