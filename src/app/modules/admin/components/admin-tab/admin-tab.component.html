@@ -177,7 +177,7 @@
           'name',
           'email',
           'createdAt',
-          'accountStatus'
+          'status'
         ]"
       >
         <ng-template pTemplate="caption">
@@ -208,7 +208,7 @@
             <th field="name">Name</th>
             <th field="email">Email</th>
             <th field="createdAt">Date created</th>
-            <th field="accountStatus">Account status</th>
+            <th field="status">Account status</th>
             <th>Action</th>
           </tr>
         </ng-template>
@@ -222,12 +222,12 @@
               <div
                 class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
                 [ngClass]="
-                  'active' == 'active'
+                  admin.status == 'active'
                     ? 'bg-green-200 text-green-900'
                     : 'bg-red-200 text-red-900'
                 "
               >
-                Active
+                {{ admin.status }}
               </div>
             </td>
             <td>

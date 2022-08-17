@@ -20,7 +20,7 @@
             styleClass="p-datatable-gridlines"
             [globalFilterFields]="[
               'id',
-              'Student.name',
+              'User.name',
               'rating',
               'message',
               'reviewStatus',
@@ -46,7 +46,7 @@
             <ng-template pTemplate="header">
               <tr class="text-sm">
                 <th field="id">ID</th>
-                <th field="Student.name">Author name</th>
+                <th field="User.name">Author name</th>
                 <th field="rating">Rating</th>
                 <th field="message">Message</th>
                 <th field="reviewStatus">Review status</th>
@@ -58,7 +58,7 @@
               <tr class="text-sm">
                 <td>{{ feedback.id }}</td>
                 <td>
-                  {{ feedback.Student.name }}
+                  {{ feedback.User.name }}
                 </td>
                 <td>{{ feedback.rating }}</td>
                 <td>
@@ -111,7 +111,7 @@
             styleClass="p-datatable-gridlines"
             [globalFilterFields]="[
               'id',
-              'Student.name',
+              'User.name',
               'rating',
               'message',
               'reviewStatus',
@@ -137,7 +137,7 @@
             <ng-template pTemplate="header">
               <tr class="text-sm">
                 <th field="id">ID</th>
-                <th field="Student.name">Author name</th>
+                <th field="User.name">Author name</th>
                 <th field="rating">Rating</th>
                 <th field="message">Message</th>
                 <th field="reviewStatus">Review status</th>
@@ -147,7 +147,7 @@
             <ng-template pTemplate="body" let-feedback>
               <tr class="text-sm">
                 <td>{{ feedback.id }}</td>
-                <td>{{ feedback.Student.name }}</td>
+                <td>{{ feedback.User.name }}</td>
                 <td>{{ feedback.rating }}</td>
                 <td>
                   {{ feedback.message }}

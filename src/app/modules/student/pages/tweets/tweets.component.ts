@@ -95,7 +95,7 @@ export class TweetsComponent implements OnInit {
     let bool;
 
     reactors.forEach((reactor: any) => {
-      if (reactor.StudentId == this.user.id) {
+      if (reactor.UserId == this.user.id) {
         bool = true;
         return;
       }

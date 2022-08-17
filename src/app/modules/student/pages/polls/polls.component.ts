@@ -33,7 +33,7 @@ export class PollsComponent implements OnInit {
 
   getPollStatus() {
     this.eventService.getPollStatus().subscribe((response: any) => {
-      if (response == this.user.StudentCredential.courseId || response == '0') {
+      if (response == this.user.StudentCredential.CourseId || response == '0') {
         this.getPolls();
       }
     });
@@ -58,7 +58,7 @@ export class PollsComponent implements OnInit {
         this.poll = {
           id: id,
           courseId: poll.allowed,
-          facultyId: poll.FacultyId,
+          userId: poll.UserId,
           voted: poll.voted,
           question: poll.PollQuestion.question,
           options: options,
@@ -109,7 +109,7 @@ export class PollsComponent implements OnInit {
         this.submitLoading = false;
         this.votePollModal = false;
         this.eventService.sendPollVoteEvent({
-          facultyId: this.poll.facultyId,
+          userId: this.poll.userId,
           courseId: this.poll.courseId,
         });
         this.getPolls();
@@ -142,7 +142,7 @@ export class PollsComponent implements OnInit {
 
         for (let i = 0; i < response.length; i++) {
           for (let j = 0; j < response[i].PollVotes.length; j++) {
-            if (response[i].PollVotes[j].StudentId == id) {
+            if (response[i].PollVotes[j].UserId == id) {
               response[i].voted = true;
             }
           }

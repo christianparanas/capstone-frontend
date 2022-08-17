@@ -107,10 +107,13 @@ export class LoginComponent implements OnInit {
           this.tempService.setSession(response);
           this.toast.success(response.message, { position: 'top-right' });
           this.loginForm.reset();
+
         },
         (error: any) => {
           this.submitLoading = false;
           let result: any;
+
+          console.log(error)
 
           if (error.status == 0) {
             result = 'Server is down!';

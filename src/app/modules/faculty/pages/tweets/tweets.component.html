@@ -31,7 +31,7 @@
             <div class="w-fit h-fit bg-slate-100 rounded-full">
               <img
                 [src]="
-                  com.Student.image == null ? defaultImg : com.Student.image
+                  com.User.image == null ? defaultImg : com.User.image
                 "
                 alt=""
                 class="w-[40px] h-[40px] rounded-full object-cover"
@@ -103,9 +103,9 @@
               <div class="bg-slate-100 w-fit h-fit rounded-full">
                 <img
                   [src]="
-                    tweet.Student.image == null
+                    tweet.User.image == null
                       ? defaultImg
-                      : tweet.Student.image
+                      : tweet.User.image
                   "
                   class="w-[40px] h-[40px] rounded-full object-cover"
                   alt=""
@@ -113,7 +113,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ tweet.Student.name }}
+                  {{ tweet.User.name }}
                 </div>
                 <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
               </div>

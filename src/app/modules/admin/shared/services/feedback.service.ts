@@ -11,7 +11,7 @@ export class FeedbackService {
   constructor(private http: HttpClient) {}
 
   getFeedbacks(): any {
-    return this.http.get(`${BASEURL}/api/feedback/`);
+    return this.http.get(`${BASEURL}/api/feedback`);
   }
 
   getPendingFeedbacks(): any {
