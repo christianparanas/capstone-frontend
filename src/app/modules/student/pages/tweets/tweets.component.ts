@@ -110,8 +110,6 @@ export class TweetsComponent implements OnInit {
         this.isLoading = false;
         this.tweets = response;
 
-        console.log(response)
-
         response.forEach((tweet: any) => {
           if (tweet.id == this.commentTweetId) {
             this.comments = tweet.TweetComments;
