@@ -22,6 +22,7 @@ import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
+import { AccountComponent } from './pages/account/account.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { PredictionComponent } from './pages/prediction/prediction.component';
     TweetComponent,
     SupportComponent,
     PredictionComponent,
+    AccountComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule],
 })

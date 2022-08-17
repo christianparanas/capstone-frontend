@@ -10,6 +10,7 @@ import { ElectionComponent } from './pages/election/election.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
+import { AccountComponent } from './pages/account/account.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'logs', component: LogsComponent },
     ],
   },
+    { path: 'faculty/account', component: AccountComponent },
 ];
 
 @NgModule({

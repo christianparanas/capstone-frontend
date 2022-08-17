@@ -15,6 +15,7 @@ import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
+import { AccountComponent } from './pages/account/account.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     ],
   },
   { path: 'admin/user', component: UserComponent },
+  { path: 'admin/account', component: AccountComponent },
 ];
 
 @NgModule({
