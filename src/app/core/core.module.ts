@@ -12,9 +12,10 @@ import { CoreRoutingModule } from './core-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { WebcamComponent } from './components/webcam/webcam.component';
+import { CountdownComponent } from './components/countdown/countdown.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, WebcamComponent],
+  declarations: [LoginComponent, SignupComponent, WebcamComponent, CountdownComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
@@ -23,6 +24,7 @@ import { WebcamComponent } from './components/webcam/webcam.component';
     PrimengModule,
     ReactiveFormsModule
   ],
+  exports: [CountdownComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

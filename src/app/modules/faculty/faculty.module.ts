@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PrimengModule } from '../primeng/primeng.module';
+import { CoreModule } from 'src/app/core/core.module';
 import { FacultyRoutingModule } from './faculty-routing.module';
 
 
@@ -30,6 +31,6 @@ import { AccountComponent } from './pages/account/account.component';
     CampaignComponent,
     AccountComponent,
   ],
-  imports: [CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
+  imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
 })
 export class FacultyModule {}

@@ -66,12 +66,12 @@
               >
                 <option value="0" selected class="">All Sections</option>
 
-                <option value="A" selected class="">A</option>
-                <option value="B" selected class="">B</option>
-                <option value="C" selected class="">C</option>
-                <option value="D" selected class="">D</option>
-                <option value="E" selected class="">E</option>
-                <option value="F" selected class="">F</option>
+                <option value="A" class="">A</option>
+                <option value="B" class="">B</option>
+                <option value="C" class="">C</option>
+                <option value="D" class="">D</option>
+                <option value="E" class="">E</option>
+                <option value="F" class="">F</option>
               </select>
             </div>
           </div>
@@ -86,12 +86,12 @@
                 required
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
               >
-                <option value="0" selected class="">All year level</option>
-                <option value="1" selected class="">1st year</option>
-                <option value="2" selected class="">2nd year</option>
-                <option value="3" selected class="">3rd year</option>
-                <option value="4" selected class="">4th year</option>
-                <option value="5" selected class="">5th year</option>
+                <option value="0" class="">All year level</option>
+                <option value="1" class="">1st year</option>
+                <option value="2" class="">2nd year</option>
+                <option value="3" class="">3rd year</option>
+                <option value="4" class="">4th year</option>
+                <option value="5" class="">5th year</option>
               </select>
             </div>
           </div>
@@ -272,26 +272,37 @@
               <div class="p-1 grid divide-y w-fit">
                 <div class="py-1">
                   Course:
-                  {{ poll.course == 0 ? "All Courses" : getCourse(poll.course) }}
+                  {{
+                    poll.course == 0 ? "All Courses" : getCourse(poll.course)
+                  }}
                 </div>
                 <div class="py-1">
-                  Section: {{ poll.section == 0 ? "All section" : poll.section }}
+                  Section:
+                  {{ poll.section == 0 ? "All section" : poll.section }}
                 </div>
                 <div class="py-1">
-                  Year level: {{ poll.year == 0 ? "All year levels" : poll.year }}
+                  Year level:
+                  {{ poll.year == 0 ? "All year levels" : poll.year }}
                 </div>
               </div>
             </div>
 
-            <div *ngIf="poll.published" class="text-[10px] text-white font-semibold bg-slate-800 px-2 py-1 rounded-md w-fit">
-              Poll ends: {{ dateFormat(poll.endsAt) }}
+            <div
+              *ngIf="poll.published"
+              class="text-[10px] text-white font-semibold bg-slate-800 px-3 py-2 rounded-md w-[190px]"
+            >
+              Poll ends:
+              <div class="text-sm">
+                <app-countdown [expires]="poll.endsAt" [style]="{ title: 'text-[12px]', span: 'text-[10px] text-slate-200' }"></app-countdown>
+              </div>
+
             </div>
             <div
-              *ngIf="!poll.published"
-              class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
-            >
-              Poll ended
-            </div>
+            *ngIf="!poll.published"
+            class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
+          >
+            Poll ended
+          </div>
           </div>
         </div>
 

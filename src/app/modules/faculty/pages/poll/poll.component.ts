@@ -22,8 +22,8 @@ export class PollComponent implements OnInit {
   submitLoading: boolean = false;
   pollForm: FormGroup;
   pollData: any;
-  user: any
-  isLoading: boolean = true
+  user: any;
+  isLoading: boolean = true;
 
   constructor(
     private courseService: CourseService,
@@ -52,36 +52,34 @@ export class PollComponent implements OnInit {
       endDate: new FormControl('', Validators.required),
     });
 
-    this.getUser()
+    this.getUser();
   }
 
-  getPollStatus() {
-    this.eventService.getPollStatus().subscribe((response: any) => {
-      console.log(response)
-
-      if (response == this.user.id) {
+  getPollEvent() {
+    this.eventService.getPollEvent().subscribe((response: any) => {
+      if (response.UserId == this.user.id) {
         this.getPolls();
       }
     });
   }
 
-  getCourse(courseId: any) {
-    let courseTitle = null
+  getCourse(CourseId: any) {
+    let courseTitle = null;
 
     this.courses.forEach((course: any) => {
-      if(course.id == courseId) {
-        courseTitle = course.acronym
+      if (course.id == CourseId) {
+        courseTitle = course.acronym;
       }
     });
 
-    return courseTitle
+    return courseTitle;
   }
 
   getUser() {
     this.profileService.getProfile().subscribe(
       async (response: any) => {
         this.user = await response;
-        this.getPollStatus()
+        this.getPollEvent();
       },
       (error: any) => {
         console.log(error);
@@ -94,7 +92,7 @@ export class PollComponent implements OnInit {
       (response: any) => {
         this.polls = response;
 
-        this.isLoading = false
+        this.isLoading = false;
       },
       (error: any) => {}
     );
@@ -137,7 +135,13 @@ export class PollComponent implements OnInit {
         this.submitLoading = false;
         this.createPollModal = false;
 
-        this.eventService.sendNewPollEvent(this.pollForm.value.course);
+        const data = {
+          course: this.pollForm.value.course,
+          section: this.pollForm.value.section,
+          year: this.pollForm.value.year,
+        };
+
+        this.eventService.sendNewPollEvent(data);
 
         this.getPolls();
 
@@ -145,6 +149,7 @@ export class PollComponent implements OnInit {
           question: '',
           options: [{ content: '' }, { content: '' }],
         };
+        this.nextPanel = false;
 
         this.pollForm.reset();
       },

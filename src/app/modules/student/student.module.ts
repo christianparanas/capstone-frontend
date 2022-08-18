@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { CoreModule } from 'src/app/core/core.module';
 import { StudentRoutingModule } from './student-routing.module';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -36,6 +37,7 @@ import { AccountComponent } from './pages/account/account.component';
     AccountComponent,
   ],
   imports: [
+    CoreModule,
     CommonModule,
     StudentRoutingModule,
     FormsModule,

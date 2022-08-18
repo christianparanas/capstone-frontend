@@ -12,7 +12,7 @@ export class EventService {
     return this.socket.fromEvent<any>('tweetEvent');
   }
 
-  getPollStatus(): Observable<any> {
-    return this.socket.fromEvent<any>('facultyPollStatus');
+  getPollEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('pollEvent');
   }
 }

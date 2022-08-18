@@ -28,12 +28,19 @@ export class PollsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.getPollStatus();
+    this.getPollEvent();
   }
 
-  getPollStatus() {
-    this.eventService.getPollStatus().subscribe((response: any) => {
-      if (response == this.user.StudentCredential.CourseId || response == '0') {
+  getPollEvent() {
+    this.eventService.getPollEvent().subscribe((response: any) => {
+      if (
+        (response.course == this.user.StudentCredential.CourseId ||
+          response.course == '0') &&
+        (response.section == this.user.StudentCredential.section ||
+          response.section == '0') &&
+        (response.year == this.user.StudentCredential.year ||
+          response.year == '0')
+      ) {
         this.getPolls();
       }
     });
@@ -57,8 +64,8 @@ export class PollsComponent implements OnInit {
 
         this.poll = {
           id: id,
-          courseId: poll.course,
-          userId: poll.UserId,
+          CourseId: poll.course,
+          UserId: poll.UserId,
           voted: poll.voted,
           question: poll.PollQuestion.question,
           options: options,
@@ -108,10 +115,12 @@ export class PollsComponent implements OnInit {
 
         this.submitLoading = false;
         this.votePollModal = false;
+
         this.eventService.sendPollVoteEvent({
-          userId: this.poll.userId,
-          courseId: this.poll.courseId,
+          UserId: this.poll.UserId,
+          course: this.poll.CourseId,
         });
+
         this.getPolls();
       },
       (error: any) => {
@@ -140,7 +149,7 @@ export class PollsComponent implements OnInit {
       section: this.user.StudentCredential.section,
       year: this.user.StudentCredential.year,
       CourseId: this.user.StudentCredential.CourseId,
-    }
+    };
 
     this.pollService.getPolls(data).subscribe(
       async (response: any) => {

@@ -27,7 +27,7 @@ export class PollComponent implements OnInit {
   ngOnInit(): void {
     this.getPolls();
     this.getCourses();
-    this.getPollStatus();
+    this.getPollEvent();
   }
 
   getCourse(courseId: any) {
@@ -42,8 +42,8 @@ export class PollComponent implements OnInit {
     return courseTitle
   }
 
-  getPollStatus() {
-    this.eventService.getPollStatus().subscribe((response: any) => {
+  getPollEvent() {
+    this.eventService.getPollEvent().subscribe((response: any) => {
       this.getPolls();
     });
   }

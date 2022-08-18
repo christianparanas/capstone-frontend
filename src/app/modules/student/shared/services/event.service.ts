@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 export class EventService {
   constructor(private socket: Socket) {}
 
-  sendPollVoteEvent(facultyId: any) {
-    this.socket.emit('pollVoteEvent', facultyId);
+  sendPollVoteEvent(data: any) {
+    this.socket.emit('pollVoteEvent', data);
   }
 
-  getPollStatus(): Observable<any> {
-    return this.socket.fromEvent<any>('pollStatus');
+  getPollEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('pollEvent');
   }
 
   sendTweetEvent() {

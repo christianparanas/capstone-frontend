@@ -134,17 +134,23 @@
             *ngIf="poll.course == '0'"
             class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
-            All courses
+            All Courses
           </div>
           <div
             *ngIf="poll.course != '0'"
             class="text-[12px] bg-gray-100 text-slate-800 w-fit py-1 px-2 font-semibold rounded-md shadow-sm"
           >
-            Bachelor of Science in Information Technology.
+            {{ user.StudentCredential.Course.title }}
           </div>
-          <div class="text-[10px] mt-2 ml-1 text-slate-800">
-            Ends by {{ dateFormat(poll.endsAt) }}
-          </div>
+          <div
+              class="mt-2 text-[10px] text-white font-semibold bg-slate-800 px-3 py-2 rounded-md w-[190px]"
+            >
+              Poll ends:
+              <div class="text-sm">
+                <app-countdown [expires]="poll.endsAt" [style]="{ title: 'text-[12px]', span: 'text-[10px] text-slate-200' }"></app-countdown>
+              </div>
+
+            </div>
         </div>
       </div>
     </div>
