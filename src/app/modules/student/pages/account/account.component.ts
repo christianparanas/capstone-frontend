@@ -91,7 +91,7 @@ export class AccountComponent implements OnInit {
           year: response.StudentCredential.year,
           image: response.image,
           email: response.email,
-          CourseId: response.StudentCredential.courseId,
+          CourseId: response.StudentCredential.CourseId,
         };
 
         if (response.image != null) {

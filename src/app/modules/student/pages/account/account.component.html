@@ -215,8 +215,10 @@
           class="w-fit mt-3 border rounded-lg p-3 grid gap-2 text-sm bg-gray-50"
         >
           <div class="">Student ID number: {{ profile.StudentCredential.studentId }}</div>
-          <div class="">Email: {{ profile.email }}</div>
           <div class="">Course: {{ profile.StudentCredential.Course.title }}</div>
+          <div class="capitalize">Section: {{ profile.StudentCredential.section }}</div>
+          <div class="">Year level: {{ profile.StudentCredential.year }}</div>
+          <div class="">Email: {{ profile.email }}</div>
         </div>
       </div>
 

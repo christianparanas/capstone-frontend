@@ -23,6 +23,6 @@ export class StudentService {
   }
 
   studentAccountApplication(data: any): any {
-    return this.http.post(`${BASEURL}/api/user/application`, data);
+    return this.http.post(`${BASEURL}/api/user/student/application`, data);
   }
 }
