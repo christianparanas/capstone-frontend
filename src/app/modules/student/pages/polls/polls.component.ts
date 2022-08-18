@@ -136,7 +136,7 @@ export class PollsComponent implements OnInit {
   }
 
   getPolls() {
-    this.pollService.getPolls(this.user.StudentCredential.courseId).subscribe(
+    this.pollService.getPolls(this.user.StudentCredential.CourseId).subscribe(
       async (response: any) => {
         let id = await this.user.id;
 
