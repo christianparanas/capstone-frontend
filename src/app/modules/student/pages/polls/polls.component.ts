@@ -136,7 +136,13 @@ export class PollsComponent implements OnInit {
   }
 
   getPolls() {
-    this.pollService.getPolls(this.user.StudentCredential.CourseId).subscribe(
+    const data = {
+      section: this.user.StudentCredential.section,
+      year: this.user.StudentCredential.year,
+      CourseId: this.user.StudentCredential.CourseId,
+    }
+
+    this.pollService.getPolls(data).subscribe(
       async (response: any) => {
         let id = await this.user.id;
 

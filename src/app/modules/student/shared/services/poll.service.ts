@@ -11,8 +11,8 @@ export class PollService {
 
   constructor(private http: HttpClient) {}
 
-  getPolls(courseId: any): any {
-    return this.http.get(`${BASEURL}/api/poll/student/${courseId}`);
+  getPolls(data: any): any {
+    return this.http.post(`${BASEURL}/api/poll/student`, data);
   }
 
   votePoll(data: any): any {
