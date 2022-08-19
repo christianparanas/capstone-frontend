@@ -14,9 +14,12 @@ export class ElectionComponent implements OnInit {
   submitLoading: boolean = false;
   createElectionModal: boolean = true;
   electionForm: FormGroup;
-  nextPanel: boolean = false
+  nextPanel: boolean = true
 
   courses: any;
+
+  hasCOCFiling: any = null
+  hasCampaign: any = null
 
   constructor(
     private courseService: CourseService,
@@ -36,7 +39,7 @@ export class ElectionComponent implements OnInit {
   }
 
   createElection() {
-    
+
   }
 
   onSubmit() {

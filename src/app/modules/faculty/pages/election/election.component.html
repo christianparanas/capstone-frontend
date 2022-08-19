@@ -24,9 +24,17 @@
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
     <div class="mt-3">
-      <form *ngIf="!nextPanel" class="" (ngSubmit)="onSubmit()" [formGroup]="electionForm" class="grid gap-3">
+      <form
+        *ngIf="!nextPanel"
+        class=""
+        (ngSubmit)="onSubmit()"
+        [formGroup]="electionForm"
+        class="grid gap-3"
+      >
         <div>
-          <label class="block text-[12px] font-medium text-gray-700">Title</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Title</label
+          >
           <div class="mt-1 relative rounded-md">
             <input
               type="text"
@@ -44,7 +52,7 @@
           >
           <div class="mt-1 relative rounded-md">
             <textarea
-            formControlName="description"
+              formControlName="description"
               rows="3"
               placeholder="Description"
               required
@@ -53,10 +61,11 @@
           </div>
         </div>
 
-        <fieldset class="border border-solid border-gray-200 p-3 rounded-md grid gap-3">
+        <fieldset
+          class="border border-solid border-gray-200 p-3 rounded-md grid gap-3"
+        >
           <legend class="text-[12px] px-1">Restrictions</legend>
 
-          
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
               >Course</label
@@ -89,11 +98,11 @@
                   required
                   class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
                 >
-                <option value="" selected disabled hidden class="">
-                  Select Section
-                </option>
+                  <option value="" selected disabled hidden class="">
+                    Select Section
+                  </option>
                   <option value="0" class="">All Sections</option>
-  
+
                   <option value="A" class="">A</option>
                   <option value="B" class="">B</option>
                   <option value="C" class="">C</option>
@@ -103,7 +112,7 @@
                 </select>
               </div>
             </div>
-  
+
             <div>
               <label class="block text-[12px] font-medium text-gray-700"
                 >Year Level</label
@@ -114,10 +123,10 @@
                   required
                   class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
                 >
-                <option value="" selected disabled hidden class="">
-                  Select Year level
-                </option>
-  
+                  <option value="" selected disabled hidden class="">
+                    Select Year level
+                  </option>
+
                   <option value="0" class="">All year levels</option>
                   <option value="1" class="">1st year</option>
                   <option value="2" class="">2nd year</option>
@@ -139,7 +148,249 @@
       </form>
 
       <div *ngIf="nextPanel" class="">
-        <div class="">dd</div>
+        <div class="">
+          <div class="grid gap-5">
+            <div class="">
+              <div class="text-[12px] flex">
+                <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
+                <div class="">
+                  Does this election will have a COC (Certificate of Candidacy)
+                  filing period?
+                </div>
+              </div>
+              <div class="">
+                <div
+                  *ngIf="hasCOCFiling == null"
+                  class="text-[12px] font-bold flex ml-4 mt-1"
+                >
+                  <div
+                    (click)="hasCOCFiling = 'No'"
+                    class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    No
+                  </div>
+                  <div
+                    (click)="hasCOCFiling = 'Yes'"
+                    class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Yes
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="hasCOCFiling == 'No'"
+                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
+                >
+                  <div class="mr-2 font-normal">You answered:</div>
+
+                  <div
+                    class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    No
+                  </div>
+                  <div
+                    (click)="hasCOCFiling = null"
+                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Undo
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="hasCOCFiling == 'Yes'"
+                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
+                >
+                  <div class="mr-2 font-normal">You answered:</div>
+
+                  <div
+                    class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Yes
+                  </div>
+                  <div
+                    (click)="hasCOCFiling = null"
+                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Undo
+                  </div>
+                </div>
+              </div>
+
+              <fieldset
+                *ngIf="hasCOCFiling == 'Yes'"
+                class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3"
+              >
+                <legend class="text-[12px] px-1">COC Filing Period</legend>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[12px] font-medium text-gray-700"
+                      >Start</label
+                    >
+                    <div class="mt-1 relative rounded-md">
+                      <input
+                        type="datetime-local"
+                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-[12px] font-medium text-gray-700"
+                      >End</label
+                    >
+                    <div class="mt-1 relative rounded-md">
+                      <input
+                        type="datetime-local"
+                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="">
+              <div class="text-[12px] flex">
+                <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
+                <div class="">
+                  Does this election will have a Campaign period?
+                </div>
+              </div>
+              <div class="">
+                <div
+                  *ngIf="hasCampaign == null"
+                  class="text-[12px] font-bold flex ml-4 mt-1"
+                >
+                  <div
+                    (click)="hasCampaign = 'No'"
+                    class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    No
+                  </div>
+                  <div
+                    (click)="hasCampaign = 'Yes'"
+                    class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Yes
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="hasCampaign == 'No'"
+                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
+                >
+                  <div class="mr-2 font-normal">You answered:</div>
+
+                  <div
+                    class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    No
+                  </div>
+                  <div
+                    (click)="hasCampaign = null"
+                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Undo
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="hasCampaign == 'Yes'"
+                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
+                >
+                  <div class="mr-2 font-normal">You answered:</div>
+
+                  <div
+                    class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Yes
+                  </div>
+                  <div
+                    (click)="hasCampaign = null"
+                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                  >
+                    Undo
+                  </div>
+                </div>
+              </div>
+
+              <fieldset
+                *ngIf="hasCampaign == 'Yes'"
+                class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3"
+              >
+                <legend class="text-[12px] px-1">Campaign Period</legend>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[12px] font-medium text-gray-700"
+                      >Start</label
+                    >
+                    <div class="mt-1 relative rounded-md">
+                      <input
+                        type="datetime-local"
+                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-[12px] font-medium text-gray-700"
+                      >End</label
+                    >
+                    <div class="mt-1 relative rounded-md">
+                      <input
+                        type="datetime-local"
+                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <fieldset
+              class="border border-solid border-gray-200 p-2 rounded-md grid gap-3"
+            >
+              <legend class="text-[12px] px-1">Election</legend>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[12px] font-medium text-gray-700"
+                    >Start</label
+                  >
+                  <div class="mt-1 relative rounded-md">
+                    <input
+                      type="datetime-local"
+                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                      placeholder="Title"
+                      required
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[12px] font-medium text-gray-700"
+                    >End</label
+                  >
+                  <div class="mt-1 relative rounded-md">
+                    <input
+                      type="datetime-local"
+                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                      placeholder="Title"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
 
         <div class="mt-5 grid grid-cols-[100px_1fr]">
           <button
@@ -153,10 +404,7 @@
             [disabled]="submitLoading"
             class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
           >
-            <div
-              class="flex items-center w-fit mx-autoo"
-              *ngIf="submitLoading"
-            >
+            <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
               <svg
                 class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
