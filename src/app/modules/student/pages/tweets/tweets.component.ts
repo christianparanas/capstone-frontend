@@ -33,7 +33,6 @@ export class TweetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.getTweets();
     this.getTweetEvent();
   }
 
@@ -86,6 +85,7 @@ export class TweetsComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
+        this.getTweets();
       },
       (error: any) => {}
     );
@@ -107,7 +107,6 @@ export class TweetsComponent implements OnInit {
   getTweets() {
     this.tweetService.getTweets().subscribe(
       (response: any) => {
-        this.isLoading = false;
         this.tweets = response;
 
         response.forEach((tweet: any) => {
@@ -115,6 +114,8 @@ export class TweetsComponent implements OnInit {
             this.comments = tweet.TweetComments;
           }
         });
+
+        this.isLoading = false;
       },
       (error: any) => {
         console.log(error);

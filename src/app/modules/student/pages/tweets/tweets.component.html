@@ -78,7 +78,7 @@
     <p class="text-slate-100 text-[12px]">Share your thoughts</p>
   </div>
 
-  <div class="mt-10 grid lg:grid-cols-[1fr_300px] rounded-t-3xl gap-10">
+  <div *ngIf="user" class="mt-10 grid lg:grid-cols-[1fr_300px] rounded-t-3xl gap-10">
     <div class="">
       <div class="grid grid-cols-[40px_1fr] gap-3 relative md:p-5">
         <div class="bg-slate-100 w-fit h-fit rounded-full">
@@ -93,7 +93,7 @@
           [(ngModel)]="tweet"
           rows="5"
           class="bg-slate-50 resize-none outline-none text-sm p-5 border border-gray-100 rounded-xl"
-          [placeholder]="'What\'s happening, ' + user.name + '?'"
+          placeholder="What's happening?"
         ></textarea>
         <button
           (click)="postTweet()"
@@ -138,7 +138,7 @@
       </div>
 
       <div
-        *ngIf="!isLoading && tweets.length == 0"
+        *ngIf="isLoading == false && tweets.length == 0"
         class="grid place-items-center mt-10"
       >
         <div class="">
@@ -154,7 +154,7 @@
       </div>
 
       <div
-        *ngIf="!isLoading && tweets.length != 0"
+        *ngIf="isLoading == false && tweets.length != 0"
         class="mt-20 pb-10 grid gap-2"
       >
         <div
