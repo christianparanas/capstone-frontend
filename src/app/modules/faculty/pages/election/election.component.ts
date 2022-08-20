@@ -14,12 +14,27 @@ export class ElectionComponent implements OnInit {
   submitLoading: boolean = false;
   createElectionModal: boolean = true;
   electionForm: FormGroup;
-  nextPanel: boolean = true
+  nextPanel: boolean = true;
 
+  currentDate: string
   courses: any;
 
-  hasCOCFiling: any = null
-  hasCampaign: any = null
+  electionData: any = {
+    coc: {
+      hasCOCFiling: null,
+      start: null,
+      end: null,
+    },
+    campaign: {
+      hasCampaign: null,
+      start: null,
+      end: null,
+    },
+    election: {
+      start: null,
+      end: null,
+    },
+  };
 
   constructor(
     private courseService: CourseService,
@@ -27,6 +42,7 @@ export class ElectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentDate = new Date().toISOString().slice(0, 16);
     this.getCourses();
 
     this.electionForm = new FormGroup({
@@ -39,7 +55,23 @@ export class ElectionComponent implements OnInit {
   }
 
   createElection() {
+    if(this.electionData.coc.hasCOCFiling == null || this.electionData.campaign.hasCampaign == null) {
+      return this.toast.info("Please answer the questions to proceed.", { position: "top-right" })
+    }
 
+    if(this.electionData.election.start == null) {
+      return this.toast.info("Please input election start date.", { position: "top-right" })
+    }
+    
+    if(this.electionData.election.end == null) {
+      return this.toast.info("Please input election end date.", { position: "top-right" })
+    }
+
+    const data: any = {
+      ...this.electionForm.value,
+      dates: { ...this.electionData },
+    };
+    console.log(data);
   }
 
   onSubmit() {
