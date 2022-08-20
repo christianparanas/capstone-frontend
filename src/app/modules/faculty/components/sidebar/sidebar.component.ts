@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       title: 'Election',
-      route: 'election',
+      route: 'elections',
       icon: 'fal fa-box-ballot',
     },
     {
@@ -26,14 +26,14 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-ad',
     },
     {
-      title: 'Tweets',
-      route: 'tweets',
-      icon: 'fal fa-retweet',
-    },
-    {
       title: 'Polls',
       route: 'poll',
       icon: 'fal fa-poll-people',
+    },
+    {
+      title: 'Tweets',
+      route: 'tweets',
+      icon: 'fal fa-retweet',
     },
     {
       title: 'Logs',

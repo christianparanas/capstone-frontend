@@ -17,6 +17,7 @@ import { LogsComponent } from './pages/logs/logs.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 import { AccountComponent } from './pages/account/account.component';
+import { ElectionsComponent } from './pages/elections/elections.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AccountComponent } from './pages/account/account.component';
     TweetsComponent,
     CampaignComponent,
     AccountComponent,
+    ElectionsComponent,
   ],
   imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
 })
