@@ -9,7 +9,9 @@
       <form class="" (ngSubmit)="onSubmit()" [formGroup]="pollForm">
         <div *ngIf="!nextPanel" class="grid gap-3">
           <div>
-            <label class="block text-[12px] font-medium text-gray-700">Title</label>
+            <label class="block text-[12px] font-medium text-gray-700"
+              >Title</label
+            >
             <div class="mt-1 relative rounded-md">
               <input
                 type="text"
@@ -36,7 +38,9 @@
             </div>
           </div>
 
-          <fieldset class="border border-solid border-gray-200 p-3 rounded-md grid gap-3">
+          <fieldset
+            class="border border-solid border-gray-200 p-3 rounded-md grid gap-3"
+          >
             <legend class="text-[12px] px-1">Restrictions</legend>
 
             <div>
@@ -49,9 +53,9 @@
                   required
                   class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
                 >
-                <option value="" selected disabled hidden class="">
-                  Select Course
-                </option>
+                  <option value="" selected disabled hidden class="">
+                    Select Course
+                  </option>
                   <option value="0" class="">All Courses</option>
                   <option *ngFor="let course of courses" [value]="course.id">
                     {{ course.title }}
@@ -71,11 +75,11 @@
                     required
                     class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
                   >
-                  <option value="" selected disabled hidden class="">
-                    Select Section
-                  </option>
+                    <option value="" selected disabled hidden class="">
+                      Select Section
+                    </option>
                     <option value="0" class="">All Sections</option>
-    
+
                     <option value="A" class="">A</option>
                     <option value="B" class="">B</option>
                     <option value="C" class="">C</option>
@@ -85,7 +89,7 @@
                   </select>
                 </div>
               </div>
-    
+
               <div>
                 <label class="block text-[12px] font-medium text-gray-700"
                   >Year Level</label
@@ -96,9 +100,9 @@
                     required
                     class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
                   >
-                  <option value="" selected disabled hidden class="">
-                    Select Year level
-                  </option>
+                    <option value="" selected disabled hidden class="">
+                      Select Year level
+                    </option>
                     <option value="0" class="">All year level</option>
                     <option value="1" class="">1st year</option>
                     <option value="2" class="">2nd year</option>
@@ -110,8 +114,6 @@
               </div>
             </div>
           </fieldset>
-
-
 
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
@@ -278,7 +280,9 @@
           <div class="flex justify-between items-center">
             <div class=""></div>
 
-            <div class="px-2 hover:bg-red-500 hover:text-white w-fit cursor-pointer transition-all rounded-full">
+            <div
+              class="px-2 hover:bg-red-500 hover:text-white w-fit cursor-pointer transition-all rounded-full"
+            >
               <i class="fal fa-ellipsis-h"></i>
             </div>
           </div>
@@ -292,24 +296,28 @@
 
           <div class="grid items-center mt-3">
             <div class="text-[12px]">
-              <h2 class="">Restrictions:</h2>
+              <fieldset
+                class="border border-solid border-gray-200 p-2 rounded-md"
+              >
+                <legend class="px-1">Restrictions</legend>
 
-              <div class="p-1 grid divide-y w-fit">
-                <div class="py-1">
-                  Course:
-                  {{
-                    poll.course == 0 ? "All Courses" : getCourse(poll.course)
-                  }}
+                <div class="">
+                  <div class="">
+                    Course:
+                    {{
+                      poll.course == 0 ? "All Courses" : getCourse(poll.course)
+                    }}
+                  </div>
+                  <div class="">
+                    Section:
+                    {{ poll.section == 0 ? "All section" : poll.section }}
+                  </div>
+                  <div class="">
+                    Year level:
+                    {{ poll.year == 0 ? "All year levels" : poll.year }}
+                  </div>
                 </div>
-                <div class="py-1">
-                  Section:
-                  {{ poll.section == 0 ? "All section" : poll.section }}
-                </div>
-                <div class="py-1">
-                  Year level:
-                  {{ poll.year == 0 ? "All year levels" : poll.year }}
-                </div>
-              </div>
+              </fieldset>
             </div>
             <div
               *ngIf="poll.published"

@@ -145,6 +145,18 @@ export class ElectionsComponent implements OnInit {
     );
   }
 
+  getCourse(CourseId: any) {
+    let courseTitle = null;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        courseTitle = course.acronym;
+      }
+    });
+
+    return courseTitle;
+  }
+
   getCourses() {
     this.courseService.getCourses().subscribe(
       (response: any) => {

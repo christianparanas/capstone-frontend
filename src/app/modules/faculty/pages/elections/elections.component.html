@@ -4,7 +4,29 @@
   <div class="mt-20">
     <div class="">
       <div class="flex justify-between items-center">
-        <div class=""></div>
+        <div class="inline-block relative w-fit">
+          <select
+            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+          >
+            <option>Pending</option>
+            <option>Active</option>
+            <option>Inactive</option>
+          </select>
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+          >
+            <svg
+              class="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />
+            </svg>
+          </div>
+        </div>
+
         <button
           (click)="createElectionModal = true"
           class="bg-red-500 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
@@ -14,15 +36,18 @@
         </button>
       </div>
 
-      <div class="">
-        <div *ngIf="isLoading" class="grid md:grid-cols-2 gap-3 mt-20">
+      <div class="mt-10">
+        <div
+          *ngIf="isLoading"
+          class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20"
+        >
           <p-skeleton
             width="100%"
             height="180px"
-            *ngFor="let arr of ['', '', '', '', '', '']"
+            *ngFor="let arr of ['', '', '', '', '', '', '', '', '', '', '', '']"
           ></p-skeleton>
         </div>
-    
+
         <div
           *ngIf="!isLoading && elections.length == 0"
           class="grid place-items-center"
@@ -39,12 +64,53 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-5">
-          <div class="grid divide-y p-4 shadow-md relative rounded-xl border-2 border-gray-100 h-fit" *ngFor="let election of elections">
-            <div class="">{{ election.title }}</div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div
+            [routerLink]="['/faculty/election']"
+            [queryParams]="{ id: election.id }"
+            *ngFor="let election of elections"
+            class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit cursor-pointer bg-white hover:bg-slate-50 transition-all"
+          >
+            <div class="mb-2">
+              <h1 class="font-semibold">{{ election.title }}</h1>
+              <p class="text-sm">{{ election.description }}</p>
+            </div>
+
+            <div class="mt-2">
+              <div class="text-[12px]">
+                <fieldset
+                  class="border border-solid border-gray-200 p-2 rounded-md"
+                >
+                  <legend class="px-1">Restrictions</legend>
+
+                  <div class="">
+                    <div class="">
+                      Course:
+                      {{
+                        election.course == 0
+                          ? "All Courses"
+                          : getCourse(election.course)
+                      }}
+                    </div>
+                    <div class="">
+                      Section:
+                      {{ election.section == 0 ? "All section" : election.section }}
+                    </div>
+                    <div class="">
+                      Year level:
+                      {{ election.year == 0 ? "All year levels" : election.year }}
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="flex items-center gap-2 text-[12px] mt-1">
+                <div *ngIf="election.hasCOCFiling" class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[12px]">COC</div>
+                <div *ngIf="election.hasCampaign" class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[12px]">Campaign</div>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
