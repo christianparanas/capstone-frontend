@@ -48,4 +48,8 @@ export class ElectionComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  dateFormat(date: any) {
+    return moment(date).format('llll');
+  }
 }
