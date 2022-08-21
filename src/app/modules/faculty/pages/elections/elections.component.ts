@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
 
@@ -42,7 +43,8 @@ export class ElectionsComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +115,10 @@ export class ElectionsComponent implements OnInit {
             end: null,
           },
         };
+
+        this.router.navigate([`/faculty/election`], {
+          queryParams: { id: response.electionId },
+        });
       },
       (error: any) => {
         console.log(error);
