@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
@@ -24,7 +25,8 @@ export class ElectionComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -41,5 +43,9 @@ export class ElectionComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

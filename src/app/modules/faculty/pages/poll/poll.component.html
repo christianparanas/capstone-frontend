@@ -237,7 +237,27 @@
 
   <div class="mt-20 pb-10">
     <div class="flex justify-between items-center">
-      <div class=""></div>
+      <div class="inline-block relative w-fit">
+        <select
+          class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+        >
+          <option>Active</option>
+          <option>Inactive</option>
+        </select>
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+        >
+          <svg
+            class="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </div>
+      </div>
       <button
         (click)="createPollModal = true"
         class="bg-red-500 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
@@ -274,7 +294,7 @@
     <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
-        class="grid divide-y p-4 shadow-md relative rounded-xl border-2 border-gray-100 h-fit"
+        class="grid divide-y p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit"
       >
         <div class="pb-2">
           <div class="flex justify-between items-center">
