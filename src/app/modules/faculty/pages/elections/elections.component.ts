@@ -169,6 +169,6 @@ export class ElectionsComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).calendar();
   }
 }

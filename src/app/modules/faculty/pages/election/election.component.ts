@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
@@ -20,19 +21,48 @@ export class ElectionComponent implements OnInit {
 
   currentDate: string;
   courses: any;
-
+  electionId: number;
+  election: any = [];
 
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
     private toast: HotToastService,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((value) => {
+      this.electionId = value.id;
+    });
 
+    this.getElection()
+    this.getCourses()
   }
 
+  getElection() {
+    this.electionService.getElection(this.electionId).subscribe(
+      (response: any) => {
+        console.log(response);
+
+        this.election = response;
+      },
+      (error: any) => {}
+    );
+  }
+
+  getCourse(CourseId: any) {
+    let courseTitle = null;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        courseTitle = course.title;
+      }
+    });
+
+    return courseTitle;
+  }
 
   getCourses() {
     this.courseService.getCourses().subscribe(
@@ -50,6 +80,6 @@ export class ElectionComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).calendar();
   }
 }
