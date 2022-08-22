@@ -67,6 +67,7 @@ export class TweetsComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
+      UserId: this.user.id 
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -130,7 +131,7 @@ export class TweetsComponent implements OnInit {
 
     this.reactLoading = true;
 
-    this.tweetService.reactTweet({ tweetId: tweetId }).subscribe(
+    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.user.id }).subscribe(
       (response: any) => {
         this.reactLoading = false;
         this.getTweets();
@@ -153,6 +154,7 @@ export class TweetsComponent implements OnInit {
 
     const data = {
       message: this.tweet,
+      UserId: this.user.id 
     };
 
     this.tweetService.postTweet(data).subscribe(

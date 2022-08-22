@@ -40,9 +40,19 @@
 
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
-                <h1 class="font-semibold">
-                  {{ com.User.name }}
-                </h1>
+                <div class="flex items-center">
+                  <div class="font-semibold mr-2">
+                    {{ com.User.name }}
+                  </div>
+                  <div class="text-[10px] flex items-center">
+                    <div
+                      *ngFor="let role of com.User.UserRoles"
+                      class="bg-green-200 text-green-800 font-semibold px-1 gap-1 py-[2px] rounded-md"
+                    >
+                      {{ role.Role.title }}
+                    </div>
+                  </div>
+                </div>
                 <p class="text-[11px] text-slate-700/80">
                   {{ dateFormat(com.createdAt) }}
                 </p>
@@ -175,8 +185,15 @@
                 />
               </div>
               <div class="">
-                <div class="font-semibold">
-                  {{ tweet.User.name }}
+                <div class="flex items-center">
+                  <div class="font-semibold mr-2">
+                    {{ tweet.User.name }}
+                  </div>
+                  <div class="text-[10px] flex items-center">
+                    <div *ngFor="let role of tweet.User.UserRoles" class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md">
+                      {{ role.Role.title }}
+                    </div>
+                  </div>
                 </div>
                 <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
               </div>
