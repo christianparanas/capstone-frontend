@@ -56,13 +56,6 @@ export class ElectionComponent implements OnInit {
       this.electionId = value.id;
     });
 
-    this.tabItems = [
-      { label: 'Candidates', icon: 'pi pi-fw pi-home' },
-      { label: 'Applications', icon: 'pi pi-fw pi-home' },
-    ];
-
-    this.activeItem = this.tabItems[0];
-
     this.getElection();
     this.getCourses();
     this.getStudents();
@@ -89,6 +82,7 @@ export class ElectionComponent implements OnInit {
       rejected_candidates: [],
       applications: [],
     };
+
     this.electionPositionId = data.id;
 
     this.candidatesModal = true;
@@ -132,12 +126,48 @@ export class ElectionComponent implements OnInit {
     );
   }
 
+  candidatesTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
+  }
+
   getElection() {
+    this.candidatesModalData = {
+      approved_candidates: [],
+      rejected_candidates: [],
+      applications: [],
+    };
+
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
         console.log(response);
         this.election = response;
+
         this.isLoading = false;
+
+        response.ElectionPositions.forEach((position: any) => {
+          if (this.electionPositionId == position.id) {
+            position.ElectionCandidates.forEach((candidate: any) => {
+              if (candidate.status == 'pending') {
+                this.candidatesModalData.applications.push(candidate);
+              } else if (candidate.status == 'approved') {
+                this.candidatesModalData.approved_candidates.push(candidate);
+              } else {
+                this.candidatesModalData.rejected_candidates.push(candidate);
+              }
+            });
+          }
+        });
+
+        if (this.election.hasCOCFiling == true) {
+          this.tabItems = [
+            { label: 'Candidates', icon: 'pi pi-fw pi-home' },
+            { label: 'Applications', icon: 'pi pi-fw pi-home' },
+          ];
+        } else {
+          this.tabItems = [{ label: 'Candidates', icon: 'pi pi-fw pi-home' }];
+        }
+
+        this.activeItem = this.tabItems[0];
       },
       (error: any) => {
         this.isLoading = false;
@@ -206,7 +236,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.addCandidate(data).subscribe(
       (response: any) => {
-        console.log(response);
+        this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
         this.addCandidateModal = false;
         this.getElection();

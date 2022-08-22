@@ -210,7 +210,7 @@
                   <img
                     src="../../../../../assets/images/empty-box.png"
                     alt=""
-                    class="w-[300px] object-cover"
+                    class="w-[200px] h-[200px] object-cover"
                   />
                   <h1 class="text-center mt-10 font-semibold text-slate-800">
                     No election position added yet.
@@ -411,8 +411,8 @@
                 </div>
               </div>
 
-              <div *ngIf="candidatesModalData.approved_candidates.length != 0" class="grid gap-3">
-                <div *ngFor="let candidate of candidatesModalData.approved_candidates" class="border border-gray-200 p-2 rounded-md hover:bg-slate-50 transition-all cursor-pointer">
+              <div *ngIf="candidatesModalData.approved_candidates.length != 0" class="grid gap-3 max-h-[300px]">
+                <div *ngFor="let candidate of candidatesModalData.approved_candidates; trackBy: candidatesTrack" class="border border-gray-200 p-2 rounded-md hover:bg-slate-50 transition-all cursor-pointer">
                   <div class="flex items-center">
                     <img [src]="candidate.User.image != null ? candidate.User.image : '../../../../../assets/images/student.png'" alt="" class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200">
                     <h1 class="ml-2">{{ candidate.User.name }}</h1>
@@ -422,7 +422,7 @@
             </div>
           </div>
 
-          <div *ngIf="activeItem.label == 'Applications'" class="">
+          <div *ngIf="activeItem.label == 'Applications' && election.hasCOCFiling == true" class="">
             <div class="mt-10">
               <div *ngIf="candidatesModalData.applications.length == 0" class="grid place-items-center">
                 <div class="">
