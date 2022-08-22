@@ -18,7 +18,19 @@ export class ElectionService {
     return this.http.get(`${BASEURL}/api/election/author`);
   }
 
+  getStudentAccounts(): any {
+    return this.http.get(`${BASEURL}/api/election/student`);
+  }
+
   addElection(data: any): any {
     return this.http.post(`${BASEURL}/api/election`, data);
+  }
+
+  addElectionPosition(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/position`, data);
+  }
+
+  addCandidate(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/candidate`, data);
   }
 }
