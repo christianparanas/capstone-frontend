@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'poll', component: PollComponent },
       { path: 'campaign', component: CampaignComponent },
       { path: 'prediction', component: PredictionComponent },
-      { path: 'tweet', component: TweetComponent },
+      { path: 'tweets', component: TweetComponent },
       { path: 'users', component: UsersComponent },
       { path: 'support', component: SupportComponent },
       { path: 'feedbacks', component: FeedbacksComponent },

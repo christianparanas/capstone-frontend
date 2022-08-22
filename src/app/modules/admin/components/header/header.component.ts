@@ -48,8 +48,8 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-poll-people',
     },
     {
-      title: 'Tweet',
-      route: 'tweet',
+      title: 'Tweets',
+      route: 'tweets',
       params: null,
       icon: 'fal fa-poll-people',
     },

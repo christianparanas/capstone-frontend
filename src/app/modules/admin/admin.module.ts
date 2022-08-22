@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PrimengModule } from '../primeng/primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CoreModule } from 'src/app/core/core.module';
 import { AdminRoutingModule } from './admin-routing.module';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -45,6 +46,6 @@ import { AccountComponent } from './pages/account/account.component';
     PredictionComponent,
     AccountComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule],
 })
 export class AdminModule {}

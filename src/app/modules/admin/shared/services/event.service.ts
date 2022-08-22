@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 export class EventService {
   constructor(private socket: Socket) {}
 
+  sendTweetEvent() {
+    this.socket.emit('tweetEvent');
+  }
+
   getTweetEvent(): Observable<any> {
     return this.socket.fromEvent<any>('tweetEvent');
   }

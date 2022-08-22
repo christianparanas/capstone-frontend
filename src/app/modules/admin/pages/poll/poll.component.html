@@ -23,10 +23,10 @@
         <img
           src="../../../../../assets/images/empty-box.png"
           alt=""
-          class="w-[300px] object-cover"
+          class="w-[250px] h-[250px] object-cover"
         />
         <h1 class="text-center mt-10 font-semibold text-slate-800">
-          No polls. Create one.
+          No polls.
         </h1>
       </div>
     </div>
@@ -34,53 +34,78 @@
     <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 lg:grid-cols-2">
       <div
         *ngFor="let poll of polls"
-        class="grid divide-y p-4 shadow-md relative rounded-xl border-2 border-gray-100 h-fit"
+        class="grid divide-y p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit"
       >
         <div class="pb-2">
-          <h1 class="text-2xl font-bold text-slate-800">{{ poll.title }}</h1>
-          <p
-            class="bg-slate-50 mt-2 py-1 px-2 rounded-md text-[12px] text-slate-800"
-          >
+          <div class="flex justify-between items-center">
+            <div class=""></div>
+
+            <div
+              class="px-2 hover:bg-red-500 hover:text-white w-fit cursor-pointer transition-all rounded-full"
+            >
+              <i class="fal fa-ellipsis-h"></i>
+            </div>
+          </div>
+
+          <h1 class="text-xl font-bold text-slate-800">{{ poll.title }}</h1>
+          <p class="text-sm text-slate-800">
             {{ poll.description }}
           </p>
 
           <div class="grid items-center mt-3">
             <div class="text-[12px]">
-              <h2 class="font-bold">Restrictions:</h2>
+              <fieldset
+                class="border border-solid border-gray-200 p-2 rounded-md"
+              >
+                <legend class="px-1">Restrictions</legend>
 
-              <div class="p-1 grid divide-y w-fit">
-                <div class="py-1 pb-2">
-                  Course:
-                  {{
-                    poll.course == 0 ? "All Courses" : getCourse(poll.course)
-                  }}
+                <div class="">
+                  <div class="">
+                    Course:
+                    {{
+                      poll.course == 0 ? "All Courses" : getCourse(poll.course)
+                    }}
+                  </div>
+                  <div class="">
+                    Section:
+                    {{ poll.section == 0 ? "All section" : poll.section }}
+                  </div>
+                  <div class="">
+                    Year level:
+                    {{ poll.year == 0 ? "All year levels" : poll.year }}
+                  </div>
                 </div>
-                <div class="py-1">
-                  Section:
-                  {{ poll.section == 0 ? "All section" : poll.section }}
+              </fieldset>
+            </div>
+
+            <div class="mt-2 lg:flex lg:justify-between">
+              <div class="">
+                <div
+                  *ngIf="poll.published"
+                  class="flex items-center text-[10px] text-white font-semibold bg-slate-700 px-2 py-1 rounded-md w-[200px] min-w-fit"
+                >
+                  <div class="mr-2">Poll ends:</div>
+                  <div class="text-sm">
+                    <app-countdown
+                      [expires]="poll.endsAt"
+                      [style]="{
+                        title: 'text-[10px]',
+                        span: 'text-[8px] text-slate-200'
+                      }"
+                    ></app-countdown>
+                  </div>
                 </div>
-                <div class="py-1">
-                  Year level:
-                  {{ poll.year == 0 ? "All year levels" : poll.year }}
+                <div
+                  *ngIf="!poll.published"
+                  class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
+                >
+                  Poll ended
                 </div>
               </div>
-            </div>
-
-            <div class="text-[12px] mb-1">
-              Poll posted by {{ poll.User.name }}
-            </div>
-
-            <div
-              *ngIf="poll.published"
-              class="text-[10px] text-white font-semibold bg-slate-800 px-2 py-1 rounded-md w-fit"
-            >
-              Poll ends: {{ dateFormat(poll.endsAt) }}
-            </div>
-            <div
-              *ngIf="!poll.published"
-              class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
-            >
-              Poll ended
+              <div class="text-[12px] text-slate-800 mt-2 lg:mt-0">
+                <div class="">Date posted: {{ dateFormat(poll.createdAt) }}</div>
+                <div class="">Posted by: {{ poll.User.name }}</div>
+              </div>
             </div>
           </div>
         </div>

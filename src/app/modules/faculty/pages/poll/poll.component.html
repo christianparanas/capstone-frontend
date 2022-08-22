@@ -339,7 +339,7 @@
               </fieldset>
             </div>
 
-            <div class="mt-2 flex justify-between">
+            <div class="mt-2 lg:flex lg:justify-between">
               <div class="">
                 <div
                   *ngIf="poll.published"
@@ -363,7 +363,7 @@
                   Poll ended
                 </div>
               </div>
-              <div class="text-[12px] text-slate-800">Posted: {{ dateFormat(poll.createdAt) }}</div>
+              <div class="text-[12px] text-slate-800 mt-2 lg:mt-0">Posted: {{ dateFormat(poll.createdAt) }}</div>
             </div>
           </div>
         </div>

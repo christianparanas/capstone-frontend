@@ -13,4 +13,16 @@ export class TweetService {
   getTweets(): any {
     return this.http.get(`${BASEURL}/api/tweet`);
   }
+
+  postTweet(data: any) {
+    return this.http.post(`${BASEURL}/api/tweet`, data);
+  }
+
+  reactTweet(data: any) {
+    return this.http.post(`${BASEURL}/api/tweet/react`, data);
+  }
+
+  postTweetComment(data: any) {
+    return this.http.post(`${BASEURL}/api/tweet/comment`, data);
+  }
 }
