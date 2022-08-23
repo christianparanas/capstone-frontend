@@ -10,6 +10,10 @@ const BASEURL = environment.baseURL;
 export class ElectionService {
   constructor(private http: HttpClient) {}
 
+  getElection(electionId: number): any {
+    return this.http.get(`${BASEURL}/api/election/author/${electionId}`);
+  }
+
   getElections(): any {
     return this.http.get(`${BASEURL}/api/election`);
   }

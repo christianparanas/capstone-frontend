@@ -16,6 +16,7 @@ import { TweetComponent } from './pages/tweet/tweet.component';
 import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
 import { AccountComponent } from './pages/account/account.component';
+import { ElectionsComponent } from './pages/elections/elections.component';
 
 const routes: Routes = [
   {
@@ -24,10 +25,10 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'election', component: ElectionComponent },
-      { path: 'poll', component: PollComponent },
-      { path: 'campaign', component: CampaignComponent },
-      { path: 'prediction', component: PredictionComponent },
+      { path: 'elections', component: ElectionsComponent },
+      { path: 'polls', component: PollComponent },
+      { path: 'campaigns', component: CampaignComponent },
+      { path: 'predictions', component: PredictionComponent },
       { path: 'tweets', component: TweetComponent },
       { path: 'users', component: UsersComponent },
       { path: 'support', component: SupportComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
       { path: 'logs', component: LogsComponent },
     ],
   },
+  { path: 'admin/election', component: ElectionComponent },
   { path: 'admin/user', component: UserComponent },
   { path: 'admin/account', component: AccountComponent },
 ];

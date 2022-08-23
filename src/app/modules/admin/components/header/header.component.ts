@@ -24,29 +24,30 @@ export class HeaderComponent implements OnInit {
       params: null,
     },
     {
-      title: 'Election',
-      route: 'administer',
+      title: 'Elections',
+      route: 'elections',
       params: null,
       icon: 'fal fa-box-ballot',
     },
-    {
-      title: 'Polls',
-      route: 'poll',
-      params: null,
-      icon: 'fal fa-ad',
-    },
-    {
-      title: 'Campaign',
-      route: 'campaign',
+        {
+      title: 'Campaigns',
+      route: 'campaigns',
       params: null,
       icon: 'fal fa-retweet',
     },
     {
-      title: 'Prediction',
-      route: 'prediction',
+      title: 'Predictions',
+      route: 'predictions',
       params: null,
       icon: 'fal fa-poll-people',
     },
+    {
+      title: 'Polls',
+      route: 'polls',
+      params: null,
+      icon: 'fal fa-ad',
+    },
+
     {
       title: 'Tweets',
       route: 'tweets',
