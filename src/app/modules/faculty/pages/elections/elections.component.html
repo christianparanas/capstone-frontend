@@ -75,8 +75,8 @@
                 <h1 class="font-semibold">{{ election.title }}</h1>
                 <div class="flex items-center">
                   <div
-                    *ngIf="election.status == 'pending'"
-                    class="text-[12px] bg-orange-200 text-orange-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    *ngIf="election.status == 'draft'"
+                    class="text-[12px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize"
                   >
                     {{ election.status }}
                   </div>

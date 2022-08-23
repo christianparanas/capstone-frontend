@@ -20,6 +20,7 @@ export class ElectionComponent implements OnInit {
   electionPositionModal: boolean = false;
   addCandidateModal: boolean = false;
   candidatesModal: boolean = false;
+  finishSetupPrompt: boolean = false;
   electionPositionForm: FormGroup;
 
   currentDate: string;
@@ -66,6 +67,30 @@ export class ElectionComponent implements OnInit {
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
+  }
+
+  finishSetup() {
+    if(this.election.ElectionPositions.length == 0) {
+      this.finishSetupPrompt = false
+      return this.toast.info("There's no added election position. Please provide, or else this election cannot be accepted", { position: "top-right", duration: 5000 })
+    }
+
+    this.electionService
+      .changeStatus({
+        ElectionId: this.election.id,
+        status: 'active',
+      })
+      .subscribe(
+        (response: any) => {
+          this.toast.success(response.message, { position: 'top-right' });
+
+          this.getElection();
+          this.finishSetupPrompt = false
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   changeTab(tab: any) {
@@ -142,21 +167,23 @@ export class ElectionComponent implements OnInit {
         console.log(response);
         this.election = response;
 
-        this.isLoading = false;
+        if (this.electionPositionId) {
+          response.ElectionPositions.forEach((position: any) => {
+            if (this.electionPositionId == position.id) {
+              position.ElectionCandidates.forEach((candidate: any) => {
+                if (candidate.status == 'pending') {
+                  this.candidatesModalData.applications.push(candidate);
+                } else if (candidate.status == 'approved') {
+                  this.candidatesModalData.approved_candidates.push(candidate);
+                } else {
+                  this.candidatesModalData.rejected_candidates.push(candidate);
+                }
+              });
+            }
+          });
+        }
 
-        response.ElectionPositions.forEach((position: any) => {
-          if (this.electionPositionId == position.id) {
-            position.ElectionCandidates.forEach((candidate: any) => {
-              if (candidate.status == 'pending') {
-                this.candidatesModalData.applications.push(candidate);
-              } else if (candidate.status == 'approved') {
-                this.candidatesModalData.approved_candidates.push(candidate);
-              } else {
-                this.candidatesModalData.rejected_candidates.push(candidate);
-              }
-            });
-          }
-        });
+        this.isLoading = false;
 
         if (this.election.hasCOCFiling == true) {
           this.tabItems = [

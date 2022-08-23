@@ -33,4 +33,8 @@ export class ElectionService {
   addCandidate(data: any): any {
     return this.http.post(`${BASEURL}/api/election/candidate`, data);
   }
+
+  changeStatus(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/status`, data);
+  }
 }

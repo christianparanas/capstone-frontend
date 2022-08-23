@@ -17,7 +17,7 @@ export class ElectionsComponent implements OnInit {
   createElectionModal: boolean = false;
   electionForm: FormGroup;
   nextPanel: boolean = false;
-  isLoading: boolean = true
+  isLoading: boolean = true;
 
   currentDate: string;
   courses: any;
@@ -39,6 +39,7 @@ export class ElectionsComponent implements OnInit {
       end: null,
     },
   };
+
 
   constructor(
     private courseService: CourseService,
@@ -97,7 +98,7 @@ export class ElectionsComponent implements OnInit {
         this.toast.success(response.message, { position: 'top-right' });
         this.createElectionModal = false;
         this.electionForm.reset();
-        this.nextPanel = false
+        this.nextPanel = false;
 
         this.electionData = {
           coc: {
@@ -143,7 +144,7 @@ export class ElectionsComponent implements OnInit {
       (response: any) => {
         this.elections = response;
         console.log(response);
-        this.isLoading = false
+        this.isLoading = false;
       },
       (error: any) => {
         console.log(error);
