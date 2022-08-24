@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-message',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
+  @Output() closeChatModal = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  closeChat() {
+    this.closeChatModal.emit();
   }
 
 }

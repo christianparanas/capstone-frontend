@@ -1,1 +1,32 @@
-<p>message works!</p>
+<div class="relative h-screen bg-white z-50 w-full">
+  <div class="flex justify-between items-center bg-white p-4 border-b border-gray-200 w-full">
+    <div class="grid grid-cols-[40px_40px_1fr] lg:grid-cols-[40px_1fr] gap-2 ">
+      <div (click)="closeChat()" class="lg:hidden hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center">
+        <i class="fal fa-arrow-left font-semibold"></i>
+      </div>
+      <div class="w-fit h-fit rounded-full border border-gray-200">
+        <img src="../../../../../assets/images/student.png" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+      </div>
+      <div class="">
+        <h1 class="font-semibold">Christian Paranas</h1>
+        <div class="text-[12px] text-slate-500">Active now</div>
+      </div>
+    </div>
+    <div class="">
+      <i class="fal fa-elipsis"></i>
+    </div>
+  </div>
+
+  <div class="bg-white w-full">
+    ss
+  </div>
+
+  <div class="p-4 bg-white fixed w-full lg:w-[calc(100%_-_330px)] bottom-0">
+    <div class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm">
+      <input type="text" placeholder="Aa" class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none">
+      <div class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center">
+        <i class="fal fa-arrow-right font-semibold"></i>
+      </div>
+    </div>
+  </div>
+</div>
