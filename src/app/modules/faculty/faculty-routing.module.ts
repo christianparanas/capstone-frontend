@@ -12,6 +12,7 @@ import { LogsComponent } from './pages/logs/logs.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 import { AccountComponent } from './pages/account/account.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     ],
   },
     { path: 'faculty/account', component: AccountComponent },
+    { path: 'faculty/messages', component: MessagesComponent },
     { path: 'faculty/election', component: ElectionComponent },
 ];
 

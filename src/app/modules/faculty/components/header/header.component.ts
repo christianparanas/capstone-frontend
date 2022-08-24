@@ -43,6 +43,11 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-retweet',
     },
     {
+      title: 'Messages',
+      route: 'messages',
+      icon: 'fal fa-comment-alt',
+    },
+    {
       title: 'Logs',
       route: 'logs',
       icon: 'fal fa-pallet',
