@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+
+import { LogService } from '../../shared/services/log.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-logs',
@@ -6,27 +10,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logs.component.scss'],
 })
 export class LogsComponent implements OnInit {
-  events: any[];
+  logs: any[];
+  userId: any;
 
-  constructor() {}
+  constructor(
+    private logService: LogService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
-    this.events = [
-      {
-        date: '10:30 AM - June 12, 1999',
-        description:
-          'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate voluptate ducimus dignissimos molestias, hic ratione dolor asperiores accusamus vel doloremque!',
+    this.getUser();
+  }
+
+  getLogs() {
+    this.logService.getLogs(this.userId).subscribe(
+      (response: any) => {
+        console.log(response);
+
+        this.logs = response;
       },
-      {
-        date: '10:30 AM - June 12, 1999',
-        description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, officia.',
-      },
-      {
-        date: '10:30 AM - June 12, 1999',
-        description:
-          'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis aliquam quia mollitia qui commodi numquam, perferendis omnis sit soluta alias! Fuga ipsa minus iste autem ab, fugit temporibus? Odit, ea.',
-      },
-    ];
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getUser() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.userId = response.id;
+
+      this.getLogs();
+    });
+  }
+
+  dateFormat(date: any) {
+    return moment(date).calendar();
   }
 }
