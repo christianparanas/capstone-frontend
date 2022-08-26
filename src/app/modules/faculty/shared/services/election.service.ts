@@ -19,7 +19,7 @@ export class ElectionService {
   }
 
   getStudentAccounts(): any {
-    return this.http.get(`${BASEURL}/api/election/student`);
+    return this.http.get(`${BASEURL}/api/election/studentaccounts`);
   }
 
   addElection(data: any): any {

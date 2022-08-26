@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
-import { MenuItem } from 'primeng/api';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
@@ -38,17 +37,15 @@ export class ElectionComponent implements OnInit {
 
     this.getElection();
     this.getCourses();
-
   }
 
   getElection() {
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
         this.election = response;
-
+        console.log(response);
 
         this.isLoading = false;
-
       },
       (error: any) => {
         this.isLoading = false;
@@ -67,7 +64,6 @@ export class ElectionComponent implements OnInit {
 
     return courseTitle;
   }
-
 
   getCourses() {
     this.courseService.getCourses().subscribe(
