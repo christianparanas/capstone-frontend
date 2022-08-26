@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-chart-line',
     },
     {
-      title: 'Election',
-      route: 'election',
+      title: 'Elections',
+      route: 'elections',
       icon: 'fal fa-box-ballot',
     },
     {

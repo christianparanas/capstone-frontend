@@ -70,9 +70,12 @@ export class ElectionComponent implements OnInit {
   }
 
   finishSetup() {
-    if(this.election.ElectionPositions.length == 0) {
-      this.finishSetupPrompt = false
-      return this.toast.info("There's no added election position. Please provide, or else this election cannot be accepted", { position: "top-right", duration: 5000 })
+    if (this.election.ElectionPositions.length == 0) {
+      this.finishSetupPrompt = false;
+      return this.toast.info(
+        "There's no added election position. Please provide, or else this election cannot be accepted",
+        { position: 'top-right', duration: 5000 }
+      );
     }
 
     this.electionService
@@ -85,7 +88,7 @@ export class ElectionComponent implements OnInit {
           this.toast.success(response.message, { position: 'top-right' });
 
           this.getElection();
-          this.finishSetupPrompt = false
+          this.finishSetupPrompt = false;
         },
         (error: any) => {
           console.log(error);

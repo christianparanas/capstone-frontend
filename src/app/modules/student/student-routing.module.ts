@@ -13,6 +13,7 @@ import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { AccountComponent } from './pages/account/account.component';
+import { ElectionsComponent } from './pages/elections/elections.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
     canActivate: [StudentGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'election', component: ElectionComponent },
+      { path: 'elections', component: ElectionsComponent },
       { path: 'campaign', component: CampaignComponent },
       { path: 'tweets', component: TweetsComponent },
       { path: 'polls', component: PollsComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
     ],
   },
+  { path: 'election', component: ElectionComponent },
   { path: 'account', component: AccountComponent },
 ];
 

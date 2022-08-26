@@ -11,6 +11,10 @@ export class ElectionService {
 
   constructor(private http: HttpClient) {}
 
+  getElection(electionId: number): any {
+    return this.http.get(`${BASEURL}/api/election/author/${electionId}`);
+  }
+
   getElections(data: any): any {
     return this.http.post(`${BASEURL}/api/election/student`, data);
   }

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ElectionService } from '../../shared/services/election.service';
-import { ProfileService } from '../../shared/services/profile.service';
-import { CourseService } from 'src/app/core/shared/services/course.service';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
+import { MenuItem } from 'primeng/api';
+
+import { CourseService } from 'src/app/core/shared/services/course.service';
+import { ElectionService } from '../../shared/services/election.service';
 
 @Component({
   selector: 'app-election',
@@ -11,49 +15,43 @@ import * as moment from 'moment';
   styleUrls: ['./election.component.scss'],
 })
 export class ElectionComponent implements OnInit {
-  elections: any = [];
-  user: any = [];
-  courses: any = []
+  isLoading: boolean = true;
+  submitLoading: boolean = false;
 
-  isLoading: boolean = true
+  currentDate: string;
+  courses: any;
+  electionId: number;
+  election: any = [];
 
   constructor(
+    private courseService: CourseService,
     private electionService: ElectionService,
-    private profileService: ProfileService,
-    private courseService: CourseService
+    private toast: HotToastService,
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getUser()
-    this.getCourses()
+    this.route.queryParams.subscribe((value) => {
+      this.electionId = value.id;
+    });
+
+    this.getElection();
+    this.getCourses();
+
   }
 
-  getElections() {
-    const data = {
-      section: this.user.StudentCredential.section,
-      year: this.user.StudentCredential.year,
-      CourseId: this.user.StudentCredential.CourseId,
-    };
-
-    this.electionService.getElections(data).subscribe(
+  getElection() {
+    this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
-        this.elections = response
-        this.isLoading = false
+        this.election = response;
+
+
+        this.isLoading = false;
+
       },
       (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getUser() {
-    this.profileService.getProfile().subscribe(
-      (response: any) => {
-        this.user = response;
-        this.getElections();
-      },
-      (error: any) => {
-        console.log(error);
+        this.isLoading = false;
       }
     );
   }
@@ -63,12 +61,13 @@ export class ElectionComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.acronym;
+        courseTitle = course.title;
       }
     });
 
     return courseTitle;
   }
+
 
   getCourses() {
     this.courseService.getCourses().subscribe(
@@ -79,6 +78,10 @@ export class ElectionComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   dateFormat(date: any) {
