@@ -136,12 +136,6 @@
 
               <div class="flex items-center gap-2 text-[10px] mt-2">
                 <div
-                  *ngIf="election.hasCOCFiling"
-                  class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
-                >
-                  COC
-                </div>
-                <div
                   *ngIf="election.hasCampaign"
                   class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
                 >
@@ -294,133 +288,9 @@
       <div *ngIf="nextPanel" class="">
         <div class="">
           <div class="grid gap-5">
-            <div class="">
-              <div class="text-[12px] flex">
-                <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
-                <div class="">
-                  Will this election have a COC (Certificate of Candidacy)
-                  filing period?
-                </div>
-              </div>
-              <div class="">
-                <div
-                  *ngIf="electionData.coc.hasCOCFiling == null"
-                  class="text-[12px] font-bold flex ml-4 mt-1"
-                >
-                  <div
-                    (click)="electionData.coc.hasCOCFiling = false"
-                    class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    No
-                  </div>
-                  <div
-                    (click)="electionData.coc.hasCOCFiling = true"
-                    class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Yes
-                  </div>
-                </div>
-
-                <div
-                  *ngIf="electionData.coc.hasCOCFiling == false"
-                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
-                >
-                  <div class="mr-2 font-normal">You answered:</div>
-
-                  <div
-                    class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    No
-                  </div>
-                  <div
-                    (click)="
-                      electionData.coc.hasCOCFiling = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Undo
-                  </div>
-                </div>
-
-                <div
-                  *ngIf="electionData.coc.hasCOCFiling == true"
-                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
-                >
-                  <div class="mr-2 font-normal">You answered:</div>
-
-                  <div
-                    class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Yes
-                  </div>
-                  <div
-                    (click)="
-                      electionData.coc.hasCOCFiling = null;
-                      electionData.coc.start = null;
-                      electionData.coc.end = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Undo
-                  </div>
-                </div>
-              </div>
-
-              <fieldset
-                *ngIf="electionData.coc.hasCOCFiling == true"
-                class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3"
-              >
-                <legend class="text-[12px] px-1">COC Filing Period</legend>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-[12px] font-medium text-gray-700"
-                      >Start</label
-                    >
-                    <div class="mt-1 relative rounded-md">
-                      <input
-                        type="datetime-local"
-                        [min]="currentDate"
-                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                        placeholder="Start"
-                        [(ngModel)]="electionData.coc.start"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label class="block text-[12px] font-medium text-gray-700"
-                      >End</label
-                    >
-                    <div class="mt-1 relative rounded-md">
-                      <input
-                        [disabled]="electionData.coc.start == null"
-                        [min]="electionData.coc.start"
-                        type="datetime-local"
-                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                        placeholder="End"
-                        [(ngModel)]="electionData.coc.end"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
 
             <div
               class=""
-              *ngIf="
-                electionData.coc.hasCOCFiling != null &&
-                (electionData.coc.hasCOCFiling == true
-                  ? electionData.coc.start != null &&
-                    electionData.coc.end != null
-                  : true)
-              "
             >
               <div class="text-[12px] flex">
                 <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
@@ -508,11 +378,7 @@
                     <div class="mt-1 relative rounded-md">
                       <input
                         type="datetime-local"
-                        [min]="
-                          electionData.coc.hasCOCFiling
-                            ? electionData.coc.end
-                            : currentDate
-                        "
+                        [min]="currentDate"
                         class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
                         placeholder="Start"
                         [(ngModel)]="electionData.campaign.start"
@@ -564,14 +430,7 @@
                       placeholder="Start"
                       [(ngModel)]="electionData.election.start"
                       [min]="
-                        electionData.coc.hasCOCFiling
-                          ? electionData.campaign.hasCampaign
-                            ? electionData.campaign.end
-                            : electionData.coc.end
-                          : electionData.campaign.hasCampaign
-                          ? electionData.campaign.end
-                          : currentDate
-                      "
+                        electionData.campaign ? electionData.campaign.end : currentDate"
                       required
                     />
                   </div>

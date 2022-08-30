@@ -84,21 +84,16 @@ export class LoginComponent implements OnInit {
     ) {
       this.submitLoading = true;
 
-      switch (this.loginAcctType) {
-        case 'student':
-          this.tempService = this.authStudentService;
-          break;
+      if (this.loginAcctType == 'student') {
+        this.tempService = this.authStudentService;
+      }
 
-        case 'faculty':
-          this.tempService = this.authFacultyService;
-          break;
+      if (this.loginAcctType == 'faculty') {
+        this.tempService = this.authFacultyService;
+      }
 
-        case 'admin':
-          this.tempService = this.authAdminService;
-          break;
-
-        default:
-          break;
+      if (this.loginAcctType == 'admin') {
+        this.tempService = this.authAdminService;
       }
 
       this.tempService.login(this.loginForm.value).subscribe(
@@ -107,13 +102,10 @@ export class LoginComponent implements OnInit {
           this.tempService.setSession(response);
           this.toast.success(response.message, { position: 'top-right' });
           this.loginForm.reset();
-
         },
         (error: any) => {
           this.submitLoading = false;
           let result: any;
-
-          console.log(error)
 
           if (error.status == 0) {
             result = 'Server is down!';

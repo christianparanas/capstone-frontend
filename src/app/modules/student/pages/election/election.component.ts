@@ -16,11 +16,13 @@ import { ElectionService } from '../../shared/services/election.service';
 export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
+  candidateModal: boolean = false
 
   currentDate: string;
   courses: any;
   electionId: number;
   election: any = [];
+  candidate: any = []
 
   constructor(
     private courseService: CourseService,
@@ -58,7 +60,7 @@ export class ElectionComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.title;
+        courseTitle = course.acronym;
       }
     });
 
@@ -74,6 +76,14 @@ export class ElectionComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  openCandidateModal(candidate: any) {
+    this.candidate = candidate
+
+    console.log(candidate)
+
+    this.candidateModal = true
   }
 
   goBack(): void {

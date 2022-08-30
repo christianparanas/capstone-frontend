@@ -38,11 +38,7 @@ export class ElectionComponent implements OnInit {
     platform: null,
     UserId: null,
   };
-  candidatesModalData: any = {
-    approved_candidates: [],
-    rejected_candidates: [],
-    applications: [],
-  };
+  candidates: any = [];
 
   constructor(
     private courseService: CourseService,
@@ -82,6 +78,13 @@ export class ElectionComponent implements OnInit {
       .changeStatus({
         ElectionId: this.election.id,
         status: 'active',
+        stage: this.election.hasCampaign
+          ? this.election.campaignperiod_startdate <= new Date()
+            ? 'campaign'
+            : 'initial'
+          : this.election.election_startdate <= new Date()
+          ? 'election'
+          : 'initial',
       })
       .subscribe(
         (response: any) => {
@@ -105,24 +108,13 @@ export class ElectionComponent implements OnInit {
   }
 
   positionModal(data: any) {
-    this.candidatesModalData = {
-      approved_candidates: [],
-      rejected_candidates: [],
-      applications: [],
-    };
-
+    this.candidates = [];
     this.electionPositionId = data.id;
 
     this.candidatesModal = true;
 
     data.ElectionCandidates.forEach((el: any) => {
-      if (el.status == 'pending') {
-        this.candidatesModalData.applications.push(el);
-      } else if (el.status == 'approved') {
-        this.candidatesModalData.approved_candidates.push(el);
-      } else {
-        this.candidatesModalData.rejected_candidates.push(el);
-      }
+      this.candidates.push(el);
     });
   }
 
@@ -159,11 +151,7 @@ export class ElectionComponent implements OnInit {
   }
 
   getElection() {
-    this.candidatesModalData = {
-      approved_candidates: [],
-      rejected_candidates: [],
-      applications: [],
-    };
+    this.candidates = [];
 
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
@@ -173,30 +161,15 @@ export class ElectionComponent implements OnInit {
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
             if (this.electionPositionId == position.id) {
-              position.ElectionCandidates.forEach((candidate: any) => {
-                if (candidate.status == 'pending') {
-                  this.candidatesModalData.applications.push(candidate);
-                } else if (candidate.status == 'approved') {
-                  this.candidatesModalData.approved_candidates.push(candidate);
-                } else {
-                  this.candidatesModalData.rejected_candidates.push(candidate);
-                }
+              position.ElectionCandidates.forEach((el: any) => {
+                this.candidates.push(el);
               });
             }
           });
         }
 
         this.isLoading = false;
-
-        if (this.election.hasCOCFiling == true) {
-          this.tabItems = [
-            { label: 'Candidates', icon: 'pi pi-fw pi-home' },
-            { label: 'Applications', icon: 'pi pi-fw pi-home' },
-          ];
-        } else {
-          this.tabItems = [{ label: 'Candidates', icon: 'pi pi-fw pi-home' }];
-        }
-
+        this.tabItems = [{ label: 'Candidates', icon: 'pi pi-fw pi-home' }];
         this.activeItem = this.tabItems[0];
       },
       (error: any) => {
@@ -262,6 +235,7 @@ export class ElectionComponent implements OnInit {
       status: 'approved',
       UserId: this.addCandidateData.UserId,
       ElectionPositionId: this.electionPositionId,
+      ElectionId: this.electionId,
     };
 
     this.electionService.addCandidate(data).subscribe(

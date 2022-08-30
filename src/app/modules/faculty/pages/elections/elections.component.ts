@@ -24,11 +24,6 @@ export class ElectionsComponent implements OnInit {
   elections: any;
 
   electionData: any = {
-    coc: {
-      hasCOCFiling: null,
-      start: null,
-      end: null,
-    },
     campaign: {
       hasCampaign: null,
       start: null,
@@ -64,7 +59,6 @@ export class ElectionsComponent implements OnInit {
 
   createElection() {
     if (
-      this.electionData.coc.hasCOCFiling == null ||
       this.electionData.campaign.hasCampaign == null
     ) {
       return this.toast.info('Please answer the questions to proceed.', {
@@ -86,7 +80,7 @@ export class ElectionsComponent implements OnInit {
 
     const data: any = {
       ...this.electionForm.value,
-      dates: { ...this.electionData },
+      core: { ...this.electionData },
     };
 
     this.submitLoading = true;
@@ -99,23 +93,6 @@ export class ElectionsComponent implements OnInit {
         this.createElectionModal = false;
         this.electionForm.reset();
         this.nextPanel = false;
-
-        this.electionData = {
-          coc: {
-            hasCOCFiling: null,
-            start: null,
-            end: null,
-          },
-          campaign: {
-            hasCampaign: null,
-            start: null,
-            end: null,
-          },
-          election: {
-            start: null,
-            end: null,
-          },
-        };
 
         this.router.navigate([`/faculty/election`], {
           queryParams: { id: response.electionId },

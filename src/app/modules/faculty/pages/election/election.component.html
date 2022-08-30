@@ -65,37 +65,6 @@
             </div>
 
             <div class="grid gap-3">
-              <div class="grid gap-2">
-                <div class="text-sm font-semibold h-fit">COC Filing Period</div>
-                <div
-                  *ngIf="!election.hasCOCFiling"
-                  class="bg-slate-100 px-3 py-2 rounded-md text-sm h-fit"
-                >
-                  None
-                </div>
-
-                <div
-                  *ngIf="election.hasCOCFiling"
-                  class="flex gap-2 items-center text-[12px]"
-                >
-                  <div class="">
-                    <div class="">Start</div>
-                    <div
-                      class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
-                    >
-                      {{ dateFormat(election.cocfiling_startdate) }}
-                    </div>
-                  </div>
-                  <div class="">
-                    <div class="">End</div>
-                    <div
-                      class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
-                    >
-                      {{ dateFormat(election.cocfiling_enddate) }}
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               <div class="grid gap-2">
                 <div class="text-sm font-semibold">Campaign Period</div>
@@ -148,6 +117,15 @@
                       {{ dateFormat(election.election_enddate) }}
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <div class="text-sm font-semibold mr-2">Phase:</div>
+                <div
+                  class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                >
+                  {{ election.stage }}
                 </div>
               </div>
 
@@ -440,7 +418,7 @@
 
             <div class="mt-10">
               <div
-                *ngIf="candidatesModalData.approved_candidates.length == 0"
+                *ngIf="candidates.length == 0"
                 class="grid place-items-center"
               >
                 <div class="">
@@ -458,12 +436,12 @@
               </div>
 
               <div
-                *ngIf="candidatesModalData.approved_candidates.length != 0"
+                *ngIf="candidates.length != 0"
                 class="grid gap-3 max-h-[300px]"
               >
                 <div
                   *ngFor="
-                    let candidate of candidatesModalData.approved_candidates;
+                    let candidate of candidates;
                     trackBy: candidatesTrack
                   "
                   class="border border-gray-200 p-2 rounded-md hover:bg-slate-50 transition-all cursor-pointer"
@@ -485,33 +463,6 @@
             </div>
           </div>
 
-          <div
-            *ngIf="
-              activeItem.label == 'Applications' &&
-              election.hasCOCFiling == true
-            "
-            class=""
-          >
-            <div class="mt-10">
-              <div
-                *ngIf="candidatesModalData.applications.length == 0"
-                class="grid place-items-center"
-              >
-                <div class="">
-                  <img
-                    src="../../../../../assets/images/empty-box.png"
-                    alt=""
-                    class="w-[180px] h-[180px] object-cover"
-                  />
-                  <h1
-                    class="text-center mt-5 text-sm font-semibold text-slate-800"
-                  >
-                    No applications.
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -531,14 +482,15 @@
           <label class="block text-[12px] font-medium text-gray-700"
             >Candidate's Image</label
           >
-          <div
-            class="w-full relative mx-auto mb-5 bg-slate-50 rounded-md h-[180px]"
+          <div class="">
+            <div
+            class="relative mx-auto mb-5 bg-slate-50 rounded-full w-[150px] h-[150px] border-2 border-gray-200"
           >
             <img
               *ngIf="addCandidatePreviewImg != null"
               [src]="addCandidatePreviewImg"
               alt=""
-              class="object-cover w-full h-full"
+              class="object-cover w-full h-full rounded-full"
             />
 
             <input
@@ -552,10 +504,11 @@
             />
             <div
               (click)="imageInput.click()"
-              class="absolute top-[45%] left-[45%] bg-gray-800/30 w-[35px] h-[35px] hover:bg-gray-900/50 transition-all rounded-full grid place-items-center text-white cursor-pointer"
+              class="absolute top-[60%] left-[60%] bg-gray-800/30 w-[35px] h-[35px] hover:bg-gray-900/50 transition-all rounded-full grid place-items-center text-white cursor-pointer"
             >
               <div class="fal fa-camera"></div>
             </div>
+          </div>
           </div>
         </div>
 
