@@ -14,7 +14,7 @@
   <p-timeline [value]="logs" align="left">
     <ng-template pTemplate="content" let-log>
       <div class="mb-5">
-        <div class="text-[12px]">{{ dateFormat(log.date) }}</div>
+        <div class="text-[12px]">{{ dateFormat(log.createdAt) }}</div>
         <div class="">{{ log.description }}</div>
       </div>
     </ng-template>
