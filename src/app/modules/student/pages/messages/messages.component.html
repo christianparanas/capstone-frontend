@@ -1,0 +1,56 @@
+
+<div class="">
+
+  <div class="grid lg:grid-cols-[330px_1fr] divide-x-2">
+
+    <div class="p-3 h-screen min-h-fit">
+      <div class="p-2 grid gap-3 border-b border-slate-100">
+        <div class="flex justify-between items-center">
+          <div class="w-fit h-fit rounded-full border border-gray-200">
+            <img src="../../../../../assets/images/student.png" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+          </div>
+          <div class="font-semibold text-slate-800">Chats</div>
+          <div class="">
+            <div class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center">
+              <i class="fad fa-edit"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative text-sm">
+          <input type="text" placeholder="Search" class="w-full bg-slate-100 py-2 px-3 pl-9 rounded-full outline-none">
+          <i class="fal fa-search absolute top-[11px] left-3"></i>
+        </div>
+      </div>
+
+      <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
+
+        <div (click)="isChatOpen = true" *ngFor="let chat of ['', '', '', '', '', '']" class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer">
+          <div class="w-fit h-fit rounded-full border border-gray-200">
+            <img src="../../../../../assets/images/student.png" alt="" class="w-[45px] h-[45px] rounded-full object-cover">
+          </div>
+
+          <div class="">
+            <h1 class="font-semibold">Christian Paranas</h1>
+            <div class="text-[12px] text-slate-500">What's your name?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="w-full">
+      <div *ngIf="!isChatOpen" class="hidden lg:block">
+        <div class="grid place-items-center pt-[200px]">
+          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[200px] h-[200px] object-cover">
+        </div>
+      </div>
+
+      <div *ngIf="isChatOpen" class="fixed top-0 lg:relative w-full">
+        <app-message (closeChatModal)="isChatOpen = false"></app-message>
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -21,6 +21,8 @@ import { LogsComponent } from './pages/logs/logs.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ElectionsComponent } from './pages/elections/elections.component';
     LogsComponent,
     AccountComponent,
     ElectionsComponent,
+    MessagesComponent,
+    MessageComponent,
   ],
   imports: [
     CoreModule,

@@ -25,6 +25,8 @@ import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
+import { MessageComponent } from './components/message/message.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ElectionsComponent } from './pages/elections/elections.component';
     PredictionComponent,
     AccountComponent,
     ElectionsComponent,
+    MessageComponent,
+    MessagesComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule],
 })

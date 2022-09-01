@@ -17,6 +17,7 @@ import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'admin/election', component: ElectionComponent },
   { path: 'admin/user', component: UserComponent },
   { path: 'admin/account', component: AccountComponent },
+  { path: 'admin/messages', component: MessagesComponent },
 ];
 
 @NgModule({
