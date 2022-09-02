@@ -28,11 +28,9 @@
             *ngFor="let com of comments; trackBy: commentTrack"
             class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
           >
-            <div class="w-fit h-fit bg-slate-100 rounded-full">
+            <div class="w-fit h-fit bg-slate-100 rounded-full cursor-pointer" (click)="navigateToUser(com.User.id)">
               <img
-                [src]="
-                  com.User.image == null ? defaultImg : com.User.image
-                "
+                [src]="com.User.image == null ? defaultImg : com.User.image"
                 alt=""
                 class="w-[40px] h-[40px] rounded-full object-cover"
               />
@@ -40,7 +38,7 @@
 
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
-                <div class="flex items-center">
+                <div class="flex items-center cursor-pointer" (click)="navigateToUser(com.User.id)">
                   <div class="font-semibold mr-2">
                     {{ com.User.name }}
                   </div>
@@ -88,7 +86,10 @@
     <p class="text-slate-100 text-[12px]">Share your thoughts</p>
   </div>
 
-  <div *ngIf="user" class="mt-10 grid lg:grid-cols-[1fr_300px] rounded-t-3xl gap-10">
+  <div
+    *ngIf="user"
+    class="mt-10 grid lg:grid-cols-[1fr_300px] rounded-t-3xl gap-10"
+  >
     <div class="">
       <div class="grid grid-cols-[40px_1fr] gap-3 relative md:p-5">
         <div class="bg-slate-100 w-fit h-fit rounded-full">
@@ -173,24 +174,31 @@
         >
           <div class="">
             <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-              <div class="bg-slate-100 w-fit h-fit rounded-full">
+              <div
+                (click)="navigateToUser(tweet.User.id)"
+                class="bg-slate-100 w-fit h-fit rounded-full cursor-pointer"
+              >
                 <img
                   [src]="
-                    tweet.User.image == null
-                      ? defaultImg
-                      : tweet.User.image
+                    tweet.User.image == null ? defaultImg : tweet.User.image
                   "
                   class="w-[40px] h-[40px] rounded-full object-cover"
                   alt=""
                 />
               </div>
               <div class="">
-                <div class="flex items-center">
+                <div
+                  class="flex items-center cursor-pointer"
+                  (click)="navigateToUser(tweet.User.id)"
+                >
                   <div class="font-semibold mr-2">
                     {{ tweet.User.name }}
                   </div>
                   <div class="text-[10px] flex items-center">
-                    <div *ngFor="let role of tweet.User.UserRoles" class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md">
+                    <div
+                      *ngFor="let role of tweet.User.UserRoles"
+                      class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md"
+                    >
                       {{ role.Role.title }}
                     </div>
                   </div>

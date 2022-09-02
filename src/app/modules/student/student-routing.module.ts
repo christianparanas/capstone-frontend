@@ -15,6 +15,7 @@ import { LogsComponent } from './pages/logs/logs.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { UserComponent } from './pages/user/user.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'election', component: ElectionComponent },
   { path: 'account', component: AccountComponent },
   { path: 'messages', component: MessagesComponent },
+  { path: 'user', component: UserComponent },
 ];
 
 @NgModule({

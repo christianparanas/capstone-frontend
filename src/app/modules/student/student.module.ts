@@ -23,6 +23,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { MessageComponent } from './components/message/message.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MessageComponent } from './components/message/message.component';
     ElectionsComponent,
     MessagesComponent,
     MessageComponent,
+    UserComponent,
   ],
   imports: [
     CoreModule,

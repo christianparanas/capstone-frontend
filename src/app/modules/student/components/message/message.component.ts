@@ -16,7 +16,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 export class MessageComponent implements OnInit {
   @Output() closeChatModal = new EventEmitter();
 
-  messageId: any = null;
+  chatId: any = null;
   message: string = '';
   user = {
     userId: 1,
