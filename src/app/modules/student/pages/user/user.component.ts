@@ -6,6 +6,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 
 import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
+import { ChatService } from '../../shared/services/chat.service';
 
 @Component({
   selector: 'app-user',
@@ -15,8 +16,9 @@ import { UserService } from '../../shared/services/user.service';
 export class UserComponent implements OnInit {
   defaultImg: any = '../../../../../assets/images/student.png';
   user: any = [];
+  profile: any = [];
   userId: any;
-  chatModal: boolean = true;
+  chatModal: boolean = false;
 
   chatId: any = null;
   message: string = '';
@@ -25,40 +27,57 @@ export class UserComponent implements OnInit {
     name: 'chan',
   };
 
-  chat: any = [
-    {
-      userId: 2,
-      name: 'thea',
-      message: 'Hain na an at mga saad?',
-    },
-    {
-      userId: 1,
-      name: 'chan',
-      message: 'fffff',
-    },
-    {
-      userId: 2,
-      name: 'thea',
-      message: 'Hello',
-    },
-  ];
+  chat: any = [];
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
   constructor(
     private location: Location,
     private userService: UserService,
+    private profileService: ProfileService,
     private route: ActivatedRoute,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
       this.userId = value.id;
-
       this.getUser(value.id);
     });
+
+    this.getProfile();
+  }
+
+  openChat() {
+    const data = {
+      userOneId: this.user.id,
+      userTwoId: this.profile.id,
+    };
+
+    this.chatService.getChat(data).subscribe(
+      (response: any) => {
+        console.log(response.ChatMessages);
+        this.chat = response.ChatMessages;
+
+        if (response) {
+          this.chatId = response.id;
+        }
+      },
+      (error: any) => {}
+    );
+
+    this.chatModal = true;
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.profile = response;
+      },
+      (error: any) => {}
+    );
   }
 
   getUser(id: any) {
@@ -91,10 +110,22 @@ export class UserComponent implements OnInit {
     }
 
     this.chat.push({
-      userId: 1,
-      name: 'chan',
+      UserId: this.profile.id,
       message: this.message,
+      createdAt: new Date(),
     });
+
+    this.chatService
+      .sendMessage({
+        chatId: this.chatId,
+        receiverId: this.user.id,
+        senderId: this.profile.id,
+        message: this.message,
+      })
+      .subscribe(
+        (response: any) => {},
+        (error: any) => {}
+      );
 
     this.scrollToBottom();
     this.message = '';

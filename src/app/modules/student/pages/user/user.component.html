@@ -36,8 +36,8 @@
           </div>
         </div>
 
-        <div (click)="chatModal = true" class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer">
-          <i class="fal fa-comment mr-2"></i>
+        <div (click)="openChat()" class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer">
+          <i class="fal fa-comment md:mr-2"></i>
           <div class="hidden md:block">Message</div>
         </div>
       </div>
@@ -112,14 +112,14 @@
             *ngFor="let message of chat; trackBy: chatTrack"
             class="gap-2"
             [ngClass]="
-              message.userId == currentuser.userId
+              message.UserId == profile.id
                 ? 'grid mb-1'
                 : 'grid mb-1'
             "
           >
             <p
-              class=" text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
-              [ngClass]=" message.userId == currentuser.userId ? 'col-start-2 justify-self-end bg-red-500 text-white' : 'bg-gray-100' "
+              class=" text-sm w-fit py-1 px-3 rounded-full h-fit break-all "
+              [ngClass]=" message.UserId == profile.id ? 'col-start-2 justify-self-end bg-red-500 text-white' : 'bg-gray-100' "
             >
               {{ message.message }}
             </p>

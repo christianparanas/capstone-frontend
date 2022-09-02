@@ -11,12 +11,12 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  getFeedbacks(): any {
-    return this.http.get(`${BASEURL}/api/feedback`);
+  getChat(data: any): any {
+    return this.http.post(`${BASEURL}/api/chat/direct`, data);
   }
 
-  getApprovedFeedbacks(): any {
-    return this.http.get(`${BASEURL}/api/feedback/approved`);
+  sendMessage(data: any): any {
+    return this.http.post(`${BASEURL}/api/chat`, data);
   }
 
   addFeedback(data: any): any {
