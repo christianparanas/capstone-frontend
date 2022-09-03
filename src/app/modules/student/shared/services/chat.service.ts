@@ -19,7 +19,7 @@ export class ChatService {
     return this.http.post(`${BASEURL}/api/chat`, data);
   }
 
-  addFeedback(data: any): any {
-    return this.http.post(`${BASEURL}/api/feedback`, data);
+  getChats(userId: any): any {
+    return this.http.get(`${BASEURL}/api/chat/${userId}`);
   }
 }

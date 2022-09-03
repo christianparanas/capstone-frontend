@@ -25,14 +25,14 @@
 
       <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
 
-        <div (click)="isChatOpen = true" *ngFor="let chat of ['', '', '', '', '', '']" class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer">
+        <div (click)="isChatOpen = true" *ngFor="let chat of chats" class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer">
           <div class="w-fit h-fit rounded-full border border-gray-200">
             <img src="../../../../../assets/images/student.png" alt="" class="w-[45px] h-[45px] rounded-full object-cover">
           </div>
 
           <div class="">
-            <h1 class="font-semibold">Christian Paranas</h1>
-            <div class="text-[12px] text-slate-500">What's your name?</div>
+            <h1 class="font-semibold">{{ chat.Chat.ChatParticipants[0].User.name }}</h1>
+            <div class="text-[12px] text-slate-500">{{ chat.Chat.ChatMessages[chat.Chat.ChatMessages.length - 1].UserId == profile.id ? "You:" : "" }} {{ chat.Chat.ChatMessages[chat.Chat.ChatMessages.length - 1].message }}</div>
           </div>
         </div>
       </div>

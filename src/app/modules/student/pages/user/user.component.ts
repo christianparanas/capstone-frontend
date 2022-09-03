@@ -58,12 +58,19 @@ export class UserComponent implements OnInit {
 
     this.chatService.getChat(data).subscribe(
       (response: any) => {
-        console.log(response.ChatMessages);
-        this.chat = response.ChatMessages;
+        console.log(response);
 
-        if (response) {
-          this.chatId = response.id;
-        }
+        response.forEach((res: any) => {
+          if(res.Chat.ChatParticipants[0].UserId == this.user.id) {
+            this.chat = res.Chat.ChatMessages;
+            this.chatId = res.Chat.id;
+          }
+        });
+
+        console.log(this.chat)
+
+
+
       },
       (error: any) => {}
     );

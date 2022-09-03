@@ -39,6 +39,11 @@ export class SidebarComponent implements OnInit {
       title: "Vote Receipts",
       route: "receipts",
       icon: "fal fa-receipt"
+    },
+    {
+      title: "Messages",
+      route: "messages",
+      icon: "fal fa-comment-alt"
     },{
       title: "Logs",
       route: "logs",
