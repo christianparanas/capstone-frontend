@@ -1,1 +1,153 @@
-<p>user works!</p>
+
+
+<div class="">
+  <div *ngIf="user" class="p-5 max-w-[1200px] mx-auto">
+    <div
+      class="flex w-[40px] h-[40px] rounded-full items-center justify-center bg-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
+      (click)="goBack()"
+    >
+      <i class="fal fa-arrow-left"></i>
+    </div>
+
+    <div class="relative">
+      <img
+        src="../../../../../assets/images/background.jpg"
+        alt=""
+        class="h-[200px] lg:h-[300px] object-cover w-full rounded-2xl"
+      />
+
+      <div
+        class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
+      >
+        <div class="md:flex relative w-fit mx-auto md:mx-0">
+          <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4">
+            <img
+              [src]="user.image == null ? defaultImg : user.image"
+              alt=""
+              class="w-[200px] h-[200px] rounded-full object-cover"
+            />
+          </div>
+
+          <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
+            <h1 class="font-semibold text-2xl">
+              {{ user.name }}
+            </h1>
+            <p>Student</p>
+          </div>
+        </div>
+
+        <div (click)="openChat()" class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer">
+          <i class="fal fa-comment md:mr-2"></i>
+          <div class="hidden md:block">Message</div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="text-slate-800">
+        <div class="mt-20 pb-10 grid gap-2">
+          <div
+            *ngFor="let tweet of user.Tweets"
+            class="p-5 rounded-xl border border-gray-100"
+          >
+            <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
+              <div class="bg-slate-100 w-fit h-fit rounded-full">
+                <img
+                  src="../../../../../assets/images/student.png"
+                  class="w-[40px] h-[40px] rounded-full"
+                  alt=""
+                />
+              </div>
+              <div class="">
+                <div class="font-semibold">
+                  {{ user.name }}
+                </div>
+                <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+              </div>
+            </div>
+
+            <div class="mt-3 text-sm">
+              {{ tweet.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="relative z-50" *ngIf="user">
+  <p-dialog
+    header="Chat"
+    [(visible)]="chatModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="mt-3">
+      <div class="relative bg-white z-50 w-full">
+        <div
+          class="flex justify-between items-center bg-white pb-2 border-b border-gray-200 w-full"
+        >
+          <div class="grid grid-cols-[40px_1fr] lg:grid-cols-[40px_1fr] gap-2">
+            <div class="w-fit h-fit rounded-full border border-gray-200">
+              <img
+                src="../../../../../assets/images/student.png"
+                alt=""
+                class="w-[40px] h-[40px] rounded-full object-cover"
+              />
+            </div>
+            <div class="">
+              <h1 class="font-semibold">{{ user.name }}</h1>
+              <div class="text-[12px] text-slate-500">Active now</div>
+            </div>
+          </div>
+        </div>
+      
+        <div
+          class="bg-white h-[300px] min-h-fit overflow-y-auto py-2 relative w-full pb-20"
+        >
+          <div
+            class="msg"
+            *ngFor="let message of chat; trackBy: chatTrack"
+            class="gap-2"
+            [ngClass]="
+              message.UserId == profile.id
+                ? 'grid mb-1'
+                : 'grid mb-1'
+            "
+          >
+            <p
+              class=" text-sm w-fit py-1 px-3 rounded-full h-fit break-all "
+              [ngClass]=" message.UserId == profile.id ? 'col-start-2 justify-self-end bg-red-500 text-white' : 'bg-gray-100' "
+            >
+              {{ message.message }}
+            </p>
+          </div>
+          <div class="" #scrollToBottom></div>
+        </div>
+      
+        <div class="py-2 pb-4 bg-white fixed w-[calc(100%_-_40px)] bottom-0">
+          <form (ngSubmit)="sendMessage(); input.focus()" class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm">
+            <input
+              type="text"
+              placeholder="Aa"
+              [(ngModel)]="message"
+              #input
+              (click)="scroll()"
+              (focus)="scroll()"
+              [ngModelOptions]="{ standalone: true }"
+              class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none"
+            />
+            <button type="submit"
+              class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center"
+            >
+              <i class="fal fa-arrow-right font-semibold"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </p-dialog>
+</div>

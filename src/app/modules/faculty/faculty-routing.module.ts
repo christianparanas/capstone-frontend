@@ -13,6 +13,7 @@ import { TweetsComponent } from './pages/tweets/tweets.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 import { AccountComponent } from './pages/account/account.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { UserComponent } from './pages/user/user.component'
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'faculty/account', component: AccountComponent },
     { path: 'faculty/messages', component: MessagesComponent },
     { path: 'faculty/election', component: ElectionComponent },
+    { path: 'faculty/user', component: UserComponent },
 ];
 
 @NgModule({

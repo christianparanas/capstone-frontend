@@ -28,7 +28,7 @@
             *ngFor="let com of comments; trackBy: commentTrack"
             class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
           >
-            <div class="w-fit h-fit bg-slate-100 rounded-full">
+            <div class="w-fit h-fit bg-slate-100 rounded-full" (click)="navigateToUser(com.User.id)">
               <img
                 [src]="com.User.image == null ? defaultImg : com.User.image"
                 alt=""
@@ -38,7 +38,7 @@
 
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
-                <div class="flex items-center">
+                <div class="flex items-center" (click)="navigateToUser(com.User.id)">
                   <div class="font-semibold mr-2">
                     {{ com.User.name }}
                   </div>
@@ -174,7 +174,7 @@
         >
           <div class="">
             <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-              <div class="bg-slate-100 w-fit h-fit rounded-full">
+              <div class="bg-slate-100 w-fit h-fit rounded-full" (click)="navigateToUser(tweet.User.id)">
                 <img
                   [src]="
                     tweet.User.image == null ? defaultImg : tweet.User.image
@@ -184,7 +184,7 @@
                 />
               </div>
               <div class="">
-                <div class="flex items-center">
+                <div class="flex items-center" (click)="navigateToUser(tweet.User.id)">
                   <div class="font-semibold mr-2">
                     {{ tweet.User.name }}
                   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
+import { Router } from "@angular/router"
 
 import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
@@ -28,7 +29,8 @@ export class TweetsComponent implements OnInit {
     private toast: HotToastService,
     private tweetService: TweetService,
     private profileService: ProfileService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -174,6 +176,16 @@ export class TweetsComponent implements OnInit {
         this.submitLoading = false;
       }
     );
+  }
+
+  navigateToUser(id: any) {
+    if(id == this.user.id) {
+      return this.router.navigate([`/faculty/account`]);
+    }
+
+    this.router.navigate([`/faculty/user`], {
+      queryParams: { id: id },
+    });
   }
 
   dateFormat(date: any) {
