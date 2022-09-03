@@ -31,16 +31,16 @@
   >
     <div
       class="msg"
-      *ngFor="let message of chat; trackBy: chatTrack"
+      *ngFor="let message of chatData.messages; trackBy: chatTrack"
       class="gap-2"
       [ngClass]="
-        message.userId == user.userId
+        message.UserId == chatData.ownId
           ? 'grid grid-cols-[100px_1fr] mb-1'
           : 'grid grid-cols-[40px_1fr] mb-1'
       "
     >
       <div
-        *ngIf="message.userId != user.userId"
+        *ngIf="message.UserId != chatData.ownId"
         class="w-fit h-fit rounded-full border border-gray-200"
       >
         <img
@@ -50,8 +50,12 @@
         />
       </div>
       <p
-        class=" text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
-        [ngClass]=" message.userId == user.userId ? 'col-start-2 justify-self-end bg-red-500 text-white' : 'bg-gray-100' "
+        class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
+        [ngClass]="
+          message.UserId == chatData.ownId
+            ? 'col-start-2 justify-self-end bg-red-500 text-white'
+            : 'bg-gray-100'
+        "
       >
         {{ message.message }}
       </p>
@@ -60,7 +64,10 @@
   </div>
 
   <div class="p-4 bg-white fixed w-full lg:w-[calc(100%_-_330px)] bottom-0">
-    <form (ngSubmit)="sendMessage(); input.focus()" class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm">
+    <form
+      (ngSubmit)="sendMessage(); input.focus()"
+      class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm"
+    >
       <input
         type="text"
         placeholder="Aa"
@@ -71,7 +78,8 @@
         [ngModelOptions]="{ standalone: true }"
         class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none"
       />
-      <button type="submit"
+      <button
+        type="submit"
         class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center"
       >
         <i class="fal fa-arrow-right font-semibold"></i>

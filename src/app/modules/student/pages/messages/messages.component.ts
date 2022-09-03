@@ -11,43 +11,61 @@ import { ChatService } from '../../shared/services/chat.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-  isChatOpen: boolean = false
-  profile: any = []
-  chats: any = []
+  isChatOpen: boolean = false;
+  profile: any = [];
+  chats: any = [];
+  chatData: any;
 
-  constructor(private location: Location,
+  constructor(
+    private location: Location,
     private userService: UserService,
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private router: Router,
     private toast: HotToastService,
-    private chatService: ChatService) { }
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
-    this.getProfile()
+    this.getProfile();
   }
 
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.profile = response;
-        this.getChats()
+        this.getChats();
       },
       (error: any) => {}
     );
+  }
+
+  openChat(chatId: any, user: any) {
+    this.chats.forEach((chat: any) => {
+      if (chat.Chat.id == chatId) {
+        this.chatData = {
+          chatId: chatId,
+          user: user,
+          ownId: this.profile.id,
+          messages: chat.Chat.ChatMessages,
+        };
+      }
+    });
+
+    console.log(this.chatData)
+    this.isChatOpen = true
   }
 
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
       (response: any) => {
-        console.log(response)
+        console.log(response);
         this.chats = response;
       },
       (error: any) => {}
     );
   }
-
 }

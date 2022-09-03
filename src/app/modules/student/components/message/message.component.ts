@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 
+import { ChatService } from '../../shared/services/chat.service';
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -15,35 +17,16 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class MessageComponent implements OnInit {
   @Output() closeChatModal = new EventEmitter();
+  @Input() chatData: any;
 
-  chatId: any = null;
   message: string = '';
-  user = {
-    userId: 1,
-    name: 'chan',
-  };
-
-  chat: any = [
-    {
-      userId: 2,
-      name: 'thea',
-      message: 'Hain na an at mga saad?',
-    },
-    {
-      userId: 1,
-      name: 'chan',
-      message: 'fffff',
-    },
-    {
-      userId: 2,
-      name: 'thea',
-      message: 'Hello',
-    },
-  ];
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
-  constructor(private toast: HotToastService) {}
+  constructor(
+    private toast: HotToastService,
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -62,11 +45,23 @@ export class MessageComponent implements OnInit {
       });
     }
 
-    this.chat.push({
-      userId: 1,
-      name: 'chan',
+    this.chatData.messages.push({
+      UserId: this.chatData.ownId,
       message: this.message,
+      createdAt: new Date(),
     });
+
+    this.chatService
+      .sendMessage({
+        chatId: this.chatData.chatId,
+        receiverId: this.chatData.user.id,
+        senderId: this.chatData.ownId,
+        message: this.message,
+      })
+      .subscribe(
+        (response: any) => {},
+        (error: any) => {}
+      );
 
     this.scrollToBottom();
     this.message = '';
