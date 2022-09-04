@@ -25,7 +25,7 @@
 
       <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
 
-        <div (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)" *ngFor="let chat of chats" class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer">
+        <div (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)" *ngFor="let chat of chats" [ngClass]="chat.isSelected ? 'bg-gray-100' : '' " class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer">
           <div class="w-fit h-fit rounded-full border border-gray-200">
             <img src="../../../../../assets/images/student.png" alt="" class="w-[45px] h-[45px] rounded-full object-cover">
           </div>

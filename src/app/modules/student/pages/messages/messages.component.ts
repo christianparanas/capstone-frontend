@@ -52,6 +52,11 @@ export class MessagesComponent implements OnInit {
           ownId: this.profile.id,
           messages: chat.Chat.ChatMessages,
         };
+
+        chat.isSelected = true;
+      }
+      else {
+        chat.isSelected = false;
       }
     });
 
@@ -62,8 +67,9 @@ export class MessagesComponent implements OnInit {
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
       (response: any) => {
-        console.log(response);
-        this.chats = response;
+        response.forEach((item: any) => {
+          this.chats.push({ ...item, isSelected: false });
+        });
       },
       (error: any) => {}
     );
