@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
@@ -28,7 +29,8 @@ export class TweetComponent implements OnInit {
     private toast: HotToastService,
     private tweetService: TweetService,
     private profileService: ProfileService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +69,7 @@ export class TweetComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.user.id 
+      UserId: this.user.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -110,7 +112,7 @@ export class TweetComponent implements OnInit {
       (response: any) => {
         this.tweets = response;
 
-        console.log(response)
+        console.log(response);
 
         response.forEach((tweet: any) => {
           if (tweet.id == this.commentTweetId) {
@@ -133,17 +135,19 @@ export class TweetComponent implements OnInit {
 
     this.reactLoading = true;
 
-    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.user.id }).subscribe(
-      (response: any) => {
-        this.reactLoading = false;
-        this.getTweets();
-        this.eventService.sendTweetEvent();
-      },
-      (error: any) => {
-        console.log(error);
-        this.reactLoading = false;
-      }
-    );
+    this.tweetService
+      .reactTweet({ tweetId: tweetId, UserId: this.user.id })
+      .subscribe(
+        (response: any) => {
+          this.reactLoading = false;
+          this.getTweets();
+          this.eventService.sendTweetEvent();
+        },
+        (error: any) => {
+          console.log(error);
+          this.reactLoading = false;
+        }
+      );
   }
 
   postTweet() {
@@ -156,7 +160,7 @@ export class TweetComponent implements OnInit {
 
     const data = {
       message: this.tweet,
-      UserId: this.user.id 
+      UserId: this.user.id,
     };
 
     this.tweetService.postTweet(data).subscribe(
@@ -178,5 +182,23 @@ export class TweetComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).format('llll');
+  }
+
+  navigateToUser(user: any) {
+    if (user.id == this.user.id) {
+      return this.router.navigate([`/admin/account`]);
+    }
+
+    user.UserRoles.forEach((role: any) => {
+      if (role.Role.title == 'Admin' || role.Role.title == 'Faculty') {
+        return this.router.navigate([`/admin/peer`], {
+          queryParams: { id: user.id },
+        });
+      } else if (role.Role.title == 'Student') {
+        return this.router.navigate([`/admin/user`], {
+          queryParams: { id: user.id },
+        });
+      }
+    });
   }
 }
