@@ -64,6 +64,10 @@ export class MessagesComponent implements OnInit {
     this.isChatOpen = true
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
       (response: any) => {

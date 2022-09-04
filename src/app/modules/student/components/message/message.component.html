@@ -11,7 +11,7 @@
       </div>
       <div class="w-fit h-fit rounded-full border border-gray-200">
         <img
-          src="../../../../../assets/images/student.png"
+          [src]="chatData.user.image != null ? chatData.user.image : '../../../../../assets/images/student.png'"
           alt=""
           class="w-[40px] h-[40px] rounded-full object-cover"
         />
@@ -44,7 +44,7 @@
         class="w-fit h-fit rounded-full border border-gray-200"
       >
         <img
-          src="../../../../../assets/images/student.png"
+        [src]="chatData.user.image != null ? chatData.user.image : '../../../../../assets/images/student.png'"
           alt=""
           class="w-[40px] h-[40px] rounded-full object-cover"
         />

@@ -78,4 +78,5 @@ export class MessageComponent implements OnInit {
       this.scrollToBottom();
     }, 100);
   }
+  
 }

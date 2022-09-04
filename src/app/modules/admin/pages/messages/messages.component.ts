@@ -43,6 +43,10 @@ export class MessagesComponent implements OnInit {
     );
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   openChat(chatId: any, user: any) {
     this.chats.forEach((chat: any) => {
       if (chat.Chat.id == chatId) {
