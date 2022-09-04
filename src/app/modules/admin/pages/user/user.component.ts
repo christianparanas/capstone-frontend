@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   userData: any;
   profile: any = [];
 
+  actionModal: boolean = false
   declineModal: boolean = false;
   approveModal: boolean = false;
   chatModal: boolean = false;
@@ -105,16 +106,12 @@ export class UserComponent implements OnInit {
 
     this.chatService.getChat(data).subscribe(
       (response: any) => {
-        console.log(response);
-
         response.forEach((res: any) => {
           if (res.Chat.ChatParticipants[0].UserId == this.userData.id) {
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
           }
         });
-
-        console.log(this.chat);
       },
       (error: any) => {}
     );

@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as moment from 'moment';
 
 import { ChatService } from '../../shared/services/chat.service';
 
@@ -67,6 +68,22 @@ export class MessageComponent implements OnInit {
     this.message = '';
   }
 
+  selectMessage(messageId: any) {
+    this.chatData.messages.forEach((msg: any) => {
+      if(msg.id == messageId) {
+        if(msg.isSelected == true) {
+          msg.isSelected = false
+        }
+        else {
+          msg.isSelected = true
+        }
+      }
+      else {
+        msg.isSelected = false
+      }
+    })
+  }
+
   scrollToBottom() {
     setTimeout(() => {
       this.scrollElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +94,10 @@ export class MessageComponent implements OnInit {
     setTimeout(() => {
       this.scrollToBottom();
     }, 100);
+  }
+  
+  dateFormat(date: any) {
+    return moment(date).calendar();
   }
   
 }

@@ -44,13 +44,20 @@ export class MessagesComponent implements OnInit {
   }
 
   openChat(chatId: any, user: any) {
-    this.chats.forEach((chat: any) => {
+    this.chats.forEach( async (chat: any) => {
       if (chat.Chat.id == chatId) {
+
+        let chatMsgs: any = []
+
+        await chat.Chat.ChatMessages.forEach((msg: any) => {
+          chatMsgs.push({ ...msg, isSelected: false })
+        });
+
         this.chatData = {
           chatId: chatId,
           user: user,
           ownId: this.profile.id,
-          messages: chat.Chat.ChatMessages,
+          messages: chatMsgs,
         };
 
         chat.isSelected = true;
