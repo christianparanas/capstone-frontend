@@ -19,22 +19,26 @@
       <div
         class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
       >
-        <div class="md:flex relative w-fit mx-auto md:mx-0">
-          <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4">
-            <img
-              [src]="user.image == null ? defaultImg : user.image"
-              alt=""
-              class="w-[200px] h-[200px] rounded-full object-cover"
-            />
-          </div>
+      <div class="md:flex relative w-fit mx-auto md:mx-0">
+        <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4 border-2 border-gray-200/50">
+          <img
+            [src]="user.image == null ? defaultImg : user.image"
+            alt=""
+            class="w-[200px] h-[200px] rounded-full object-cover"
+          />
+        </div>
 
-          <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
-            <h1 class="font-semibold text-2xl">
-              {{ user.name }}
-            </h1>
-            <p>Student</p>
+        <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
+          <h1 class="font-semibold text-2xl">
+            {{ user.name }}
+          </h1>
+          <div class="flex items-center">
+            <div *ngFor="let role of user.UserRoles" class="bg-slate-700 font-semibold text-white text-[12px] py-1 px-2 rounded-md w-fit mr-1">
+              {{ role.Role.title }}
+            </div>
           </div>
         </div>
+      </div>
 
         <div (click)="openChat()" class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer">
           <i class="fal fa-comment md:mr-2"></i>

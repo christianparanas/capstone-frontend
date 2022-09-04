@@ -1,5 +1,3 @@
-
-
 <div class="">
   <div *ngIf="user" class="p-5 max-w-[1200px] mx-auto">
     <div
@@ -20,7 +18,7 @@
         class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
       >
         <div class="md:flex relative w-fit mx-auto md:mx-0">
-          <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4">
+          <div class="bg-slate-50/50 w-fit h-fit rounded-full mr-4 border-2 border-gray-200/50">
             <img
               [src]="user.image == null ? defaultImg : user.image"
               alt=""
@@ -32,11 +30,18 @@
             <h1 class="font-semibold text-2xl">
               {{ user.name }}
             </h1>
-            <p>Student</p>
+            <div class="flex items-center">
+              <div *ngFor="let role of user.UserRoles" class="bg-slate-700 font-semibold text-white text-[12px] py-1 px-2 rounded-md w-fit mr-1">
+                {{ role.Role.title }}
+              </div>
+            </div>
           </div>
         </div>
 
-        <div (click)="openChat()" class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer">
+        <div
+          (click)="openChat()"
+          class="bg-slate-100/50 hover:bg-slate-100 transition-all font-semibold py-2 px-3 text-slate-800 flex items-center rounded-md cursor-pointer"
+        >
           <i class="fal fa-comment md:mr-2"></i>
           <div class="hidden md:block">Message</div>
         </div>
@@ -76,7 +81,6 @@
   </div>
 </div>
 
-
 <div class="relative z-50" *ngIf="user">
   <p-dialog
     header="Chat"
@@ -103,7 +107,7 @@
             </div>
           </div>
         </div>
-      
+
         <div
           class="bg-white h-[300px] min-h-fit overflow-y-auto py-2 relative w-full pb-20"
         >
@@ -111,24 +115,27 @@
             class="msg"
             *ngFor="let message of chat; trackBy: chatTrack"
             class="gap-2"
-            [ngClass]="
-              message.UserId == profile.id
-                ? 'grid mb-1'
-                : 'grid mb-1'
-            "
+            [ngClass]="message.UserId == profile.id ? 'grid mb-1' : 'grid mb-1'"
           >
             <p
-              class=" text-sm w-fit py-1 px-3 rounded-full h-fit break-all "
-              [ngClass]=" message.UserId == profile.id ? 'col-start-2 justify-self-end bg-red-500 text-white' : 'bg-gray-100' "
+              class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
+              [ngClass]="
+                message.UserId == profile.id
+                  ? 'col-start-2 justify-self-end bg-red-500 text-white'
+                  : 'bg-gray-100'
+              "
             >
               {{ message.message }}
             </p>
           </div>
           <div class="" #scrollToBottom></div>
         </div>
-      
+
         <div class="py-2 pb-4 bg-white fixed w-[calc(100%_-_40px)] bottom-0">
-          <form (ngSubmit)="sendMessage(); input.focus()" class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm">
+          <form
+            (ngSubmit)="sendMessage(); input.focus()"
+            class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm"
+          >
             <input
               type="text"
               placeholder="Aa"
@@ -139,7 +146,8 @@
               [ngModelOptions]="{ standalone: true }"
               class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none"
             />
-            <button type="submit"
+            <button
+              type="submit"
               class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center"
             >
               <i class="fal fa-arrow-right font-semibold"></i>
@@ -147,7 +155,6 @@
           </form>
         </div>
       </div>
-      
     </div>
   </p-dialog>
 </div>
