@@ -34,10 +34,10 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
     ],
   },
-  { path: 'election', component: ElectionComponent },
-  { path: 'account', component: AccountComponent },
-  { path: 'messages', component: MessagesComponent },
-  { path: 'user', component: UserComponent },
+  { path: 'election', component: ElectionComponent, canActivate: [StudentGuard], },
+  { path: 'account', component: AccountComponent, canActivate: [StudentGuard], },
+  { path: 'messages', component: MessagesComponent, canActivate: [StudentGuard], },
+  { path: 'user', component: UserComponent, canActivate: [StudentGuard], },
 ];
 
 @NgModule({

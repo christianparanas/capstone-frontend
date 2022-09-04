@@ -29,10 +29,10 @@ const routes: Routes = [
       { path: 'logs', component: LogsComponent },
     ],
   },
-    { path: 'faculty/account', component: AccountComponent },
-    { path: 'faculty/messages', component: MessagesComponent },
-    { path: 'faculty/election', component: ElectionComponent },
-    { path: 'faculty/user', component: UserComponent },
+    { path: 'faculty/account', component: AccountComponent, canActivate: [FacultyGuard], },
+    { path: 'faculty/messages', component: MessagesComponent, canActivate: [FacultyGuard], },
+    { path: 'faculty/election', component: ElectionComponent,canActivate: [FacultyGuard], },
+    { path: 'faculty/user', component: UserComponent, canActivate: [FacultyGuard], },
 ];
 
 @NgModule({

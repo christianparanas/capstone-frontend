@@ -36,11 +36,11 @@ const routes: Routes = [
       { path: 'logs', component: LogsComponent },
     ],
   },
-  { path: 'admin/election', component: ElectionComponent },
-  { path: 'admin/user', component: UserComponent },
-  { path: 'admin/account', component: AccountComponent },
-  { path: 'admin/messages', component: MessagesComponent },
-  { path: 'admin/peer', component: PeerComponent}
+  { path: 'admin/election', component: ElectionComponent, canActivate: [AdminGuard], },
+  { path: 'admin/user', component: UserComponent, canActivate: [AdminGuard], },
+  { path: 'admin/account', component: AccountComponent, canActivate: [AdminGuard], },
+  { path: 'admin/messages', component: MessagesComponent, canActivate: [AdminGuard], },
+  { path: 'admin/peer', component: PeerComponent, canActivate: [AdminGuard],}
 ];
 
 @NgModule({
