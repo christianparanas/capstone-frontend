@@ -61,16 +61,13 @@ export class UserComponent implements OnInit {
         console.log(response);
 
         response.forEach((res: any) => {
-          if(res.Chat.ChatParticipants[0].UserId == this.user.id) {
+          if (res.Chat.ChatParticipants[0].UserId == this.user.id) {
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
           }
         });
 
-        console.log(this.chat)
-
-
-
+        console.log(this.chat);
       },
       (error: any) => {}
     );

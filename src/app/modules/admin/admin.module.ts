@@ -21,12 +21,12 @@ import { ElectionComponent } from './pages/election/election.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
-import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessageComponent } from './components/message/message.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { PeerComponent } from './pages/peer/peer.component';
 
 @NgModule({
   declarations: [
@@ -45,12 +45,12 @@ import { MessagesComponent } from './pages/messages/messages.component';
     CampaignComponent,
     PollComponent,
     TweetComponent,
-    SupportComponent,
     PredictionComponent,
     AccountComponent,
     ElectionsComponent,
     MessageComponent,
     MessagesComponent,
+    PeerComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule],
 })

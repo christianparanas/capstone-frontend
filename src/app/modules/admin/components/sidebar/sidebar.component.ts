@@ -60,8 +60,8 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-pallet',
     },
     {
-      title: 'Customer Support',
-      route: 'support',
+      title: 'Messages',
+      route: 'messages',
       params: null,
       icon: 'fal fa-comment',
     },

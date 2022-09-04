@@ -13,7 +13,6 @@ import { ElectionComponent } from './pages/election/election.component';
 import { CampaignComponent } from './pages/campaign/campaign.component';
 import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
-import { SupportComponent } from './pages/support/support.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
       { path: 'predictions', component: PredictionComponent },
       { path: 'tweets', component: TweetComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'support', component: SupportComponent },
       { path: 'feedbacks', component: FeedbacksComponent },
       { path: 'logs', component: LogsComponent },
     ],
