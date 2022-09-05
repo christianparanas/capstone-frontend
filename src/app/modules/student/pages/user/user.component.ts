@@ -44,10 +44,8 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
       this.userId = value.id;
-      this.getUser(value.id);
+      this.getProfile();
     });
-
-    this.getProfile();
   }
 
   openChat() {
@@ -61,16 +59,13 @@ export class UserComponent implements OnInit {
         console.log(response);
 
         response.forEach((res: any) => {
-          if(res.Chat.ChatParticipants[0].UserId == this.user.id) {
+          if (res.Chat.ChatParticipants[0].UserId == this.user.id) {
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
           }
         });
 
-        console.log(this.chat)
-
-
-
+        console.log(this.chat);
       },
       (error: any) => {}
     );
@@ -81,7 +76,12 @@ export class UserComponent implements OnInit {
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
+        if (this.userId == response.id) {
+          return this.router.navigate(['/account']);
+        }
+
         this.profile = response;
+        this.getUser(this.userId);
       },
       (error: any) => {}
     );
@@ -90,7 +90,6 @@ export class UserComponent implements OnInit {
   getUser(id: any) {
     this.userService.getUser(id).subscribe(
       (response: any) => {
-        console.log(response);
         this.user = response;
       },
       (error: any) => {}
