@@ -79,58 +79,53 @@
                 </div>
               </div>
 
-              <div class="text-sm">
-                <fieldset
-                  class="border border-solid border-gray-200 p-3 rounded-md"
-                >
-                  <legend class="px-1 text-sm font-semibold">
-                    Restrictions
-                  </legend>
+              <div class="">
+                <h2 class="text-sm font-semibold">Restrictions</h2>
 
-                  <div class="text-[12px]">
-                    <div class="">
-                      Course:
-                      {{
-                        election.course == 0
-                          ? "All Courses"
-                          : getCourse(election.course)
-                      }}
-                    </div>
-                    <div class="">
-                      Section:
-                      {{
-                        election.section == 0
-                          ? "All Sections"
-                          : election.section
-                      }}
-                    </div>
-                    <div class="">
-                      Year:
-                      {{
-                        election.year == 0 ? "All Year Levels" : election.year
-                      }}
-                    </div>
+                <div class="text-[12px] mt-1">
+                  <div class="">
+                    Course:
+                    {{
+                      election.course == 0
+                        ? "All Courses"
+                        : getCourse(election.course)
+                    }}
                   </div>
-                </fieldset>
+                  <div class="">
+                    Section:
+                    {{
+                      election.section == 0
+                        ? "All Sections"
+                        : election.section
+                    }}
+                  </div>
+                  <div class="">
+                    Year:
+                    {{
+                      election.year == 0 ? "All Year Levels" : election.year
+                    }}
+                  </div>
+                </div>
               </div>
+
             </div>
 
             <div class="grid lg:grid-cols-2">
               <div class=""></div>
               <div class="grid grid-cols-2 gap-3">
                 <div class="">
-                  <p class="text-sm">Phase</p>
+                  <p class="text-[12px] ml-2">Phase</p>
                   <div
-                    class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-md capitalize w-full text-center"
+                    class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
                   >
                     {{ election.stage }}
                   </div>
                 </div>
                 <div class="">
-                  <p class="text-sm">Status</p>
+                  <p class="text-[12px] ml-2">Status</p>
                   <div
                     *ngIf="election.status == 'active'"
-                    class="text-[12px] bg-green-200 text-green-800 font-semibold px-2 py-2 rounded-md capitalize w-full text-center"
+                    class="text-[12px] bg-green-200 text-green-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
                   >
                     {{ election.status }}
                   </div>
