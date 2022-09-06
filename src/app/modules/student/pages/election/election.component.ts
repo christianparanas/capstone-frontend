@@ -45,8 +45,6 @@ export class ElectionComponent implements OnInit {
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
         this.election = response;
-        console.log(response);
-
         this.isLoading = false;
       },
       (error: any) => {
