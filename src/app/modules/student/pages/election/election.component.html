@@ -179,7 +179,6 @@
                       {{ position.title }}
                     </h1>
                   </div>
-                  <hr class="my-2" />
 
                   <div class="text-sm">
                     Select only {{ position.no_of_winners }}
@@ -190,11 +189,11 @@
                     }}
                   </div>
 
-                  <div class="grid gap-2 mt-3">
+                  <div class="grid mt-3 divide-y">
                     <div
                       (click)="openCandidateModal(candidate)"
                       *ngFor="let candidate of position.ElectionCandidates"
-                      class="grid grid-cols-[45px_1fr] gap-2 items-center bg-gray-50 border-2 border-gray-200 rounded-md hover:bg-slate-100 transition-all cursor-pointer p-1"
+                      class="grid grid-cols-[45px_1fr] gap-2 items-center  rounded-md hover:bg-slate-100 transition-all cursor-pointer p-2"
                     >
                       <div
                         class="w-[45px] h-[45px] rounded-full border border-gray-200"
