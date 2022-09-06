@@ -244,6 +244,12 @@ export class ElectionComponent implements OnInit {
         this.submitLoading = false;
         this.addCandidateModal = false;
         this.getElection();
+
+        this.addCandidateData = {
+          image: null,
+          platform: null,
+          UserId: null,
+        };
       },
       (error: any) => {
         console.log(error);
