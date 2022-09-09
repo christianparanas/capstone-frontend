@@ -40,6 +40,7 @@ export class ElectionComponent implements OnInit {
     UserId: null,
   };
   candidates: any = [];
+  limitOfCandidates: any
 
   constructor(
     private courseService: CourseService,
@@ -124,7 +125,7 @@ export class ElectionComponent implements OnInit {
   positionModal(data: any) {
     this.candidates = [];
     this.electionPositionId = data.id;
-
+    this.limitOfCandidates = data.no_of_candidates
     this.candidatesModal = true;
 
     data.ElectionCandidates.forEach((el: any) => {

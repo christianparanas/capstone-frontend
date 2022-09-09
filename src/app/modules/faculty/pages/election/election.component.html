@@ -437,7 +437,7 @@
             <div class="flex justify-between items-center">
               <div class=""></div>
               <button
-                *ngIf="election.status == 'draft'"
+                *ngIf="election.status == 'draft' && limitOfCandidates > candidates.length"
                 (click)="addCandidateModal = true"
                 class="bg-red-500 text-white text-[12px] font-semibold py-2 px-4 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
               >
