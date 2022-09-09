@@ -37,4 +37,16 @@ export class ElectionService {
   changeStatus(data: any): any {
     return this.http.post(`${BASEURL}/api/election/status`, data);
   }
+
+  deleteElection(electionId: any): any {
+    return this.http.delete(`${BASEURL}/api/election/${electionId}`);
+  }
+
+  deletePosition(data: any): any {
+    return this.http.delete(`${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}`);
+  }
+
+  deleteCandidate(data: any): any {
+    return this.http.delete(`${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}/${data.electionCandidateId}`);
+  }
 }

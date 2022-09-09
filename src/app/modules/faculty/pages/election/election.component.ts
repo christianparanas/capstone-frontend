@@ -21,6 +21,7 @@ export class ElectionComponent implements OnInit {
   addCandidateModal: boolean = false;
   candidatesModal: boolean = false;
   finishSetupPrompt: boolean = false;
+  deleteElectionPrompt: boolean = false;
   electionPositionForm: FormGroup;
 
   currentDate: string;
@@ -45,7 +46,8 @@ export class ElectionComponent implements OnInit {
     private electionService: ElectionService,
     private toast: HotToastService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +65,18 @@ export class ElectionComponent implements OnInit {
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
+  }
+
+  deleteElection() {
+    this.electionService.deleteElection(this.election.id).subscribe(
+      (response: any) => {
+        this.toast.success(response.message, { position: 'top-right' });
+        this.router.navigate(['/faculty/elections']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   finishSetup() {
@@ -138,6 +152,7 @@ export class ElectionComponent implements OnInit {
         this.getElection();
         this.submitLoading = false;
         this.electionPositionModal = false;
+        this.electionPositionForm.reset();
       },
       (error: any) => {
         this.submitLoading = false;
@@ -256,6 +271,45 @@ export class ElectionComponent implements OnInit {
         this.submitLoading = false;
       }
     );
+  }
+
+  removePosition(data: any) {
+    let ans = confirm('Are you sure you want to remove this position?');
+
+    if (ans) {
+      this.electionService
+        .deletePosition({
+          electionId: data.ElectionId,
+          electionPositionId: data.id,
+        })
+        .subscribe(
+          (response: any) => {
+            this.toast.success(response.message, { position: 'top-right' });
+            this.getElection();
+          },
+          (error: any) => {}
+        );
+    }
+  }
+
+  removeCandidate(data: any) {
+    let ans = confirm('Are you sure you want to remove this candidate?');
+
+    if (ans) {
+      this.electionService
+        .deleteCandidate({
+          electionId: data.ElectionId,
+          electionPositionId: data.ElectionPositionId,
+          electionCandidateId: data.id,
+        })
+        .subscribe(
+          (response: any) => {
+            this.toast.success(response.message, { position: 'top-right' });
+            this.getElection();
+          },
+          (error: any) => {}
+        );
+    }
   }
 
   loadInputImgToSrc(event: any) {
