@@ -248,6 +248,10 @@ export class ElectionComponent implements OnInit {
       return this.toast.info('Please write platform');
     }
 
+    if (this.addCandidateData.UserId == null) {
+      return this.toast.info('Please select a candidate');
+    }
+
     this.submitLoading = true;
 
     const data: any = {
