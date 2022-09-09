@@ -58,11 +58,10 @@ export class ElectionComponent implements OnInit {
 
     this.getElection();
     this.getCourses();
-    this.getStudents();
 
     this.electionPositionForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
+      description: new FormControl(''),
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
@@ -174,6 +173,8 @@ export class ElectionComponent implements OnInit {
         console.log(response);
         this.election = response;
 
+        this.getStudents();
+
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
             if (this.electionPositionId == position.id) {
@@ -207,7 +208,11 @@ export class ElectionComponent implements OnInit {
   }
 
   getStudents() {
-    this.electionService.getStudentAccounts().subscribe(
+    this.electionService.getStudentAccounts({
+      course: this.election.course,
+      section: this.election.section,
+      year: this.election.year
+    }).subscribe(
       (response: any) => {
         this.students = response;
 
