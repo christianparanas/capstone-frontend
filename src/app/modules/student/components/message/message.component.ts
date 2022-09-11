@@ -10,6 +10,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
 
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-message',
@@ -26,7 +27,8 @@ export class MessageComponent implements OnInit {
 
   constructor(
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {}
@@ -52,17 +54,14 @@ export class MessageComponent implements OnInit {
       createdAt: new Date(),
     });
 
-    this.chatService
-      .sendMessage({
-        chatId: this.chatData.chatId,
-        receiverId: this.chatData.user.id,
-        senderId: this.chatData.ownId,
-        message: this.message,
-      })
-      .subscribe(
-        (response: any) => {},
-        (error: any) => {}
-      );
+    this.eventService.sendMsg({
+      chatId: this.chatData.chatId,
+      receiverId: this.chatData.user.id,
+      senderId: this.chatData.ownId,
+      message: this.message,
+    }).subscribe((response: any) => {
+      console.log(response)
+    })
 
     this.scrollToBottom();
     this.message = '';
@@ -70,18 +69,16 @@ export class MessageComponent implements OnInit {
 
   selectMessage(messageId: any) {
     this.chatData.messages.forEach((msg: any) => {
-      if(msg.id == messageId) {
-        if(msg.isSelected == true) {
-          msg.isSelected = false
+      if (msg.id == messageId) {
+        if (msg.isSelected == true) {
+          msg.isSelected = false;
+        } else {
+          msg.isSelected = true;
         }
-        else {
-          msg.isSelected = true
-        }
+      } else {
+        msg.isSelected = false;
       }
-      else {
-        msg.isSelected = false
-      }
-    })
+    });
   }
 
   scrollToBottom() {
@@ -95,9 +92,8 @@ export class MessageComponent implements OnInit {
       this.scrollToBottom();
     }, 100);
   }
-  
+
   dateFormat(date: any) {
     return moment(date).calendar();
   }
-  
 }

@@ -15,10 +15,6 @@ export class ChatService {
     return this.http.post(`${BASEURL}/api/chat/direct`, data);
   }
 
-  sendMessage(data: any): any {
-    return this.http.post(`${BASEURL}/api/chat`, data);
-  }
-
   getChats(userId: any): any {
     return this.http.get(`${BASEURL}/api/chat/${userId}`);
   }

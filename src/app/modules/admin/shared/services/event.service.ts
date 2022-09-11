@@ -19,4 +19,12 @@ export class EventService {
   getPollEvent(): Observable<any> {
     return this.socket.fromEvent<any>('pollEvent');
   }
+
+  openChat(chatId: any) {
+    this.socket.emit('openChat', chatId);
+  }
+
+  sendMsg(data: any) {
+    this.socket.emit('sendMsg', data);
+  }
 }

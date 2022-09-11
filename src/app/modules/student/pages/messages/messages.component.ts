@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-messages',
@@ -26,7 +27,8 @@ export class MessagesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +46,14 @@ export class MessagesComponent implements OnInit {
   }
 
   openChat(chatId: any, user: any) {
-    this.chats.forEach( async (chat: any) => {
-      if (chat.Chat.id == chatId) {
+    this.eventService.openChat(chatId);
 
-        let chatMsgs: any = []
+    this.chats.forEach(async (chat: any) => {
+      if (chat.Chat.id == chatId) {
+        let chatMsgs: any = [];
 
         await chat.Chat.ChatMessages.forEach((msg: any) => {
-          chatMsgs.push({ ...msg, isSelected: false })
+          chatMsgs.push({ ...msg, isSelected: false });
         });
 
         this.chatData = {
@@ -61,14 +64,13 @@ export class MessagesComponent implements OnInit {
         };
 
         chat.isSelected = true;
-      }
-      else {
+      } else {
         chat.isSelected = false;
       }
     });
 
-    console.log(this.chatData)
-    this.isChatOpen = true
+    console.log(this.chatData);
+    this.isChatOpen = true;
   }
 
   goBack(): void {

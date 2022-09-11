@@ -27,4 +27,12 @@ export class EventService {
   getTweetEvent(): Observable<any> {
     return this.socket.fromEvent<any>('tweetEvent');
   }
+
+  openChat(chatId: any) {
+    this.socket.emit('openChat', chatId);
+  }
+
+  sendMsg(data: any) {
+    this.socket.emit('sendMsg', data);
+  }
 }
