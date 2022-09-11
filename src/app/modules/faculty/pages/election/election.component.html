@@ -113,7 +113,11 @@
                   <div
                     class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
                   >
-                    {{ election.stage }}
+                  <div class="" *ngIf="election.stage == 'initial'">Initial</div>
+                  <div class="" *ngIf="election.stage == 'campaign_started'">Campaign is Ongoing</div>
+                  <div class="" *ngIf="election.stage == 'campaign_ended'">Campaign Ended</div>
+                  <div class="" *ngIf="election.stage == 'election_started'">Election is Ongoing</div>
+                  <div class="" *ngIf="election.stage == 'election_ended'">Election Ended</div>
                   </div>
                 </div>
                 <div class="">

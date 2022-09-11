@@ -21,11 +21,6 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-box-ballot',
     },
     {
-      title: 'Campaign',
-      route: 'campaign',
-      icon: 'fal fa-ad',
-    },
-    {
       title: 'Polls',
       route: 'poll',
       icon: 'fal fa-poll-people',

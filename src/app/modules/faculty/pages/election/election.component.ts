@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-election',
@@ -48,7 +49,8 @@ export class ElectionComponent implements OnInit {
     private toast: HotToastService,
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +66,14 @@ export class ElectionComponent implements OnInit {
       description: new FormControl(''),
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
+    });
+  }
+
+  getElectionEvent() {
+    this.eventService.getElectionEvent().subscribe((response: any) => {
+      if (response.electionId == this.election.id) {
+        this.getElection()
+      }
     });
   }
 
@@ -174,6 +184,7 @@ export class ElectionComponent implements OnInit {
         this.election = response;
 
         this.getStudents();
+        this.getElectionEvent()
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {

@@ -10,7 +10,6 @@ import { ElectionsComponent } from './pages/elections/elections.component';
 import { ElectionComponent } from './pages/election/election.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
-import { CampaignComponent } from './pages/campaign/campaign.component';
 import { AccountComponent } from './pages/account/account.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { UserComponent } from './pages/user/user.component'
@@ -23,7 +22,6 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'elections', component: ElectionsComponent },
-      { path: 'campaign', component: CampaignComponent },
       { path: 'poll', component: PollComponent },
       { path: 'tweets', component: TweetsComponent },
       { path: 'logs', component: LogsComponent },

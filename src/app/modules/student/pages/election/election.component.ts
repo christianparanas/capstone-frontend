@@ -7,6 +7,7 @@ import * as moment from 'moment';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-election',
@@ -29,7 +30,8 @@ export class ElectionComponent implements OnInit {
     private electionService: ElectionService,
     private toast: HotToastService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,14 @@ export class ElectionComponent implements OnInit {
 
     this.getElection();
     this.getCourses();
+  }
+
+  getElectionEvent() {
+    this.eventService.getElectionEvent().subscribe((response: any) => {
+      if (response.electionId == this.election.id) {
+        this.getElection()
+      }
+    });
   }
 
   getElection() {
