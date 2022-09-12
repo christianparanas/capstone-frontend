@@ -69,7 +69,6 @@ export class MessagesComponent implements OnInit {
       }
     });
 
-    console.log(this.chatData);
     this.isChatOpen = true;
   }
 
@@ -78,6 +77,8 @@ export class MessagesComponent implements OnInit {
   }
 
   getChats() {
+    this.chats = []
+
     this.chatService.getChats(this.profile.id).subscribe(
       (response: any) => {
         response.forEach((item: any) => {

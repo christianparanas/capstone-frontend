@@ -19,6 +19,7 @@ import { EventService } from '../../shared/services/event.service';
 })
 export class MessageComponent implements OnInit {
   @Output() closeChatModal = new EventEmitter();
+  @Output() newMsg = new EventEmitter();
   @Input() chatData: any;
 
   message: string = '';
@@ -31,7 +32,10 @@ export class MessageComponent implements OnInit {
     private eventService: EventService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMsgEvent();
+    this.scrollToBottom();
+  }
 
   chatTrack(item: any, index: any) {
     return `${item.id}-${index}`;
@@ -39,6 +43,20 @@ export class MessageComponent implements OnInit {
 
   closeChat() {
     this.closeChatModal.emit();
+    this.newMsg.emit();
+  }
+
+  getMsgEvent() {
+    this.eventService.newMsg().subscribe((response: any) => {
+      this.chatData.messages.push({
+        id: this.chatData.messages.length + 1,
+        UserId: response.senderId,
+        message: response.message,
+        createdAt: new Date(),
+      });
+
+      this.scrollToBottom();
+    });
   }
 
   sendMessage() {
@@ -48,20 +66,12 @@ export class MessageComponent implements OnInit {
       });
     }
 
-    this.chatData.messages.push({
-      UserId: this.chatData.ownId,
-      message: this.message,
-      createdAt: new Date(),
-    });
-
     this.eventService.sendMsg({
       chatId: this.chatData.chatId,
       receiverId: this.chatData.user.id,
       senderId: this.chatData.ownId,
       message: this.message,
-    }).subscribe((response: any) => {
-      console.log(response)
-    })
+    });
 
     this.scrollToBottom();
     this.message = '';

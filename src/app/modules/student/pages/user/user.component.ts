@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-user',
@@ -38,7 +39,8 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -121,17 +123,12 @@ export class UserComponent implements OnInit {
       createdAt: new Date(),
     });
 
-    this.chatService
-      .sendMessage({
-        chatId: this.chatId,
-        receiverId: this.user.id,
-        senderId: this.profile.id,
-        message: this.message,
-      })
-      .subscribe(
-        (response: any) => {},
-        (error: any) => {}
-      );
+    this.eventService.sendMsg({
+      chatId: this.chatId,
+      receiverId: this.user.id,
+      senderId: this.profile.if,
+      message: this.message,
+    })
 
     this.scrollToBottom();
     this.message = '';

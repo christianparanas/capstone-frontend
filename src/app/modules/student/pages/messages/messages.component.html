@@ -96,6 +96,7 @@
         <app-message
           [chatData]="chatData"
           (closeChatModal)="isChatOpen = false"
+          (newMsg)="getChats()"
         ></app-message>
       </div>
     </div>
