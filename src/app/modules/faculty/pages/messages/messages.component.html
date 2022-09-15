@@ -95,7 +95,7 @@
       <div *ngIf="isChatOpen" class="fixed top-0 lg:relative w-full">
         <app-message
           [chatData]="chatData"
-          (closeChatModal)="isChatOpen = false"
+          (closeChatModal)="closeChat()"
           (newMsg)="updateChat($event)"
         ></app-message>
       </div>

@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit {
   profile: any = [];
   chats: any = [];
   chatData: any;
+  currentChatId: any = '';
 
   constructor(
     private location: Location,
@@ -33,6 +34,28 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfile();
+    this.getMsgEvent();
+  }
+
+  getMsgEvent() {
+    this.eventService.msgEvent().subscribe((response: any) => {
+      if (response.receiverId == this.profile.id) {
+        this.chats.forEach((chat: any) => {
+          if (chat.Chat.id == response.chatId) {
+            chat.Chat.ChatMessages.push({
+              message: response.message,
+              ChatId: response.chatId,
+              UserId: response.senderId,
+            });
+          }
+        });
+      }
+    });
+  }
+
+  closeChat() {
+    this.isChatOpen = false;
+    this.eventService.closeChat(this.currentChatId);
   }
 
   getProfile() {
@@ -49,28 +72,19 @@ export class MessagesComponent implements OnInit {
     return `${item.id}-${index}`;
   }
 
-  openChat(chatId: any, user: any) {
+  async openChat(chatId: any, user: any) {
+    this.eventService.closeChat(this.currentChatId);
+
+    this.currentChatId = chatId;
     this.eventService.openChat(chatId);
 
-    this.chats.forEach(async (chat: any) => {
-      if (chat.Chat.id == chatId) {
-        let chatMsgs: any = [];
-
-        await chat.Chat.ChatMessages.forEach((msg: any) => {
-          chatMsgs.push({ ...msg, isSelected: false });
-        });
-
-        this.chatData = {
-          chatId: chatId,
-          user: user,
-          ownId: this.profile.id,
-          messages: chatMsgs,
-        };
-
-        chat.isSelected = true;
-      } else {
-        chat.isSelected = false;
-      }
+    this.eventService.chatMsgs().subscribe((response: any) => {
+      this.chatData = {
+        chatId: chatId,
+        user: user,
+        ownId: this.profile.id,
+        messages: response,
+      };
     });
 
     this.isChatOpen = true;
@@ -90,7 +104,7 @@ export class MessagesComponent implements OnInit {
 
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
-      async (response: any) => {
+      (response: any) => {
         response.forEach((item: any) => {
           this.chats.push({ ...item, isSelected: false });
         });

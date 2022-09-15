@@ -32,8 +32,20 @@ export class EventService {
     this.socket.emit('openChat', chatId);
   }
 
+  closeChat(chatId: any) {
+    this.socket.emit('closeChat', chatId);
+  }
+
   newMsg() {
     return this.socket.fromEvent<any>('newMsg');
+  }
+
+  msgEvent() {
+    return this.socket.fromEvent<any>('msgEvent');
+  }
+
+  chatMsgs(): Observable<any> {
+    return this.socket.fromEvent<any>('chatMsgs');
   }
 
   sendMsg(data: any) {
