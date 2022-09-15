@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-peer',
@@ -22,12 +23,10 @@ export class PeerComponent implements OnInit {
 
   chatId: any = null;
   message: string = '';
-  currentuser = {
-    userId: 1,
-    name: 'chan',
-  };
+
 
   chat: any = [];
+  currentChatId: any = ""
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
@@ -38,47 +37,69 @@ export class PeerComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
       this.userId = value.id;
-      this.getUser(value.id);
+      this.getProfile();
     });
 
-    this.getProfile();
+    this.getNewMsgEvent()
   }
 
+  getNewMsgEvent() {
+    this.eventService.newMsg().subscribe((response: any) => {
+      if(response.receiverId == this.profile.id) {
+        this.chat.push({
+          message: response.message,
+          UserId: response.senderId,
+        })
+      }
+    });
+  }
+
+
   openChat() {
+    this.eventService.closeChat(this.currentChatId);
+
     const data = {
       userOneId: this.user.id,
       userTwoId: this.profile.id,
     };
-
+    
     this.chatService.getChat(data).subscribe(
       (response: any) => {
-        console.log(response);
-
         response.forEach((res: any) => {
           if (res.Chat.ChatParticipants[0].UserId == this.user.id) {
+            console.log(res)
+
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
+
+            this.currentChatId = res.Chat.id
+            this.eventService.openChat(this.chatId);
           }
         });
-
-        console.log(this.chat);
       },
       (error: any) => {}
     );
 
     this.chatModal = true;
+    this.scrollToBottom();
   }
 
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
+        if (this.userId == response.id) {
+          return this.router.navigate(['/account']);
+        }
+
         this.profile = response;
+        this.getUser(this.userId);
       },
       (error: any) => {}
     );
@@ -87,7 +108,6 @@ export class PeerComponent implements OnInit {
   getUser(id: any) {
     this.userService.getUser(id).subscribe(
       (response: any) => {
-        console.log(response);
         this.user = response;
       },
       (error: any) => {}
@@ -119,17 +139,12 @@ export class PeerComponent implements OnInit {
       createdAt: new Date(),
     });
 
-    this.chatService
-      .sendMessage({
-        chatId: this.chatId,
-        receiverId: this.user.id,
-        senderId: this.profile.id,
-        message: this.message,
-      })
-      .subscribe(
-        (response: any) => {},
-        (error: any) => {}
-      );
+    this.eventService.sendMsg({
+      chatId: this.chatId,
+      receiverId: this.user.id,
+      senderId: this.profile.id,
+      message: this.message,
+    })
 
     this.scrollToBottom();
     this.message = '';
