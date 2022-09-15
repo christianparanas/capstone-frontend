@@ -48,14 +48,17 @@ export class MessageComponent implements OnInit {
 
   getMsgEvent() {
     this.eventService.newMsg().subscribe((response: any) => {
-      this.chatData.messages.push({
+      const data = {
         id: this.chatData.messages.length + 1,
         UserId: response.senderId,
         message: response.message,
         createdAt: new Date(),
-      });
+      };
+
+      this.chatData.messages.push(data)
 
       this.scrollToBottom();
+      this.newMsg.emit({ chatId: this.chatData.chatId, data });
     });
   }
 

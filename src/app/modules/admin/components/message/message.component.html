@@ -11,7 +11,11 @@
       </div>
       <div class="w-fit h-fit rounded-full border border-gray-200">
         <img
-        [src]="chatData.user.image != null ? chatData.user.image : '../../../../../assets/images/student.png'"
+          [src]="
+            chatData.user.image != null
+              ? chatData.user.image
+              : '../../../../../assets/images/student.png'
+          "
           alt=""
           class="w-[40px] h-[40px] rounded-full object-cover"
         />
@@ -30,35 +34,59 @@
     class="bg-white h-[calc(100%_-_80px)] min-h-fit overflow-y-auto p-4 relative w-full pb-20"
   >
     <div
-      class="msg"
+      (click)="selectMessage(message.id)"
       *ngFor="let message of chatData.messages; trackBy: chatTrack"
       class="gap-2"
       [ngClass]="
         message.UserId == chatData.ownId
           ? 'grid grid-cols-[100px_1fr] mb-1'
-          : 'grid grid-cols-[40px_1fr] mb-1'
+          : 'grid grid-cols-[30px_1fr] mb-1'
       "
     >
       <div
         *ngIf="message.UserId != chatData.ownId"
         class="w-fit h-fit rounded-full border border-gray-200"
       >
-      <img
-      [src]="chatData.user.image != null ? chatData.user.image : '../../../../../assets/images/student.png'"
-        alt=""
-        class="w-[40px] h-[40px] rounded-full object-cover"
-      />
+        <img
+          [src]="
+            chatData.user.image != null
+              ? chatData.user.image
+              : '../../../../../assets/images/student.png'
+          "
+          alt=""
+          class="w-[30px] h-[30px] rounded-full object-cover"
+        />
       </div>
-      <p
-        class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
+      <div
+        class="grid space-y-reverse"
         [ngClass]="
           message.UserId == chatData.ownId
-            ? 'col-start-2 justify-self-end bg-red-500 text-white'
-            : 'bg-gray-100'
+            ? 'col-start-2 justify-self-end '
+            : ''
         "
       >
-        {{ message.message }}
-      </p>
+        <p
+          class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all cursor-pointer"
+          [ngClass]="
+            message.UserId == chatData.ownId
+              ? 'justify-self-end bg-red-500 text-white hover:bg-red-500/80'
+              : 'bg-gray-100 hover:bg-gray-200/80'
+          "
+        >
+          {{ message.message }}
+        </p>
+        <div
+          *ngIf="message.isSelected"
+          class="text-[10px] text-slate-700"
+          [ngClass]="
+            message.UserId == chatData.ownId
+              ? 'mr-2 justify-self-end'
+              : 'ml-2'
+          "
+        >
+          {{ dateFormat(message.createdAt) }}
+        </div>
+      </div>
     </div>
     <div class="" #scrollToBottom></div>
   </div>

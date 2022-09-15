@@ -7,8 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
+import * as moment from 'moment';
 
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-message',
@@ -17,6 +19,7 @@ import { ChatService } from '../../shared/services/chat.service';
 })
 export class MessageComponent implements OnInit {
   @Output() closeChatModal = new EventEmitter();
+  @Output() newMsg = new EventEmitter();
   @Input() chatData: any;
 
   message: string = '';
@@ -25,10 +28,14 @@ export class MessageComponent implements OnInit {
 
   constructor(
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMsgEvent();
+    this.scrollToBottom();
+  }
 
   chatTrack(item: any, index: any) {
     return `${item.id}-${index}`;
@@ -36,6 +43,23 @@ export class MessageComponent implements OnInit {
 
   closeChat() {
     this.closeChatModal.emit();
+    this.newMsg.emit();
+  }
+
+  getMsgEvent() {
+    this.eventService.newMsg().subscribe((response: any) => {
+      const data = {
+        id: this.chatData.messages.length + 1,
+        UserId: response.senderId,
+        message: response.message,
+        createdAt: new Date(),
+      };
+
+      this.chatData.messages.push(data)
+
+      this.scrollToBottom();
+      this.newMsg.emit({ chatId: this.chatData.chatId, data });
+    });
   }
 
   sendMessage() {
@@ -45,26 +69,29 @@ export class MessageComponent implements OnInit {
       });
     }
 
-    this.chatData.messages.push({
-      UserId: this.chatData.ownId,
+    this.eventService.sendMsg({
+      chatId: this.chatData.chatId,
+      receiverId: this.chatData.user.id,
+      senderId: this.chatData.ownId,
       message: this.message,
-      createdAt: new Date(),
     });
-
-    this.chatService
-      .sendMessage({
-        chatId: this.chatData.chatId,
-        receiverId: this.chatData.user.id,
-        senderId: this.chatData.ownId,
-        message: this.message,
-      })
-      .subscribe(
-        (response: any) => {},
-        (error: any) => {}
-      );
 
     this.scrollToBottom();
     this.message = '';
+  }
+
+  selectMessage(messageId: any) {
+    this.chatData.messages.forEach((msg: any) => {
+      if (msg.id == messageId) {
+        if (msg.isSelected == true) {
+          msg.isSelected = false;
+        } else {
+          msg.isSelected = true;
+        }
+      } else {
+        msg.isSelected = false;
+      }
+    });
   }
 
   scrollToBottom() {
@@ -77,5 +104,9 @@ export class MessageComponent implements OnInit {
     setTimeout(() => {
       this.scrollToBottom();
     }, 100);
+  }
+
+  dateFormat(date: any) {
+    return moment(date).calendar();
   }
 }

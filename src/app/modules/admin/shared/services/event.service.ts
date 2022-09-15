@@ -24,6 +24,10 @@ export class EventService {
     this.socket.emit('openChat', chatId);
   }
 
+  newMsg() {
+    return this.socket.fromEvent<any>('newMsg');
+  }
+
   sendMsg(data: any) {
     this.socket.emit('sendMsg', data);
   }

@@ -3,7 +3,10 @@
     <div class="p-3 h-screen min-h-fit">
       <div class="p-2 grid gap-3 border-b border-slate-100">
         <div class="flex justify-between items-center">
-          <div (click)="goBack()" class="rounded-full border border-gray-200 w-[40px] h-[40px] grid place-items-center cursor-pointer hover:bg-gray-200 transition-all">
+          <div
+            (click)="goBack()"
+            class="rounded-full border border-gray-200 w-[40px] h-[40px] grid place-items-center cursor-pointer hover:bg-gray-200 transition-all"
+          >
             <i class="fal fa-arrow-left"></i>
           </div>
           <div class="font-semibold text-slate-800">Chats</div>
@@ -29,7 +32,7 @@
       <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
         <div
           (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)"
-          *ngFor="let chat of chats"
+          *ngFor="let chat of chats; trackBy: chatTrack"
           [ngClass]="chat.isSelected ? 'bg-gray-100' : ''"
           class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer"
         >
@@ -93,6 +96,7 @@
         <app-message
           [chatData]="chatData"
           (closeChatModal)="isChatOpen = false"
+          (newMsg)="updateChat($event)"
         ></app-message>
       </div>
     </div>

@@ -32,7 +32,7 @@
       <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
         <div
           (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)"
-          *ngFor="let chat of chats"
+          *ngFor="let chat of chats; trackBy: chatTrack"
           [ngClass]="chat.isSelected ? 'bg-gray-100' : ''"
           class="grid grid-cols-[45px_1fr] gap-2 items-center hover:bg-gray-100 rounded-md p-2 transition-all cursor-pointer"
         >
@@ -95,8 +95,8 @@
       <div *ngIf="isChatOpen" class="fixed top-0 lg:relative w-full">
         <app-message
           [chatData]="chatData"
-          (closeChatModal)="isChatOpen = false"
-          (newMsg)="getChats()"
+          (closeChatModal)="closeChat()"
+          (newMsg)="updateChat($event)"
         ></app-message>
       </div>
     </div>

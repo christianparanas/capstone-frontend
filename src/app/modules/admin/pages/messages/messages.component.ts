@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-messages',
@@ -26,7 +27,8 @@ export class MessagesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: HotToastService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -43,23 +45,30 @@ export class MessagesComponent implements OnInit {
     );
   }
 
-  goBack(): void {
-    this.location.back();
+  chatTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
   }
 
   openChat(chatId: any, user: any) {
-    this.chats.forEach((chat: any) => {
+    this.eventService.openChat(chatId);
+
+    this.chats.forEach(async (chat: any) => {
       if (chat.Chat.id == chatId) {
+        let chatMsgs: any = [];
+
+        await chat.Chat.ChatMessages.forEach((msg: any) => {
+          chatMsgs.push({ ...msg, isSelected: false });
+        });
+
         this.chatData = {
           chatId: chatId,
           user: user,
           ownId: this.profile.id,
-          messages: chat.Chat.ChatMessages,
+          messages: chatMsgs,
         };
 
         chat.isSelected = true;
-      }
-      else {
+      } else {
         chat.isSelected = false;
       }
     });
@@ -67,9 +76,21 @@ export class MessagesComponent implements OnInit {
     this.isChatOpen = true;
   }
 
+  updateChat(e: any) {
+    this.chats.forEach((item: any) => {
+      if(e.chatId == item.Chat.id) {
+        item.Chat.ChatMessages.push(e.data)
+      }
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
-      (response: any) => {
+      async (response: any) => {
         response.forEach((item: any) => {
           this.chats.push({ ...item, isSelected: false });
         });
