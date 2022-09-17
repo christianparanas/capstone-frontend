@@ -105,6 +105,9 @@ export class MessagesComponent implements OnInit {
   getChats() {
     this.chatService.getChats(this.profile.id).subscribe(
       (response: any) => {
+
+console.log(response)
+
         response.forEach((item: any) => {
           this.chats.push({ ...item, isSelected: false });
         });

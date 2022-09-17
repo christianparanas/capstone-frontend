@@ -108,7 +108,7 @@
             <div class="grid lg:grid-cols-2">
               <div class=""></div>
               <div class="grid grid-cols-2 gap-3">
-                <div class="" *ngIf="election.status == 'active'">
+                <div class="">
                   <p class="text-[12px] ml-2">Phase</p>
                   <div
                     class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
@@ -136,7 +136,7 @@
                   </div>
                   <div
                     *ngIf="election.status == 'inactive'"
-                    class="text-[12px] bg-red-200 text-red-800 font-semibold px-2 py-2 rounded-b-full capitalize text-center"
+                    class="text-[12px] bg-red-200 text-red-800 font-semibold px-2 py-2 rounded-full capitalize text-center"
                   >
                     {{ election.status }}
                   </div>

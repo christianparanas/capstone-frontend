@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
+      <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5" *ngIf="chats">
         <div
           (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)"
           *ngFor="let chat of chats; trackBy: chatTrack"
