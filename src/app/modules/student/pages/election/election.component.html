@@ -79,7 +79,7 @@
                 </div>
               </div>
 
-              <div class="">
+              <div class="" *ngIf="courses">
                 <h2 class="text-sm font-semibold">Restrictions</h2>
 
                 <div class="text-[12px] mt-1">
@@ -203,22 +203,41 @@
                         class="w-[45px] h-[45px] rounded-full border border-gray-200"
                       >
                         <img
-                          [src]="
-                            candidate.User.image == null
-                              ? '../../../../../assets/images/student.png'
-                              : candidate.User.image
-                          "
+                        [src]="
+                        candidate.image == null
+                          ? candidate.User.image == null
+                            ? '../../../../../assets/images/student.png'
+                            : candidate.User.image
+                          : candidate.image
+                      "
                           alt=""
                           class="w-full h-full object-cover rounded-full"
                         />
                       </div>
-                      <div class="">
-                        <h1 class="font-semibold text-sm">{{ candidate.User.name }}</h1>
-                        <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.title }}</p>
+                      <div class="flex items-center justify-between">
+                        <div class="">
+                          <h1 class="font-semibold text-sm">{{ candidate.User.name }}</h1>
+                          <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.title }}</p>
+                        </div>
+                        <div *ngIf="candidate.isSelected" class="w-[25px] h-[25px] rounded-full text-white font-semibold grid place-items-center bg-green-400">
+                          <i class="fal fa-check text-[12px]"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+
+
+              <div class="mt-10 flex justify-between items-center">
+                <div></div>
+                <button
+                (click)="vote()"
+                    class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all"
+                  >
+                    <i class="fal fa-check mr-1"></i>
+                    Send Votes
+                  </button>
               </div>
             </div>
           </div>
@@ -235,7 +254,7 @@
     [modal]="true"
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
-    <div class="mt-3" *ngIf="candidate">
+    <div class="mt-3" *ngIf="candidate.length != 0">
       <div class="">
         <div
           class="relative mx-auto mb-5 bg-slate-50 rounded-full w-[150px] h-[150px] border-2 border-gray-200"
@@ -273,7 +292,13 @@
           </div>
         </div>
 
-        <div *ngIf="election.stage == 'election_started'" class="mt-2 grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full cursor-pointer">Vote</div>
+        <div *ngIf="election.stage == 'election_started'" class="mt-2">
+          <div (click)="selectCandidate(candidate)" class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full cursor-pointer">
+            <div *ngIf="candidate.isSelected == false">Vote</div>
+            <div *ngIf="candidate.isSelected == true">Unvote</div>
+          </div>
+
+        </div>
           
       </div>
     </div>

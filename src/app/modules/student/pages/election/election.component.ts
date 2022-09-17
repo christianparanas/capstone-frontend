@@ -24,6 +24,7 @@ export class ElectionComponent implements OnInit {
   electionId: number;
   election: any = [];
   candidate: any = []
+  votes: any = []
 
   constructor(
     private courseService: CourseService,
@@ -44,6 +45,43 @@ export class ElectionComponent implements OnInit {
     this.getElectionEvent()
   }
 
+  selectCandidate(data: any) {
+
+    this.votes.forEach((item: any) => {
+      if(data.ElectionPositionId == item.id) {
+        item.ElectionCandidates.forEach((candidate: any) => {
+
+            if(candidate.id == data.id) {
+              if(candidate.isSelected == true) {
+                candidate.isSelected = false
+                item.selectedCandidateCount = item.selectedCandidateCount - 1
+              }
+              else {
+                if(item.selectedCandidateCount == item.no_of_winners) {
+                  this.toast.info("Candidate Vote Exceeded")
+                  this.candidateModal = false
+                }
+                else {
+                  candidate.isSelected = true
+                  item.selectedCandidateCount = item.selectedCandidateCount + 1
+                }
+              }
+            }
+        })
+      }
+    })
+  }
+
+  vote() {
+   let ans = confirm("Done Voting? this action cannot be undone.")
+
+    if(ans) {
+      this.electionService.vote(this.votes).subscribe((res: any) => {
+        console.log(res)
+      })
+    }
+  }
+
   getElectionEvent() {
     this.eventService.getElectionEvent().subscribe((response: any) => {
       if (response.electionId == this.election.id) {
@@ -57,6 +95,21 @@ export class ElectionComponent implements OnInit {
       (response: any) => {
         this.election = response;
         this.isLoading = false;
+        console.log(response)
+
+        response.ElectionPositions.forEach((position: any) => {
+          this.votes.push({ ...position, selectedCandidateCount: 0 })
+        })
+
+        this.votes.forEach((item: any) => {
+            item.ElectionCandidates.forEach((candidate: any) => {
+              candidate.isSelected = false
+            })
+        })
+
+        console.log(this.votes)
+
+        
       },
       (error: any) => {
         this.isLoading = false;
@@ -89,9 +142,6 @@ export class ElectionComponent implements OnInit {
 
   openCandidateModal(candidate: any) {
     this.candidate = candidate
-
-    console.log(candidate)
-
     this.candidateModal = true
   }
 
