@@ -41,6 +41,7 @@ export class ElectionComponent implements OnInit {
 
     this.getElection();
     this.getCourses();
+    this.getElectionEvent()
   }
 
   getElectionEvent() {

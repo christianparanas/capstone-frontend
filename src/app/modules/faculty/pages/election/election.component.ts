@@ -116,6 +116,12 @@ export class ElectionComponent implements OnInit {
 
           this.getElection();
           this.finishSetupPrompt = false;
+
+          this.eventService.sendNewElectionEvent({
+           course: this.election.course,
+           section: this.election.section,
+           year: this.election.year
+          })
         },
         (error: any) => {
           console.log(error);

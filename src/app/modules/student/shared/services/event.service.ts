@@ -28,6 +28,10 @@ export class EventService {
     return this.socket.fromEvent<any>('tweetEvent');
   }
 
+  getNewElectionEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('newElectionEvent');
+  }
+
   openChat(chatId: any) {
     this.socket.emit('openChat', chatId);
   }
