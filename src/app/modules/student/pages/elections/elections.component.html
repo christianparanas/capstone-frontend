@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-5">
           <div
             *ngFor="let election of elections"
             class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all"
@@ -64,9 +64,16 @@
             <div class="mb-2">
               <div class="flex justify-between items-center">
                 <h1 class="font-semibold">{{ election.title }}</h1>
-                <div [routerLink]="['/election']"
-                [queryParams]="{ id: election.id }" class="cursor-pointer w-[40px] h-[40px] rounded-full hover:bg-gray-100 transition-all grid place-items-center">
+                <div class="flex items-center">
+                  <div *ngFor="let voter of election.ElectionVoters">
+                    <div *ngIf="voter.UserId == user.id" class="bg-green-200 text-green-900 py-1 px-3 rounded-full text-[12px] font-semibold">Voted</div>
+                  </div>
+
+
+                  <div [routerLink]="['/election']"
+                [queryParams]="{ id: election.id }" class="ml-2 cursor-pointer w-[40px] h-[40px] rounded-full hover:bg-gray-100 transition-all grid place-items-center">
                   <i class="fal fa-external-link"></i>
+                </div>
                 </div>
               </div>
               <p class="text-sm">{{ election.description }}</p>
@@ -84,43 +91,24 @@
                       Course:
                       {{
                         election.course == 0
-                          ? "All Courses"
+                          ? "All courses"
                           : getCourse(election.course)
                       }}
                     </div>
                     <div class="">
                       Section:
                       {{
-                        election.section == 0 ? "All section" : election.section
+                        election.section == 0 ? "All sections" : election.section
                       }}
                     </div>
                     <div class="">
-                      Year level:
+                      Year:
                       {{
                         election.year == 0 ? "All year levels" : election.year
                       }}
                     </div>
                   </div>
                 </fieldset>
-              </div>
-
-              <div class="flex items-center gap-2 text-[10px] mt-2">
-                <div
-                  *ngIf="election.hasCOCFiling"
-                  class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
-                >
-                  COC
-                </div>
-                <div
-                  *ngIf="election.hasCampaign"
-                  class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
-                >
-                  Campaign
-                </div>
-              </div>
-
-              <div class="text-[12px] mt-1 text-slate-800">
-                Posted: {{ dateFormat(election.createdAt) }}
               </div>
             </div>
           </div>

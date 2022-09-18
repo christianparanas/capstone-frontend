@@ -57,6 +57,8 @@ export class ElectionsComponent implements OnInit {
       (response: any) => {
         this.elections = response
         this.isLoading = false
+
+        console.log(response)
       },
       (error: any) => {
         console.log(error);
