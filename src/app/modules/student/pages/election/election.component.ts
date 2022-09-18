@@ -55,15 +55,19 @@ export class ElectionComponent implements OnInit {
               if(candidate.isSelected == true) {
                 candidate.isSelected = false
                 item.selectedCandidateCount = item.selectedCandidateCount - 1
+                this.candidateModal = false
+                this.toast.info("Candidate Unvoted.")
               }
               else {
                 if(item.selectedCandidateCount == item.no_of_winners) {
-                  this.toast.info("Candidate Vote Exceeded")
+                  this.toast.error("Candidate Vote Exceeded")
                   this.candidateModal = false
                 }
                 else {
                   candidate.isSelected = true
                   item.selectedCandidateCount = item.selectedCandidateCount + 1
+                  this.candidateModal = false
+                  this.toast.success("Candidate Voted.")
                 }
               }
             }
@@ -77,7 +81,7 @@ export class ElectionComponent implements OnInit {
 
     if(ans) {
       this.electionService.vote(this.votes).subscribe((res: any) => {
-        console.log(res)
+
       })
     }
   }
@@ -95,6 +99,7 @@ export class ElectionComponent implements OnInit {
       (response: any) => {
         this.election = response;
         this.isLoading = false;
+        
         console.log(response)
 
         response.ElectionPositions.forEach((position: any) => {
@@ -105,11 +110,7 @@ export class ElectionComponent implements OnInit {
             item.ElectionCandidates.forEach((candidate: any) => {
               candidate.isSelected = false
             })
-        })
-
-        console.log(this.votes)
-
-        
+        })        
       },
       (error: any) => {
         this.isLoading = false;

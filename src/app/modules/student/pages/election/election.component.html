@@ -229,7 +229,7 @@
               </div>
 
 
-              <div class="mt-10 flex justify-between items-center">
+              <div *ngIf="election.stage == 'election_started'" class="mt-10 flex justify-between items-center">
                 <div></div>
                 <button
                 (click)="vote()"
