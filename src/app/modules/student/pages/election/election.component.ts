@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-election',
@@ -18,7 +19,9 @@ export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
   candidateModal: boolean = false
+  isAlreadyVoted: boolean = false
 
+  profile: any = []
   currentDate: string;
   courses: any;
   electionId: number;
@@ -32,7 +35,8 @@ export class ElectionComponent implements OnInit {
     private toast: HotToastService,
     private location: Location,
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +44,21 @@ export class ElectionComponent implements OnInit {
       this.electionId = value.id;
     });
 
-    this.getElection();
     this.getCourses();
     this.getElectionEvent()
+    this.getProfile()
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe((res: any) => {
+      this.profile = res
+
+      this.getElection()
+    })
+  }
+
+  checkIfAlreadyVoted() {
+    
   }
 
   selectCandidate(data: any) {
@@ -81,7 +97,8 @@ export class ElectionComponent implements OnInit {
 
     if(ans) {
       this.electionService.vote(this.votes).subscribe((res: any) => {
-
+        this.toast.success(res.message)
+        this.getElection()
       })
     }
   }
@@ -99,7 +116,7 @@ export class ElectionComponent implements OnInit {
       (response: any) => {
         this.election = response;
         this.isLoading = false;
-        
+
         console.log(response)
 
         response.ElectionPositions.forEach((position: any) => {
@@ -111,6 +128,12 @@ export class ElectionComponent implements OnInit {
               candidate.isSelected = false
             })
         })        
+
+        this.election.ElectionVoters.forEach((voter: any) => {
+          if(voter.UserId == this.profile.id) {
+            this.isAlreadyVoted = true
+          }
+        });
       },
       (error: any) => {
         this.isLoading = false;

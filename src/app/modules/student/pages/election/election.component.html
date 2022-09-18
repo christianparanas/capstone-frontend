@@ -15,9 +15,12 @@
           class="w-[200px] h-[200px]"
         />
 
-        <h1 class="font-semibold text-4xl text-slate-800 mt-10">
-          {{ election.title }}
-        </h1>
+        <div class="flex items-center">
+          <h1 class="font-semibold text-4xl text-slate-800 mt-10">
+            {{ election.title }}
+          </h1>
+          <div *ngIf="isAlreadyVoted" class="bg-green-200 text-green-900 font-semibold py-1 h-fit px-4 rounded-full">Done Voting</div>
+        </div>
         <div class="text-slate-700">- {{ election.description }}</div>
 
         <div class="mt-10">
@@ -229,7 +232,9 @@
               </div>
 
 
-              <div *ngIf="election.stage == 'election_started'" class="mt-10 flex justify-between items-center">
+
+
+              <div *ngIf="election.stage == 'election_started' && !isAlreadyVoted" class="mt-10 flex justify-between items-center">
                 <div></div>
                 <button
                 (click)="vote()"
@@ -292,7 +297,7 @@
           </div>
         </div>
 
-        <div *ngIf="election.stage == 'election_started'" class="mt-2">
+        <div *ngIf="election.stage == 'election_started' && !isAlreadyVoted" class="mt-2">
           <div (click)="selectCandidate(candidate)" class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full cursor-pointer">
             <div *ngIf="candidate.isSelected == false">Vote</div>
             <div *ngIf="candidate.isSelected == true">Unvote</div>
