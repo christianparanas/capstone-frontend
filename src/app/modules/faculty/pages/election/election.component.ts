@@ -21,6 +21,7 @@ export class ElectionComponent implements OnInit {
   electionPositionModal: boolean = false;
   addCandidateModal: boolean = false;
   candidatesModal: boolean = false;
+  votersModal: boolean = true
   finishSetupPrompt: boolean = false;
   deleteElectionPrompt: boolean = false;
   electionPositionForm: FormGroup;
