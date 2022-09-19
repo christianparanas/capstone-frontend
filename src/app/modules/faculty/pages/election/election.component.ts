@@ -21,13 +21,13 @@ export class ElectionComponent implements OnInit {
   electionPositionModal: boolean = false;
   addCandidateModal: boolean = false;
   candidatesModal: boolean = false;
-  votersModal: boolean = true
+  votersModal: boolean = false;
   finishSetupPrompt: boolean = false;
   deleteElectionPrompt: boolean = false;
   electionPositionForm: FormGroup;
 
   currentDate: string;
-  courses: any;
+  courses: any = [];
   students: any = [];
   electionId: number;
   election: any = [];
@@ -42,7 +42,8 @@ export class ElectionComponent implements OnInit {
     UserId: null,
   };
   candidates: any = [];
-  limitOfCandidates: any
+  limitOfCandidates: any;
+  winners: any = [];
 
   constructor(
     private courseService: CourseService,
@@ -73,9 +74,35 @@ export class ElectionComponent implements OnInit {
   getElectionEvent() {
     this.eventService.getElectionEvent().subscribe((response: any) => {
       if (response.electionId == this.election.id) {
-        this.getElection()
+        this.getElection();
       }
     });
+  }
+
+  getWinners() {
+    this.election.ElectionPositions.forEach((position: any) => {
+      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+        return y.ElectionVotes.length - x.ElectionVotes.length
+      }).slice(0, position.no_of_winners);
+
+      this.winners.push(winner)
+    });
+
+    console.log(this.winners)
+  }
+
+  checkIfWinner(candidate: any) {
+    let isWinner = null
+
+    this.winners.forEach((winner: any) => {
+      winner.forEach((win: any) => {
+        if(win.ElectionPositionId == candidate.ElectionPositionId && win.id == candidate.id) {
+          isWinner = true
+        }
+      })
+    })
+
+    return isWinner
   }
 
   deleteElection() {
@@ -119,10 +146,10 @@ export class ElectionComponent implements OnInit {
           this.finishSetupPrompt = false;
 
           this.eventService.sendNewElectionEvent({
-           course: this.election.course,
-           section: this.election.section,
-           year: this.election.year
-          })
+            course: this.election.course,
+            section: this.election.section,
+            year: this.election.year,
+          });
         },
         (error: any) => {
           console.log(error);
@@ -141,7 +168,7 @@ export class ElectionComponent implements OnInit {
   positionModal(data: any) {
     this.candidates = [];
     this.electionPositionId = data.id;
-    this.limitOfCandidates = data.no_of_candidates
+    this.limitOfCandidates = data.no_of_candidates;
     this.candidatesModal = true;
 
     data.ElectionCandidates.forEach((el: any) => {
@@ -191,7 +218,8 @@ export class ElectionComponent implements OnInit {
         this.election = response;
 
         this.getStudents();
-        this.getElectionEvent()
+        this.getElectionEvent();
+        this.getWinners()
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
@@ -216,30 +244,32 @@ export class ElectionComponent implements OnInit {
   getCourse(CourseId: any) {
     let courseTitle = null;
 
-    this.courses.forEach((course: any) => {
-      if (course.id == CourseId) {
-        courseTitle = course.title;
-      }
-    });
+    if (this.courses.length != 0) {
+      this.courses.forEach((course: any) => {
+        if (course.id == CourseId) {
+          courseTitle = course.title;
+        }
+      });
+    }
 
     return courseTitle;
   }
 
   getStudents() {
-    this.electionService.getStudentAccounts({
-      course: this.election.course,
-      section: this.election.section,
-      year: this.election.year
-    }).subscribe(
-      (response: any) => {
-        this.students = response;
-
-        console.log(response);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.electionService
+      .getStudentAccounts({
+        course: this.election.course,
+        section: this.election.section,
+        year: this.election.year,
+      })
+      .subscribe(
+        (response: any) => {
+          this.students = response;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   getCourses() {

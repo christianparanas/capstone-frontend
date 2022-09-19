@@ -251,12 +251,43 @@
 
           <div class="">
             <div class="flex justify-between items-center">
-              <h1>Result</h1>
+              <h1 class="font-semibold">Result</h1>
 
               <div class="flex items-center">
                 <div *ngIf="election.hasCampaign" class="bg-gray-200 text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-300 transition-all"><i class="fal fa-analytics mr-1 text-[12px]"></i> View Prediction</div>
                 <div (click)="votersModal = true" class="ml-2 bg-gray-200 text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-300 transition-all"><i class="fal fa-vote-yea mr-1 text-[12px]"></i> View Voters</div>
               </div>
+            </div>
+
+            <div class="mt-10">
+              <div class="grid lg:grid-cols-2 gap-2">
+                <div *ngFor="let position of election.ElectionPositions" class="border border-gray-200 rounded-lg p-2 px-3">
+                  <div class="mb-4">
+                    <div class="font-semibold text-lg">{{ position.title }}</div>
+                    <div class="" (click)="getWinners()">No. of winners: {{ position.no_of_winners }}</div>
+                  </div>
+
+                  
+                <div class="grid gap-2">
+                  <div *ngFor="let candidate of position.ElectionCandidates" class="relative bg-slate-100 flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-200 transition-all border border-gray-200">
+                    <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
+                      <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+                        <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+                      </div>
+                      <div class="">
+                        <h1 class="font-semibold text-slate-800">{{ candidate.User.name }}</h1>
+                        <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+                      </div>
+                    </div>
+                    <div class="text-sm font-semibold">{{ candidate.ElectionVotes.length == 0 ? '0' : candidate.ElectionVotes.length }} {{ candidate.ElectionVotes.length > 1 ? "votes" : "vote" }}</div> 
+                  
+                    <img *ngIf="checkIfWinner(candidate)" src="../../../../../assets/images/medal.png" alt="" class="w-[25px] h-[25px] absolute right-0 -top-2">
+                  </div>
+                </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>
@@ -449,7 +480,7 @@
           (click)="changeTab(tab)"
         ></p-tabMenu>
 
-        <div class="mt-5">
+        <div class="mt-5" *ngIf="activeItem">
           <div *ngIf="activeItem.label == 'Candidates'" class="">
             <div class="flex justify-between items-center">
               <div class=""></div>
@@ -644,19 +675,21 @@
     [modal]="true"
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
-    <div class="mt-3" *ngIf="election.ElectionVoters.length != 0">
-      <div class="">
-
-      </div>
-
-      <div class="grid gap-2">
-        <div *ngFor="let voter of election.ElectionVoters" class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all">
-          <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-            <img [src]="voter.User.image == null ? '../../../../../assets/images/student.png' : voter.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
-          </div>
-          <div class="">
-            <h1 class="font-semibold text-slate-800">{{ voter.User.name }}</h1>
-            <p class="text-[12px]">{{ voter.User.StudentCredential.Course.title }}</p>
+    <div class="" *ngIf="election">
+      <div class="mt-3" *ngIf="election.ElectionVoters.length != 0">
+        <div class="">
+  
+        </div>
+  
+        <div class="grid gap-2">
+          <div *ngFor="let voter of election.ElectionVoters" class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all">
+            <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+              <img [src]="voter.User.image == null ? '../../../../../assets/images/student.png' : voter.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+            </div>
+            <div class="">
+              <h1 class="font-semibold text-slate-800">{{ voter.User.name }}</h1>
+              <p class="text-[12px]">{{ voter.User.StudentCredential.Course.title }}</p>
+            </div>
           </div>
         </div>
       </div>
