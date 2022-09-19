@@ -85,30 +85,30 @@
               <div class="" *ngIf="courses">
                 <h2 class="text-sm font-semibold">Restrictions</h2>
 
-                <div class="text-[12px] mt-1">
-                  <div class="">
-                    Course:
-                    {{
-                      election.course == 0
-                        ? "All Courses"
-                        : getCourse(election.course)
-                    }}
-                  </div>
-                  <div class="">
-                    Section:
-                    {{
-                      election.section == 0
-                        ? "All Sections"
-                        : election.section
-                    }}
-                  </div>
-                  <div class="">
-                    Year:
-                    {{
-                      election.year == 0 ? "All Year Levels" : election.year
-                    }}
-                  </div>
+                <div class="bg-slate-50 p-1 w-fit rounded-md">
+                  <table class="border border-gray-300">
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Course:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{
+                        election.course == 0
+                          ? "All Courses"
+                          : getCourse(election.course)
+                      }}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Section:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{
+                        election.section == 0 ? "All Sections" : election.section
+                      }}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Year:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{ election.year == 0 ? "All Year Levels" : election.year }}</td>
+                    </tr>
+                  </table>
                 </div>
+
+
               </div>
 
             </div>
@@ -119,7 +119,7 @@
                 <div class="">
                   <p class="text-[12px] ml-2">Phase</p>
                   <div
-                    class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
+                    class="text-[12px] bg-gray-100 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
                   >
                     <div class="" *ngIf="election.stage == 'initial'">Initial</div>
                     <div class="" *ngIf="election.stage == 'campaign_started'">Campaign is Ongoing</div>

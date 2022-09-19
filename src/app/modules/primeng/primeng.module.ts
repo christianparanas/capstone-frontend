@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     ButtonModule,
     DialogModule,
     SkeletonModule,
+    ChartModule
   ],
 })
 export class PrimengModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -45,6 +45,10 @@ export class ElectionComponent implements OnInit {
   limitOfCandidates: any;
   winners: any = [];
 
+  isPredictionsPanelOpen: boolean = false;
+  chartData: any;
+  chartOptions: any;
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -69,6 +73,62 @@ export class ElectionComponent implements OnInit {
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
+
+    this.chartData = {
+      labels: ['Christian', 'Luigi', 'Shiela'],
+      datasets: [
+        {
+          label: 'Positive',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [25, 30, 15],
+        },
+        {
+          label: 'Negative',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          data: [2, 14, 5],
+        },
+    
+        {
+          label: 'Neutral',
+          backgroundColor: 'rgba(201, 203, 207, 0.2)',
+          borderColor: 'rgba(201, 203, 207, 1)',
+          borderWidth: 1,
+          data: [5, 12, 10],
+        },
+      ],
+    };
+
+    this.chartOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#000',
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+        y: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+      },
+    };
   }
 
   getElectionEvent() {
@@ -82,27 +142,30 @@ export class ElectionComponent implements OnInit {
   getWinners() {
     this.election.ElectionPositions.forEach((position: any) => {
       const winner = position.ElectionCandidates.sort((x: any, y: any) => {
-        return y.ElectionVotes.length - x.ElectionVotes.length
+        return y.ElectionVotes.length - x.ElectionVotes.length;
       }).slice(0, position.no_of_winners);
 
-      this.winners.push(winner)
+      this.winners.push(winner);
     });
 
-    console.log(this.winners)
+    console.log(this.winners);
   }
 
   checkIfWinner(candidate: any) {
-    let isWinner = null
+    let isWinner = null;
 
     this.winners.forEach((winner: any) => {
       winner.forEach((win: any) => {
-        if(win.ElectionPositionId == candidate.ElectionPositionId && win.id == candidate.id) {
-          isWinner = true
+        if (
+          win.ElectionPositionId == candidate.ElectionPositionId &&
+          win.id == candidate.id
+        ) {
+          isWinner = true;
         }
-      })
-    })
+      });
+    });
 
-    return isWinner
+    return isWinner;
   }
 
   deleteElection() {
@@ -219,7 +282,7 @@ export class ElectionComponent implements OnInit {
 
         this.getStudents();
         this.getElectionEvent();
-        this.getWinners()
+        this.getWinners();
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {

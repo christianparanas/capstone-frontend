@@ -38,7 +38,7 @@
                     <div class="">
                       <div class="">Start</div>
                       <div
-                        class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
                       >
                         {{ dateFormat(election.campaignperiod_startdate) }}
                       </div>
@@ -46,7 +46,7 @@
                     <div class="">
                       <div class="">End</div>
                       <div
-                        class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
                       >
                         {{ dateFormat(election.campaignperiod_enddate) }}
                       </div>
@@ -62,7 +62,7 @@
                     <div class="">
                       <div class="">Start</div>
                       <div
-                        class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
                       >
                         {{ dateFormat(election.election_startdate) }}
                       </div>
@@ -70,7 +70,7 @@
                     <div class="">
                       <div class="">End</div>
                       <div
-                        class="bg-slate-800 font-semibold text-white px-2 py-1 rounded-md"
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
                       >
                         {{ dateFormat(election.election_enddate) }}
                       </div>
@@ -82,26 +82,30 @@
               <div class="">
                 <h2 class="text-sm font-semibold">Restrictions</h2>
 
-                <div class="text-[12px] mt-1">
-                  <div class="">
-                    Course:
-                    {{
-                      election.course == 0
-                        ? "All Courses"
-                        : getCourse(election.course)
-                    }}
-                  </div>
-                  <div class="">
-                    Section:
-                    {{
-                      election.section == 0 ? "All Sections" : election.section
-                    }}
-                  </div>
-                  <div class="">
-                    Year:
-                    {{ election.year == 0 ? "All Year Levels" : election.year }}
-                  </div>
+                <div class="bg-slate-50 p-1 w-fit rounded-md">
+                  <table class="border border-gray-300">
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Course:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{
+                        election.course == 0
+                          ? "All Courses"
+                          : getCourse(election.course)
+                      }}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Section:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{
+                        election.section == 0 ? "All Sections" : election.section
+                      }}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">Year:</td>
+                      <td class="border border-gray-300 p-1 px-2 text-sm">{{ election.year == 0 ? "All Year Levels" : election.year }}</td>
+                    </tr>
+                  </table>
                 </div>
+
+
               </div>
             </div>
 
@@ -111,7 +115,7 @@
                 <div class="">
                   <p class="text-[12px] ml-2">Phase</p>
                   <div
-                    class="text-[12px] bg-gray-200 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
+                    class="text-[12px] bg-gray-100 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
                   >
                   <div class="" *ngIf="election.stage == 'initial'">Initial</div>
                   <div class="" *ngIf="election.stage == 'campaign_started'">Campaign is Ongoing</div>
@@ -251,43 +255,80 @@
 
           <div class="">
             <div class="flex justify-between items-center">
-              <h1 class="font-semibold">Result</h1>
+              <div class=""></div>
 
               <div class="flex items-center">
-                <div *ngIf="election.hasCampaign" class="bg-gray-200 text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-300 transition-all"><i class="fal fa-analytics mr-1 text-[12px]"></i> View Prediction</div>
-                <div (click)="votersModal = true" class="ml-2 bg-gray-200 text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-300 transition-all"><i class="fal fa-vote-yea mr-1 text-[12px]"></i> View Voters</div>
+                <div *ngIf="election.hasCampaign" (click)="isPredictionsPanelOpen = !isPredictionsPanelOpen" class="bg-gray-100 shadow-sm text-gray-800 py-1 px-3 rounded-lg hover:shadow-md cursor-pointer text-sm font-semibold hover:bg-gray-200 transition-all"><i class="fal fa-analytics mr-1 text-[12px]"></i>{{ isPredictionsPanelOpen ? "Hide" : "View" }} Prediction</div>
+                <div (click)="votersModal = true" class="ml-2 bg-gray-100 shadow-sm text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-200 hover:shadow-md transition-all"><i class="fal fa-vote-yea mr-1 text-[12px]"></i> View Voters</div>
               </div>
             </div>
 
             <div class="mt-10">
-              <div class="grid lg:grid-cols-2 gap-2">
-                <div *ngFor="let position of election.ElectionPositions" class="border border-gray-200 rounded-lg p-2 px-3">
-                  <div class="mb-4">
-                    <div class="font-semibold text-lg">{{ position.title }}</div>
-                    <div class="" (click)="getWinners()">No. of winners: {{ position.no_of_winners }}</div>
-                  </div>
 
-                  
-                <div class="grid gap-2">
-                  <div *ngFor="let candidate of position.ElectionCandidates" class="relative bg-slate-100 flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-200 transition-all border border-gray-200">
-                    <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-                      <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-                        <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
-                      </div>
-                      <div class="">
-                        <h1 class="font-semibold text-slate-800">{{ candidate.User.name }}</h1>
-                        <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+              <div class="mb-10" *ngIf="isPredictionsPanelOpen">
+                <h1 class="font-semibold text-slate-900 mb-3"><i class="fal fa-analytics mr-1"></i> Predictions</h1>
+
+                <div class="">
+                  <div  class="grid grid-cols-2 gap-4">
+                    <div class="">
+                      <h1 class="text-md font-semibold mb-2">President</h1>
+                      <div class="p-2 rounded-md bg-slate-50 ">
+                        <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
                       </div>
                     </div>
-                    <div class="text-sm font-semibold">{{ candidate.ElectionVotes.length == 0 ? '0' : candidate.ElectionVotes.length }} {{ candidate.ElectionVotes.length > 1 ? "votes" : "vote" }}</div> 
-                  
-                    <img *ngIf="checkIfWinner(candidate)" src="../../../../../assets/images/medal.png" alt="" class="w-[25px] h-[25px] absolute right-0 -top-2">
+    
+                    <div class="">
+                      <h1 class="text-md font-semibold mb-2">Senator</h1>
+                      <div class="p-2 rounded-md bg-slate-50 ">
+                        <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
+                      </div>
+                    </div>
+    
                   </div>
                 </div>
-                </div>
-
               </div>
 
+
+              <div class="">
+                <div class="mb-5 flex items-center justify-between">
+                  <h1 class="font-semibold">Election Result</h1>
+                  <div class="">
+                    <div class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all">
+                      <i class="fal fa-download mr-2"></i>Download Result
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-4">
+                  <div *ngFor="let position of election.ElectionPositions" class="border border-gray-200 rounded-lg p-3">
+                    <div class="mb-4">
+                      <div class="flex items-center justify-between">
+                        <div class="font-semibold">{{ position.title }}</div>
+                        <i class="fal fa-file-plus"></i>
+                      </div>
+                      <div class="text-sm" (click)="getWinners()">No. of winners: {{ position.no_of_winners }}</div>
+                    </div>
+  
+                    
+                  <div class="grid gap-2">
+                    <div *ngFor="let candidate of position.ElectionCandidates" class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200">
+                      <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
+                        <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+                          <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+                        </div>
+                        <div class="">
+                          <h1 class="font-semibold text-sm text-slate-800">{{ candidate.User.name }}</h1>
+                          <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+                        </div>
+                      </div>
+                      <div class="text-[12px] font-semibold">{{ candidate.ElectionVotes.length == 0 ? '0' : candidate.ElectionVotes.length }} {{ candidate.ElectionVotes.length > 1 ? "votes" : "vote" }}</div> 
+                    
+                      <img *ngIf="election.stage == 'election_ended' && checkIfWinner(candidate)" src="../../../../../assets/images/medal.png" alt="" class="w-[25px] h-[25px] absolute right-0 -top-2">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
