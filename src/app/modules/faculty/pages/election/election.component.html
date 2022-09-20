@@ -603,8 +603,7 @@
               class="relative mx-auto mb-5 bg-slate-50 rounded-full w-[150px] h-[150px] border-2 border-gray-200"
             >
               <img
-                *ngIf="addCandidatePreviewImg != null"
-                [src]="addCandidatePreviewImg"
+                [src]="addCandidatePreviewImg == null ? '../../../../../assets/images/student.png' : addCandidatePreviewImg "
                 alt=""
                 class="object-cover w-full h-full rounded-full"
               />
@@ -730,6 +729,13 @@
               <p class="text-[12px]">{{ voter.User.StudentCredential.Course.title }}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="h-[300px] grid place-items-center" *ngIf="election.ElectionVoters.length == 0">
+        <div class="">
+          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[100px] h-[100px] object-cover">
+          <p>No voters yet.</p>
         </div>
       </div>
     </div>

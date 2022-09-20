@@ -389,7 +389,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { duration: 3000 })
+        this.toast.error(error.error.message, { duration: 5000 })
         this.submitLoading = false;
 
         this.addCandidateData = {
