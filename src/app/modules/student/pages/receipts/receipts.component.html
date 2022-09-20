@@ -1,17 +1,49 @@
 <div class="relative z-40 mt-20 pb-20">
-  <h1 class="font-bold text-xl md:text-3xl text-white">Vote Receipts
-    
-  </h1>
+  <h1 class="font-bold text-xl md:text-3xl text-white">Vote Receipts</h1>
 
   <div class="mt-20 pb-10">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit nobis
-    nesciunt et iure porro adipisci, placeat eligendi delectus voluptatem quia
-    ipsam possimus, exercitationem illo architecto voluptatum consectetur
-    perferendis minima tempore sed maxime eveniet sapiente. Nam eveniet,
-    voluptates eos tempore necessitatibus, consequatur ex voluptate atque
-    excepturi unde quidem, repellendus consectetur perferendis deleniti at?
-    Perspiciatis
-  </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div *ngFor="let receipt of receipts" class="shadow-md border border-gray-200 rounded-md p-3 h-fit">
+        <div class="flex items-center justify-between">
+          <h1 class="font-semibold text-slate-900 text-lg">{{ receipt.Election.title }}</h1>
+          <div class="">
+            <div class="bg-slate-100 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-sm font-semibold text-slate-800"><i class="fal fa-download"></i></div>
+          </div>
+        </div>
 
-  <hr />
+        <p>{{ receipt.Election.description }}</p>
+
+        <hr class="my-4">
+
+        <div class="grid gap-3">
+          <div *ngFor="let position of receipt.Election.ElectionPositions" class="">
+            <div class="mb-1">
+              <h2 class="font-semibold text-slate-900">{{ position.title }}</h2>
+            </div>
+
+            <div class="bg-slate-50 grid h-fit p-2 rounded-md">
+              <div *ngFor="let candidate of position.ElectionCandidates" class="">
+                <div *ngIf="candidate.ElectionVotes.length != 0" class="flex items-center justify-between p-2 mb-1 bg-white rounded-md shadow-sm">
+                  <div class="grid grid-cols-[40px_1fr] gap-2">
+                    <div class="border border-gray-200 w-[40px] h-[40px] rounded-full">
+                      <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image " alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+                    </div>
+                    <div class="">
+                      <h4 class="font-semibold">{{ candidate.User.name }}</h4>
+                      <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-[30px_30px] gap-1">
+                    <div class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-full font-semibold text-slate-800"><i class="fal fa-file-plus text-[12px]"></i></div>
+                    <div class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-full font-semibold text-slate-800"><i class="fal fa-external-link text-[12px]"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
