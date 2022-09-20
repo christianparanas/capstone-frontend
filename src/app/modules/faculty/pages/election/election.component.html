@@ -257,7 +257,7 @@
             <div class="flex justify-between items-center">
               <div class=""></div>
 
-              <div class="flex items-center">
+              <div class="flex items-center" *ngIf="election.status != 'draft'">
                 <div *ngIf="election.hasCampaign" (click)="isPredictionsPanelOpen = !isPredictionsPanelOpen" class="bg-gray-100 shadow-sm text-gray-800 py-1 px-3 rounded-lg hover:shadow-md cursor-pointer text-sm font-semibold hover:bg-gray-200 transition-all"><i class="fal fa-analytics mr-1 text-[12px]"></i>{{ isPredictionsPanelOpen ? "Hide" : "View" }} Prediction</div>
                 <div (click)="votersModal = true" class="ml-2 bg-gray-100 shadow-sm text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-200 hover:shadow-md transition-all"><i class="fal fa-vote-yea mr-1 text-[12px]"></i> View Voters</div>
               </div>
@@ -289,7 +289,7 @@
               </div>
 
 
-              <div class="">
+              <div class="" *ngIf="election.status != 'draft'">
                 <div class="mb-5 flex items-center justify-between">
                   <h1 class="font-semibold">Election Result</h1>
                   <div class="">
@@ -639,9 +639,7 @@
                 [ngModelOptions]="{ standalone: true }"
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
               >
-                <option value="" selected disabled hidden class="">
-                  Select Student
-                </option>
+
                 <option
                   *ngFor="let student of students"
                   [value]="student.id"
