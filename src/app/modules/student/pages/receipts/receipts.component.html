@@ -23,7 +23,7 @@
 
             <div class="bg-slate-50 grid h-fit p-2 rounded-md">
               <div *ngFor="let candidate of position.ElectionCandidates" class="">
-                <div *ngIf="candidate.ElectionVotes.length != 0" class="flex items-center justify-between p-2 mb-1 bg-white rounded-md shadow-sm">
+                <div *ngIf="candidate.ElectionVotes.length != 0" class="p-2 mb-1 bg-white rounded-md shadow-sm">
                   <div class="grid grid-cols-[40px_1fr] gap-2">
                     <div class="border border-gray-200 w-[40px] h-[40px] rounded-full">
                       <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image " alt="" class="w-[40px] h-[40px] rounded-full object-cover">
@@ -32,11 +32,6 @@
                       <h4 class="font-semibold">{{ candidate.User.name }}</h4>
                       <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
                     </div>
-                  </div>
-
-                  <div class="grid grid-cols-[30px_30px] gap-1">
-                    <div class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-full font-semibold text-slate-800"><i class="fal fa-file-plus text-[12px]"></i></div>
-                    <div class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-full font-semibold text-slate-800"><i class="fal fa-external-link text-[12px]"></i></div>
                   </div>
                 </div>
               </div>
