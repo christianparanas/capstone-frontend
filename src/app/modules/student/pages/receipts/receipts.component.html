@@ -2,18 +2,26 @@
   <h1 class="font-bold text-xl md:text-3xl text-white">Vote Receipts</h1>
 
   <div class="mt-20 pb-10">
-    <div class="grid grid-cols-2 gap-4">
-      <div *ngFor="let receipt of receipts" class="shadow-md border border-gray-200 rounded-md p-3 h-fit">
-        <div class="flex items-center justify-between">
+    <div class="grid grid-cols-3 gap-4">
+      <div *ngFor="let receipt of receipts" class="border border-gray-200 rounded-md p-3 h-fit">
+        <div class="flex items-center justify-between mb-1">
           <h1 class="font-semibold text-slate-900 text-lg">{{ receipt.Election.title }}</h1>
-          <div class="">
-            <div class="bg-slate-100 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-200 transition-all rounded-sm font-semibold text-slate-800"><i class="fal fa-download"></i></div>
+          <div class="grid grid-cols-[35px_35px] gap-2">
+            <div class="bg-slate-50 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"><i class="fal fa-download"></i></div>
+            <div [routerLink]="['/election']" [queryParams]="{ id: receipt.Election.id }" class="bg-slate-50 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"><i class="fal fa-external-link"></i></div>
           </div>
         </div>
 
-        <p>{{ receipt.Election.description }}</p>
+        <div class="">
+          <p class="text-sm">{{ receipt.Election.description }}</p>
 
-        <hr class="my-4">
+          <div class="flex justify-between mt-4">
+            <div class=""></div>
+            <p class="text-[12px]">Date voted: <span class="bg-slate-50 px-2 border border-gray-200 rounded-md">{{ dateFormat(receipt.createdAt) }}</span></p>
+          </div>
+        </div>
+
+        <hr class="mb-4 mt-2">
 
         <div class="grid gap-3">
           <div *ngFor="let position of receipt.Election.ElectionPositions" class="">
@@ -23,14 +31,14 @@
 
             <div class="bg-slate-50 grid h-fit p-2 rounded-md">
               <div *ngFor="let candidate of position.ElectionCandidates" class="">
-                <div *ngIf="candidate.ElectionVotes.length != 0" class="p-2 mb-1 bg-white rounded-md shadow-sm">
+                <div *ngIf="candidate.ElectionVotes.length != 0" class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100">
                   <div class="grid grid-cols-[40px_1fr] gap-2">
                     <div class="border border-gray-200 w-[40px] h-[40px] rounded-full">
                       <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image " alt="" class="w-[40px] h-[40px] rounded-full object-cover">
                     </div>
                     <div class="">
-                      <h4 class="font-semibold">{{ candidate.User.name }}</h4>
-                      <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+                      <h4 class="font-semibold text-sm">{{ candidate.User.name }}</h4>
+                      <p class="text-[11px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
                     </div>
                   </div>
                 </div>

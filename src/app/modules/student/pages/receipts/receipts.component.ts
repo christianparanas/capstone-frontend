@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+
 import { VotereceiptsService } from '../../shared/services/votereceipts.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-receipts',
@@ -30,5 +32,9 @@ export class ReceiptsComponent implements OnInit {
       },
       (error: any) => {}
     );
+  }
+
+  dateFormat(date: any) {
+    return moment(date).calendar();
   }
 }
