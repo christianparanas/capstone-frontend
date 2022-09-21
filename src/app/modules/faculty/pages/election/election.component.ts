@@ -24,6 +24,7 @@ export class ElectionComponent implements OnInit {
   votersModal: boolean = false;
   finishSetupPrompt: boolean = false;
   deleteElectionPrompt: boolean = false;
+  voteReceiptModal: boolean = false;
   electionPositionForm: FormGroup;
 
   currentDate: string;
@@ -44,6 +45,7 @@ export class ElectionComponent implements OnInit {
   candidates: any = [];
   limitOfCandidates: any;
   winners: any = [];
+  receipt: any = []
 
   isPredictionsPanelOpen: boolean = false;
   chartData: any;
@@ -91,7 +93,7 @@ export class ElectionComponent implements OnInit {
           borderWidth: 1,
           data: [2, 14, 5],
         },
-    
+
         {
           label: 'Neutral',
           backgroundColor: 'rgba(201, 203, 207, 0.2)',
@@ -136,6 +138,23 @@ export class ElectionComponent implements OnInit {
       if (response.electionId == this.election.id) {
         this.getElection();
       }
+    });
+  }
+
+  getVoteReceipt(data: any) {
+    this.electionService.getVoteReceipt(data).subscribe(
+      (response: any) => {
+        this.receipt = response;
+        this.voteReceiptModal = true;
+      },
+      (error: any) => {}
+    );
+  }
+
+  selectVoter(data: any) {
+    this.getVoteReceipt({
+      electionId: data.ElectionId,
+      voterId: data.UserId
     });
   }
 
@@ -389,7 +408,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { duration: 5000 })
+        this.toast.error(error.error.message, { duration: 5000 });
         this.submitLoading = false;
 
         this.addCandidateData = {

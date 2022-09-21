@@ -43,10 +43,18 @@ export class ElectionService {
   }
 
   deletePosition(data: any): any {
-    return this.http.delete(`${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}`);
+    return this.http.delete(
+      `${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}`
+    );
   }
 
   deleteCandidate(data: any): any {
-    return this.http.delete(`${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}/${data.electionCandidateId}`);
+    return this.http.delete(
+      `${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}/${data.electionCandidateId}`
+    );
+  }
+
+  getVoteReceipt(data: any): any {
+    return this.http.get(`${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`);
   }
 }
