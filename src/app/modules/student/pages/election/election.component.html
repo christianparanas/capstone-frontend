@@ -257,8 +257,45 @@
 
           </div>
 
-          <div *ngIf="election.stage == 'election_ended'" class="">
-            <div class="">Election Result here</div>
+          <div class="" *ngIf="election.stage == 'election_ended'">
+            <div class="mb-5 flex items-center justify-between">
+              <h1 class="font-semibold">Election Result</h1>
+              <div class="">
+                <div class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all">
+                  <i class="fal fa-download mr-2"></i>Download Result
+                </div>
+              </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-4">
+              <div *ngFor="let position of election.ElectionPositions" class="border border-gray-200 rounded-lg p-3">
+                <div class="mb-4">
+                  <div class="flex items-center justify-between">
+                    <div class="font-semibold">{{ position.title }}</div>
+                    <i class="fal fa-file-plus"></i>
+                  </div>
+                  <div class="text-sm">No. of winners: {{ position.no_of_winners }}</div>
+                </div>
+
+                
+              <div class="grid gap-2">
+                <div *ngFor="let candidate of position.ElectionCandidates" class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200">
+                  <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
+                    <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+                      <img [src]="candidate.User.image == null ? '../../../../../assets/images/student.png' : candidate.User.image" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
+                    </div>
+                    <div class="">
+                      <h1 class="font-semibold text-sm text-slate-800">{{ candidate.User.name }}</h1>
+                      <p class="text-[12px]">{{ candidate.User.StudentCredential.Course.acronym }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}</p>
+                    </div>
+                  </div>
+                  <div class="text-[12px] font-semibold">{{ candidate.ElectionVotes.length == 0 ? '0' : candidate.ElectionVotes.length }} {{ candidate.ElectionVotes.length > 1 ? "votes" : "vote" }}</div> 
+                
+                  <img *ngIf="election.stage == 'election_ended' && checkIfWinner(candidate)" src="../../../../../assets/images/medal.png" alt="" class="w-[25px] h-[25px] absolute right-0 -top-2">
+                </div>
+              </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

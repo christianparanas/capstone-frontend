@@ -28,6 +28,7 @@ export class ElectionComponent implements OnInit {
   election: any = [];
   candidate: any = []
   votes: any = []
+  winners: any = [];
 
   constructor(
     private courseService: CourseService,
@@ -57,8 +58,31 @@ export class ElectionComponent implements OnInit {
     })
   }
 
-  checkIfAlreadyVoted() {
-    
+  getWinners() {
+    this.election.ElectionPositions.forEach((position: any) => {
+      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+        return y.ElectionVotes.length - x.ElectionVotes.length;
+      }).slice(0, position.no_of_winners);
+
+      this.winners.push(winner);
+    });
+  }
+
+  checkIfWinner(candidate: any) {
+    let isWinner = null;
+
+    this.winners.forEach((winner: any) => {
+      winner.forEach((win: any) => {
+        if (
+          win.ElectionPositionId == candidate.ElectionPositionId &&
+          win.id == candidate.id
+        ) {
+          isWinner = true;
+        }
+      });
+    });
+
+    return isWinner;
   }
 
   selectCandidate(data: any) {
@@ -118,6 +142,7 @@ export class ElectionComponent implements OnInit {
         this.isLoading = false;
 
         console.log(response)
+        this.getWinners()
 
         response.ElectionPositions.forEach((position: any) => {
           this.votes.push({ ...position, selectedCandidateCount: 0 })
