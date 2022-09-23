@@ -13,9 +13,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { WebcamComponent } from './components/webcam/webcam.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
+import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, WebcamComponent, CountdownComponent],
+  declarations: [LoginComponent, SignupComponent, WebcamComponent, CountdownComponent, ForgotpasswordComponent, ResetpasswordComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
