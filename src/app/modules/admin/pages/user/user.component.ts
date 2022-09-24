@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { StudentService } from '../../shared/services/student.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { ChatService } from '../../shared/services/chat.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,7 @@ export class UserComponent implements OnInit {
   userData: any;
   profile: any = [];
 
-  actionModal: boolean = false
+  actionModal: boolean = true
   declineModal: boolean = false;
   approveModal: boolean = false;
   chatModal: boolean = false;
@@ -32,9 +33,13 @@ export class UserComponent implements OnInit {
   chatId: any = null;
   chat: any = [];
 
+  isAdmin: boolean = false
+  isFaculty: boolean = false
+
   @ViewChild('scrollToBottom') scrollElement: any;
 
   constructor(
+    private eventService: EventService,
     private location: Location,
     private studentService: StudentService,
     private route: ActivatedRoute,
@@ -91,11 +96,69 @@ export class UserComponent implements OnInit {
       (response: any) => {
         this.userData = response;
         this.isLoading = false;
+
+        response.UserRoles.forEach((role: any) => {
+          if(role.Role.title == 'Faculty') {
+            this.isFaculty = true
+          }
+
+          if(role.Role.title == 'Admin') {
+            this.isAdmin = true
+          }
+        });
       },
       (error: any) => {
         console.log(error);
       }
     );
+  }
+
+  setRole(roleId: any) {
+    let data: any = {}
+
+    if(roleId == 100) {
+      data = {
+        id: roleId,
+        Role: {
+          id: roleId,
+          title: "Faculty"
+        }
+      }
+
+      this.isFaculty = true
+    }
+
+    if(roleId == 200) {
+      data = {
+        id: roleId,
+        Role: {
+          id: roleId,
+          title: "Admin"
+        }
+      }
+
+      this.isAdmin = true
+    }
+
+    this.userData.UserRoles.push(data)
+  }
+
+  removeRole(role: any) {
+    let title = ''
+
+    if(role == 'Faculty') {
+      title = 'Faculty'
+
+      this.isFaculty = false
+    }
+
+    if(role == 'Admin') {
+      title = 'Admin'
+
+      this.isAdmin = false
+    }
+
+    this.userData.UserRoles = this.userData.UserRoles.filter((role: any) => role.Role.title !== title)
   }
 
   openChat() {
@@ -144,17 +207,12 @@ export class UserComponent implements OnInit {
       createdAt: new Date(),
     });
 
-    this.chatService
-      .sendMessage({
-        chatId: this.chatId,
-        receiverId: this.userData.id,
-        senderId: this.profile.id,
-        message: this.message,
-      })
-      .subscribe(
-        (response: any) => {},
-        (error: any) => {}
-      );
+    this.eventService.sendMsg({
+      chatId: this.chatId,
+      receiverId: this.userData.id,
+      senderId: this.profile.id,
+      message: this.message,
+    })
 
     this.scrollToBottom();
     this.message = '';

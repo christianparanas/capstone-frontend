@@ -333,14 +333,21 @@
           <h3 class="font-semibold text-slate-900 mb-1">Role</h3>
           <div class="grid gap-2">
             <div *ngFor="let role of userData.UserRoles" class="flex items-center">
-              <div class="bg-slate-50 border-2 border-gray-200 py-1 px-3 rounded-md text-[12px] font-semibold text-slate-800">
-                {{ role.Role.title }}
+              <div class="relative w-fit">
+                <div class="bg-slate-100 py-1 px-3 rounded-md text-[12px] font-semibold text-slate-800">
+                  {{ role.Role.title }}
+                </div>
+
+                <div *ngIf="role.RoleId != 3" (click)="removeRole(role.Role.title)" class="absolute -top-[4px] -right-2 bg-red-500 w-[18px] h-[18px] rounded-full grid place-items-center cursor-pointer">
+                  <i class="fal fa-times text-white text-[10px]"></i>
+                </div>
+                
               </div>
             </div>
 
-            <div class="grid grid-cols-2 items-center gap-2">
-              <div class="bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as a Faculty</div>
-              <div class="bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as an Admin</div>
+            <div class="flex items-center mt-4">
+              <div *ngIf="!isFaculty" (click)="setRole(100)" class="mr-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as a Faculty</div>
+              <div *ngIf="!isAdmin" (click)="setRole(200)" class="ml-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as an Admin</div>
             </div>
           </div>
         </div>
@@ -350,7 +357,7 @@
           <div class="flex justify-between items-center w-full">
             <div class="inline-block relative w-full">
               <select
-                class="text-sm block cursor-pointer appearance-none w-full relative rounded-md border-2 border-gray-200 px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all"
+                class="text-[12px] block cursor-pointer appearance-none w-full relative rounded-md border border-gray-100 font-semibold px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all"
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
