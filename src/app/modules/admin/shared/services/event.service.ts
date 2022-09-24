@@ -20,6 +20,10 @@ export class EventService {
     return this.socket.fromEvent<any>('pollEvent');
   }
 
+  getElectionEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('electionEvent');
+  }
+
   openChat(chatId: any) {
     this.socket.emit('openChat', chatId);
   }

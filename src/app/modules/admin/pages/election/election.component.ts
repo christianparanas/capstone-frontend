@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-election',
@@ -17,30 +18,42 @@ import { ElectionService } from '../../shared/services/election.service';
 export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
-  candidatesModal: boolean = false;
-  electionPositionForm: FormGroup;
+
+  votersModal: boolean = false;
+  voteReceiptModal: boolean = false;
 
   currentDate: string;
-  courses: any;
+  courses: any = [];
+  students: any = [];
   electionId: number;
   election: any = [];
   tabItems: MenuItem[];
   activeItem: MenuItem;
 
   electionPositionId: any = null;
-
-  candidatesModalData: any = {
-    approved_candidates: [],
-    rejected_candidates: [],
-    applications: [],
+  addCandidatePreviewImg: any = null;
+  addCandidateData: any = {
+    image: null,
+    platform: null,
+    UserId: null,
   };
+  candidates: any = [];
+  limitOfCandidates: any;
+  winners: any = [];
+  receipt: any = []
+
+  isPredictionsPanelOpen: boolean = false;
+  chartData: any;
+  chartOptions: any;
 
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
     private toast: HotToastService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -50,83 +63,143 @@ export class ElectionComponent implements OnInit {
 
     this.getElection();
     this.getCourses();
-  }
 
+    this.chartData = {
+      labels: ['Christian', 'Luigi', 'Shiela'],
+      datasets: [
+        {
+          label: 'Positive',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [25, 30, 15],
+        },
+        {
+          label: 'Negative',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          data: [2, 14, 5],
+        },
 
-
-  changeTab(tab: any) {
-    if (tab.activeItem.label == 'Candidates') {
-      this.activeItem = this.tabItems[0];
-    } else {
-      this.activeItem = this.tabItems[1];
-    }
-  }
-
-  positionModal(data: any) {
-    this.candidatesModalData = {
-      approved_candidates: [],
-      rejected_candidates: [],
-      applications: [],
+        {
+          label: 'Neutral',
+          backgroundColor: 'rgba(201, 203, 207, 0.2)',
+          borderColor: 'rgba(201, 203, 207, 1)',
+          borderWidth: 1,
+          data: [5, 12, 10],
+        },
+      ],
     };
 
-    this.electionPositionId = data.id;
+    this.chartOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#000',
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+        y: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+      },
+    };
+  }
 
-    this.candidatesModal = true;
-
-    data.ElectionCandidates.forEach((el: any) => {
-      if (el.status == 'pending') {
-        this.candidatesModalData.applications.push(el);
-      } else if (el.status == 'approved') {
-        this.candidatesModalData.approved_candidates.push(el);
-      } else {
-        this.candidatesModalData.rejected_candidates.push(el);
+  getElectionEvent() {
+    this.eventService.getElectionEvent().subscribe((response: any) => {
+      if (response.electionId == this.election.id) {
+        this.getElection();
       }
     });
   }
 
-  candidatesTrack(item: any, index: any) {
-    return `${item.id}-${index}`;
+  getVoteReceipt(data: any) {
+    this.electionService.getVoteReceipt(data).subscribe(
+      (response: any) => {
+        this.receipt = response;
+        this.voteReceiptModal = true;
+      },
+      (error: any) => {}
+    );
   }
 
+  selectVoter(data: any) {
+    this.getVoteReceipt({
+      electionId: data.ElectionId,
+      voterId: data.UserId
+    });
+  }
+
+  getWinners() {
+    this.election.ElectionPositions.forEach((position: any) => {
+      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+        return y.ElectionVotes.length - x.ElectionVotes.length;
+      }).slice(0, position.no_of_winners);
+
+      this.winners.push(winner);
+    });
+
+    console.log(this.winners);
+  }
+
+  checkIfWinner(candidate: any) {
+    let isWinner = null;
+
+    this.winners.forEach((winner: any) => {
+      winner.forEach((win: any) => {
+        if (
+          win.ElectionPositionId == candidate.ElectionPositionId &&
+          win.id == candidate.id
+        ) {
+          isWinner = true;
+        }
+      });
+    });
+
+    return isWinner;
+  }
+
+
+
   getElection() {
-    this.candidatesModalData = {
-      approved_candidates: [],
-      rejected_candidates: [],
-      applications: [],
-    };
+    this.candidates = [];
 
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
         console.log(response);
         this.election = response;
 
+        this.getElectionEvent();
+        this.getWinners();
+
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
             if (this.electionPositionId == position.id) {
-              position.ElectionCandidates.forEach((candidate: any) => {
-                if (candidate.status == 'pending') {
-                  this.candidatesModalData.applications.push(candidate);
-                } else if (candidate.status == 'approved') {
-                  this.candidatesModalData.approved_candidates.push(candidate);
-                } else {
-                  this.candidatesModalData.rejected_candidates.push(candidate);
-                }
+              position.ElectionCandidates.forEach((el: any) => {
+                this.candidates.push(el);
               });
             }
           });
         }
 
         this.isLoading = false;
-
-        if (this.election.hasCOCFiling == true) {
-          this.tabItems = [
-            { label: 'Candidates', icon: 'pi pi-fw pi-home' },
-            { label: 'Applications', icon: 'pi pi-fw pi-home' },
-          ];
-        } else {
-          this.tabItems = [{ label: 'Candidates', icon: 'pi pi-fw pi-home' }];
-        }
-
+        this.tabItems = [{ label: 'Candidates', icon: 'pi pi-fw pi-home' }];
         this.activeItem = this.tabItems[0];
       },
       (error: any) => {
@@ -138,15 +211,16 @@ export class ElectionComponent implements OnInit {
   getCourse(CourseId: any) {
     let courseTitle = null;
 
-    this.courses.forEach((course: any) => {
-      if (course.id == CourseId) {
-        courseTitle = course.title;
-      }
-    });
+    if (this.courses.length != 0) {
+      this.courses.forEach((course: any) => {
+        if (course.id == CourseId) {
+          courseTitle = course.title;
+        }
+      });
+    }
 
     return courseTitle;
   }
-
 
 
   getCourses() {
@@ -169,4 +243,13 @@ export class ElectionComponent implements OnInit {
   }
 
 
+  loadInputImgToSrc(event: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = () => {
+      this.addCandidatePreviewImg = reader.result;
+      this.addCandidateData.image = reader.result;
+    };
+  }
 }
