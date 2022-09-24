@@ -93,6 +93,7 @@ export class PollComponent implements OnInit {
         this.polls = response;
 
         this.isLoading = false;
+        console.log(response)
       },
       (error: any) => {}
     );

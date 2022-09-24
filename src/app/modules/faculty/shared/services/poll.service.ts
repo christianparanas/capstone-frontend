@@ -5,10 +5,9 @@ import { environment } from 'src/environments/environment';
 const BASEURL = environment.baseURL;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PollService {
-
   constructor(private http: HttpClient) {}
 
   getPolls(): any {
