@@ -20,6 +20,7 @@ export class MessagesComponent implements OnInit {
   chats: any = [];
   chatData: any;
   currentChatId: any = '';
+  isLoading: boolean = true
 
   constructor(
     private location: Location,
@@ -108,8 +109,12 @@ export class MessagesComponent implements OnInit {
         response.forEach((item: any) => {
           this.chats.push({ ...item, isSelected: false });
         });
+
+        this.isLoading = false
       },
-      (error: any) => {}
+      (error: any) => {
+        this.isLoading = false
+      }
     );
   }
 }
