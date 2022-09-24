@@ -27,6 +27,7 @@ import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessageComponent } from './components/message/message.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { PeerComponent } from './pages/peer/peer.component';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { PeerComponent } from './pages/peer/peer.component';
     MessageComponent,
     MessagesComponent,
     PeerComponent,
+    SearchComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule],
 })

@@ -21,6 +21,7 @@ import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { MessageComponent } from './components/message/message.component';
 import { UserComponent } from './pages/user/user.component';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UserComponent } from './pages/user/user.component';
     MessagesComponent,
     MessageComponent,
     UserComponent,
+    SearchComponent,
   ],
   imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
 })
