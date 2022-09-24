@@ -29,7 +29,21 @@
         </div>
       </div>
 
-      <div class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
+      <div *ngIf="isLoading" class="grid gap-1">
+        <p-skeleton
+        width="100%"
+        height="60px"
+        *ngFor="let arr of ['', '', '', '', '', '']"
+      ></p-skeleton>
+      </div>
+
+      <div *ngIf="!isLoading && chats.length == 0" class="text-[12px] text-center mt-5">
+        No chat messages yet.
+      </div>
+      
+      
+
+      <div *ngIf="!isLoading" class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
         <div
           (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)"
           *ngFor="let chat of chats; trackBy: chatTrack"
