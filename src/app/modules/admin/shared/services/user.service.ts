@@ -14,4 +14,8 @@ export class UserService {
   getUser(userId: any): any {
     return this.http.get(`${BASEURL}/api/user/${userId}`);
   }
+
+  updateUser(data: any): any {
+    return this.http.put(`${BASEURL}/api/user`, data)
+  }
 }

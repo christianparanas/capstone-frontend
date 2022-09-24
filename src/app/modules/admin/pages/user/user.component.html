@@ -357,6 +357,7 @@
           <div class="flex justify-between items-center w-full">
             <div class="inline-block relative w-full">
               <select
+                [(ngModel)]="status"
                 class="text-[12px] block cursor-pointer appearance-none w-full relative rounded-md border border-gray-100 font-semibold px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all"
               >
                 <option value="active">Active</option>
@@ -380,8 +381,37 @@
         </div>
 
         <button
-            class="bg-red-500 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-600 transition-all w-full"
-          >Save Changes
+            (click)="saveChanges()"
+            [disabled]="submitLoading"
+            type="submit"
+            class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full"
+          >
+            <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+              <svg
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+
+              <span>Saving changes...</span>
+            </div>
+
+            <span *ngIf="!submitLoading">Save changes</span>
           </button>
       </div>
     </div>

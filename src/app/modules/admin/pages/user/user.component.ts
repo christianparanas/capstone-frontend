@@ -8,6 +8,7 @@ import { StudentService } from '../../shared/services/student.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { ChatService } from '../../shared/services/chat.service';
 import { EventService } from '../../shared/services/event.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit {
   userData: any;
   profile: any = [];
 
-  actionModal: boolean = true
+  actionModal: boolean = false
   declineModal: boolean = false;
   approveModal: boolean = false;
   chatModal: boolean = false;
@@ -35,6 +36,8 @@ export class UserComponent implements OnInit {
 
   isAdmin: boolean = false
   isFaculty: boolean = false
+  status: any
+  submitLoading: boolean = false
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
@@ -46,7 +49,8 @@ export class UserComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private profileService: ProfileService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -97,6 +101,8 @@ export class UserComponent implements OnInit {
         this.userData = response;
         this.isLoading = false;
 
+        this.status = response.status
+
         response.UserRoles.forEach((role: any) => {
           if(role.Role.title == 'Faculty') {
             this.isFaculty = true
@@ -111,6 +117,29 @@ export class UserComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  saveChanges() {
+    this.submitLoading = true
+
+    const data = {
+      isAdmin: this.isAdmin,
+      isFaculty: this.isFaculty,
+      status: this.status,
+      userId: this.userData.id
+    }
+
+    this.userService.updateUser(data).subscribe((response: any) => {
+      this.toast.success(response.message)
+      this.actionModal = false
+      this.submitLoading = false
+
+
+    }, (err: any) => {
+      this.toast.error(err.error.message)
+      this.submitLoading = false
+
+    })
   }
 
   setRole(roleId: any) {
