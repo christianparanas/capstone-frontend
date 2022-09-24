@@ -15,6 +15,7 @@ import { FacultyModule } from './modules/faculty/faculty.module';
 import { AdminModule } from './modules/admin/admin.module';
 
 import { environment } from 'src/environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 const BASEURL = environment.baseURL;
 
 const config: SocketIoConfig = { url: BASEURL, options: {} };
@@ -34,6 +35,12 @@ const config: SocketIoConfig = { url: BASEURL, options: {} };
     HotToastModule.forRoot(),
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
