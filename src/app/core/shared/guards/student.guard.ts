@@ -34,7 +34,7 @@ export class StudentGuard implements CanActivate {
     this.router.navigate([`/login`], {
       queryParams: { type: 'student' },
     });
-    this.toast.info('Please login!', { position: 'top-right' });
+    this.toast.info('Please login!');
     return false;
   }
 }

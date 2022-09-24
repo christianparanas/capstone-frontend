@@ -80,23 +80,18 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['/login'])
 
           this.toast.success(response.message, {
-            position: 'top-right',
             autoClose: false,
             dismissible: true
           });
         },
         (error: any) => {
-          this.toast.info(error.error.message, {
-            position: 'top-right',
-          });
+          this.toast.info(error.error.message);
 
           this.submitLoading = false
         }
       );
     } else {
-      this.toast.info('Please attach the needed documents.', {
-        position: 'top-right',
-      });
+      this.toast.info('Please attach the needed documents.');
     }
   }
 
@@ -121,9 +116,7 @@ export class SignupComponent implements OnInit {
     ) {
       this.isNextStep = true;
     } else {
-      this.toast.error('Please fill out all the required fields.', {
-        position: 'top-right',
-      });
+      this.toast.error('Please fill out all the required fields.');
     }
   }
 
@@ -133,7 +126,7 @@ export class SignupComponent implements OnInit {
         this.courses = response;
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
   }

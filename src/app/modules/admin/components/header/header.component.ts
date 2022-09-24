@@ -98,7 +98,6 @@ export class HeaderComponent implements OnInit {
         this.user = response;
       },
       (error: any) => {
-        console.log(error);
       }
     );
   }

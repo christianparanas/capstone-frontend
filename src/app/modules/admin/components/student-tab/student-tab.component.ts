@@ -24,7 +24,6 @@ export class StudentTabComponent implements OnInit {
         this.students = response;
       },
       (error: any) => {
-        console.log(error);
       }
     );
   }
@@ -35,7 +34,6 @@ export class StudentTabComponent implements OnInit {
         this.pendingStudentApplications = response;
       },
       (error: any) => {
-        console.log(error);
       }
     );
   }

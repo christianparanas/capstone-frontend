@@ -154,8 +154,6 @@ export class ElectionComponent implements OnInit {
 
       this.winners.push(winner);
     });
-
-    console.log(this.winners);
   }
 
   checkIfWinner(candidate: any) {
@@ -182,7 +180,6 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
-        console.log(response);
         this.election = response;
 
         this.getElectionEvent();

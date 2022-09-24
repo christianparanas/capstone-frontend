@@ -16,7 +16,7 @@
       <div class="flex items-center">
         <div class="mr-3 cursor-pointer" routerLink="/admin/account">
           <img
-            src="https://avatars.githubusercontent.com/u/59472122?v=4"
+          [src]="user.image != null ? user.image : defaultImg"
             alt=""
             class="w-[35px] object-cover rounded-full"
           />

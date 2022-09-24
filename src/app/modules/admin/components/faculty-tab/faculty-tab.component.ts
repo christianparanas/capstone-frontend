@@ -71,7 +71,6 @@ export class FacultyTabComponent implements OnInit {
       (error: any) => {
         this.submitLoading = false
         this.toast.error(error.error.message, { position: 'top-right' });
-        console.log(error);
       }
     );
   }

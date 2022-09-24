@@ -49,14 +49,12 @@ export class AccountComponent implements OnInit {
 
     this.profileService.updateProfile(this.profiledata).subscribe(
       (response: any) => {
-        console.log(response);
         this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
         this.getProfile();
         this.editModal = false;
       },
       (error: any) => {
-        console.log(error);
         this.toast.error(error.error.message, { position: 'top-right' });
         this.submitLoading = false;
       }
@@ -76,7 +74,6 @@ export class AccountComponent implements OnInit {
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
-        console.log(response);
         this.profile = response;
 
         this.profiledata = {
@@ -90,7 +87,6 @@ export class AccountComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.log(error);
       }
     );
   }
