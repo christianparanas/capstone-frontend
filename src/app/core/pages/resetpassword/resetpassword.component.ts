@@ -46,12 +46,15 @@ export class ResetpasswordComponent implements OnInit {
 
     this.authService.resetpassword(data).subscribe((response: any) => {
       this.submitLoading = false
+      this.toast.success(response.message)
+
+      this.router.navigate([`/login`], {
+        queryParams: { type: 'student' },
+      });
 
     }, (err: any) => {
       this.submitLoading = false
-    })
-
-    
+      this.toast.error(err.error.message)
+    }) 
   }
-
 }
