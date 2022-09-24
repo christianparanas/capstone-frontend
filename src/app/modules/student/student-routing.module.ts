@@ -16,6 +16,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { UserComponent } from './pages/user/user.component';
+import { SearchComponent } from './pages/search/search.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'receipts', component: ReceiptsComponent },
       { path: 'logs', component: LogsComponent },
       { path: 'about', component: AboutComponent },
+      { path: 'search', component: SearchComponent },
     ],
   },
   { path: 'election', component: ElectionComponent, canActivate: [StudentGuard], },

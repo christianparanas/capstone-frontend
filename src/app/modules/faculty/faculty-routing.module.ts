@@ -13,6 +13,7 @@ import { TweetsComponent } from './pages/tweets/tweets.component';
 import { AccountComponent } from './pages/account/account.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { UserComponent } from './pages/user/user.component'
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'poll', component: PollComponent },
       { path: 'tweets', component: TweetsComponent },
       { path: 'logs', component: LogsComponent },
+      { path: 'search', component: SearchComponent },
     ],
   },
     { path: 'faculty/account', component: AccountComponent, canActivate: [FacultyGuard], },

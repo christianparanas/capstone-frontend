@@ -18,6 +18,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { PeerComponent } from './pages/peer/peer.component';
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'feedbacks', component: FeedbacksComponent },
       { path: 'logs', component: LogsComponent },
+      { path: 'search', component: SearchComponent },
     ],
   },
   { path: 'admin/election', component: ElectionComponent, canActivate: [AdminGuard], },
