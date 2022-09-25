@@ -24,6 +24,7 @@
     "@ngneat/overview": "^3.0.0",
     "chart.js": "^3.9.1",
     "moment": "^2.29.4",
+    "ng-push-ivy": "^1.0.8",
     "ngx-socket-io": "^4.3.0",
     "ngx-webcam": "^0.4.1",
     "primeicons": "^5.0.0",

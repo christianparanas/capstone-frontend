@@ -20,6 +20,9 @@ const BASEURL = environment.baseURL;
 
 const config: SocketIoConfig = { url: BASEURL, options: {} };
 
+
+import { PushNotificationsModule } from 'ng-push-ivy'
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -33,6 +36,7 @@ const config: SocketIoConfig = { url: BASEURL, options: {} };
     FacultyModule,
     AdminModule,
     HotToastModule.forRoot(),
+    PushNotificationsModule,
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
     ServiceWorkerModule.register('ngsw-worker.js', {
