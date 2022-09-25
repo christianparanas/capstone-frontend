@@ -1,6 +1,9 @@
 <div class="relative z-40 mt-20 pb-20">
-  <h1 class="font-bold text-xl md:text-3xl text-white">Dashboard
-    
+  <h1 class="font-bold text-xl md:text-3xl text-white">
+    Good <span *ngIf="isMorning">Morning</span>
+    <span *ngIf="isAfternoon">Afternoon</span>
+    <span *ngIf="isEvening">Evening</span>
+    <span *ngIf="isNight">Night</span>, <span *ngIf="profile.length != 0">{{ profile.name.split(" ")[0] }}.</span>
   </h1>
 
   <div class="mt-20 pb-10">
