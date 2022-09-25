@@ -112,6 +112,8 @@ export class PollComponent implements OnInit {
   submitPoll() {
     let isEmpty;
 
+    console.log(this.pollForm.value)
+
     this.pollData.options.forEach((option: any) => {
       if (option.content == '') {
         isEmpty = true;
