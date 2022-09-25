@@ -301,7 +301,7 @@
 
                 <div class="grid lg:grid-cols-2 gap-4">
                   <div *ngFor="let position of election.ElectionPositions" class="">
-                    <div class="border border-gray-200 rounded-lg p-3">
+                    <div class="border border-gray-200 rounded-lg p-3" *ngIf="position.ElectionCandidates.length != 0">
 
                       <div class="mb-4">
                         <div class="flex items-center justify-between">
@@ -758,42 +758,44 @@
           *ngFor="let position of receipt.Election.ElectionPositions"
           class=""
         >
-          <div class="mb-1">
-            <h2 class="font-semibold text-slate-900">{{ position.title }}</h2>
-          </div>
-
-          <div class="bg-slate-50 grid h-fit p-2 rounded-md">
-            <div
-              *ngFor="let candidate of position.ElectionCandidates"
-              class=""
-            >
+          <div class="" *ngIf="position.ElectionCandidates.length != 0">
+            <div class="mb-1">
+              <h2 class="font-semibold text-slate-900">{{ position.title }}</h2>
+            </div>
+  
+            <div class="bg-slate-50 grid h-fit p-2 rounded-md">
               <div
-                *ngIf="candidate.ElectionVotes.length != 0"
-                class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100"
+                *ngFor="let candidate of position.ElectionCandidates"
+                class=""
               >
-                <div class="grid grid-cols-[40px_1fr] gap-2">
-                  <div
-                    class="border border-gray-200 w-[40px] h-[40px] rounded-full"
-                  >
-                    <img
-                      [src]="
-                        candidate.User.image == null
-                          ? '../../../../../assets/images/student.png'
-                          : candidate.User.image
-                      "
-                      alt=""
-                      class="w-[40px] h-[40px] rounded-full object-cover"
-                    />
-                  </div>
-                  <div class="">
-                    <h4 class="font-semibold text-sm">
-                      {{ candidate.User.name }}
-                    </h4>
-                    <p class="text-[11px]">
-                      {{ candidate.User.StudentCredential.Course.acronym }}
-                      {{ candidate.User.StudentCredential.year
-                      }}{{ candidate.User.StudentCredential.section }}
-                    </p>
+                <div
+                  *ngIf="candidate.ElectionVotes.length != 0"
+                  class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100"
+                >
+                  <div class="grid grid-cols-[40px_1fr] gap-2">
+                    <div
+                      class="border border-gray-200 w-[40px] h-[40px] rounded-full"
+                    >
+                      <img
+                        [src]="
+                          candidate.User.image == null
+                            ? '../../../../../assets/images/student.png'
+                            : candidate.User.image
+                        "
+                        alt=""
+                        class="w-[40px] h-[40px] rounded-full object-cover"
+                      />
+                    </div>
+                    <div class="">
+                      <h4 class="font-semibold text-sm">
+                        {{ candidate.User.name }}
+                      </h4>
+                      <p class="text-[11px]">
+                        {{ candidate.User.StudentCredential.Course.acronym }}
+                        {{ candidate.User.StudentCredential.year
+                        }}{{ candidate.User.StudentCredential.section }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
