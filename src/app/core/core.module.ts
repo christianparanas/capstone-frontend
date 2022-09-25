@@ -16,6 +16,7 @@ import { CountdownComponent } from './components/countdown/countdown.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 
+
 @NgModule({
   declarations: [LoginComponent, SignupComponent, WebcamComponent, CountdownComponent, ForgotpasswordComponent, ResetpasswordComponent],
   imports: [

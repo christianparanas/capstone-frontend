@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import { PushNotificationsService } from 'ng-push-ivy';
+
+import { AppUpdateService } from './core/shared/services/app-update.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,9 @@ import { PushNotificationsService } from 'ng-push-ivy';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private _pushNotifications: PushNotificationsService) {}
+  constructor(private _pushNotifications: PushNotificationsService, private appUpdate: AppUpdateService) {
+    this.appUpdate
+  }
 
 
   ngOnInit(): void {

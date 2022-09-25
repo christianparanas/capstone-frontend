@@ -1,10 +1,10 @@
-<div class="text-sm w-full relative mt-10 grid gap-20">
+<div class="text-sm w-full relative mt-10 grid gap-20 z-40">
   <div class="" *ngIf="pendingStudentApplications.length != 0">
     <h1 class="font-bold text-lg text-slate-900 mb-3">
       Account Application Request
     </h1>
 
-    <div class="">
+    <div class="relative w-[370px] lg:w-full">
       <p-table
         [value]="pendingStudentApplications"
         #dt1
@@ -87,12 +87,13 @@
   <div class="" *ngIf="students">
     <h1 class="font-bold text-lg text-slate-900 mb-3">Student Accounts</h1>
 
-    <div class="">
+    <div class="relative w-[370px] lg:w-full">
       <p-table
         [value]="students"
         #dt2
         dataKey="id"
         responsiveLayout="scroll"
+        [autoLayout]="true"
         [paginator]="true"
         [rows]="10"
         [showCurrentPageReport]="true"
