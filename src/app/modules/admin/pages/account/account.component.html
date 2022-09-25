@@ -136,7 +136,14 @@
             <h1 class="font-semibold text-2xl">
               {{ profile.name }}
             </h1>
-            <p>Administrator</p>
+            <div class="flex w-fit mx-auto lg:mx-0 mt-2">
+              <div
+                *ngFor="let role of profile.UserRoles"
+                class="bg-gray-100 text-[12px] font-semibold text-slate-900 text-[12px] py-1 px-2 rounded-md w-fit mr-1"
+              >
+                {{ role.Role.title }}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -164,7 +171,7 @@
                       ? '../../../../../assets/images/admin.png'
                       : profile.image
                   "
-                  class="w-[40px] h-[40px] rounded-full"
+                  class="w-[40px] h-[40px] rounded-full object-cover"
                   alt=""
                 />
               </div>
