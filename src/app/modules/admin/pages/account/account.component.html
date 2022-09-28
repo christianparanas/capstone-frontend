@@ -134,12 +134,12 @@
 
           <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
             <h1 class="font-semibold text-2xl">
-              {{ profile.name }}
+              {{ profile.name.toUpperCase() }}
             </h1>
             <div class="flex w-fit mx-auto lg:mx-0 mt-2">
               <div
                 *ngFor="let role of profile.UserRoles"
-                class="bg-gray-100 text-[12px] font-semibold text-slate-900 text-[12px] py-1 px-2 rounded-md w-fit mr-1"
+                class="bg-gray-100 text-[12px] font-semibold text-slate-900 py-1 px-2 rounded-md w-fit mr-1"
               >
                 {{ role.Role.title }}
               </div>
@@ -177,7 +177,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ profile.name }}
+                  {{ profile.name.toUpperCase() }}
                 </div>
                 <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
               </div>
