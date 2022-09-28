@@ -28,7 +28,10 @@
             *ngFor="let com of comments; trackBy: commentTrack"
             class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
           >
-            <div class="w-fit h-fit bg-slate-100 rounded-full cursor-pointer" (click)="navigateToUser(com.User.id)">
+            <div
+              class="w-fit h-fit bg-slate-100 rounded-full cursor-pointer"
+              (click)="navigateToUser(com.User.id)"
+            >
               <img
                 [src]="com.User.image == null ? defaultImg : com.User.image"
                 alt=""
@@ -38,7 +41,10 @@
 
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
-                <div class="flex items-center cursor-pointer" (click)="navigateToUser(com.User.id)">
+                <div
+                  class="flex items-center cursor-pointer"
+                  (click)="navigateToUser(com.User.id)"
+                >
                   <div class="font-semibold mr-2">
                     {{ com.User.name }}
                   </div>
@@ -51,9 +57,13 @@
                     </div>
                   </div>
                 </div>
-                <p class="text-[11px] text-slate-700/80">
-                  {{ dateFormat(com.createdAt) }}
-                </p>
+                <div class="flex items-center">
+                  <div *ngIf="com.User.username" class="text-[12px]">
+                    @{{ com.User.username }}
+                  </div>
+                  <span *ngIf="com.User.username" class="mx-1">·</span>
+                  <p class="text-[12px]">{{ dateFormat(com.createdAt) }}</p>
+                </div>
               </div>
 
               <div class="mt-2">{{ com.content }}</div>
@@ -136,7 +146,7 @@
             <span>Tweeting...</span>
           </div>
 
-          <span *ngIf="!submitLoading">Tweet</span>
+          <span *ngIf="!submitLoading">Post</span>
         </button>
       </div>
 
@@ -203,7 +213,13 @@
                     </div>
                   </div>
                 </div>
-                <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                <div class="flex items-center">
+                  <div *ngIf="tweet.User.username" class="text-[12px]">
+                    @{{ tweet.User.username }}
+                  </div>
+                  <span *ngIf="tweet.User.username" class="mx-1">·</span>
+                  <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                </div>
               </div>
             </div>
 
@@ -212,7 +228,7 @@
             </div>
           </div>
 
-          <div class="mt-3 h-[26px] flex items-center">
+          <div class="mt-3 flex items-center">
             <div *ngIf="tweet.reactCount > 0" class="text-[12px]">
               {{ tweet.reactCount }}
               {{ tweet.reactCount > 1 ? "likes" : "like" }}

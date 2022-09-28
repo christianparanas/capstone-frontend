@@ -200,7 +200,6 @@
             </h1>
             <div class="text-[10px] flex items-center w-fit mx-auto">
               <p *ngFor="let role of profile.UserRoles" class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md">{{ role.Role.title }}</p>
-
             </div>
           </div>
         </div>
@@ -245,7 +244,13 @@
                 <div class="font-semibold">
                   {{ profile.name }}
                 </div>
-                <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                <div class="flex items-center">
+                  <div *ngIf="profile.username" class="text-[12px]">
+                    @{{ profile.username }}
+                  </div>
+                  <span *ngIf="profile.username" class="mx-1">·</span>
+                  <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                </div>
               </div>
             </div>
 

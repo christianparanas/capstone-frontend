@@ -100,6 +100,6 @@ export class AccountComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).fromNow()
   }
 }

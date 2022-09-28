@@ -181,7 +181,7 @@ export class TweetComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).fromNow();
   }
 
   navigateToUser(user: any) {
