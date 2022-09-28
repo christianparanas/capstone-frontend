@@ -35,7 +35,7 @@
           <div class="flex items-center w-fit mx-auto mt-2">
             <div
               *ngFor="let role of user.UserRoles"
-              class="bg-gray-100 text-[12px] font-semibold text-slate-900 text-[12px] py-1 px-2 rounded-md w-fit mr-1"
+              class="bg-gray-100 text-[12px] font-semibold text-slate-900 py-1 px-2 rounded-md w-fit mr-1"
             >
               {{ role.Role.title }}
             </div>
@@ -76,7 +76,13 @@
                 <div class="font-semibold">
                   {{ user.name }}
                 </div>
-                <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                <div class="flex items-center">
+                  <div *ngIf="user.username" class="text-[12px]">
+                    @{{ user.username }}
+                  </div>
+                  <span *ngIf="user.username" class="mx-1">·</span>
+                  <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+                </div>
               </div>
             </div>
 

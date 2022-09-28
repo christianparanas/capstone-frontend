@@ -22,6 +22,11 @@ export class ElectionService {
     return this.http.post(`${BASEURL}/api/election/studentaccounts`, data);
   }
 
+  getVoters(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/voters`, data);
+  }
+
+
   addElection(data: any): any {
     return this.http.post(`${BASEURL}/api/election`, data);
   }

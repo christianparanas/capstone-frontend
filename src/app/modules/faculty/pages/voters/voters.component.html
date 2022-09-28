@@ -1,49 +1,144 @@
 <div class="relative z-40 mt-20 pb-20">
   <div class="">
     <h1 class="font-bold text-xl md:text-3xl text-white">Voters</h1>
-    <p class="text-slate-100 text-[12px]">Students of Eastern Visayas State University</p>
+    <p class="text-slate-100 text-[12px]">
+      Students of Eastern Visayas State University
+    </p>
   </div>
 
   <div class="mt-20">
-    <div class="flex items-center justify-between">
-      <div class="">
-        <input type="text" placeholder="Search Voter" class="bg-slate-50 border border-gray-100 py-2 outline-none px-3 rounded-md text-sm">
+    <div class="flex items-center justify-between flex-col md:flex-row">
+      <div class="w-full mb-4 lg:mb-0">
+        <input
+          type="text"
+          placeholder="Search Voter"
+          class="bg-slate-50 border border-gray-100 py-2 outline-none px-3 rounded-md text-sm w-full md:w-fit"
+        />
       </div>
 
       <div class="">
-        <div class="inline-block relative w-fit">
-          <select
-            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
-          >
-            <option>All Voters</option>
-            <option>BSIT</option>
-            <option>BSECE</option>
-          </select>
-          <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
+          <div class="inline-block relative w-fit max-w-[200px]">
+            <select
+              class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
             >
-              <path
-                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              />
-            </svg>
+              <option>All Courses</option>
+              <option *ngFor="let course of courses" [value]="course.id">
+                {{ course.acronym }}
+              </option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="inline-block relative w-full md:w-fit">
+            <select
+              class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+            >
+              <option>All Sections</option>
+              <option value="A">Section: A</option>
+              <option value="B">Section: B</option>
+              <option value="C">Section: C</option>
+              <option value="D">Section: D</option>
+              <option value="E">Section: E</option>
+              <option value="F">Section: F</option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="inline-block relative w-fit">
+            <select
+              class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+            >
+              <option>All Year Levels</option>
+              <option value="1">Year: 1</option>
+              <option value="2">Year: 2</option>
+              <option value="3">Year: 3</option>
+              <option value="4">Year: 4</option>
+              <option value="5">Year: 5</option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="mt-8 grid gap-2">
-      <div *ngFor="let voter of ['', '', '', '', '', '', '', '', '', '', ]" class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all">
-        <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-          <img src="../../../../../assets/images/student.png" alt="" class="w-[40px] h-[40px] rounded-full object-cover">
-        </div>
+    <div class="mt-8">
+      <div *ngIf="isLoading" class="grid gap-1">
+        <p-skeleton
+          width="100%"
+          height="60px"
+          *ngFor="let arr of ['', '', '', '', '']"
+        ></p-skeleton>
+      </div>
+
+      <div *ngIf="!isLoading && voters.length == 0" class="text-center mt-10">
         <div class="">
-          <h1 class="font-semibold text-slate-800">Christian Paranas</h1>
-          <p class="text-[12px]">Bachelor of Science in Information Technology</p>
+          <img
+            src="../../../../../assets/images/empty-box.png"
+            alt=""
+            class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto"
+          />
+          <h1 class="text-center mt-8 font-semibold text-slate-800 text-md">
+            No registered voter/s yet.
+          </h1>
+        </div>
+      </div>
+
+      <div class="grid gap-2">
+        <div
+          *ngFor="let voter of voters"
+          [routerLink]="['/faculty/user']"
+          [queryParams]="{ id: voter.id }"
+          class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all"
+        >
+          <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+            <img
+              src="../../../../../assets/images/student.png"
+              alt=""
+              class="w-[40px] h-[40px] rounded-full object-cover"
+            />
+          </div>
+          <div class="">
+            <h1 class="font-semibold text-slate-800">{{ voter.name }}</h1>
+            <p class="text-[12px]">
+              {{ voter.StudentCredential.Course.title }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
