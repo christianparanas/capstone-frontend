@@ -49,10 +49,10 @@
             <img
               src="../../../../../assets/images/empty-box.png"
               alt=""
-              class="w-[300px] object-cover"
+              class="w-[150px] md:w-[200px] object-cover mx-auto"
             />
             <h1 class="text-center mt-10 font-semibold text-slate-800">
-              No elections. Create one.
+              No elections.
             </h1>
           </div>
         </div>
@@ -97,7 +97,7 @@
             <div class="mt-2">
               <div class="text-[12px]">
                 <fieldset
-                  class="border border-solid border-gray-200 p-2 rounded-md"
+                  class="border border-solid border-gray-200 p-2 pb-3 pl-4 rounded-md"
                 >
                   <legend class="px-1">Restrictions</legend>
 
@@ -126,24 +126,19 @@
                 </fieldset>
               </div>
 
-              <div class="flex items-center gap-2 text-[10px] mt-2">
-                <div
-                  *ngIf="election.hasCOCFiling"
-                  class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
-                >
-                  COC
-                </div>
+              <div class="flex items-center gap-2 text-[10px] mt-2 pl-1">
                 <div
                   *ngIf="election.hasCampaign"
-                  class="bg-slate-800 text-white px-2 py-[2px] rounded-md text-[10px]"
+                  class="bg-slate-200 text-slate-900 font-semibold px-2 py-[2px] rounded-md text-[10px]"
                 >
                   Campaign
                 </div>
+                <div class="text-[10px] text-slate-800">
+                  Posted: {{ dateFormat(election.createdAt) }}
+                </div>
               </div>
 
-              <div class="text-[12px] mt-1 text-slate-800">
-                Posted: {{ dateFormat(election.createdAt) }}
-              </div>
+              
             </div>
           </div>
         </div>

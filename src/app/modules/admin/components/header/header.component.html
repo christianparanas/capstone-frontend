@@ -14,9 +14,13 @@
       </div>
 
       <div class="flex items-center">
-        <div class="mr-3 cursor-pointer" routerLink="/admin/account">
+        <div
+          *ngIf="user.length != 0"
+          class="mr-3 cursor-pointer"
+          routerLink="/admin/account"
+        >
           <img
-          [src]="user.image != null ? user.image : defaultImg"
+            [src]="user.image != null ? user.image : defaultImg"
             alt=""
             class="w-[35px] h-[35px] object-cover rounded-full"
           />
@@ -27,15 +31,15 @@
       </div>
     </div>
 
-    <div
-    *ngIf="routesArr.length != 0 && isNavOpen"
-    >
+    <div *ngIf="routesArr.length != 0 && isNavOpen">
       <div
         class="bg-gray-600 opacity-20 w-full h-full fixed top-0"
         (click)="openCloseNavOverlay()"
       ></div>
 
-      <div class="w-[300px] bg-white h-full fixed top-0 right-0  overflow-y-auto pb-10">
+      <div
+        class="w-[300px] bg-white h-full fixed top-0 right-0 overflow-y-auto pb-10"
+      >
         <div class="flex items-center justify-between p-5">
           <div class=""></div>
           <i
@@ -49,7 +53,11 @@
             <div
               *ngFor="let route of routesArr"
               class="text-slate-800 py-2 px-6 transition-all cursor-pointer border-l-4 border-white hover:text-red-500 font-semibold grid grid-cols-[35px_1fr] items-center"
-              (click)="goUser(route); getCurrentRouteURL(route.route); ; isNavOpen = false"
+              (click)="
+                goUser(route);
+                getCurrentRouteURL(route.route);
+                isNavOpen = false
+              "
               [ngClass]="
                 currentRoute == route.route
                   ? 'border-red-500 text-red-600'
@@ -98,16 +106,16 @@
           class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
           routerLink="/admin/account"
         >
-        <h1 *ngIf="user" class="font-semibold mr-2 capitalize">
-          Hi, {{ user.name.split(" ")[0] }}
-        </h1>
-        <div class="w-fit h-fit rounded-full bg-red-700">
-          <img
-            [src]="user.image != null ? user.image : defaultImg"
-            alt=""
-            class="w-[30px] h-[30px] object-cover rounded-full shadow-md"
-          />
-        </div>
+          <h1 *ngIf="user.length != 0" class="font-semibold mr-2 capitalize">
+            Hi, {{ user.name.split(" ")[0] }}
+          </h1>
+          <div class="w-fit h-fit rounded-full bg-red-700">
+            <img
+              [src]="user.image != null ? user.image : defaultImg"
+              alt=""
+              class="w-[30px] h-[30px] object-cover rounded-full shadow-md"
+            />
+          </div>
         </div>
 
         <button

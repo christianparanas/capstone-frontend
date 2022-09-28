@@ -291,7 +291,7 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+    <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 md:grid-cols-2">
       <div
         *ngFor="let poll of polls"
         class="grid divide-y p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit"
@@ -350,10 +350,10 @@
                   *ngIf="!poll.published"
                   class="text-[10px] text-white font-semibold bg-red-500 px-2 py-1 rounded-md w-fit"
                 >
-                  Poll ended
+                  Ended
                 </div>
               </div>
-              <div class="text-[12px] text-slate-800 mt-2 lg:mt-0">
+              <div class="text-[11px] text-slate-800 mt-2 lg:mt-0">
                 Posted: {{ dateFormat(poll.createdAt) }}
               </div>
             </div>
