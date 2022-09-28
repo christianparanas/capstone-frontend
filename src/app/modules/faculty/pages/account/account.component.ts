@@ -96,7 +96,7 @@ export class AccountComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/'])
+    this.router.navigate(['/faculty/'])
   }
 
   dateFormat(date: any) {
