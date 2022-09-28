@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { EventService } from '../../shared/services/event.service';
+import { ElectionService } from '../../shared/services/election.service';
 
 @Component({
   selector: 'app-tweets',
@@ -25,17 +26,21 @@ export class TweetsComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
 
+  voters: any = []
+
   constructor(
     private toast: HotToastService,
     private tweetService: TweetService,
     private profileService: ProfileService,
     private eventService: EventService,
-    private router: Router
+    private router: Router,
+    private electionService: ElectionService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
+    this.getVoters()
   }
 
   getTweetEvent() {
@@ -178,6 +183,24 @@ export class TweetsComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).fromNow();
+  }
+
+  getVoters() {
+    const data = {
+      course: 0,
+      section: 0,
+      year: 0
+    }
+
+    this.electionService.getVoters(data).subscribe(
+      (response: any) => {
+        this.voters = response;
+        this.isLoading = false
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
 

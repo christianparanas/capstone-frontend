@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -32,7 +33,8 @@ export class AccountComponent implements OnInit {
     private location: Location,
     private profileService: ProfileService,
     private courseService: CourseService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +116,7 @@ export class AccountComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/'])
   }
 
   dateFormat(date: any) {

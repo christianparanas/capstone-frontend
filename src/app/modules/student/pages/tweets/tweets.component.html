@@ -279,52 +279,25 @@
     <div class="p-5 hidden lg:block">
       <h2>People</h2>
 
-      <div class="bg-slate-50 rounded-md mt-3">
+      <div class="grid gap-1 mt-5 h-fit max-h-[400px] overflow-y-auto">
         <div
-          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
+          *ngFor="let voter of voters"
+          [routerLink]="['/user']"
+          [queryParams]="{ id: voter.id }"
+          class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all"
         >
-          <div class="bg-slate-200 w-fit h-fit rounded-full">
+          <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
             <img
               src="../../../../../assets/images/student.png"
-              class="w-[40px] h-[40px] rounded-full"
               alt=""
+              class="w-[40px] h-[40px] rounded-full object-cover"
             />
           </div>
           <div class="">
-            <div class="font-semibold text-sm">Shiela Mae Narido</div>
-            <p class="text-[12px]">dev.christianparanas@gmail.com</p>
-          </div>
-        </div>
-
-        <div
-          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
-        >
-          <div class="bg-slate-200 w-fit h-fit rounded-full">
-            <img
-              src="../../../../../assets/images/student.png"
-              class="w-[40px] h-[40px] rounded-full"
-              alt=""
-            />
-          </div>
-          <div class="">
-            <div class="font-semibold text-sm">Luigi Loreno</div>
-            <p class="text-[12px]">dev.christianparanas@gmail.com</p>
-          </div>
-        </div>
-
-        <div
-          class="grid grid-cols-[40px_1fr] gap-2 items-center p-2 px-3 rounded-md"
-        >
-          <div class="bg-slate-200 w-fit h-fit rounded-full">
-            <img
-              src="../../../../../assets/images/student.png"
-              class="w-[40px] h-[40px] rounded-full"
-              alt=""
-            />
-          </div>
-          <div class="">
-            <div class="font-semibold text-sm">Christian Paranas</div>
-            <p class="text-[12px]">dev.christianparanas@gmail.com</p>
+            <h1 class="font-semibold text-slate-800">{{ voter.name }}</h1>
+            <p class="text-[12px]">
+              {{ voter.StudentCredential.Course.acronym }}
+            </p>
           </div>
         </div>
       </div>

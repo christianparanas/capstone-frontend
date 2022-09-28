@@ -32,8 +32,6 @@ export class VotersComponent implements OnInit {
       (response: any) => {
         this.voters = response;
         this.isLoading = false
-
-        console.log(response)
       },
       (error: any) => {
         console.log(error);

@@ -21,4 +21,8 @@ export class ElectionService {
   getVoteReceipt(data: any): any {
     return this.http.get(`${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`);
   }
+
+  getVoters(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/voters`, data);
+  }
 }
