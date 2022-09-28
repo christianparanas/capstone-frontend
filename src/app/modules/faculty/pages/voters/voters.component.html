@@ -128,7 +128,7 @@
         >
           <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
             <img
-              src="../../../../../assets/images/student.png"
+              [src]="voter.image == null ? '../../../../../assets/images/student.png' : voter.image"
               alt=""
               class="w-[40px] h-[40px] rounded-full object-cover"
             />
