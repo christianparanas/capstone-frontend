@@ -284,20 +284,25 @@
           *ngFor="let voter of voters"
           [routerLink]="['/user']"
           [queryParams]="{ id: voter.id }"
-          class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all"
+          class=""
         >
-          <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-            <img
-              src="../../../../../assets/images/student.png"
-              alt=""
-              class="w-[40px] h-[40px] rounded-full object-cover"
-            />
-          </div>
-          <div class="">
-            <h1 class="font-semibold text-slate-800">{{ voter.name }}</h1>
-            <p class="text-[12px]">
-              {{ voter.StudentCredential.Course.acronym }}
-            </p>
+          <div
+            *ngIf="voter.id != user.id"
+            class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all"
+          >
+            <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+              <img
+                [src]="voter.image == null ? defaultImg : voter.image"
+                class="w-[40px] h-[40px] rounded-full object-cover"
+                alt=""
+              />
+            </div>
+            <div class="">
+              <h1 class="font-semibold text-slate-800">{{ voter.name }}</h1>
+              <p class="text-[12px]">
+                {{ voter.StudentCredential.Course.acronym }}
+              </p>
+            </div>
           </div>
         </div>
       </div>

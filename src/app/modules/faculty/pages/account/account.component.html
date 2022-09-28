@@ -134,7 +134,7 @@
 
           <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
             <h1 class="font-semibold text-2xl">
-              {{ profile.name.toUpperCase() }}
+              {{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}
             </h1>
             <div class="text-[10px] flex items-center w-fit mx-auto">
               <p *ngFor="let role of profile.UserRoles" class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md">{{ role.Role.title }}</p>
@@ -172,7 +172,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ profile.name.toUpperCase() }}
+                  {{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}
                 </div>
                 <div class="flex items-center">
                   <div *ngIf="profile.username" class="text-[12px]">

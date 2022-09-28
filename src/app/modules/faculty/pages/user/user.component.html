@@ -30,7 +30,7 @@
 
         <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
           <h1 class="font-semibold text-2xl">
-            {{ user.name }}
+            {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.split(" ")[0].slice(1) }}
           </h1>
           <div class="flex items-center w-fit mx-auto mt-2">
             <div
@@ -74,7 +74,7 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ user.name }}
+                  {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.split(" ")[0].slice(1) }}
                 </div>
                 <div class="flex items-center">
                   <div *ngIf="user.username" class="text-[12px]">

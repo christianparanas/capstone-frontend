@@ -8,6 +8,8 @@ import { ProfileService } from '../../shared/services/profile.service';
 import { UserService } from '../../shared/services/user.service';
 import { ChatService } from '../../shared/services/chat.service';
 import { EventService } from '../../shared/services/event.service';
+import { CourseService } from 'src/app/core/shared/services/course.service';
+import { TweetService } from '../../shared/services/tweet.service';
 
 @Component({
   selector: 'app-user',
@@ -20,13 +22,23 @@ export class UserComponent implements OnInit {
   profile: any = [];
   userId: any;
   chatModal: boolean = false;
+  submitLoading: boolean = false
 
   chatId: any = null;
   message: string = '';
 
-
   chat: any = [];
   currentChatId: any = ""
+
+  tweets: any = []
+  tweet: any = ''
+
+  isLoading: boolean = true;
+  reactLoading: boolean = false;
+  tweetCommentsModal: boolean = false;
+  comment: string = '';
+  comments: any = [];
+  commentTweetId: any = '';
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
@@ -38,7 +50,9 @@ export class UserComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private chatService: ChatService,
-    private eventService: EventService
+    private eventService: EventService,
+    private courseService: CourseService,
+    private tweetService: TweetService,
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +62,7 @@ export class UserComponent implements OnInit {
     });
 
     this.getNewMsgEvent()
+    this.getTweetEvent();
   }
 
   getNewMsgEvent() {
@@ -107,6 +122,16 @@ export class UserComponent implements OnInit {
     this.userService.getUser(id).subscribe(
       (response: any) => {
         this.user = response;
+
+        this.tweets = response.Tweets
+
+        response.Tweets.forEach((tweet: any) => {
+          if (tweet.id == this.commentTweetId) {
+            this.comments = tweet.TweetComments;
+          }
+        });
+
+        this.submitLoading = false
       },
       (error: any) => {}
     );
@@ -117,7 +142,7 @@ export class UserComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).fromNow()
   }
 
   chatTrack(item: any, index: any) {
@@ -158,5 +183,96 @@ export class UserComponent implements OnInit {
     setTimeout(() => {
       this.scrollToBottom();
     }, 100);
+  }
+
+
+
+  getTweetEvent() {
+    this.eventService.getTweetEvent().subscribe((response: any) => {
+      this.getUser(this.userId);
+    });
+  }
+
+  openCommentModal(tweetId: any) {
+    this.tweetCommentsModal = true;
+
+    this.tweets.forEach((tweet: any) => {
+      if (tweet.id == tweetId) {
+        this.comments = tweet.TweetComments;
+      }
+    });
+
+    this.commentTweetId = tweetId;
+  }
+
+  commentTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
+  }
+
+  checkReactors(reactors: any) {
+    let bool;
+
+    reactors.forEach((reactor: any) => {
+      if (reactor.UserId == this.user.id) {
+        bool = true;
+        return;
+      }
+    });
+
+    return bool;
+  }
+
+  reactTweet(tweetId: number) {
+    if (this.reactLoading == true) {
+      return;
+    }
+
+    this.reactLoading = true;
+
+    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.user.id }).subscribe(
+      (response: any) => {
+        this.reactLoading = false;
+        this.getUser(this.userId);
+        this.eventService.sendTweetEvent();
+      },
+      (error: any) => {
+        console.log(error);
+        this.reactLoading = false;
+      }
+    );
+  }
+
+  postComment() {
+    if (this.comment.trim() == '') {
+      this.toast.info('Please type something.', { position: 'top-right' });
+      return;
+    }
+
+    const data: any = {
+      tweetId: this.commentTweetId,
+      comment: this.comment,
+      UserId: this.profile.id 
+    };
+
+    this.tweetService.postTweetComment(data).subscribe(
+      (response: any) => {
+        this.getUser(this.userId);
+        this.comment = '';
+        this.eventService.sendTweetEvent();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  navigateToUser(id: any) {
+    if(id == this.profile.id) {
+      return this.router.navigate([`/account`]);
+    }
+
+    this.router.navigate([`/user`], {
+      queryParams: { id: id },
+    });
   }
 }
