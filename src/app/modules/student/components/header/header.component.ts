@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   isNavOpen: boolean = false;
   currentRoute: any;
   onScroll: boolean = false;
-  user: any;
+  user: any = [];
   defaultImg: any = '../../../../../assets/images/student.png';
 
   constructor(

@@ -14,7 +14,7 @@
       </div>
 
       <div class="flex items-center">
-        <div class="mr-3 cursor-pointer" routerLink="/faculty/account">
+        <div *ngIf="user.length != 0" class="mr-3 cursor-pointer" routerLink="/faculty/account">
           <img
           [src]="user && user.image != null ? user.image : defaultImg"
             alt=""
@@ -102,7 +102,7 @@
           class="flex items-center cursor-pointer hover:bg-red-900 transition-colors py-2 px-2 pl-3 rounded-xl mr-2"
           routerLink="/faculty/account"
         >
-          <h1 *ngIf="user" class="font-semibold mr-2 capitalize">
+          <h1 *ngIf="user.length != 0" class="font-semibold mr-2 capitalize">
             Hi, {{ user.name.split(" ")[0] }}
           </h1>
           <div class="w-fit h-fit rounded-full bg-red-700">
