@@ -87,7 +87,6 @@ export class ElectionsComponent implements OnInit {
 
     this.electionService.addElection(data).subscribe(
       (response: any) => {
-        console.log(response);
         this.submitLoading = false;
         this.toast.success(response.message, { position: 'top-right' });
         this.createElectionModal = false;
@@ -120,7 +119,6 @@ export class ElectionsComponent implements OnInit {
     this.electionService.getElections().subscribe(
       (response: any) => {
         this.elections = response;
-        console.log(response);
         this.isLoading = false;
       },
       (error: any) => {

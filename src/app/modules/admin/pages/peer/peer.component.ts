@@ -74,8 +74,6 @@ export class PeerComponent implements OnInit {
       (response: any) => {
         response.forEach((res: any) => {
           if (res.Chat.ChatParticipants[0].UserId == this.user.id) {
-            console.log(res)
-
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
 

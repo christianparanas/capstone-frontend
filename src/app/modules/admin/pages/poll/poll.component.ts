@@ -52,9 +52,6 @@ export class PollComponent implements OnInit {
     this.pollService.getPolls(0).subscribe(
       (response: any) => {
         this.polls = response;
-
-        console.log(response)
-
         this.isLoading = false;
       },
       (error: any) => {}

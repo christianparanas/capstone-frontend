@@ -91,9 +91,7 @@ export class PollComponent implements OnInit {
     this.pollService.getPolls().subscribe(
       (response: any) => {
         this.polls = response;
-
         this.isLoading = false;
-        console.log(response)
       },
       (error: any) => {}
     );
@@ -111,9 +109,7 @@ export class PollComponent implements OnInit {
 
   submitPoll() {
     let isEmpty;
-
-    console.log(this.pollForm.value)
-
+    
     this.pollData.options.forEach((option: any) => {
       if (option.content == '') {
         isEmpty = true;

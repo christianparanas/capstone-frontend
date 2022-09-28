@@ -71,7 +71,6 @@ export class AboutComponent implements OnInit {
   getApprovedFeedbacks() {
     this.feedbackService.getApprovedFeedbacks().subscribe(
       (response: any) => {
-        console.log(response);
 
         this.feedbacks = response;
       },

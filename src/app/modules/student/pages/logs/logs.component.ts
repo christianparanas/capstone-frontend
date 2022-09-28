@@ -25,8 +25,6 @@ export class LogsComponent implements OnInit {
   getLogs() {
     this.logService.getLogs(this.userId).subscribe(
       (response: any) => {
-        console.log(response);
-
         this.logs = response;
       },
       (error: any) => {

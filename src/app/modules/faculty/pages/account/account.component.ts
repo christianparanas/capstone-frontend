@@ -49,7 +49,6 @@ export class AccountComponent implements OnInit {
 
     this.profileService.updateProfile(this.profiledata).subscribe(
       (response: any) => {
-        console.log(response);
         this.toast.success(response.message, { position: 'top-right' });
         this.submitLoading = false;
         this.getProfile();
@@ -76,7 +75,6 @@ export class AccountComponent implements OnInit {
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
-        console.log(response);
         this.profile = response;
 
         this.profiledata = {

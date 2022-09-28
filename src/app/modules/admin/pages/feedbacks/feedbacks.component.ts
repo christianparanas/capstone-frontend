@@ -53,8 +53,6 @@ export class FeedbacksComponent implements OnInit {
   getFeedbacks() {
     this.feedbackService.getFeedbacks().subscribe(
       (response: any) => {
-        console.log(response);
-
         this.feedbacks = response;
       },
       (error: any) => {
