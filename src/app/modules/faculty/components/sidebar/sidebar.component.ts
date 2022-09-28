@@ -22,7 +22,12 @@ export class SidebarComponent implements OnInit {
     },
     {
       title: 'Polls',
-      route: 'poll',
+      route: 'polls',
+      icon: 'fal fa-poll-people',
+    },
+    {
+      title: 'Voters',
+      route: 'voters',
       icon: 'fal fa-poll-people',
     },
     {

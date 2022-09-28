@@ -12,7 +12,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { ElectionComponent } from './pages/election/election.component';
-import { CampaignComponent } from './pages/campaign/campaign.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { PollsComponent } from './pages/polls/polls.component';
 import { ReceiptsComponent } from './pages/receipts/receipts.component';
@@ -34,7 +33,6 @@ import { SearchComponent } from './pages/search/search.component';
     AboutComponent,
     LayoutComponent,
     ElectionComponent,
-    CampaignComponent,
     TweetsComponent,
     PollsComponent,
     ReceiptsComponent,

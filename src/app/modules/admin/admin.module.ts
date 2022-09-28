@@ -18,7 +18,6 @@ import { FacultyTabComponent } from './components/faculty-tab/faculty-tab.compon
 import { AdminTabComponent } from './components/admin-tab/admin-tab.component';
 import { UserComponent } from './pages/user/user.component';
 import { ElectionComponent } from './pages/election/election.component';
-import { CampaignComponent } from './pages/campaign/campaign.component';
 import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
@@ -43,7 +42,6 @@ import { SearchComponent } from './pages/search/search.component';
     AdminTabComponent,
     UserComponent,
     ElectionComponent,
-    CampaignComponent,
     PollComponent,
     TweetComponent,
     PredictionComponent,

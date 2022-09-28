@@ -10,7 +10,6 @@ import { FeedbacksComponent } from './pages/feedbacks/feedbacks.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ElectionComponent } from './pages/election/election.component';
-import { CampaignComponent } from './pages/campaign/campaign.component';
 import { PollComponent } from './pages/poll/poll.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'elections', component: ElectionsComponent },
       { path: 'polls', component: PollComponent },
-      { path: 'campaigns', component: CampaignComponent },
       { path: 'predictions', component: PredictionComponent },
       { path: 'tweets', component: TweetComponent },
       { path: 'users', component: UsersComponent },

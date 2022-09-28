@@ -14,6 +14,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { UserComponent } from './pages/user/user.component'
 import { SearchComponent } from './pages/search/search.component';
+import { VotersComponent } from './pages/voters/voters.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'elections', component: ElectionsComponent },
-      { path: 'poll', component: PollComponent },
+      { path: 'polls', component: PollComponent },
+      { path: 'voters', component: VotersComponent },
       { path: 'tweets', component: TweetsComponent },
       { path: 'logs', component: LogsComponent },
       { path: 'search', component: SearchComponent },

@@ -15,13 +15,13 @@ import { PollComponent } from './pages/poll/poll.component';
 import { ElectionComponent } from './pages/election/election.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
-import { CampaignComponent } from './pages/campaign/campaign.component';
 import { AccountComponent } from './pages/account/account.component';
 import { ElectionsComponent } from './pages/elections/elections.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { MessageComponent } from './components/message/message.component';
 import { UserComponent } from './pages/user/user.component';
 import { SearchComponent } from './pages/search/search.component';
+import { VotersComponent } from './pages/voters/voters.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +33,13 @@ import { SearchComponent } from './pages/search/search.component';
     ElectionComponent,
     LogsComponent,
     TweetsComponent,
-    CampaignComponent,
     AccountComponent,
     ElectionsComponent,
     MessagesComponent,
     MessageComponent,
     UserComponent,
     SearchComponent,
+    VotersComponent,
   ],
   imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
 })
