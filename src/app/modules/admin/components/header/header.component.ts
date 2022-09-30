@@ -90,6 +90,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([`/admin/${data.route}`], {
       queryParams: { type: data.params },
     });
+
+    this.openCloseNavOverlay()
   }
 
   getUser() {
