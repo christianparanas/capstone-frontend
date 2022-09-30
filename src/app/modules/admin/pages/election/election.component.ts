@@ -46,6 +46,8 @@ export class ElectionComponent implements OnInit {
   chartData: any;
   chartOptions: any;
 
+  predictionModal: boolean = false
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
