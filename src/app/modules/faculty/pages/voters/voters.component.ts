@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { ProfileService } from '../../shared/services/profile.service'
 
 @Component({
   selector: 'app-voters',
@@ -11,14 +12,24 @@ import { ElectionService } from '../../shared/services/election.service';
 export class VotersComponent implements OnInit {
   courses: any = []
   voters: any = []
+  user: any = []
 
   isLoading: boolean = true
 
-  constructor(private courseService: CourseService, private electionService: ElectionService) { }
+  constructor(private courseService: CourseService, private electionService: ElectionService, private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.getCourses()
     this.getVoters()
+    this.getProfile()
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.user = response
+    }, (error: any) => {
+
+    })
   }
 
   getVoters() {
