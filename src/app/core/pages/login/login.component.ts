@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
         (response: any) => {
           this.submitLoading = false;
           this.tempService.setSession(response);
-          this.toast.success(response.message, { position: 'top-right' });
+          this.toast.success(response.message);
           this.loginForm.reset();
         },
         (error: any) => {

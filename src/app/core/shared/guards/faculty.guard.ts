@@ -34,7 +34,7 @@ export class FacultyGuard implements CanActivate {
     this.router.navigate([`/login`], {
       queryParams: { type: 'faculty' },
     });
-    this.toast.info('Please login!');
+    this.toast.info('Please login');
     return false;
   }
 }

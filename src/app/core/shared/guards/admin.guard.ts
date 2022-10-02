@@ -34,7 +34,7 @@ export class AdminGuard implements CanActivate {
     this.router.navigate([`/login`], {
       queryParams: { type: 'admin' },
     });
-    this.toast.info('Please login!');
+    this.toast.info('Please login');
     return false;
   }
 }
