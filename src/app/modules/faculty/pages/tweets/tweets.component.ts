@@ -194,14 +194,15 @@ export class TweetsComponent implements OnInit {
 
     this.electionService.getVoters(data).subscribe(
       (response: any) => {
-        this.voters = response;
-        this.isLoading = false;
+        console.log(response)
 
         response.forEach((voter: any) => {
-          if(voter.username) {
+          if(voter.username != '') {
             this.mentionItems.push(voter.username)
           }
         })
+
+        this.voters = response;
       },
       (error: any) => {
         console.log(error);

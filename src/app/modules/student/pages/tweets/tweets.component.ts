@@ -200,7 +200,7 @@ export class TweetsComponent implements OnInit {
         this.isLoading = false
 
         response.forEach((voter: any) => {
-          if(voter.username) {
+          if(voter.username != '') {
             this.mentionItems.push(voter.username)
           }
         })
