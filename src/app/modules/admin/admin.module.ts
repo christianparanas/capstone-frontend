@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimengModule } from '../primeng/primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MentionModule } from 'angular-mentions';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -52,6 +53,6 @@ import { SearchComponent } from './pages/search/search.component';
     PeerComponent,
     SearchComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule],
+  imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule, MentionModule],
 })
 export class AdminModule {}

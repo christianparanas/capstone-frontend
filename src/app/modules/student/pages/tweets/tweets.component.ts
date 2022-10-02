@@ -27,6 +27,8 @@ export class TweetsComponent implements OnInit {
   commentTweetId: any = '';
 
   voters: any = []
+  mentionItems: any = [];
+
 
   constructor(
     private toast: HotToastService,
@@ -196,6 +198,12 @@ export class TweetsComponent implements OnInit {
       (response: any) => {
         this.voters = response;
         this.isLoading = false
+
+        response.forEach((voter: any) => {
+          if(voter.username) {
+            this.mentionItems.push(voter.username)
+          }
+        })
       },
       (error: any) => {
         console.log(error);

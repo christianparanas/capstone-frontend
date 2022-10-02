@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MentionModule } from 'angular-mentions';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { StudentRoutingModule } from './student-routing.module';
@@ -52,6 +53,7 @@ import { SearchComponent } from './pages/search/search.component';
     ReactiveFormsModule,
     PrimengModule,
     HttpClientModule,
+    MentionModule
   ]
 })
 export class StudentModule { }

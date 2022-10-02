@@ -76,6 +76,7 @@
         <input
           type="text"
           [(ngModel)]="comment"
+          [mention]="mentionItems"
           placeholder="Write a comment"
           class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
         />
@@ -112,6 +113,7 @@
 
         <textarea
           [(ngModel)]="tweet"
+          [mention]="mentionItems"
           rows="5"
           class="bg-slate-50 resize-none outline-none text-sm p-5 border border-gray-100 rounded-xl"
           placeholder="What's happening?"
@@ -298,10 +300,14 @@
               />
             </div>
             <div class="">
-              <h1 class="font-semibold text-slate-800">{{ voter.name }}</h1>
-              <p class="text-[12px]">
+              <div class="flex items-center">
+                <h1 class="font-semibold text-slate-800">{{ voter.name.split(" ")[0] }}</h1>
+                <div *ngIf="voter.username" class="text-[11px] ml-1">@{{ voter.username }}</div>
+              </div>
+
+              <div class="text-[12px]">
                 {{ voter.StudentCredential.Course.acronym }}
-              </p>
+              </div>
             </div>
           </div>
         </div>

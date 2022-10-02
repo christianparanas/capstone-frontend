@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { MentionModule } from 'angular-mentions';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { PushNotificationsModule } from 'ng-push-ivy'
     HotToastModule.forRoot(),
     PushNotificationsModule,
     BrowserAnimationsModule,
+    MentionModule,
     SocketIoModule.forRoot(config),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

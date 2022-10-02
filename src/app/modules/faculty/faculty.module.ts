@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MentionModule } from 'angular-mentions';
 
 import { PrimengModule } from '../primeng/primeng.module';
 import { CoreModule } from 'src/app/core/core.module';
@@ -23,6 +24,7 @@ import { UserComponent } from './pages/user/user.component';
 import { SearchComponent } from './pages/search/search.component';
 import { VotersComponent } from './pages/voters/voters.component';
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -41,6 +43,6 @@ import { VotersComponent } from './pages/voters/voters.component';
     SearchComponent,
     VotersComponent,
   ],
-  imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule],
+  imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule, MentionModule],
 })
 export class FacultyModule {}
