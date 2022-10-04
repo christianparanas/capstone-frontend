@@ -16,6 +16,10 @@ export class EventService {
     return this.socket.fromEvent<any>('tweetEvent');
   }
 
+  getLogEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('logEvent');
+  }
+
   getPollEvent(): Observable<any> {
     return this.socket.fromEvent<any>('pollEvent');
   }

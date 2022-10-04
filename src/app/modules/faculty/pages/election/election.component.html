@@ -329,7 +329,7 @@
                           <div class="">
                             <div
                               *ngIf="election.hasCampaign"
-                              (click)="predictionModal = true"
+                              (click)="getPrediction(position)"
                               class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
                             >
                               <i class="fal fa-vote-yea mr-1 text-[12px]"></i>
@@ -857,9 +857,10 @@
         </div>
       </div>
 
-      <div
+      <div class="" *ngIf="election.length != 0">
+        <div
         class="h-[300px] grid place-items-center"
-        *ngIf="election && election.ElectionVoters.length == 0"
+        *ngIf="election.ElectionVoters.length == 0"
       >
         <div class="">
           <img
@@ -869,6 +870,7 @@
           />
           <p>No voters yet.</p>
         </div>
+      </div>
       </div>
     </div>
   </p-dialog>

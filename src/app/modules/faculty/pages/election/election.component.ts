@@ -143,6 +143,30 @@ export class ElectionComponent implements OnInit {
     });
   }
 
+  getPrediction(position: any) {
+    this.predictionModal = true; 
+
+    const data: any = {
+      ElectionId: position.ElectionId,
+      ElectionPositionId: position.id,
+      candidates: []
+    }
+
+    position.ElectionCandidates.forEach((candidate: any) => {
+      data.candidates.push({
+        UserId: candidate.id,
+        messages: candidate.User.username
+      })
+    })
+
+    this.electionService.getPrediction(data).subscribe(
+      (response: any) => {
+        console.log(response)
+      },
+      (error: any) => {}
+    );
+  }
+
   getVoteReceipt(data: any) {
     this.electionService.getVoteReceipt(data).subscribe(
       (response: any) => {

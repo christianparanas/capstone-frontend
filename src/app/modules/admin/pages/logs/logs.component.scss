@@ -11,3 +11,16 @@
     background-color: rgb(153, 27, 27, 1) !important;
   }
 }
+
+::ng-deep .p-tabmenu {
+  
+  .p-highlight .p-menuitem-link {
+    color: rgb(153, 27, 27, 1) !important;
+    border-color: rgb(153, 27, 27, 1) !important;
+    border-bottom-width: 3px !important;
+  }
+  
+  .p-menuitem-link:not(.p-disabled):focus {
+    box-shadow: none !important;
+  }
+}

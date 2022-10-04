@@ -11,6 +11,10 @@ export class LogService {
 
   constructor(private http: HttpClient) {}
 
+  getAllLogs(): any {
+    return this.http.get(`${BASEURL}/api/log`);
+  }
+
   getLogs(userId: any): any {
     return this.http.get(`${BASEURL}/api/log/${userId}`);
   }
