@@ -29,8 +29,11 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { PeerComponent } from './pages/peer/peer.component';
 import { SearchComponent } from './pages/search/search.component';
 
+import { LinkifyPipe } from './shared/pipes/linkify.pipe';
+
 @NgModule({
   declarations: [
+    LinkifyPipe,
     DashboardComponent,
     SidebarComponent,
     LayoutComponent,

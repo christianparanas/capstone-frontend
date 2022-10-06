@@ -226,8 +226,7 @@
               </div>
             </div>
 
-            <div class="mt-3 text-sm whitespace-pre-line h-fit">
-              {{ tweet.message }}
+            <div [innerHTML]="tweet.message | linkify" class="mt-3 text-sm whitespace-pre-line h-fit">
             </div>
           </div>
 

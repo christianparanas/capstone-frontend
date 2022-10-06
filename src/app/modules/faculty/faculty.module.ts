@@ -24,9 +24,12 @@ import { UserComponent } from './pages/user/user.component';
 import { SearchComponent } from './pages/search/search.component';
 import { VotersComponent } from './pages/voters/voters.component';
 
+import { LinkifyPipe } from './shared/pipes/linkify.pipe';
+
 
 @NgModule({
   declarations: [
+    LinkifyPipe,
     DashboardComponent,
     HeaderComponent,
     LayoutComponent,

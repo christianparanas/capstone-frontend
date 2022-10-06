@@ -18,14 +18,21 @@ import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.comp
 
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, WebcamComponent, CountdownComponent, ForgotpasswordComponent, ResetpasswordComponent],
+  declarations: [
+    LoginComponent,
+    SignupComponent,
+    WebcamComponent,
+    CountdownComponent,
+    ForgotpasswordComponent,
+    ResetpasswordComponent,
+  ],
   imports: [
     CommonModule,
     CoreRoutingModule,
     WebcamModule,
     FormsModule,
     PrimengModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [CountdownComponent],
   providers: [

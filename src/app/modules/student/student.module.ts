@@ -26,8 +26,11 @@ import { MessageComponent } from './components/message/message.component';
 import { UserComponent } from './pages/user/user.component';
 import { SearchComponent } from './pages/search/search.component';
 
+import { LinkifyPipe } from './shared/pipes/linkify.pipe';
+
 @NgModule({
   declarations: [
+    LinkifyPipe,
     DashboardComponent,
     HeaderComponent,
     SidebarComponent,
