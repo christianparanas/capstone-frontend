@@ -196,10 +196,8 @@ export class TweetsComponent implements OnInit {
       (response: any) => {
         console.log(response)
 
-        response.forEach((voter: any) => {
-          if(voter.username != '') {
-            this.mentionItems.push(voter.username)
-          }
+        response.forEach( async (voter: any) => {
+          this.mentionItems.push(voter.username)
         })
 
         this.voters = response;

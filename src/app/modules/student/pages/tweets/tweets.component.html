@@ -112,6 +112,7 @@
         </div>
 
         <textarea
+        *ngIf="mentionItems.length > 0"
           [(ngModel)]="tweet"
           [mention]="mentionItems"
           rows="5"
@@ -145,7 +146,7 @@
               ></path>
             </svg>
 
-            <span>Tweeting...</span>
+            <span>Posting...</span>
           </div>
 
           <span *ngIf="!submitLoading">Post</span>
