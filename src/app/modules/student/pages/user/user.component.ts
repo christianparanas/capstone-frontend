@@ -22,16 +22,16 @@ export class UserComponent implements OnInit {
   profile: any = [];
   userId: any;
   chatModal: boolean = false;
-  submitLoading: boolean = false
+  submitLoading: boolean = false;
 
   chatId: any = null;
   message: string = '';
 
   chat: any = [];
-  currentChatId: any = ""
+  currentChatId: any = '';
 
-  tweets: any = []
-  tweet: any = ''
+  tweets: any = [];
+  tweet: any = '';
 
   isLoading: boolean = true;
   reactLoading: boolean = false;
@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
     private chatService: ChatService,
     private eventService: EventService,
     private courseService: CourseService,
-    private tweetService: TweetService,
+    private tweetService: TweetService
   ) {}
 
   ngOnInit(): void {
@@ -61,21 +61,20 @@ export class UserComponent implements OnInit {
       this.getProfile();
     });
 
-    this.getNewMsgEvent()
+    this.getNewMsgEvent();
     this.getTweetEvent();
   }
 
   getNewMsgEvent() {
     this.eventService.newMsg().subscribe((response: any) => {
-      if(response.receiverId == this.profile.id) {
+      if (response.receiverId == this.profile.id) {
         this.chat.push({
           message: response.message,
           UserId: response.senderId,
-        })
+        });
       }
     });
   }
-
 
   openChat() {
     this.eventService.closeChat(this.currentChatId);
@@ -84,7 +83,7 @@ export class UserComponent implements OnInit {
       userOneId: this.user.id,
       userTwoId: this.profile.id,
     };
-    
+
     this.chatService.getChat(data).subscribe(
       (response: any) => {
         response.forEach((res: any) => {
@@ -92,7 +91,7 @@ export class UserComponent implements OnInit {
             this.chat = res.Chat.ChatMessages;
             this.chatId = res.Chat.id;
 
-            this.currentChatId = res.Chat.id
+            this.currentChatId = res.Chat.id;
             this.eventService.openChat(this.chatId);
           }
         });
@@ -123,7 +122,7 @@ export class UserComponent implements OnInit {
       (response: any) => {
         this.user = response;
 
-        this.tweets = response.Tweets
+        this.tweets = response.Tweets;
 
         response.Tweets.forEach((tweet: any) => {
           if (tweet.id == this.commentTweetId) {
@@ -131,7 +130,7 @@ export class UserComponent implements OnInit {
           }
         });
 
-        this.submitLoading = false
+        this.submitLoading = false;
       },
       (error: any) => {}
     );
@@ -142,7 +141,7 @@ export class UserComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).fromNow()
+    return moment(date).fromNow();
   }
 
   chatTrack(item: any, index: any) {
@@ -167,7 +166,7 @@ export class UserComponent implements OnInit {
       receiverId: this.user.id,
       senderId: this.profile.id,
       message: this.message,
-    })
+    });
 
     this.scrollToBottom();
     this.message = '';
@@ -184,8 +183,6 @@ export class UserComponent implements OnInit {
       this.scrollToBottom();
     }, 100);
   }
-
-
 
   getTweetEvent() {
     this.eventService.getTweetEvent().subscribe((response: any) => {
@@ -229,17 +226,19 @@ export class UserComponent implements OnInit {
 
     this.reactLoading = true;
 
-    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.user.id }).subscribe(
-      (response: any) => {
-        this.reactLoading = false;
-        this.getUser(this.userId);
-        this.eventService.sendTweetEvent();
-      },
-      (error: any) => {
-        console.log(error);
-        this.reactLoading = false;
-      }
-    );
+    this.tweetService
+      .reactTweet({ tweetId: tweetId, UserId: this.user.id })
+      .subscribe(
+        (response: any) => {
+          this.reactLoading = false;
+          this.getUser(this.userId);
+          this.eventService.sendTweetEvent();
+        },
+        (error: any) => {
+          console.log(error);
+          this.reactLoading = false;
+        }
+      );
   }
 
   postComment() {
@@ -251,7 +250,7 @@ export class UserComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.profile.id 
+      UserId: this.profile.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -267,7 +266,7 @@ export class UserComponent implements OnInit {
   }
 
   navigateToUser(id: any) {
-    if(id == this.profile.id) {
+    if (id == this.profile.id) {
       return this.router.navigate([`/account`]);
     }
 

@@ -66,7 +66,9 @@
                 </div>
               </div>
 
-              <div class="mt-2">{{ com.content }}</div>
+              <div class="mt-2" [innerHTML]="com.content | linkify: voters"></div>
+
+              
             </div>
           </div>
         </div>
@@ -227,7 +229,7 @@
             </div>
 
             <div
-              [innerHTML]="tweet.message | linkify"
+              [innerHTML]="tweet.message | linkify: voters"
               class="mt-3 text-sm whitespace-pre-line h-fit"
             ></div>
 
@@ -305,8 +307,12 @@
             </div>
             <div class="">
               <div class="flex items-center">
-                <h1 class="font-semibold text-slate-800">{{ voter.name.split(" ")[0] }}</h1>
-                <div *ngIf="voter.username" class="text-[11px] ml-1">@{{ voter.username }}</div>
+                <h1 class="font-semibold text-slate-800">
+                  {{ voter.name.split(" ")[0] }}
+                </h1>
+                <div *ngIf="voter.username" class="text-[11px] ml-1">
+                  @{{ voter.username }}
+                </div>
               </div>
 
               <div class="text-[12px]">
