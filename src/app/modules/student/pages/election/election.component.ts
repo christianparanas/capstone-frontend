@@ -18,16 +18,16 @@ import { ProfileService } from '../../shared/services/profile.service';
 export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
-  candidateModal: boolean = false
-  isAlreadyVoted: boolean = false
+  candidateModal: boolean = false;
+  isAlreadyVoted: boolean = false;
 
-  profile: any = []
+  profile: any = [];
   currentDate: string;
   courses: any;
   electionId: number;
   election: any = [];
-  candidate: any = []
-  votes: any = []
+  candidate: any = [];
+  votes: any = [];
   winners: any = [];
 
   constructor(
@@ -46,16 +46,16 @@ export class ElectionComponent implements OnInit {
     });
 
     this.getCourses();
-    this.getElectionEvent()
-    this.getProfile()
+    this.getElectionEvent();
+    this.getProfile();
   }
 
   getProfile() {
     this.profileService.getProfile().subscribe((res: any) => {
-      this.profile = res
+      this.profile = res;
 
-      this.getElection()
-    })
+      this.getElection();
+    });
   }
 
   getWinners() {
@@ -86,51 +86,53 @@ export class ElectionComponent implements OnInit {
   }
 
   selectCandidate(data: any) {
-
     this.votes.forEach((item: any) => {
-      if(data.ElectionPositionId == item.id) {
+      if (data.ElectionPositionId == item.id) {
         item.ElectionCandidates.forEach((candidate: any) => {
-
-            if(candidate.id == data.id) {
-              if(candidate.isSelected == true) {
-                candidate.isSelected = false
-                item.selectedCandidateCount = item.selectedCandidateCount - 1
-                this.candidateModal = false
-                this.toast.info("Candidate Unvoted.")
-              }
-              else {
-                if(item.selectedCandidateCount == item.no_of_winners) {
-                  this.toast.error("Candidate Vote Exceeded")
-                  this.candidateModal = false
-                }
-                else {
-                  candidate.isSelected = true
-                  item.selectedCandidateCount = item.selectedCandidateCount + 1
-                  this.candidateModal = false
-                  this.toast.success("Candidate Voted.")
-                }
+          if (candidate.id == data.id) {
+            if (candidate.isSelected == true) {
+              candidate.isSelected = false;
+              item.selectedCandidateCount = item.selectedCandidateCount - 1;
+              this.candidateModal = false;
+              this.toast.info('Candidate Unvoted.');
+            } else {
+              if (item.selectedCandidateCount == item.no_of_winners) {
+                this.toast.error('Candidate Vote Exceeded');
+                this.candidateModal = false;
+              } else {
+                candidate.isSelected = true;
+                item.selectedCandidateCount = item.selectedCandidateCount + 1;
+                this.candidateModal = false;
+                this.toast.success('Candidate Voted.');
               }
             }
-        })
+          }
+        });
       }
-    })
+    });
   }
 
   vote() {
-   let ans = confirm("Done Voting? this action cannot be undone.")
+    let ans = confirm('Done Voting? this action cannot be undone.');
 
-    if(ans) {
+    if (ans) {
       this.electionService.vote(this.votes).subscribe((res: any) => {
-        this.toast.success(res.message)
-        this.getElection()
-      })
+        this.toast.success(res.message);
+
+        const data = {
+          electionId: this.election.id
+        }
+
+        this.eventService.sendElectionVoteEvent(data)
+        this.getElection();
+      });
     }
   }
 
   getElectionEvent() {
     this.eventService.getElectionEvent().subscribe((response: any) => {
       if (response.electionId == this.election.id) {
-        this.getElection()
+        this.getElection();
       }
     });
   }
@@ -141,21 +143,21 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
-        this.getWinners()
+        this.getWinners();
 
         response.ElectionPositions.forEach((position: any) => {
-          this.votes.push({ ...position, selectedCandidateCount: 0 })
-        })
+          this.votes.push({ ...position, selectedCandidateCount: 0 });
+        });
 
         this.votes.forEach((item: any) => {
-            item.ElectionCandidates.forEach((candidate: any) => {
-              candidate.isSelected = false
-            })
-        })        
+          item.ElectionCandidates.forEach((candidate: any) => {
+            candidate.isSelected = false;
+          });
+        });
 
         this.election.ElectionVoters.forEach((voter: any) => {
-          if(voter.UserId == this.profile.id) {
-            this.isAlreadyVoted = true
+          if (voter.UserId == this.profile.id) {
+            this.isAlreadyVoted = true;
           }
         });
       },
@@ -189,8 +191,8 @@ export class ElectionComponent implements OnInit {
   }
 
   openCandidateModal(candidate: any) {
-    this.candidate = candidate
-    this.candidateModal = true
+    this.candidate = candidate;
+    this.candidateModal = true;
   }
 
   goBack(): void {

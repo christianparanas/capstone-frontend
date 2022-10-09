@@ -12,6 +12,10 @@ export class EventService {
     this.socket.emit('pollVoteEvent', data);
   }
 
+  sendElectionVoteEvent(data: any) {
+    this.socket.emit('electionVoteEvent', data);
+  }
+
   getPollEvent(): Observable<any> {
     return this.socket.fromEvent<any>('pollEvent');
   }
