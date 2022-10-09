@@ -20,9 +20,11 @@
         <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
           <div class="inline-block relative w-fit max-w-[200px]">
             <select
+              [(ngModel)]="filter.CourseId"
+              (change)="filterVotersArr()"
               class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
             >
-              <option>All Courses</option>
+              <option value="0">All Courses</option>
               <option *ngFor="let course of courses" [value]="course.id">
                 {{ course.acronym }}
               </option>
@@ -44,9 +46,11 @@
 
           <div class="inline-block relative w-full md:w-fit">
             <select
+              [(ngModel)]="filter.section"
+              (change)="filterVotersArr()"
               class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
             >
-              <option>All Sections</option>
+              <option value="0">All Sections</option>
               <option value="A">Section: A</option>
               <option value="B">Section: B</option>
               <option value="C">Section: C</option>
@@ -70,9 +74,11 @@
           </div>
           <div class="inline-block relative w-fit">
             <select
+              [(ngModel)]="filter.year"
+              (change)="filterVotersArr()"
               class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
             >
-              <option>All Year Levels</option>
+              <option value="0">All Year Levels</option>
               <option value="1">Year: 1</option>
               <option value="2">Year: 2</option>
               <option value="3">Year: 3</option>
@@ -106,7 +112,7 @@
         ></p-skeleton>
       </div>
 
-      <div *ngIf="!isLoading && voters.length == 0" class="text-center mt-10">
+      <div *ngIf="!isLoading && filteredVoters.length == 0" class="text-center mt-10">
         <div class="">
           <img
             src="../../../../../assets/images/empty-box.png"
@@ -120,7 +126,7 @@
       </div>
 
       <div class="grid gap-2">
-        <div *ngFor="let voter of voters" class="">
+        <div *ngFor="let voter of filteredVoters" class="">
           <div
             *ngIf="voter.id != user.id"
             [routerLink]="['/faculty/user']"

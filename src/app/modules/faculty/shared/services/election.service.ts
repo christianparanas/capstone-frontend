@@ -30,7 +30,6 @@ export class ElectionService {
     return this.http.post(`${BASEURL}/api/election/voters`, data);
   }
 
-
   addElection(data: any): any {
     return this.http.post(`${BASEURL}/api/election`, data);
   }
@@ -64,6 +63,8 @@ export class ElectionService {
   }
 
   getVoteReceipt(data: any): any {
-    return this.http.get(`${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`);
+    return this.http.get(
+      `${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`
+    );
   }
 }
