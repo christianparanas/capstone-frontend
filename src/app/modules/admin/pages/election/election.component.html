@@ -240,31 +240,23 @@
           </div>
 
           <div class="">
-            <div class="flex justify-between items-center">
-              <div class=""></div>
-
-              <div class="flex items-center" *ngIf="election.status != 'draft'">
-                
-                <div
-                  (click)="votersModal = true"
-                  class="ml-2 bg-gray-100 shadow-sm text-gray-800 py-1 px-3 rounded-lg cursor-pointer text-sm font-semibold hover:bg-gray-200 hover:shadow-md transition-all"
-                >
-                  <i class="fal fa-vote-yea mr-1 text-[12px]"></i> View Voters
-                </div>
-              </div>
-            </div>
-
             <div class="mt-10">
-
-
               <div class="" *ngIf="election.status != 'draft'">
                 <div class="mb-5 flex items-center justify-between">
                   <h1 class="font-semibold">Election Result</h1>
-                  <div class="">
+                  <div class="flex items-center">
                     <div
-                      class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
+                    *ngIf="false"
+                      class="mr-2 border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
                     >
                       <i class="fal fa-download mr-2"></i>Download Result
+                    </div>
+                    <div
+                      (click)="votersModal = true"
+                      class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
+                    >
+                      <i class="fal fa-vote-yea mr-1 text-[12px]"></i> View
+                      Voters
                     </div>
                   </div>
                 </div>
@@ -283,7 +275,7 @@
                           <div class="font-semibold">{{ position.title }}</div>
                           <div class="">
                             <div
-                            *ngIf="election.hasCampaign"
+                              *ngIf="election.hasCampaign"
                               (click)="predictionModal = true"
                               class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
                             >
@@ -512,7 +504,7 @@
           [queryParams]="{ id: receipt.UserId }"
           class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all"
         >
-          Visit Profile
+          Profile
         </button>
         <button
           class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all"
