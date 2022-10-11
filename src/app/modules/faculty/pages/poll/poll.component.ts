@@ -109,7 +109,7 @@ export class PollComponent implements OnInit {
 
   submitPoll() {
     let isEmpty;
-    
+
     this.pollData.options.forEach((option: any) => {
       if (option.content == '') {
         isEmpty = true;
@@ -117,7 +117,7 @@ export class PollComponent implements OnInit {
     });
 
     if (this.pollData.question == '' || isEmpty) {
-      this.toast.info('Please fill out the fields.', { position: 'top-right' });
+      this.toast.info('Please fill out the fields.');
       return;
     }
 
@@ -130,7 +130,7 @@ export class PollComponent implements OnInit {
 
     this.pollService.addPoll(data).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.createPollModal = false;
 
@@ -153,7 +153,7 @@ export class PollComponent implements OnInit {
         this.pollForm.reset();
       },
       (error: any) => {
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -167,8 +167,8 @@ export class PollComponent implements OnInit {
       return;
     }
 
-    if(this.pollForm.value.course == '') {
-      this.pollForm.value.course = this.user.coverage
+    if (this.pollForm.value.course == '') {
+      this.pollForm.value.course = this.user.coverage;
     }
 
     this.nextPanel = true;

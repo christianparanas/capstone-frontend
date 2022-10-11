@@ -45,13 +45,13 @@ export class ElectionComponent implements OnInit {
   candidates: any = [];
   limitOfCandidates: any;
   winners: any = [];
-  receipt: any = []
+  receipt: any = [];
 
   isPredictionsPanelOpen: boolean = false;
   chartData: any;
   chartOptions: any;
 
-  predictionModal: boolean = false
+  predictionModal: boolean = false;
 
   constructor(
     private courseService: CourseService,
@@ -144,24 +144,24 @@ export class ElectionComponent implements OnInit {
   }
 
   getPrediction(position: any) {
-    this.predictionModal = true; 
+    this.predictionModal = true;
 
     const data: any = {
       ElectionId: position.ElectionId,
       ElectionPositionId: position.id,
-      candidates: []
-    }
+      candidates: [],
+    };
 
     position.ElectionCandidates.forEach((candidate: any) => {
       data.candidates.push({
         UserId: candidate.id,
-        messages: candidate.User.username
-      })
-    })
+        messages: candidate.User.username,
+      });
+    });
 
     this.electionService.getPrediction(data).subscribe(
       (response: any) => {
-        console.log(response)
+        console.log(response);
       },
       (error: any) => {}
     );
@@ -180,7 +180,7 @@ export class ElectionComponent implements OnInit {
   selectVoter(data: any) {
     this.getVoteReceipt({
       electionId: data.ElectionId,
-      voterId: data.UserId
+      voterId: data.UserId,
     });
   }
 
@@ -214,7 +214,7 @@ export class ElectionComponent implements OnInit {
   deleteElection() {
     this.electionService.deleteElection(this.election.id).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.router.navigate(['/faculty/elections']);
       },
       (error: any) => {
@@ -246,7 +246,7 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-          this.toast.success(response.message, { position: 'top-right' });
+          this.toast.success(response.message);
 
           this.getElection();
           this.finishSetupPrompt = false;
@@ -298,7 +298,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.addElectionPosition(data).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.getElection();
         this.submitLoading = false;
         this.electionPositionModal = false;
@@ -306,7 +306,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -371,7 +371,7 @@ export class ElectionComponent implements OnInit {
         (response: any) => {
           this.students = response;
 
-          console.log(response)
+          console.log(response);
         },
         (error: any) => {
           console.log(error);
@@ -420,7 +420,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.addCandidate(data).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.addCandidateModal = false;
         this.getElection();
@@ -455,7 +455,7 @@ export class ElectionComponent implements OnInit {
         })
         .subscribe(
           (response: any) => {
-            this.toast.success(response.message, { position: 'top-right' });
+            this.toast.success(response.message);
             this.getElection();
           },
           (error: any) => {}
@@ -475,7 +475,7 @@ export class ElectionComponent implements OnInit {
         })
         .subscribe(
           (response: any) => {
-            this.toast.success(response.message, { position: 'top-right' });
+            this.toast.success(response.message);
             this.getElection();
           },
           (error: any) => {}

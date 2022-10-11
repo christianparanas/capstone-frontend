@@ -42,10 +42,10 @@ export class FeedbacksComponent implements OnInit {
           this.getFeedbacks();
           this.getNeedReviewFeedbacks();
 
-          this.toast.success(response.message, { position: 'top-right' });
+          this.toast.success(response.message);
         },
         (error: any) => {
-          this.toast.error(error.error.message, { position: 'top-right' });
+          this.toast.error(error.error.message);
         }
       );
   }

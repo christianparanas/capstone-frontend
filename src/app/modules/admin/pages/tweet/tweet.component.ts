@@ -26,7 +26,7 @@ export class TweetComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
 
-  voters: any = []
+  voters: any = [];
   mentionItems: any = [];
 
   constructor(
@@ -41,7 +41,7 @@ export class TweetComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
-    this.getVoters()
+    this.getVoters();
   }
 
   getTweetEvent() {
@@ -68,7 +68,7 @@ export class TweetComponent implements OnInit {
 
   postComment() {
     if (this.comment.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -117,17 +117,17 @@ export class TweetComponent implements OnInit {
     const data = {
       course: 0,
       section: 0,
-      year: 0
-    }
+      year: 0,
+    };
 
     this.electionService.getVoters(data).subscribe(
       (response: any) => {
         this.voters = response;
-        this.isLoading = false
+        this.isLoading = false;
 
-        response.forEach( async (voter: any) => {
-          this.mentionItems.push(voter.username)
-        })
+        response.forEach(async (voter: any) => {
+          this.mentionItems.push(voter.username);
+        });
       },
       (error: any) => {
         console.log(error);
@@ -177,7 +177,7 @@ export class TweetComponent implements OnInit {
 
   postTweet() {
     if (this.tweet.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -191,7 +191,7 @@ export class TweetComponent implements OnInit {
     this.tweetService.postTweet(data).subscribe(
       (response: any) => {
         this.getTweets();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.eventService.sendTweetEvent();
 
@@ -199,7 +199,7 @@ export class TweetComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );

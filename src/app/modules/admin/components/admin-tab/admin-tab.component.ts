@@ -52,11 +52,11 @@ export class AdminTabComponent implements OnInit {
 
   editFormSubmit() {
     if (this.editForm.name == '') {
-      return this.toast.info('Name is required.', { position: 'top-right' });
+      return this.toast.info('Name is required.');
     }
 
     if (this.editForm.email == '') {
-      return this.toast.info('Email is required.', { position: 'top-right' });
+      return this.toast.info('Email is required.');
     }
 
     this.submitLoading = true;
@@ -64,13 +64,13 @@ export class AdminTabComponent implements OnInit {
     this.adminService.updateAdmin(this.editForm).subscribe(
       (response: any) => {
         this.submitLoading = false;
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.getAdmins();
         this.editAccountModal = false;
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -81,7 +81,7 @@ export class AdminTabComponent implements OnInit {
         this.admins = response;
       },
       (error: any) => {
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -102,11 +102,11 @@ export class AdminTabComponent implements OnInit {
         this.createForm.reset();
         this.createAccountModal = false;
         this.getAdmins();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }

@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   userData: any;
   profile: any = [];
 
-  actionModal: boolean = false
+  actionModal: boolean = false;
   declineModal: boolean = false;
   approveModal: boolean = false;
   chatModal: boolean = false;
@@ -34,10 +34,10 @@ export class UserComponent implements OnInit {
   chatId: any = null;
   chat: any = [];
 
-  isAdmin: boolean = false
-  isFaculty: boolean = false
-  status: any
-  submitLoading: boolean = false
+  isAdmin: boolean = false;
+  isFaculty: boolean = false;
+  status: any;
+  submitLoading: boolean = false;
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
@@ -75,13 +75,13 @@ export class UserComponent implements OnInit {
 
     this.studentService.studentAccountApplication(data).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.router.navigate([`/admin/users`], {
           queryParams: { type: 'student' },
         });
       },
       (error: any) => {
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -101,15 +101,15 @@ export class UserComponent implements OnInit {
         this.userData = response;
         this.isLoading = false;
 
-        this.status = response.status
+        this.status = response.status;
 
         response.UserRoles.forEach((role: any) => {
-          if(role.Role.title == 'Faculty') {
-            this.isFaculty = true
+          if (role.Role.title == 'Faculty') {
+            this.isFaculty = true;
           }
 
-          if(role.Role.title == 'Admin') {
-            this.isAdmin = true
+          if (role.Role.title == 'Admin') {
+            this.isAdmin = true;
           }
         });
       },
@@ -120,75 +120,77 @@ export class UserComponent implements OnInit {
   }
 
   saveChanges() {
-    this.submitLoading = true
+    this.submitLoading = true;
 
     const data = {
       isAdmin: this.isAdmin,
       isFaculty: this.isFaculty,
       status: this.status,
       userId: this.userData.id,
-      coverage: this.userData.StudentCredential.CourseId
-    }
+      coverage: this.userData.StudentCredential.CourseId,
+    };
 
-    this.userService.updateUser(data).subscribe((response: any) => {
-      this.toast.success(response.message)
-      this.actionModal = false
-      this.submitLoading = false
-
-
-    }, (err: any) => {
-      this.toast.error(err.error.message)
-      this.submitLoading = false
-
-    })
+    this.userService.updateUser(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.actionModal = false;
+        this.submitLoading = false;
+      },
+      (err: any) => {
+        this.toast.error(err.error.message);
+        this.submitLoading = false;
+      }
+    );
   }
 
   setRole(roleId: any) {
-    let data: any = {}
+    let data: any = {};
 
-    if(roleId == 100) {
+    if (roleId == 100) {
       data = {
         id: roleId,
         Role: {
           id: roleId,
-          title: "Faculty"
-        }
-      }
+          title: 'Faculty',
+        },
+      };
 
-      this.isFaculty = true
+      this.isFaculty = true;
     }
 
-    if(roleId == 200) {
+    if (roleId == 200) {
       data = {
         id: roleId,
         Role: {
           id: roleId,
-          title: "Admin"
-        }
-      }
+          title: 'Admin',
+        },
+      };
 
-      this.isAdmin = true
+      this.isAdmin = true;
     }
 
-    this.userData.UserRoles.push(data)
+    this.userData.UserRoles.push(data);
   }
 
   removeRole(role: any) {
-    let title = ''
+    let title = '';
 
-    if(role == 'Faculty') {
-      title = 'Faculty'
+    if (role == 'Faculty') {
+      title = 'Faculty';
 
-      this.isFaculty = false
+      this.isFaculty = false;
     }
 
-    if(role == 'Admin') {
-      title = 'Admin'
+    if (role == 'Admin') {
+      title = 'Admin';
 
-      this.isAdmin = false
+      this.isAdmin = false;
     }
 
-    this.userData.UserRoles = this.userData.UserRoles.filter((role: any) => role.Role.title !== title)
+    this.userData.UserRoles = this.userData.UserRoles.filter(
+      (role: any) => role.Role.title !== title
+    );
   }
 
   openChat() {
@@ -242,7 +244,7 @@ export class UserComponent implements OnInit {
       receiverId: this.userData.id,
       senderId: this.profile.id,
       message: this.message,
-    })
+    });
 
     this.scrollToBottom();
     this.message = '';

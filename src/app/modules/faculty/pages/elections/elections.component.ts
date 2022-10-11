@@ -96,7 +96,7 @@ export class ElectionsComponent implements OnInit {
     this.electionService.addElection(data).subscribe(
       (response: any) => {
         this.submitLoading = false;
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.createElectionModal = false;
         this.electionForm.reset();
         this.nextPanel = false;
@@ -120,8 +120,8 @@ export class ElectionsComponent implements OnInit {
       return;
     }
 
-    if(this.electionForm.value.course == '') {
-      this.electionForm.value.course = this.user.coverage
+    if (this.electionForm.value.course == '') {
+      this.electionForm.value.course = this.user.coverage;
     }
 
     this.nextPanel = true;

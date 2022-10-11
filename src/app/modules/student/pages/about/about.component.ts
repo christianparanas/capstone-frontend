@@ -29,7 +29,7 @@ export class AboutComponent implements OnInit {
 
   postFeedback() {
     if (this.rating == 0) {
-      this.toast.info('Please select a rating.', { position: 'top-right' });
+      this.toast.info('Please select a rating.');
       return;
     }
 
@@ -62,7 +62,7 @@ export class AboutComponent implements OnInit {
           this.message = '';
         },
         (error: any) => {
-          this.toast.error(error.error.message, { position: 'top-right' });
+          this.toast.error(error.error.message);
           this.submitLoading = false;
         }
       );
@@ -71,7 +71,6 @@ export class AboutComponent implements OnInit {
   getApprovedFeedbacks() {
     this.feedbackService.getApprovedFeedbacks().subscribe(
       (response: any) => {
-
         this.feedbacks = response;
       },
       (error: any) => {

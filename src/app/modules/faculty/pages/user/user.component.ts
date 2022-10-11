@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
     });
 
     this.getNewMsgEvent();
-    this.getTweetEvent()
+    this.getTweetEvent();
   }
 
   getNewMsgEvent() {
@@ -241,7 +241,7 @@ export class UserComponent implements OnInit {
 
   postComment() {
     if (this.comment.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 

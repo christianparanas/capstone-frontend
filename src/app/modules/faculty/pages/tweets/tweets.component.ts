@@ -69,7 +69,7 @@ export class TweetsComponent implements OnInit {
 
   postComment() {
     if (this.comment.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -157,7 +157,7 @@ export class TweetsComponent implements OnInit {
 
   postTweet() {
     if (this.tweet.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -171,7 +171,7 @@ export class TweetsComponent implements OnInit {
     this.tweetService.postTweet(data).subscribe(
       (response: any) => {
         this.getTweets();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.eventService.sendTweetEvent();
 
@@ -179,7 +179,7 @@ export class TweetsComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -194,11 +194,11 @@ export class TweetsComponent implements OnInit {
 
     this.electionService.getVoters(data).subscribe(
       (response: any) => {
-        console.log(response)
+        console.log(response);
 
-        response.forEach( async (voter: any) => {
-          this.mentionItems.push(voter.username)
-        })
+        response.forEach(async (voter: any) => {
+          this.mentionItems.push(voter.username);
+        });
 
         this.voters = response;
       },

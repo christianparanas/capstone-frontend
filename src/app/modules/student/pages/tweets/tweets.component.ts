@@ -26,9 +26,8 @@ export class TweetsComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
 
-  voters: any = []
+  voters: any = [];
   mentionItems: any = [];
-
 
   constructor(
     private toast: HotToastService,
@@ -42,7 +41,7 @@ export class TweetsComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
-    this.getVoters()
+    this.getVoters();
   }
 
   getTweetEvent() {
@@ -69,14 +68,14 @@ export class TweetsComponent implements OnInit {
 
   postComment() {
     if (this.comment.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.user.id 
+      UserId: this.user.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -140,22 +139,24 @@ export class TweetsComponent implements OnInit {
 
     this.reactLoading = true;
 
-    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.user.id }).subscribe(
-      (response: any) => {
-        this.reactLoading = false;
-        this.getTweets();
-        this.eventService.sendTweetEvent();
-      },
-      (error: any) => {
-        console.log(error);
-        this.reactLoading = false;
-      }
-    );
+    this.tweetService
+      .reactTweet({ tweetId: tweetId, UserId: this.user.id })
+      .subscribe(
+        (response: any) => {
+          this.reactLoading = false;
+          this.getTweets();
+          this.eventService.sendTweetEvent();
+        },
+        (error: any) => {
+          console.log(error);
+          this.reactLoading = false;
+        }
+      );
   }
 
   postTweet() {
     if (this.tweet.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -163,13 +164,13 @@ export class TweetsComponent implements OnInit {
 
     const data = {
       message: this.tweet,
-      UserId: this.user.id 
+      UserId: this.user.id,
     };
 
     this.tweetService.postTweet(data).subscribe(
       (response: any) => {
         this.getTweets();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.eventService.sendTweetEvent();
 
@@ -177,7 +178,7 @@ export class TweetsComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -191,17 +192,17 @@ export class TweetsComponent implements OnInit {
     const data = {
       course: 0,
       section: 0,
-      year: 0
-    }
+      year: 0,
+    };
 
     this.electionService.getVoters(data).subscribe(
       (response: any) => {
         this.voters = response;
-        this.isLoading = false
+        this.isLoading = false;
 
-        response.forEach( async (voter: any) => {
-          this.mentionItems.push(voter.username)
-        })
+        response.forEach(async (voter: any) => {
+          this.mentionItems.push(voter.username);
+        });
       },
       (error: any) => {
         console.log(error);
@@ -209,9 +210,8 @@ export class TweetsComponent implements OnInit {
     );
   }
 
-
   navigateToUser(id: any) {
-    if(id == this.user.id) {
+    if (id == this.user.id) {
       return this.router.navigate([`/account`]);
     }
 

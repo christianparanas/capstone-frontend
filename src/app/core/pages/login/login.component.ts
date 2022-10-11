@@ -112,11 +112,11 @@ export class LoginComponent implements OnInit {
           } else if (error.status == 500) {
             result = error.statusText;
           }
-          this.toast.error(result, { position: 'top-right' });
+          this.toast.error(result);
         }
       );
     } else {
-      this.toast.error('Invalid Email or Password', { position: 'top-right' });
+      this.toast.error('Invalid Email or Password');
     }
   }
 }

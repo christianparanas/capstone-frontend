@@ -111,7 +111,7 @@ export class PollsComponent implements OnInit {
 
     this.pollService.votePoll(data).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
 
         this.submitLoading = false;
         this.votePollModal = false;
@@ -125,7 +125,7 @@ export class PollsComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
 
         this.submitLoading = false;
       }

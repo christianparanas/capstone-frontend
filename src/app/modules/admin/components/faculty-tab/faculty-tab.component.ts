@@ -19,7 +19,7 @@ export class FacultyTabComponent implements OnInit {
   createForm: FormGroup;
   editAccountModal: boolean = false;
 
-  courses: any = []
+  courses: any = [];
 
   editForm: any = {
     id: null,
@@ -37,7 +37,7 @@ export class FacultyTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFaculties();
-    this.getCourses()
+    this.getCourses();
 
     this.createForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -49,60 +49,57 @@ export class FacultyTabComponent implements OnInit {
 
   getCourses() {
     this.courseService.getCourses().subscribe((response: any) => {
-      this.courses = response
-    })
+      this.courses = response;
+    });
   }
 
   openEditModal(data: any) {
-
-
     this.editForm = {
       id: data.id,
       name: data.name,
       email: data.email,
-      coverage: data.coverage
+      coverage: data.coverage,
     };
 
-
-    console.log(this.editForm)
+    console.log(this.editForm);
     this.editAccountModal = true;
   }
 
   getCourse(courseId: any) {
-    let acr
+    let acr;
 
     this.courses.forEach((course: any) => {
-      if(course.id == courseId) {
-        acr = course.acronym
+      if (course.id == courseId) {
+        acr = course.acronym;
       }
     });
 
-    if(acr) return acr
+    if (acr) return acr;
 
-    return "All Courses"
+    return 'All Courses';
   }
 
   editFormSubmit() {
     if (this.editForm.name == '') {
-      return this.toast.info('Name is required.', { position: 'top-right' });
+      return this.toast.info('Name is required.');
     }
 
     if (this.editForm.email == '') {
-      return this.toast.info('Email is required.', { position: 'top-right' });
+      return this.toast.info('Email is required.');
     }
 
-    this.submitLoading = true
+    this.submitLoading = true;
 
     this.facultyService.updateFaculty(this.editForm).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.getFaculties();
-        this.submitLoading = false
+        this.submitLoading = false;
         this.editAccountModal = false;
       },
       (error: any) => {
-        this.submitLoading = false
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.submitLoading = false;
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -113,7 +110,7 @@ export class FacultyTabComponent implements OnInit {
         this.faculties = response;
       },
       (error: any) => {
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }
@@ -134,11 +131,11 @@ export class FacultyTabComponent implements OnInit {
         this.createForm.reset();
         this.createAccountModal = false;
         this.getFaculties();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
       }
     );
   }

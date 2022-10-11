@@ -27,8 +27,8 @@ export class AccountComponent implements OnInit {
     email: null,
   };
 
-  tweets: any = []
-  tweet: any = ''
+  tweets: any = [];
+  tweet: any = '';
 
   isLoading: boolean = true;
   reactLoading: boolean = false;
@@ -64,20 +64,20 @@ export class AccountComponent implements OnInit {
     }
 
     if (this.profiledata.email == '') {
-      return this.toast.info('Email is required.', { position: 'top-right' });
+      return this.toast.info('Email is required.');
     }
 
     this.submitLoading = true;
 
     this.profileService.updateProfile(this.profiledata).subscribe(
       (response: any) => {
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.getProfile();
         this.editModal = false;
       },
       (error: any) => {
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -142,7 +142,7 @@ export class AccountComponent implements OnInit {
 
   postTweet() {
     if (this.tweet.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -156,7 +156,7 @@ export class AccountComponent implements OnInit {
     this.tweetService.postTweet(data).subscribe(
       (response: any) => {
         this.getProfile();
-        this.toast.success(response.message, { position: 'top-right' });
+        this.toast.success(response.message);
         this.submitLoading = false;
         this.eventService.sendTweetEvent();
 
@@ -164,7 +164,7 @@ export class AccountComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { position: 'top-right' });
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -206,14 +206,13 @@ export class AccountComponent implements OnInit {
           this.previewImg = response.image;
         }
       },
-      (error: any) => {
-      }
+      (error: any) => {}
     );
   }
 
   postComment() {
     if (this.comment.trim() == '') {
-      this.toast.info('Please type something.', { position: 'top-right' });
+      this.toast.info('Please type something.');
       return;
     }
 
@@ -236,7 +235,7 @@ export class AccountComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/admin/'])
+    this.router.navigate(['/admin/']);
   }
 
   dateFormat(date: any) {
@@ -245,7 +244,7 @@ export class AccountComponent implements OnInit {
 
   navigateToUser(id: any) {
     if (id == this.profile.id) {
-      return 
+      return;
     }
 
     this.router.navigate([`/admin/peer`], {
