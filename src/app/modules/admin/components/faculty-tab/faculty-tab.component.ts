@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { FacultyService } from '../../shared/services/faculty.service';
 import * as moment from 'moment';
+import { CourseService } from 'src/app/core/shared/services/course.service';
 
 @Component({
   selector: 'app-faculty-tab',
@@ -18,36 +19,67 @@ export class FacultyTabComponent implements OnInit {
   createForm: FormGroup;
   editAccountModal: boolean = false;
 
+  courses: any = []
+
   editForm: any = {
     id: null,
     name: null,
     email: null,
+    coverage: null,
   };
 
   constructor(
     private facultyService: FacultyService,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.getFaculties();
+    this.getCourses()
 
     this.createForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
+      coverage: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),
     });
   }
 
+  getCourses() {
+    this.courseService.getCourses().subscribe((response: any) => {
+      this.courses = response
+    })
+  }
+
   openEditModal(data: any) {
+
+
     this.editForm = {
       id: data.id,
       name: data.name,
       email: data.email,
+      coverage: data.coverage
     };
 
+
+    console.log(this.editForm)
     this.editAccountModal = true;
+  }
+
+  getCourse(courseId: any) {
+    let acr
+
+    this.courses.forEach((course: any) => {
+      if(course.id == courseId) {
+        acr = course.acronym
+      }
+    });
+
+    if(acr) return acr
+
+    return "All Courses"
   }
 
   editFormSubmit() {

@@ -57,6 +57,26 @@
               </div>
             </div>
 
+            <div class="w-full">
+              <label class="block text-sm font-medium text-gray-700"
+                >Coverage</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm w-full">
+                <select
+                formControlName="coverage"
+                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="0" class="">
+                  All Courses
+                </option>
+                <option *ngFor="let course of courses" [value]="course.id">
+                  {{ course.title }}
+                </option>
+              </select>
+              </div>
+            </div>
+
+
             <button
               [disabled]="submitLoading"
               type="submit"
@@ -111,7 +131,7 @@
               <div class="mt-1 relative rounded-md shadow-sm w-full">
                 <input
                   type="text"
-                  class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+                  class="py-2 outline-none w-full block px-3 text-sm border-gray-300 rounded-md bg-slate-50"
                   [(ngModel)]="editForm.name"
                   [ngModelOptions]="{ standalone: true }"
                 />
@@ -125,10 +145,30 @@
               <div class="mt-1 relative rounded-md shadow-sm w-full">
                 <input
                   type="email"
-                  class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+                  class="py-2 outline-none w-full block px-3 text-sm border-gray-300 rounded-md bg-slate-50"
                   [(ngModel)]="editForm.email"
                   [ngModelOptions]="{ standalone: true }"
                 />
+              </div>
+            </div>
+
+            <div class="w-full">
+              <label class="block text-sm font-medium text-gray-700"
+                >Coverage</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm w-full">
+                <select
+                [(ngModel)]="editForm.coverage"
+                [ngModelOptions]="{ standalone: true }"
+                class="py-2 px-3 outline-none block w-full pr-12 text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+              >
+                <option value="0" class="">
+                  All Courses
+                </option>
+                <option *ngFor="let course of courses" [value]="course.id">
+                  {{ course.title }}
+                </option>
+              </select>
               </div>
             </div>
 
@@ -184,7 +224,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
         styleClass="p-datatable-gridlines"
-        [globalFilterFields]="['id', 'name', 'email', 'createdAt', 'status']"
+        [globalFilterFields]="['id', 'name', 'email', 'coverage', 'createdAt', 'status']"
       >
         <ng-template pTemplate="caption">
           <div class="flex justify-between">
@@ -213,6 +253,7 @@
             <th field="id">ID</th>
             <th field="name">Name</th>
             <th field="email">Email</th>
+            <th field="email">Coverage</th>
             <th field="createdAt">Date created</th>
             <th field="status">Account status</th>
             <th>Action</th>
@@ -223,6 +264,7 @@
             <td>{{ faculty.id }}</td>
             <td>{{ faculty.name }}</td>
             <td>{{ faculty.email }}</td>
+            <td>{{ getCourse(faculty.coverage) }}</td>
             <td>{{ momentFormatLLL(faculty.createdAt) }}</td>
             <td>
               <div
