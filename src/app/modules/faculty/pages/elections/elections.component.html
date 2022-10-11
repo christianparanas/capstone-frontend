@@ -204,6 +204,7 @@
             >
             <div class="mt-1 relative rounded-md">
               <select
+                *ngIf="user.coverage == 0"
                 formControlName="course"
                 required
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
@@ -216,6 +217,8 @@
                   {{ course.title }}
                 </option>
               </select>
+
+              <div *ngIf="user.coverage != 0" class="text-[12px] w-full p-3 rounded-md bg-slate-100 ">{{ getCourse(user.coverage) }}</div>
             </div>
           </div>
 

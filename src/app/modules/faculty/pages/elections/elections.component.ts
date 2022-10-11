@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-elections',
@@ -35,8 +36,10 @@ export class ElectionsComponent implements OnInit {
     },
   };
 
+  user: any = [];
 
   constructor(
+    private profileService: ProfileService,
     private courseService: CourseService,
     private electionService: ElectionService,
     private toast: HotToastService,
@@ -47,20 +50,25 @@ export class ElectionsComponent implements OnInit {
     this.currentDate = new Date().toISOString().slice(0, 16);
     this.getElections();
     this.getCourses();
+    this.getProfile();
 
     this.electionForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      course: new FormControl('', Validators.required),
+      course: new FormControl(''),
       section: new FormControl('', Validators.required),
       year: new FormControl('', Validators.required),
     });
   }
 
+  getProfile() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.user = response;
+    });
+  }
+
   createElection() {
-    if (
-      this.electionData.campaign.hasCampaign == null
-    ) {
+    if (this.electionData.campaign.hasCampaign == null) {
       return this.toast.info('Please answer the questions to proceed.', {
         position: 'top-right',
       });
@@ -112,6 +120,10 @@ export class ElectionsComponent implements OnInit {
       return;
     }
 
+    if(this.electionForm.value.course == '') {
+      this.electionForm.value.course = this.user.coverage
+    }
+
     this.nextPanel = true;
   }
 
@@ -132,7 +144,7 @@ export class ElectionsComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.acronym;
+        courseTitle = course.title;
       }
     });
 
