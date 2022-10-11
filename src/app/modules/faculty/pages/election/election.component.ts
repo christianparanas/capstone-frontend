@@ -370,6 +370,8 @@ export class ElectionComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.students = response;
+
+          console.log(response)
         },
         (error: any) => {
           console.log(error);
