@@ -30,6 +30,7 @@ import { PeerComponent } from './pages/peer/peer.component';
 import { SearchComponent } from './pages/search/search.component';
 
 import { LinkifyPipe } from './shared/pipes/linkify.pipe';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { LinkifyPipe } from './shared/pipes/linkify.pipe';
     MessagesComponent,
     PeerComponent,
     SearchComponent,
+    CoursesComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, PrimengModule, FormsModule, ReactiveFormsModule, CoreModule, MentionModule],
 })

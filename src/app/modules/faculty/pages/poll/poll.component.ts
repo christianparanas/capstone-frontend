@@ -46,7 +46,7 @@ export class PollComponent implements OnInit {
     this.pollForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      course: new FormControl('', Validators.required),
+      course: new FormControl(''),
       section: new FormControl('', Validators.required),
       year: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
@@ -165,6 +165,10 @@ export class PollComponent implements OnInit {
         position: 'top-right',
       });
       return;
+    }
+
+    if(this.pollForm.value.course == '') {
+      this.pollForm.value.course = this.user.coverage
     }
 
     this.nextPanel = true;
