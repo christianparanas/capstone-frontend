@@ -28,9 +28,10 @@ import { MessageComponent } from './components/message/message.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { PeerComponent } from './pages/peer/peer.component';
 import { SearchComponent } from './pages/search/search.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 import { LinkifyPipe } from './shared/pipes/linkify.pipe';
-import { CoursesComponent } from './pages/courses/courses.component';
+
 
 @NgModule({
   declarations: [

@@ -54,6 +54,12 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-comment',
     },
     {
+      title: 'Courses',
+      route: 'courses',
+      params: null,
+      icon: 'fal fa-comment',
+    },
+    {
       title: 'Logs',
       route: 'logs',
       params: null,
