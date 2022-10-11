@@ -43,7 +43,7 @@
               <input
                 type="text"
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                placeholder="Your first name"
+                placeholder="Your full name"
                 [(ngModel)]="profiledata.name"
                 [ngModelOptions]="{ standalone: true }"
                 required
@@ -53,46 +53,64 @@
 
           <div>
             <label class="block text-[12px] font-medium text-gray-700"
-              >Section</label
+              >Username</label
             >
             <div class="mt-1 relative rounded-md">
-              <select
-                [(ngModel)]="profiledata.section"
+              <input
+                type="text"
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+                placeholder="Your username"
+                [(ngModel)]="profiledata.username"
                 [ngModelOptions]="{ standalone: true }"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
-              >
-                <option value="" selected disabled hidden class="">
-                  Section
-                </option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-              </select>
+                required
+              />
             </div>
           </div>
 
-          <div>
-            <label class="block text-[12px] font-medium text-gray-700"
-              >Year</label
-            >
-            <div class="mt-1 relative rounded-md">
-              <select
-                [(ngModel)]="profiledata.year"
-                [ngModelOptions]="{ standalone: true }"
-                class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[12px] font-medium text-gray-700"
+                >Section</label
               >
-                <option value="" selected disabled hidden class="">
-                  Year
-                </option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <div class="mt-1 relative rounded-md">
+                <select
+                  [(ngModel)]="profiledata.section"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="" selected disabled hidden class="">
+                    Section
+                  </option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12px] font-medium text-gray-700"
+                >Year</label
+              >
+              <div class="mt-1 relative rounded-md">
+                <select
+                  [(ngModel)]="profiledata.year"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="" selected disabled hidden class="">
+                    Year
+                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -196,10 +214,23 @@
 
           <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
             <h1 class="font-semibold text-2xl">
-              {{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}
+              {{
+                profile.name.split(" ")[0].charAt(0).toUpperCase() +
+                  profile.name.split(" ")[0].slice(1)
+              }}
             </h1>
-            <div class="text-[10px] flex items-center w-fit mx-auto">
-              <p *ngFor="let role of profile.UserRoles" class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md">{{ role.Role.title }}</p>
+            <div class="lg:flex items-center">
+              <div class="text-sm text-slate-700 mb-1 lg:mb-0">@{{ profile.username }}</div>
+              <span *ngIf="profile.username" class="mx-2 hidden lg:block">·</span>
+
+              <div class="text-[10px] flex items-center w-fit mx-auto">
+                <p
+                  *ngFor="let role of profile.UserRoles"
+                  class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
+                >
+                  {{ role.Role.title }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -216,9 +247,15 @@
         <div
           class="mt-3 border rounded-lg p-3 grid gap-2 text-sm bg-slate-50 text-[12px] w-full md:w-fit"
         >
-          <div class="">Student ID number: {{ profile.StudentCredential.schoolId }}</div>
-          <div class="">Course: {{ profile.StudentCredential.Course.title }}</div>
-          <div class="capitalize">Section: {{ profile.StudentCredential.section }}</div>
+          <div class="">
+            Student ID number: {{ profile.StudentCredential.schoolId }}
+          </div>
+          <div class="">
+            Course: {{ profile.StudentCredential.Course.title }}
+          </div>
+          <div class="capitalize">
+            Section: {{ profile.StudentCredential.section }}
+          </div>
           <div class="">Year level: {{ profile.StudentCredential.year }}</div>
           <div class="">Email: {{ profile.email }}</div>
         </div>
@@ -284,14 +321,21 @@
             <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
               <div class="bg-slate-100 w-fit h-fit rounded-full">
                 <img
-                  [src]="profile.image == null ? '../../../../../assets/images/student.png' : profile.image"
+                  [src]="
+                    profile.image == null
+                      ? '../../../../../assets/images/student.png'
+                      : profile.image
+                  "
                   class="w-[40px] h-[40px] rounded-full object-cover"
                   alt=""
                 />
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}
+                  {{
+                    profile.name.split(" ")[0].charAt(0).toUpperCase() +
+                      profile.name.split(" ")[0].slice(1)
+                  }}
                 </div>
                 <div class="flex items-center">
                   <div *ngIf="profile.username" class="text-[12px]">
@@ -312,7 +356,7 @@
                 {{ tweet.reactCount }}
                 {{ tweet.reactCount > 1 ? "likes" : "like" }}
               </div>
-  
+
               <span
                 *ngIf="tweet.reactCount > 0 && tweet.TweetComments.length > 0"
                 class="mx-2 text-[12px]"
@@ -324,7 +368,9 @@
               </div>
             </div>
 
-            <div class="flex items-center text-sm border-t border-gray-100 pt-2">
+            <div
+              class="flex items-center text-sm border-t border-gray-100 pt-2"
+            >
               <div
                 *ngIf="checkReactors(tweet.TweetReactors)"
                 (click)="reactTweet(tweet.id)"
@@ -332,7 +378,7 @@
               >
                 <i class="fal fa-heart"></i>
               </div>
-  
+
               <div
                 *ngIf="!checkReactors(tweet.TweetReactors)"
                 (click)="reactTweet(tweet.id)"
@@ -340,7 +386,7 @@
               >
                 <i class="fal fa-heart"></i>
               </div>
-  
+
               <div
                 (click)="openCommentModal(tweet.id)"
                 class="cursor-pointer hover:bg-gray-200 w-fit px-4 h-[30px] rounded-full grid place-items-center transition-all"
@@ -358,94 +404,92 @@
   </div>
 </div>
 
-
-
 <p-dialog
-    header="Comments"
-    [(visible)]="tweetCommentsModal"
-    [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }"
-  >
-    <div class="">
+  header="Comments"
+  [(visible)]="tweetCommentsModal"
+  [modal]="true"
+  [style]="{ maxWidth: '400px', width: '400px' }"
+>
+  <div class="">
+    <div
+      class="border-y border-gray-200 mb-2 min-h-[250px] h-[300px] max-h-[300px] overflow-y-auto py-2"
+    >
       <div
-        class="border-y border-gray-200 mb-2 min-h-[250px] h-[300px] max-h-[300px] overflow-y-auto py-2"
+        *ngIf="comments.length == 0"
+        class="text-sm grid place-items-center pt-5"
       >
-        <div
-          *ngIf="comments.length == 0"
-          class="text-sm grid place-items-center pt-5"
-        >
-          <div class="">
-            <img
-              src="../../../../../assets/images/empty-box.png"
-              alt=""
-              class="w-[100px] h-[100px] object-cover"
-            />
-            <p>No comments yet.</p>
-          </div>
-        </div>
-
-        <div *ngIf="comments" class="">
-          <div
-            *ngFor="let com of comments; trackBy: commentTrack"
-            class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
-          >
-            <div
-              class="w-fit h-fit bg-slate-100 rounded-full cursor-pointer"
-              (click)="navigateToUser(com.User.id)"
-            >
-              <img
-                [src]="com.User.image == null ? defaultImg : com.User.image"
-                alt=""
-                class="w-[40px] h-[40px] rounded-full object-cover"
-              />
-            </div>
-
-            <div class="bg-slate-50 text-sm p-2">
-              <div class="">
-                <div
-                  class="flex items-center cursor-pointer"
-                  (click)="navigateToUser(com.User.id)"
-                >
-                  <div class="font-semibold mr-2">
-                    {{ com.User.name }}
-                  </div>
-                  <div class="text-[10px] flex items-center">
-                    <div
-                      *ngFor="let role of com.User.UserRoles"
-                      class="bg-green-200 text-green-800 font-semibold px-1 gap-1 py-[2px] rounded-md mr-1"
-                    >
-                      {{ role.Role.title }}
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center">
-                  <div *ngIf="com.User.username" class="text-[12px]">
-                    @{{ com.User.username }}
-                  </div>
-                  <span *ngIf="com.User.username" class="mx-1">·</span>
-                  <p class="text-[12px]">{{ dateFormat(com.createdAt) }}</p>
-                </div>
-              </div>
-
-              <div class="mt-2">{{ com.content }}</div>
-            </div>
-          </div>
+        <div class="">
+          <img
+            src="../../../../../assets/images/empty-box.png"
+            alt=""
+            class="w-[100px] h-[100px] object-cover"
+          />
+          <p>No comments yet.</p>
         </div>
       </div>
 
-      <div class="relative w-full">
-        <input
-          type="text"
-          [(ngModel)]="comment"
-          placeholder="Write a comment"
-          class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
-        />
+      <div *ngIf="comments" class="">
         <div
-          (click)="postComment()"
-          class="absolute right-1 top-1 hover:bg-slate-200 transition-all w-[40px] h-[40px] rounded-full grid place-items-center cursor-pointer"
+          *ngFor="let com of comments; trackBy: commentTrack"
+          class="grid grid-cols-[40px_1fr] gap-1 h-fit mb-2 mr-1"
         >
-          <i class="fal fa-paper-plane"></i>
+          <div
+            class="w-fit h-fit bg-slate-100 rounded-full cursor-pointer"
+            (click)="navigateToUser(com.User.id)"
+          >
+            <img
+              [src]="com.User.image == null ? defaultImg : com.User.image"
+              alt=""
+              class="w-[40px] h-[40px] rounded-full object-cover"
+            />
+          </div>
+
+          <div class="bg-slate-50 text-sm p-2">
+            <div class="">
+              <div
+                class="flex items-center cursor-pointer"
+                (click)="navigateToUser(com.User.id)"
+              >
+                <div class="font-semibold mr-2">
+                  {{ com.User.name }}
+                </div>
+                <div class="text-[10px] flex items-center">
+                  <div
+                    *ngFor="let role of com.User.UserRoles"
+                    class="bg-green-200 text-green-800 font-semibold px-1 gap-1 py-[2px] rounded-md mr-1"
+                  >
+                    {{ role.Role.title }}
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div *ngIf="com.User.username" class="text-[12px]">
+                  @{{ com.User.username }}
+                </div>
+                <span *ngIf="com.User.username" class="mx-1">·</span>
+                <p class="text-[12px]">{{ dateFormat(com.createdAt) }}</p>
+              </div>
+            </div>
+
+            <div class="mt-2">{{ com.content }}</div>
+          </div>
         </div>
       </div>
     </div>
-  </p-dialog>
+
+    <div class="relative w-full">
+      <input
+        type="text"
+        [(ngModel)]="comment"
+        placeholder="Write a comment"
+        class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
+      />
+      <div
+        (click)="postComment()"
+        class="absolute right-1 top-1 hover:bg-slate-200 transition-all w-[40px] h-[40px] rounded-full grid place-items-center cursor-pointer"
+      >
+        <i class="fal fa-paper-plane"></i>
+      </div>
+    </div>
+  </div>
+</p-dialog>

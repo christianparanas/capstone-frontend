@@ -16,9 +16,12 @@ import { CountdownComponent } from './components/countdown/countdown.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 
+import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
+
 
 @NgModule({
   declarations: [
+    DateAgoPipe,
     LoginComponent,
     SignupComponent,
     WebcamComponent,
@@ -34,7 +37,7 @@ import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.comp
     PrimengModule,
     ReactiveFormsModule,
   ],
-  exports: [CountdownComponent],
+  exports: [CountdownComponent, DateAgoPipe],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

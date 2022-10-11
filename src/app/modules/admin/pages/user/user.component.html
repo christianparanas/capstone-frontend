@@ -3,10 +3,10 @@
 
   <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-10">
     <div
+      class="flex w-[40px] h-[40px] rounded-full items-center justify-center font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/50 hover:shadow-md transition-all"
       (click)="goBack()"
-      class="font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/80 hover:shadow-md transition-all w-fit rounded-md"
     >
-      <i class="fal fa-arrow-left"></i> Return
+      <i class="fal fa-arrow-left"></i>
     </div>
 
     <div *ngIf="!isLoading && !userData" class="mt-52 grid place-items-center">
@@ -107,7 +107,19 @@
             <h1 class="font-bold text-2xl md:text-3xl text-slate-900">
               {{ userData.name }}
             </h1>
-            <p>Student</p>
+            <div class="lg:flex items-center">
+              <div class="text-sm text-slate-700 mb-1 lg:mb-0">@{{ userData.username }}</div>
+              <span *ngIf="userData.username" class="mx-2 hidden lg:block">·</span>
+
+              <div class="text-[10px] flex items-center w-fit mx-auto">
+                <p
+                  *ngFor="let role of userData.UserRoles"
+                  class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
+                >
+                  {{ role.Role.title }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

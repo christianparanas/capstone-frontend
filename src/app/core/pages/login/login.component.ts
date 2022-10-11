@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginAcctType: String = 'student';
   loginForm: FormGroup;
   submitLoading: boolean = false;
-  tempService: any;
+  tempService: any = null;
 
   constructor(
     public router: Router,
@@ -86,13 +86,9 @@ export class LoginComponent implements OnInit {
 
       if (this.loginAcctType == 'student') {
         this.tempService = this.authStudentService;
-      }
-
-      if (this.loginAcctType == 'faculty') {
+      } else if (this.loginAcctType == 'faculty') {
         this.tempService = this.authFacultyService;
-      }
-
-      if (this.loginAcctType == 'admin') {
+      } else if (this.loginAcctType == 'admin') {
         this.tempService = this.authAdminService;
       }
 

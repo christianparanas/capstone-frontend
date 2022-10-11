@@ -11,6 +11,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  studentLogin(data: any): any {
+    return this.http.post(`${BASEURL}/api/auth/studentlogin`, data);
+  }
+
+  studentRegister(data: any): any {
+    return this.http.post(`${BASEURL}/api/auth/studentregister`, data);
+  }
+
+  facultyLogin(data: any): any {
+    return this.http.post(`${BASEURL}/api/auth/facultylogin`, data);
+  }
+
+  adminLogin(data: any): any {
+    return this.http.post(`${BASEURL}/api/auth/adminlogin`, data);
+  }
+
   forgotpassword(data: string): any {
     return this.http.post(`${BASEURL}/api/auth/forgotpassword`, data);
   }

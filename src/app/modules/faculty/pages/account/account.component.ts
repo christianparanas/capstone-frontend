@@ -21,6 +21,7 @@ export class AccountComponent implements OnInit {
 
   profiledata: any = {
     name: null,
+    username: null,
     image: null,
     email: null,
   };
@@ -39,6 +40,12 @@ export class AccountComponent implements OnInit {
   onSubmit() {
     if (this.profiledata.name == '') {
       return this.toast.info('Name is required.', {
+        position: 'top-right',
+      });
+    }
+
+    if (this.profiledata.username == '') {
+      return this.toast.info('Username is required.', {
         position: 'top-right',
       });
     }
@@ -81,6 +88,7 @@ export class AccountComponent implements OnInit {
 
         this.profiledata = {
           name: response.name,
+          username: response.username,
           image: response.image,
           email: response.email,
         };

@@ -43,8 +43,24 @@
               <input
                 type="text"
                 class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                placeholder="Your first name"
+                placeholder="Your full name"
                 [(ngModel)]="profiledata.name"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[12px] font-medium text-gray-700"
+              >Username</label
+            >
+            <div class="mt-1 relative rounded-md">
+              <input
+                type="text"
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+                placeholder="Your username"
+                [(ngModel)]="profiledata.username"
                 [ngModelOptions]="{ standalone: true }"
                 required
               />
@@ -107,7 +123,7 @@
 <div class="">
   <div *ngIf="profile" class="p-5 max-w-[1200px] mx-auto">
     <div
-      class="flex w-[40px] h-[40px] rounded-full items-center justify-center bg-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
+      class="flex w-[40px] h-[40px] rounded-full items-center justify-center border border-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
       (click)="goBack()"
     >
       <i class="fal fa-arrow-left"></i>
@@ -136,8 +152,18 @@
             <h1 class="font-semibold text-2xl">
               {{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}
             </h1>
-            <div class="text-[10px] flex items-center w-fit mx-auto">
-              <p *ngFor="let role of profile.UserRoles" class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md">{{ role.Role.title }}</p>
+            <div class="lg:flex items-center">
+              <div class="text-sm text-slate-700 mb-1 lg:mb-0">@{{ profile.username }}</div>
+              <span *ngIf="profile.username" class="mx-2 hidden lg:block">·</span>
+
+              <div class="text-[10px] flex items-center w-fit mx-auto">
+                <p
+                  *ngFor="let role of profile.UserRoles"
+                  class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
+                >
+                  {{ role.Role.title }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
