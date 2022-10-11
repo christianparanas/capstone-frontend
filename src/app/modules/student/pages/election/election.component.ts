@@ -30,6 +30,8 @@ export class ElectionComponent implements OnInit {
   votes: any = [];
   winners: any = [];
 
+  isVoteNotEmpty: boolean = false;
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -95,6 +97,8 @@ export class ElectionComponent implements OnInit {
               item.selectedCandidateCount = item.selectedCandidateCount - 1;
               this.candidateModal = false;
               this.toast.info('Candidate Unvoted.');
+
+              this.checkIfBallotEmpty();
             } else {
               if (item.selectedCandidateCount == item.no_of_winners) {
                 this.toast.error('Candidate Vote Exceeded');
@@ -104,11 +108,24 @@ export class ElectionComponent implements OnInit {
                 item.selectedCandidateCount = item.selectedCandidateCount + 1;
                 this.candidateModal = false;
                 this.toast.success('Candidate Voted.');
+
+                this.checkIfBallotEmpty();
               }
             }
           }
         });
       }
+    });
+  }
+
+  checkIfBallotEmpty() {
+    this.votes.forEach((vote: any) => {
+      if (vote.selectedCandidateCount > 0) {
+        this.isVoteNotEmpty = true;
+        return;
+      }
+
+      this.isVoteNotEmpty = false;
     });
   }
 
@@ -120,10 +137,10 @@ export class ElectionComponent implements OnInit {
         this.toast.success(res.message);
 
         const data = {
-          electionId: this.election.id
-        }
+          electionId: this.election.id,
+        };
 
-        this.eventService.sendElectionVoteEvent(data)
+        this.eventService.sendElectionVoteEvent(data);
         this.getElection();
       });
     }
@@ -148,6 +165,8 @@ export class ElectionComponent implements OnInit {
         response.ElectionPositions.forEach((position: any) => {
           this.votes.push({ ...position, selectedCandidateCount: 0 });
         });
+
+        console.log(this.votes);
 
         this.votes.forEach((item: any) => {
           item.ElectionCandidates.forEach((candidate: any) => {

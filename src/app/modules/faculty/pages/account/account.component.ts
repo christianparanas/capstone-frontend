@@ -4,7 +4,9 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 
+import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-account',
@@ -26,11 +28,22 @@ export class AccountComponent implements OnInit {
     email: null,
   };
 
+  tweets: any = []
+  tweet: any = ''
+
+  isLoading: boolean = true;
+  reactLoading: boolean = false;
+  tweetCommentsModal: boolean = false;
+  comment: string = '';
+  comments: any = [];
+  commentTweetId: any = '';
+
   constructor(
-    private location: Location,
     private profileService: ProfileService,
     private toast: HotToastService,
-    private router: Router
+    private router: Router,
+    private tweetService: TweetService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -86,10 +99,20 @@ export class AccountComponent implements OnInit {
       (response: any) => {
         this.profile = response;
 
+        this.tweets = response.Tweets;
+
+        response.Tweets.forEach((tweet: any) => {
+          if (tweet.id == this.commentTweetId) {
+            this.comments = tweet.TweetComments;
+          }
+        });
+
+        this.submitLoading = false;
+
         this.profiledata = {
           name: response.name,
-          username: response.username,
           image: response.image,
+          username: response.username,
           email: response.email,
         };
 
@@ -98,7 +121,117 @@ export class AccountComponent implements OnInit {
         }
       },
       (error: any) => {
+      }
+    );
+  }
+
+  postComment() {
+    if (this.comment.trim() == '') {
+      this.toast.info('Please type something.', { position: 'top-right' });
+      return;
+    }
+
+    const data: any = {
+      tweetId: this.commentTweetId,
+      comment: this.comment,
+      UserId: this.profile.id,
+    };
+
+    this.tweetService.postTweetComment(data).subscribe(
+      (response: any) => {
+        this.getProfile();
+        this.comment = '';
+        this.eventService.sendTweetEvent();
+      },
+      (error: any) => {
         console.log(error);
+      }
+    );
+  }
+
+  getTweetEvent() {
+    this.eventService.getTweetEvent().subscribe((response: any) => {
+      this.getProfile();
+    });
+  }
+
+  openCommentModal(tweetId: any) {
+    this.tweetCommentsModal = true;
+
+    this.tweets.forEach((tweet: any) => {
+      if (tweet.id == tweetId) {
+        this.comments = tweet.TweetComments;
+      }
+    });
+
+    this.commentTweetId = tweetId;
+  }
+
+  commentTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
+  }
+
+  checkReactors(reactors: any) {
+    let bool;
+
+    reactors.forEach((reactor: any) => {
+      if (reactor.UserId == this.profile.id) {
+        bool = true;
+        return;
+      }
+    });
+
+    return bool;
+  }
+
+  reactTweet(tweetId: number) {
+    if (this.reactLoading == true) {
+      return;
+    }
+
+    this.reactLoading = true;
+
+    this.tweetService
+      .reactTweet({ tweetId: tweetId, UserId: this.profile.id })
+      .subscribe(
+        (response: any) => {
+          this.reactLoading = false;
+          this.getProfile();
+          this.eventService.sendTweetEvent();
+        },
+        (error: any) => {
+          console.log(error);
+          this.reactLoading = false;
+        }
+      );
+  }
+
+  postTweet() {
+    if (this.tweet.trim() == '') {
+      this.toast.info('Please type something.', { position: 'top-right' });
+      return;
+    }
+
+    this.submitLoading = true;
+
+    const data = {
+      message: this.tweet,
+      UserId: this.profile.id,
+    };
+
+    this.tweetService.postTweet(data).subscribe(
+      (response: any) => {
+        this.getProfile();
+        this.toast.success(response.message, { position: 'top-right' });
+        this.submitLoading = false;
+        this.eventService.sendTweetEvent();
+
+        this.tweet = '';
+      },
+      (error: any) => {
+        console.log(error);
+        this.toast.error(error.error.message, { position: 'top-right' });
+        this.submitLoading = false;
       }
     );
   }
@@ -108,6 +241,16 @@ export class AccountComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).fromNow()
+    return moment(date).format('llll');
+  }
+
+  navigateToUser(id: any) {
+    if (id == this.profile.id) {
+      return 
+    }
+
+    this.router.navigate([`/admin/user`], {
+      queryParams: { id: id },
+    });
   }
 }

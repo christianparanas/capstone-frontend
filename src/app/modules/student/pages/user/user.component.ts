@@ -210,7 +210,7 @@ export class UserComponent implements OnInit {
     let bool;
 
     reactors.forEach((reactor: any) => {
-      if (reactor.UserId == this.user.id) {
+      if (reactor.UserId == this.profile.id) {
         bool = true;
         return;
       }
@@ -227,7 +227,7 @@ export class UserComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweetId, UserId: this.user.id })
+      .reactTweet({ tweetId: tweetId, UserId: this.profile.id })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -22,8 +21,8 @@ export class AccountComponent implements OnInit {
   defaultImg: any = '../../../../../assets/images/student.png';
   previewImg: any = '';
 
-  tweets: any = []
-  tweet: any = ''
+  tweets: any = [];
+  tweet: any = '';
 
   isLoading: boolean = true;
   reactLoading: boolean = false;
@@ -43,13 +42,12 @@ export class AccountComponent implements OnInit {
   };
 
   constructor(
-    private location: Location,
     private profileService: ProfileService,
     private courseService: CourseService,
     private toast: HotToastService,
     private router: Router,
     private tweetService: TweetService,
-    private eventService: EventService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +105,7 @@ export class AccountComponent implements OnInit {
       (response: any) => {
         this.profile = response;
 
-        this.tweets = response.Tweets
+        this.tweets = response.Tweets;
 
         response.Tweets.forEach((tweet: any) => {
           if (tweet.id == this.commentTweetId) {
@@ -115,7 +113,7 @@ export class AccountComponent implements OnInit {
           }
         });
 
-        this.submitLoading = false
+        this.submitLoading = false;
 
         this.profiledata = {
           name: response.name,
@@ -149,13 +147,12 @@ export class AccountComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   dateFormat(date: any) {
-    return moment(date).fromNow()
+    return moment(date).fromNow();
   }
-
 
   getTweetEvent() {
     this.eventService.getTweetEvent().subscribe((response: any) => {
@@ -199,17 +196,19 @@ export class AccountComponent implements OnInit {
 
     this.reactLoading = true;
 
-    this.tweetService.reactTweet({ tweetId: tweetId, UserId: this.profile.id }).subscribe(
-      (response: any) => {
-        this.reactLoading = false;
-        this.getProfile();
-        this.eventService.sendTweetEvent();
-      },
-      (error: any) => {
-        console.log(error);
-        this.reactLoading = false;
-      }
-    );
+    this.tweetService
+      .reactTweet({ tweetId: tweetId, UserId: this.profile.id })
+      .subscribe(
+        (response: any) => {
+          this.reactLoading = false;
+          this.getProfile();
+          this.eventService.sendTweetEvent();
+        },
+        (error: any) => {
+          console.log(error);
+          this.reactLoading = false;
+        }
+      );
   }
 
   postTweet() {
@@ -222,7 +221,7 @@ export class AccountComponent implements OnInit {
 
     const data = {
       message: this.tweet,
-      UserId: this.profile.id 
+      UserId: this.profile.id,
     };
 
     this.tweetService.postTweet(data).subscribe(
@@ -251,7 +250,7 @@ export class AccountComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.profile.id 
+      UserId: this.profile.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -267,7 +266,7 @@ export class AccountComponent implements OnInit {
   }
 
   navigateToUser(id: any) {
-    if(id == this.profile.id) {
+    if (id == this.profile.id) {
       return this.router.navigate([`/account`]);
     }
 
@@ -275,5 +274,4 @@ export class AccountComponent implements OnInit {
       queryParams: { id: id },
     });
   }
-
 }

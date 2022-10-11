@@ -92,6 +92,6 @@ export class LogsComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).fromNow();
+    return moment(date).format('lll');
   }
 }

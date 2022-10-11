@@ -126,7 +126,8 @@ export class UserComponent implements OnInit {
       isAdmin: this.isAdmin,
       isFaculty: this.isFaculty,
       status: this.status,
-      userId: this.userData.id
+      userId: this.userData.id,
+      coverage: this.userData.StudentCredential.CourseId
     }
 
     this.userService.updateUser(data).subscribe((response: any) => {
