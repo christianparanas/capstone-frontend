@@ -33,12 +33,13 @@
                 />
               </div>
 
-              <div
-                pButton
-                class="bg-red-800 text-white font-bold hover:bg-red-800/80 transition-all py-2 px-4 rounded-md flex items-center border-red-800"
-              >
-                <i class="fad fa-plus-circle mr-2"></i> Add Course
-              </div>
+              <button
+              (click)="createCourseModal = true"
+              class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
+            >
+              <i class="fal fa-file-plus mr-1"></i>
+              Create
+            </button>
             </div>
           </ng-template>
           <ng-template pTemplate="header">
@@ -54,12 +55,18 @@
               <td>{{ course.acronym }}</td>
               <td>{{ course.title }}</td>
               <td>{{ course.college }}</td>
-              <td>
+              <td class="flex items-center">
                 <div
                   (click)="editCourse(course.id)"
-                  class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
+                  class="mr-1 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
                 >
                   <i class="fad fa-edit"></i> Edit
+                </div>
+                <div
+                  (click)="deleteCourse(course.id)"
+                  class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-red-200 text-red-800 hover:bg-red-300 transition-all cursor-pointer"
+                >
+                  <i class="fal fa-trash"></i> Delete
                 </div>
               </td>
             </tr>
@@ -76,39 +83,42 @@
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
     <div class="mt-3">
-      <form (ngSubmit)="editFormSubmit()" class="w-full grid gap-4">
+      <form (ngSubmit)="editFormSubmit()" [formGroup]="editForm" class="w-full grid gap-3">
         <div class="w-full">
-          <label class="block text-[12px] font-medium text-gray-700">Acronym</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Acronym</label
+          >
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="text"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              [(ngModel)]="editForm.acronym"
-              [ngModelOptions]="{ standalone: true }"
+              formControlName="acronym"
             />
           </div>
         </div>
 
         <div class="w-full">
-          <label class="block text-[12px] font-medium text-gray-700">Title</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Title</label
+          >
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="email"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              [(ngModel)]="editForm.title"
-              [ngModelOptions]="{ standalone: true }"
+              formControlName="title"
             />
           </div>
         </div>
 
         <div class="w-full">
-          <label class="block text-[12px] font-medium text-gray-700">College</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >College</label
+          >
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="email"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              [(ngModel)]="editForm.college"
-              [ngModelOptions]="{ standalone: true }"
+              formControlName="college"
             />
           </div>
         </div>
@@ -116,7 +126,7 @@
         <button
           [disabled]="submitLoading"
           type="submit"
-          class="grid place-items-center cursor-pointer bg-red-800 text-white font-semibold rounded-md py-3 hover:bg-red-800/80 transition-all w-full"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
         >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
             <svg
@@ -148,4 +158,90 @@
       </form>
     </div>
   </p-dialog>
+
+  <p-dialog
+  header="Create Course"
+  [(visible)]="createCourseModal"
+  [modal]="true"
+  [style]="{ maxWidth: '400px', width: '400px' }"
+>
+  <div class="mt-3">
+    <form (ngSubmit)="onSubmit()" [formGroup]="createForm" class="w-full grid gap-3">
+      <div class="w-full">
+        <label class="block text-[12px] font-medium text-gray-700"
+          >Acronym</label
+        >
+        <div class="mt-1 relative rounded-md w-full">
+          <input
+            type="text"
+            placeholder="Course acronym"
+            class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
+            formControlName="acronym"
+          />
+        </div>
+      </div>
+
+      <div class="w-full">
+        <label class="block text-[12px] font-medium text-gray-700"
+          >Title</label
+        >
+        <div class="mt-1 relative rounded-md w-full">
+          <input
+            type="text"
+            placeholder="Course title"
+            class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
+            formControlName="title"
+          />
+        </div>
+      </div>
+
+      <div class="w-full">
+        <label class="block text-[12px] font-medium text-gray-700"
+          >College</label
+        >
+        <div class="mt-1 relative rounded-md w-full">
+          <input
+            type="text"
+            placeholder="Course college"
+            class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
+            formControlName="college"
+          />
+        </div>
+      </div>
+
+      <button
+        [disabled]="submitLoading"
+        type="submit"
+        class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
+      >
+        <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+
+          <span>Processing</span>
+        </div>
+
+        <span *ngIf="!submitLoading">Create</span>
+      </button>
+    </form>
+  </div>
+</p-dialog>
 </div>

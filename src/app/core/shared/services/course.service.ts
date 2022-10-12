@@ -15,4 +15,16 @@ export class CourseService {
   getCourses(): any {
     return this.http.get(`${BASEURL}/api/course`);
   }
+
+  createCourse(data: any): any {
+    return this.http.post(`${BASEURL}/api/course`, data);
+  }
+
+  editCourse(data: any): any {
+    return this.http.put(`${BASEURL}/api/course`, data);
+  }
+
+  deleteCourse(courseId: number): any {
+    return this.http.delete(`${BASEURL}/api/course/${courseId}`);
+  }
 }
