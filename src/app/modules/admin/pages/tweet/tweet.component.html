@@ -112,7 +112,7 @@
         </div>
 
         <textarea
-          *ngIf="mentionItems.length > 0"
+          *ngIf="mentionItems.length > 0 || !isLoading"
           [(ngModel)]="tweet"
           [mention]="mentionItems"
           rows="5"
@@ -163,13 +163,13 @@
 
       <div
         *ngIf="isLoading == false && tweets.length == 0"
-        class="grid place-items-center mt-10"
+        class="grid place-items-center mt-20"
       >
         <div class="">
           <img
             src="../../../../../assets/images/empty-box.png"
             alt=""
-            class="w-[300px] object-cover"
+            class="w-[150px] md:w-[200px] mx-auto object-cover"
           />
           <h1 class="text-center mt-10 font-semibold text-slate-800">
             No tweets yet.
@@ -279,7 +279,7 @@
     </div>
 
     <div class="p-5 hidden lg:block">
-      <h2>People</h2>
+      <h2 *ngIf="voters.length > 0">People</h2>
 
       <div
         class="grid gap-1 mt-5 rounded-md p-1 h-fit max-h-[400px] overflow-y-auto"
@@ -304,7 +304,6 @@
             <div class="">
               <div class="flex items-center">
                 <h1 class="font-semibold text-slate-800">{{ voter.name.split(" ")[0] }}</h1>
-                <div *ngIf="voter.username" class="text-[11px] ml-1">@{{ voter.username }}</div>
               </div>
 
               <div class="text-[12px]">

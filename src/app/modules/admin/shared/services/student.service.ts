@@ -25,4 +25,8 @@ export class StudentService {
   studentAccountApplication(data: any): any {
     return this.http.post(`${BASEURL}/api/user/student/application`, data);
   }
+
+  createStudentAccount(data: any): any {
+    return this.http.post(`${BASEURL}/api/user/student`, data);
+  }
 }

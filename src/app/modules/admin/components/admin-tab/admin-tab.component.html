@@ -9,14 +9,14 @@
       <form
         (ngSubmit)="onSubmit()"
         [formGroup]="createForm"
-        class="w-full grid gap-4"
+        class="w-full grid gap-2"
       >
         <div class="w-full">
-          <label class="block text-sm font-medium text-gray-700">Name</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700">Name</label>
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="text"
-              class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+              class="py-2 outline-none w-full block px-3 sm:text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter name"
               formControlName="name"
             />
@@ -24,11 +24,11 @@
         </div>
 
         <div class="w-full">
-          <label class="block text-sm font-medium text-gray-700">Email</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700">Email</label>
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="email"
-              class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+              class="py-2 outline-none w-full block px-3 sm:text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter email"
               formControlName="email"
             />
@@ -36,13 +36,13 @@
         </div>
 
         <div class="w-full">
-          <label class="block text-sm font-medium text-gray-700"
+          <label class="block text-[12px] font-medium text-gray-700"
             >Password</label
           >
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="text"
-              class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+              class="py-2 outline-none w-full block px-3 sm:text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter password"
               formControlName="password"
             />
@@ -52,7 +52,7 @@
         <button
           [disabled]="submitLoading"
           type="submit"
-          class="grid place-items-center cursor-pointer bg-red-800 text-white font-semibold rounded-md py-3 hover:bg-red-800/80 transition-all w-full"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
         >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
             <svg
@@ -92,13 +92,13 @@
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
     <div class="mt-3">
-      <form (ngSubmit)="editFormSubmit()" class="w-full grid gap-4">
+      <form (ngSubmit)="editFormSubmit()" class="w-full grid gap-2">
         <div class="w-full">
-          <label class="block text-sm font-medium text-gray-700">Name</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700">Name</label>
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="text"
-              class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+              class="py-2 outline-none w-full block px-3 sm:text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter name"
               [(ngModel)]="editForm.name"
               [ngModelOptions]="{ standalone: true }"
@@ -107,11 +107,11 @@
         </div>
 
         <div class="w-full">
-          <label class="block text-sm font-medium text-gray-700">Email</label>
-          <div class="mt-1 relative rounded-md shadow-sm w-full">
+          <label class="block text-[12px] font-medium text-gray-700">Email</label>
+          <div class="mt-1 relative rounded-md w-full">
             <input
               type="email"
-              class="py-2 outline-none w-full block px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50"
+              class="py-2 outline-none w-full block px-3 sm:text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter email"
               [(ngModel)]="editForm.email"
               [ngModelOptions]="{ standalone: true }"
@@ -122,7 +122,7 @@
         <button
           [disabled]="submitLoading"
           type="submit"
-          class="grid place-items-center cursor-pointer bg-red-800 text-white font-semibold rounded-md py-3 hover:bg-red-800/80 transition-all w-full"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
         >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
             <svg
@@ -156,7 +156,7 @@
   </p-dialog>
 </div>
 
-<div class="text-sm w-full relative mt-10 grid gap-20">
+<div class="text-[12px] w-full relative mt-10 grid gap-20">
   <div class="" *ngIf="admins">
     <h1 class="font-bold text-lg text-slate-900 mb-3">Admin Accounts</h1>
 
@@ -172,13 +172,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
         styleClass="p-datatable-gridlines"
-        [globalFilterFields]="[
-          'id',
-          'name',
-          'email',
-          'createdAt',
-          'status'
-        ]"
+        [globalFilterFields]="['id', 'name', 'email', 'createdAt', 'status']"
       >
         <ng-template pTemplate="caption">
           <div class="flex justify-between">
@@ -193,13 +187,14 @@
               />
             </div>
 
-            <div
-              pButton
+            
+            <button
               (click)="createAccountModal = true"
-              class="bg-red-800 text-white font-bold hover:bg-red-800/80 transition-all py-2 px-4 rounded-md flex items-center border-red-800"
+              class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
             >
-              <i class="fad fa-plus-circle mr-2"></i> Create
-            </div>
+              <i class="fal fa-file-plus mr-1"></i>
+              Create
+            </button>
           </div>
         </ng-template>
         <ng-template pTemplate="header">

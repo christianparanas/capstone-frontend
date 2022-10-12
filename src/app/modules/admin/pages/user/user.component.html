@@ -108,8 +108,12 @@
               {{ userData.name }}
             </h1>
             <div class="lg:flex items-center">
-              <div class="text-sm text-slate-700 mb-1 lg:mb-0">@{{ userData.username }}</div>
-              <span *ngIf="userData.username" class="mx-2 hidden lg:block">·</span>
+              <div class="text-sm text-slate-700 mb-1 lg:mb-0">
+                @{{ userData.username }}
+              </div>
+              <span *ngIf="userData.username" class="mx-2 hidden lg:block"
+                >·</span
+              >
 
               <div class="text-[10px] flex items-center w-fit mx-auto">
                 <p
@@ -177,7 +181,11 @@
 
           <hr />
 
-          <div class="mt-5">
+          <div *ngIf="userData.StudentCredential.selfieWithDocument == null && userData.StudentCredential.document == null" class="">
+            <div class="bg-green-200 text-green-800 py-2 px-2 font-semibold text-[12px] w-fit rounded-md">Account created and verified by the administrator</div>
+          </div>
+
+          <div class="mt-5" *ngIf="userData.StudentCredential.selfieWithDocument != null && userData.StudentCredential.document != null">
             <h2
               class="text-sm font-semibold text-slate-900 w-fit py-1 px-3 rounded-md mb-5"
             >
@@ -250,8 +258,6 @@
     </div>
   </div>
 </div>
-
-
 
 <div class="relative z-50" *ngIf="userData">
   <p-dialog
@@ -331,7 +337,6 @@
   </p-dialog>
 </div>
 
-
 <div class="relative z-50" *ngIf="userData">
   <p-dialog
     header="Action"
@@ -344,28 +349,50 @@
         <div class="mb-3">
           <h3 class="font-semibold text-slate-900 mb-1">Role</h3>
           <div class="grid gap-2">
-            <div *ngFor="let role of userData.UserRoles" class="flex items-center">
+            <div
+              *ngFor="let role of userData.UserRoles"
+              class="flex items-center"
+            >
               <div class="relative w-fit">
-                <div class="bg-slate-100 py-1 px-3 rounded-md text-[12px] font-semibold text-slate-800">
+                <div
+                  class="bg-slate-100 py-1 px-3 rounded-md text-[12px] font-semibold text-slate-800"
+                >
                   {{ role.Role.title }}
                 </div>
 
-                <div *ngIf="role.RoleId != 3" (click)="removeRole(role.Role.title)" class="absolute -top-[4px] -right-2 bg-red-500 w-[18px] h-[18px] rounded-full grid place-items-center cursor-pointer">
+                <div
+                  *ngIf="role.RoleId != 3"
+                  (click)="removeRole(role.Role.title)"
+                  class="absolute -top-[4px] -right-2 bg-red-500 w-[18px] h-[18px] rounded-full grid place-items-center cursor-pointer"
+                >
                   <i class="fal fa-times text-white text-[10px]"></i>
                 </div>
-                
               </div>
             </div>
 
             <div class="flex items-center mt-4">
-              <div *ngIf="!isFaculty" (click)="setRole(100)" class="mr-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as a Faculty</div>
-              <div *ngIf="!isAdmin" (click)="setRole(200)" class="ml-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">Set as an Admin</div>
+              <div
+                *ngIf="!isFaculty"
+                (click)="setRole(100)"
+                class="mr-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all"
+              >
+                Set as a Faculty
+              </div>
+              <div
+                *ngIf="!isAdmin"
+                (click)="setRole(200)"
+                class="ml-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all"
+              >
+                Set as an Admin
+              </div>
             </div>
           </div>
         </div>
 
         <div class="w-full flex items-center">
-          <label class="block text-sm font-semibold text-gray-700 mr-2">Status:</label>
+          <label class="block text-sm font-semibold text-gray-700 mr-2"
+            >Status:</label
+          >
           <div class="flex justify-between items-center w-full">
             <div class="inline-block relative w-full">
               <select
@@ -393,38 +420,38 @@
         </div>
 
         <button
-            (click)="saveChanges()"
-            [disabled]="submitLoading"
-            type="submit"
-            class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full"
-          >
-            <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-              <svg
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
+          (click)="saveChanges()"
+          [disabled]="submitLoading"
+          type="submit"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full"
+        >
+          <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
 
-              <span>Saving changes...</span>
-            </div>
+            <span>Saving changes...</span>
+          </div>
 
-            <span *ngIf="!submitLoading">Save changes</span>
-          </button>
+          <span *ngIf="!submitLoading">Save changes</span>
+        </button>
       </div>
     </div>
   </p-dialog>
