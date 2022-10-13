@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PushNotificationsService } from 'ng-push-ivy';
-import { ProfileService } from '../../shared/services/profile.service'
+import { ProfileService } from '../../shared/services/profile.service';
+import { ElectionService } from '../../shared/services/election.service';
+import { PollService } from '../../shared/services/poll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,21 +11,30 @@ import { ProfileService } from '../../shared/services/profile.service'
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  profile: any = []
+  profile: any = [];
 
-  date: any
+  date: any;
   isMorning: any;
   isAfternoon: any;
   isEvening: any;
   isNight: any;
 
-  constructor(private _pushNotifications: PushNotificationsService, private profileService: ProfileService) {}
+  elections: any = [];
+  polls: any = [];
+
+  constructor(
+    private _pushNotifications: PushNotificationsService,
+    private profileService: ProfileService,
+    private electionService: ElectionService,
+    private pollService: PollService
+  ) {}
 
   ngOnInit(): void {
     this._pushNotifications.requestPermission();
 
-    this.getProfile()
+    this.getProfile();
     this.date = new Date();
+    this.getPolls()
 
     this.isMorning = this.date.getHours() > 5 && this.date.getHours() <= 12;
     this.isAfternoon = this.date.getHours() > 12 && this.date.getHours() <= 18;
@@ -32,16 +43,47 @@ export class DashboardComponent implements OnInit {
   }
 
   showPush() {
-
-    this._pushNotifications.create('New Alert', {body: 'something' }).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    );
+    this._pushNotifications
+      .create('New Alert', { body: 'something' })
+      .subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
   }
 
   getProfile() {
-    this.profileService.getProfile().subscribe((response: any) => {
-      this.profile = response
-    }, (error: any) => {})
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.profile = response;
+        this.getElections()
+      },
+      (error: any) => {}
+    );
+  }
+
+  getElections() {
+    const data = {
+      section: this.profile.StudentCredential.section,
+      year: this.profile.StudentCredential.year,
+      CourseId: this.profile.StudentCredential.CourseId,
+    };
+
+    this.electionService.getElections(data).subscribe((response: any) => {
+      response.forEach((election: any) => {
+        if(election.status == 'active') {
+          this.elections.push(election)
+        }
+      });
+    });
+  }
+
+  getPolls() {
+    this.pollService.getPolls({}).subscribe((response: any) => {
+      response.forEach((poll: any) => {
+        if(poll.published == 1) {
+          this.polls.push(poll)
+        }
+      });
+    });
   }
 }

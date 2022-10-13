@@ -8,27 +8,71 @@
 
   <div class="mt-20 pb-10">
     <div class="grid lg:grid-cols-3 gap-5">
-      <div class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all">
-        <div class="h-[100px]">
-          <img src="../../../../../assets/images/dashvote.png" alt="" class="w-[100px]">
-        </div>
-
-        <div class="">
-          <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">4</h1>
-          <p class="text-end text-sm text-slate-600 font-semibold mt-1">Ongoing Elections</p>
-        </div>
+      <a
+      href="/faculty/elections"
+      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+    >
+      <div class="h-[100px]">
+        <img
+          src="../../../../../assets/images/dashvote.png"
+          alt=""
+          class="w-[100px]"
+        />
       </div>
 
-      <div class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all">
-        <div class="h-[100px]">
-          <img src="../../../../../assets/images/dashpoll.png" alt="" class="w-[100px]">
-        </div>
-
-        <div class="">
-          <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">4</h1>
-          <p class="text-end text-sm text-slate-600 font-semibold mt-1">Active Polls</p>
-        </div>
+      <div class="">
+        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+          {{ elections.length }}
+        </h1>
+        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+          Active Elections
+        </p>
       </div>
+    </a>
+
+    <a
+      href="/faculty/polls"
+      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+    >
+      <div class="h-[100px]">
+        <img
+          src="../../../../../assets/images/dashpoll.png"
+          alt=""
+          class="w-[100px]"
+        />
+      </div>
+
+      <div class="">
+        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+          {{ polls.length }}
+        </h1>
+        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+          Active Polls
+        </p>
+      </div>
+    </a>
+
+    <a
+      href="/faculty/voters"
+      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+    >
+      <div class="h-[100px]">
+        <img
+          src="../../../../../assets/images/student.png"
+          alt=""
+          class="w-[100px]"
+        />
+      </div>
+
+      <div class="">
+        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+          {{ voters.length }}
+        </h1>
+        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+          Registered Voters
+        </p>
+      </div>
+    </a>
     </div>
   </div>
 
