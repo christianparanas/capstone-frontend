@@ -248,7 +248,7 @@ export class AccountComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([`/admin/user`], {
+    this.router.navigate([`/faculty/user`], {
       queryParams: { id: id },
     });
   }
