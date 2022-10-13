@@ -88,6 +88,7 @@ export class ElectionComponent implements OnInit {
   }
 
   selectCandidate(data: any) {
+
     this.votes.forEach((item: any) => {
       if (data.ElectionPositionId == item.id) {
         item.ElectionCandidates.forEach((candidate: any) => {
@@ -165,8 +166,6 @@ export class ElectionComponent implements OnInit {
         response.ElectionPositions.forEach((position: any) => {
           this.votes.push({ ...position, selectedCandidateCount: 0 });
         });
-
-        console.log(this.votes);
 
         this.votes.forEach((item: any) => {
           item.ElectionCandidates.forEach((candidate: any) => {

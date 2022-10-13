@@ -281,7 +281,11 @@
               </div>
 
               <div
-                *ngIf="election.stage == 'election_started' && !isAlreadyVoted && isVoteNotEmpty"
+                *ngIf="
+                  election.stage == 'election_started' &&
+                  !isAlreadyVoted &&
+                  isVoteNotEmpty
+                "
                 class="mt-10 flex justify-between items-center"
               >
                 <div></div>
@@ -335,7 +339,6 @@
                   <div class="mb-4">
                     <div class="flex items-center justify-between">
                       <div class="font-semibold">{{ position.title }}</div>
-
                     </div>
                     <div class="text-sm">
                       No. of winners: {{ position.no_of_winners }}

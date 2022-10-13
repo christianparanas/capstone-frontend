@@ -272,14 +272,11 @@ export class ElectionComponent implements OnInit {
   }
 
   positionModal(data: any) {
-    this.candidates = [];
     this.electionPositionId = data.id;
     this.limitOfCandidates = data.no_of_candidates;
     this.candidatesModal = true;
 
-    data.ElectionCandidates.forEach((el: any) => {
-      this.candidates.push(el);
-    });
+    this.candidates = data.ElectionCandidates
   }
 
   onElectionPositionSubmit() {

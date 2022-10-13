@@ -287,8 +287,6 @@
 
           <div class="">
             <div class="mt-10">
-
-
               <div class="" *ngIf="election.status != 'draft'">
                 <div class="mb-5 flex items-center justify-between">
                   <h1 class="font-semibold">Election Result</h1>
@@ -740,7 +738,6 @@
               >Select Candidate</label
             >
             <div class="mt-1 relative rounded-md">
-              
               <select
                 [(ngModel)]="addCandidateData.UserId"
                 [ngModelOptions]="{ standalone: true }"
@@ -855,18 +852,18 @@
 
       <div class="" *ngIf="election.length != 0">
         <div
-        class="h-[300px] grid place-items-center"
-        *ngIf="election.ElectionVoters.length == 0"
-      >
-        <div class="">
-          <img
-            src="../../../../../assets/images/empty-box.png"
-            alt=""
-            class="w-[100px] h-[100px] object-cover"
-          />
-          <p>No voters yet.</p>
+          class="h-[300px] grid place-items-center"
+          *ngIf="election.ElectionVoters.length == 0"
+        >
+          <div class="">
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[100px] h-[100px] object-cover"
+            />
+            <p>No voters yet.</p>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </p-dialog>

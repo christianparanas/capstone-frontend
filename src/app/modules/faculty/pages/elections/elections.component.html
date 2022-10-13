@@ -218,7 +218,12 @@
                 </option>
               </select>
 
-              <div *ngIf="user.coverage != 0" class="text-[12px] w-full p-3 rounded-md bg-slate-100 ">{{ getCourse(user.coverage) }}</div>
+              <div
+                *ngIf="user.coverage != 0"
+                class="text-[12px] w-full p-3 rounded-md bg-slate-100"
+              >
+                {{ getCourse(user.coverage) }}
+              </div>
             </div>
           </div>
 
@@ -285,10 +290,7 @@
       <div *ngIf="nextPanel" class="">
         <div class="">
           <div class="grid gap-5">
-
-            <div
-              class=""
-            >
+            <div class="">
               <div class="text-[12px] flex">
                 <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
                 <div class="">Will this election have a Campaign period?</div>
@@ -427,7 +429,10 @@
                       placeholder="Start"
                       [(ngModel)]="electionData.election.start"
                       [min]="
-                        electionData.campaign.hasCampaign ? electionData.campaign.end : currentDate"
+                        electionData.campaign.hasCampaign
+                          ? electionData.campaign.end
+                          : currentDate
+                      "
                       required
                     />
                   </div>
