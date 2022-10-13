@@ -139,7 +139,7 @@ export class PeerComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).format('llll');
+    return moment(date).fromNow();
   }
 
   chatTrack(item: any, index: any) {
