@@ -9,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
+import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-election',
@@ -52,6 +53,9 @@ export class ElectionComponent implements OnInit {
   chartOptions: any;
 
   predictionModal: boolean = false;
+  isPredictionAvailable: boolean = false
+  positionTitle: any = ""
+  hasSentiments: boolean = false
 
   constructor(
     private courseService: CourseService,
@@ -79,21 +83,21 @@ export class ElectionComponent implements OnInit {
     });
 
     this.chartData = {
-      labels: ['Christian', 'Luigi', 'Shiela'],
+      labels: [],
       datasets: [
         {
           label: 'Positive',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
-          data: [25, 30, 15],
+          data: [],
         },
         {
           label: 'Negative',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1,
-          data: [2, 14, 5],
+          data: [],
         },
 
         {
@@ -101,7 +105,7 @@ export class ElectionComponent implements OnInit {
           backgroundColor: 'rgba(201, 203, 207, 0.2)',
           borderColor: 'rgba(201, 203, 207, 1)',
           borderWidth: 1,
-          data: [5, 12, 10],
+          data: [],
         },
       ],
     };
@@ -144,27 +148,70 @@ export class ElectionComponent implements OnInit {
   }
 
   getPrediction(position: any) {
+    this.chartData.labels = [];
+
+    this.positionTitle = position.title
     this.predictionModal = true;
 
-    const data: any = {
-      ElectionId: position.ElectionId,
-      ElectionPositionId: position.id,
-      candidates: [],
-    };
+    if(new Date(this.election.campaignperiod_enddate) >= new Date()) {
+      this.isPredictionAvailable = false
+      return
+    }
 
-    position.ElectionCandidates.forEach((candidate: any) => {
-      data.candidates.push({
-        UserId: candidate.id,
-        messages: candidate.User.username,
-      });
-    });
+    this.isPredictionAvailable = true
 
-    this.electionService.getPrediction(data).subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: any) => {}
-    );
+    this.electionService
+      .getPrediction({
+        ElectionId: this.election.id,
+        ElectionPositionId: position.id,
+      })
+      .subscribe(
+        (response: any) => {
+
+          console.log(response)
+
+          response.ElectionCandidates.forEach((candidate: any) => {
+            if(candidate.Sentiments.length > 0) {
+              this.hasSentiments = true
+            }
+          })
+
+          if(this.hasSentiments == false) return
+
+          response.ElectionCandidates.forEach(
+            (candidate: any, index: number) => {
+              this.chartData.labels.push(candidate.User.name);
+
+              const scores: any = {
+                positive: 0,
+                negative: 0,
+                neutral: 0,
+              };
+
+              candidate.Sentiments.forEach((sentiment: any) => {
+                if (sentiment.score > 0) {
+                  scores.positive = scores.positive + 1;
+                }
+
+                if (sentiment.score == 0) {
+                  scores.neutral = scores.neutral + 1;
+                }
+
+                if (sentiment.score < 0) {
+                  scores.negative = scores.negative + 1;
+                }
+              });
+
+              let entries = Object.entries(scores);
+
+              for (let [index, [key, value]] of entries.entries()) {
+                this.chartData.datasets[index].data.push(value);
+              }
+            }
+          );
+        },
+        (error: any) => {}
+      );
   }
 
   getVoteReceipt(data: any) {
@@ -185,12 +232,16 @@ export class ElectionComponent implements OnInit {
   }
 
   getWinners() {
+    this.winners = [];
+
     this.election.ElectionPositions.forEach((position: any) => {
       const winner = position.ElectionCandidates.sort((x: any, y: any) => {
         return y.ElectionVotes.length - x.ElectionVotes.length;
       }).slice(0, position.no_of_winners);
 
       this.winners.push(winner);
+
+      console.log(this.winners);
     });
   }
 
@@ -276,7 +327,7 @@ export class ElectionComponent implements OnInit {
     this.limitOfCandidates = data.no_of_candidates;
     this.candidatesModal = true;
 
-    this.candidates = data.ElectionCandidates
+    this.candidates = data.ElectionCandidates;
   }
 
   onElectionPositionSubmit() {
@@ -312,6 +363,21 @@ export class ElectionComponent implements OnInit {
     return `${item.id}-${index}`;
   }
 
+  getSentiments() {
+    const data: any = {
+      ElectionId: this.election.id,
+    };
+
+    this.electionService.getSentiments(data).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        this.submitLoading = false;
+      }
+    );
+  }
+
   getElection() {
     this.candidates = [];
 
@@ -331,6 +397,12 @@ export class ElectionComponent implements OnInit {
               });
             }
           });
+        }
+
+        if(response.hasCampaign == true) {
+          if(new Date(response.campaignperiod_enddate) <= new Date()) {
+            this.getSentiments()
+          }
         }
 
         this.isLoading = false;
@@ -367,8 +439,6 @@ export class ElectionComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.students = response;
-
-          console.log(response);
         },
         (error: any) => {
           console.log(error);
