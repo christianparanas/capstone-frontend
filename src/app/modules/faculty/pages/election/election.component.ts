@@ -188,19 +188,21 @@ export class ElectionComponent implements OnInit {
                 neutral: 0,
               };
 
-              candidate.Sentiments.forEach((sentiment: any) => {
-                if (sentiment.score > 0) {
-                  scores.positive = scores.positive + 1;
-                }
-
-                if (sentiment.score == 0) {
-                  scores.neutral = scores.neutral + 1;
-                }
-
-                if (sentiment.score < 0) {
-                  scores.negative = scores.negative + 1;
-                }
-              });
+              if(candidate.Sentiments.length != 0) {
+                candidate.Sentiments.forEach((sentiment: any) => {
+                  if (sentiment.score > 0) {
+                    scores.positive = scores.positive + 1;
+                  }
+  
+                  if (sentiment.score == 0) {
+                    scores.neutral = scores.neutral + 1;
+                  }
+  
+                  if (sentiment.score < 0) {
+                    scores.negative = scores.negative + 1;
+                  }
+                });
+              }
 
               let entries = Object.entries(scores);
 
