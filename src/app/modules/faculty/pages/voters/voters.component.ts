@@ -36,6 +36,9 @@ export class VotersComponent implements OnInit {
   }
 
   filterVotersArr() {
+    if(this.user.coverage == 0) this.filter.CourseId = 0
+    if(this.user.coverage != 0) this.filter.CourseId = this.user.coverage
+
     this.filteredVoters = this.voters.filter(
       (item: any) =>
         (this.filter.CourseId == item.StudentCredential.CourseId ||
@@ -53,9 +56,7 @@ export class VotersComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
-
-        if(response.coverage == 0) this.filter.CourseId = 0
-        if(response.coverage != 0) this.filter.CourseId = response.coverage
+        this.filterVotersArr()
       },
       (error: any) => {}
     );
@@ -72,8 +73,6 @@ export class VotersComponent implements OnInit {
       (response: any) => {
         this.voters = response;
         this.isLoading = false;
-
-        this.filterVotersArr();
       },
       (error: any) => {
         console.log(error);
@@ -82,8 +81,6 @@ export class VotersComponent implements OnInit {
   }
 
   getCourse(courseId: any) {
-    // this.filter.CourseId = courseId;
-
     let acronym;
 
     this.courses.forEach((course: any) => {

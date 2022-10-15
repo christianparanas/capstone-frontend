@@ -3,76 +3,82 @@
     Good <span *ngIf="isMorning">Morning</span>
     <span *ngIf="isAfternoon">Afternoon</span>
     <span *ngIf="isEvening">Evening</span>
-    <span *ngIf="isNight">Night</span>, <span *ngIf="profile.length != 0">{{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}.</span>
+    <span *ngIf="isNight">Night</span>,
+    <span *ngIf="profile.length != 0"
+      >{{
+        profile.name.split(" ")[0].charAt(0).toUpperCase() +
+          profile.name.split(" ")[0].slice(1)
+      }}.</span
+    >
   </h1>
 
   <div class="mt-20 pb-10">
     <div class="grid lg:grid-cols-3 gap-5">
       <a
-      href="/faculty/elections"
-      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
-    >
-      <div class="h-[100px]">
-        <img
-          src="../../../../../assets/images/dashvote.png"
-          alt=""
-          class="w-[100px]"
-        />
-      </div>
+        href="/faculty/elections"
+        class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+      >
+        <div class="h-[100px]">
+          <img
+            src="../../../../../assets/images/dashvote.png"
+            alt=""
+            class="w-[100px]"
+          />
+        </div>
 
-      <div class="">
-        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
-          {{ elections.length }}
-        </h1>
-        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-          Active Elections
-        </p>
-      </div>
-    </a>
+        <div class="">
+          <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+            {{ elections.length }}
+          </h1>
+          <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+            Ongoing {{ elections.length > 1 ? 'Elections' : 'Election' }}
+          </p>
+        </div>
+      </a>
 
-    <a
-      href="/faculty/polls"
-      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
-    >
-      <div class="h-[100px]">
-        <img
-          src="../../../../../assets/images/dashpoll.png"
-          alt=""
-          class="w-[100px]"
-        />
-      </div>
+      <a
+        href="/faculty/polls"
+        class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+      >
+        <div class="h-[100px]">
+          <img
+            src="../../../../../assets/images/dashpoll.png"
+            alt=""
+            class="w-[100px]"
+          />
+        </div>
 
-      <div class="">
-        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
-          {{ polls.length }}
-        </h1>
-        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-          Active Polls
-        </p>
-      </div>
-    </a>
+        <div class="">
+          <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+            {{ polls.length }}
+          </h1>
+          <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+            Active {{ polls.length > 1 ? 'Polls' : 'Poll' }}
+          </p>
+        </div>
+      </a>
 
-    <a
-      href="/faculty/voters"
-      class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
-    >
-      <div class="h-[100px]">
-        <img
-          src="../../../../../assets/images/student.png"
-          alt=""
-          class="w-[100px]"
-        />
-      </div>
+      <a
+        href="/faculty/voters"
+        class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
+      >
+        <div class="h-[100px]">
+          <img
+            src="../../../../../assets/images/student.png"
+            alt=""
+            class="w-[100px]"
+          />
+        </div>
 
-      <div class="">
-        <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
-          {{ voters.length }}
-        </h1>
-        <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-          Registered Voters
-        </p>
-      </div>
-    </a>
+        <div class="">
+          <h1 class="text-5xl lg:text-6xl font-black text-slate-800 text-end">
+            {{ votersCount }}
+          </h1>
+          <p class="text-end text-sm text-slate-600 font-semibold mt-1">
+            Registered {{ votersCount > 1 ? 'Voters' : 'Voter' }}
+          </p>
+        </div>
+      </a>
     </div>
   </div>
 
