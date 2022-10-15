@@ -179,7 +179,7 @@ export class ElectionComponent implements OnInit {
           if(this.hasSentiments == false) return
 
           response.ElectionCandidates.forEach(
-            (candidate: any, index: number) => {
+            (candidate: any, canIndex: number) => {
               this.chartData.labels.push(candidate.User.name);
 
               const scores: any = {
@@ -207,7 +207,7 @@ export class ElectionComponent implements OnInit {
               let entries = Object.entries(scores);
 
               for (let [index, [key, value]] of entries.entries()) {
-                this.chartData.datasets[index].data.push(value);
+                this.chartData.datasets[index].data[canIndex] = value;
               }
             }
           );
