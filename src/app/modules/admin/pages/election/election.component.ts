@@ -40,13 +40,16 @@ export class ElectionComponent implements OnInit {
   candidates: any = [];
   limitOfCandidates: any;
   winners: any = [];
-  receipt: any = []
+  receipt: any = [];
 
   isPredictionsPanelOpen: boolean = false;
   chartData: any;
   chartOptions: any;
 
-  predictionModal: boolean = false
+  predictionModal: boolean = false;
+  isPredictionAvailable: boolean = false
+  positionTitle: any = ""
+  hasSentiments: boolean = false
 
   constructor(
     private courseService: CourseService,
@@ -67,21 +70,21 @@ export class ElectionComponent implements OnInit {
     this.getCourses();
 
     this.chartData = {
-      labels: ['Christian', 'Luigi', 'Shiela'],
+      labels: [],
       datasets: [
         {
           label: 'Positive',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
-          data: [25, 30, 15],
+          data: [],
         },
         {
           label: 'Negative',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1,
-          data: [2, 14, 5],
+          data: [],
         },
 
         {
@@ -89,7 +92,7 @@ export class ElectionComponent implements OnInit {
           backgroundColor: 'rgba(201, 203, 207, 0.2)',
           borderColor: 'rgba(201, 203, 207, 1)',
           borderWidth: 1,
-          data: [5, 12, 10],
+          data: [],
         },
       ],
     };
@@ -131,6 +134,75 @@ export class ElectionComponent implements OnInit {
     });
   }
 
+  getPrediction(position: any) {
+    this.chartData.labels = [];
+
+    this.positionTitle = position.title
+    this.predictionModal = true;
+
+    if(new Date(this.election.campaignperiod_enddate) >= new Date()) {
+      this.isPredictionAvailable = false
+      return
+    }
+
+    this.isPredictionAvailable = true
+
+    this.electionService
+      .getPrediction({
+        ElectionId: this.election.id,
+        ElectionPositionId: position.id,
+      })
+      .subscribe(
+        (response: any) => {
+
+          console.log(response)
+
+          response.ElectionCandidates.forEach((candidate: any) => {
+            if(candidate.Sentiments.length > 0) {
+              this.hasSentiments = true
+            }
+          })
+
+          if(this.hasSentiments == false) return
+
+          response.ElectionCandidates.forEach(
+            (candidate: any, canIndex: number) => {
+              this.chartData.labels.push(candidate.User.name);
+
+              const scores: any = {
+                positive: 0,
+                negative: 0,
+                neutral: 0,
+              };
+
+              if(candidate.Sentiments.length != 0) {
+                candidate.Sentiments.forEach((sentiment: any) => {
+                  if (sentiment.score > 0) {
+                    scores.positive = scores.positive + 1;
+                  }
+  
+                  if (sentiment.score == 0) {
+                    scores.neutral = scores.neutral + 1;
+                  }
+  
+                  if (sentiment.score < 0) {
+                    scores.negative = scores.negative + 1;
+                  }
+                });
+              }
+
+              let entries = Object.entries(scores);
+
+              for (let [index, [key, value]] of entries.entries()) {
+                this.chartData.datasets[index].data[canIndex] = value;
+              }
+            }
+          );
+        },
+        (error: any) => {}
+      );
+  }
+
   getVoteReceipt(data: any) {
     this.electionService.getVoteReceipt(data).subscribe(
       (response: any) => {
@@ -144,7 +216,7 @@ export class ElectionComponent implements OnInit {
   selectVoter(data: any) {
     this.getVoteReceipt({
       electionId: data.ElectionId,
-      voterId: data.UserId
+      voterId: data.UserId,
     });
   }
 
@@ -175,7 +247,20 @@ export class ElectionComponent implements OnInit {
     return isWinner;
   }
 
+  getSentiments() {
+    const data: any = {
+      ElectionId: this.election.id,
+    };
 
+    this.electionService.getSentiments(data).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        this.submitLoading = false;
+      }
+    );
+  }
 
   getElection() {
     this.candidates = [];
@@ -195,6 +280,12 @@ export class ElectionComponent implements OnInit {
               });
             }
           });
+        }
+
+        if (response.hasCampaign == true) {
+          if (new Date(response.campaignperiod_enddate) <= new Date()) {
+            this.getSentiments();
+          }
         }
 
         this.isLoading = false;
@@ -221,7 +312,6 @@ export class ElectionComponent implements OnInit {
     return courseTitle;
   }
 
-
   getCourses() {
     this.courseService.getCourses().subscribe(
       (response: any) => {
@@ -240,7 +330,6 @@ export class ElectionComponent implements OnInit {
   dateFormat(date: any) {
     return moment(date).calendar();
   }
-
 
   loadInputImgToSrc(event: any) {
     const reader = new FileReader();

@@ -53,9 +53,9 @@ export class ElectionComponent implements OnInit {
   chartOptions: any;
 
   predictionModal: boolean = false;
-  isPredictionAvailable: boolean = false
-  positionTitle: any = ""
-  hasSentiments: boolean = false
+  isPredictionAvailable: boolean = false;
+  positionTitle: any = '';
+  hasSentiments: boolean = false;
 
   constructor(
     private courseService: CourseService,
@@ -150,15 +150,15 @@ export class ElectionComponent implements OnInit {
   getPrediction(position: any) {
     this.chartData.labels = [];
 
-    this.positionTitle = position.title
+    this.positionTitle = position.title;
     this.predictionModal = true;
 
-    if(new Date(this.election.campaignperiod_enddate) >= new Date()) {
-      this.isPredictionAvailable = false
-      return
+    if (new Date(this.election.campaignperiod_enddate) >= new Date()) {
+      this.isPredictionAvailable = false;
+      return;
     }
 
-    this.isPredictionAvailable = true
+    this.isPredictionAvailable = true;
 
     this.electionService
       .getPrediction({
@@ -167,16 +167,15 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-
-          console.log(response)
+          console.log(response);
 
           response.ElectionCandidates.forEach((candidate: any) => {
-            if(candidate.Sentiments.length > 0) {
-              this.hasSentiments = true
+            if (candidate.Sentiments.length > 0) {
+              this.hasSentiments = true;
             }
-          })
+          });
 
-          if(this.hasSentiments == false) return
+          if (this.hasSentiments == false) return;
 
           response.ElectionCandidates.forEach(
             (candidate: any, canIndex: number) => {
@@ -188,16 +187,16 @@ export class ElectionComponent implements OnInit {
                 neutral: 0,
               };
 
-              if(candidate.Sentiments.length != 0) {
+              if (candidate.Sentiments.length != 0) {
                 candidate.Sentiments.forEach((sentiment: any) => {
                   if (sentiment.score > 0) {
                     scores.positive = scores.positive + 1;
                   }
-  
+
                   if (sentiment.score == 0) {
                     scores.neutral = scores.neutral + 1;
                   }
-  
+
                   if (sentiment.score < 0) {
                     scores.negative = scores.negative + 1;
                   }
@@ -401,9 +400,9 @@ export class ElectionComponent implements OnInit {
           });
         }
 
-        if(response.hasCampaign == true) {
-          if(new Date(response.campaignperiod_enddate) <= new Date()) {
-            this.getSentiments()
+        if (response.hasCampaign == true) {
+          if (new Date(response.campaignperiod_enddate) <= new Date()) {
+            this.getSentiments();
           }
         }
 

@@ -26,4 +26,12 @@ export class ElectionService {
     return this.http.post(`${BASEURL}/api/election/voters`, data);
   }
 
+  getPrediction(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/prediction`, data);
+  }
+
+  getSentiments(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/sentiments`, data);
+  }
+
 }

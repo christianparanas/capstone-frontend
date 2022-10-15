@@ -275,8 +275,8 @@
                           <div class="font-semibold">{{ position.title }}</div>
                           <div class="">
                             <div
-                              *ngIf="election.hasCampaign"
-                              (click)="predictionModal = true"
+                            *ngIf="election.hasCampaign"
+                            (click)="getPrediction(position)"
                               class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
                             >
                               <i class="fal fa-vote-yea mr-1 text-[12px]"></i>
@@ -367,18 +367,32 @@
     [modal]="true"
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
-    <div class="mt-3">
-      <div class="">
-        <h1 class="text-md font-semibold mb-2">President</h1>
-        <div class="p-2 rounded-md bg-slate-50">
-          <p-chart
-            type="bar"
-            [data]="chartData"
-            [options]="chartOptions"
-          ></p-chart>
+  <div class="mt-3">
+    <div class="">
+      <h1 class="text-md font-semibold mb-2">{{ positionTitle }}</h1>
+      <div *ngIf="isPredictionAvailable && hasSentiments" class="p-2 rounded-md bg-slate-50">
+        <p-chart
+          type="bar"
+          [data]="chartData"
+          [options]="chartOptions"
+        ></p-chart>
+      </div>
+
+      <div *ngIf="!isPredictionAvailable" class="grid place-items-center h-[250px]">
+        <div class="">
+          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[80px] h-[80px] object-cover mx-auto">
+          <div class="text-[12px] mt-4">Prediction will be available after the campaign period.</div>
+        </div>
+      </div>
+
+      <div *ngIf="isPredictionAvailable && !hasSentiments" class="grid place-items-center h-[250px]">
+        <div class="">
+          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[80px] h-[80px] object-cover mx-auto">
+          <div class="text-[12px] mt-4">No available data.</div>
         </div>
       </div>
     </div>
+  </div>
   </p-dialog>
 </div>
 
