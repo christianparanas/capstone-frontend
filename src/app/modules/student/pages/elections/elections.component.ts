@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ElectionService } from '../../shared/services/election.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { CourseService } from 'src/app/core/shared/services/course.service';
-import { EventService } from '../../shared/services/event.service'
+import { EventService } from '../../shared/services/event.service';
 import * as moment from 'moment';
 
 @Component({
@@ -14,9 +14,9 @@ import * as moment from 'moment';
 export class ElectionsComponent implements OnInit {
   elections: any = [];
   user: any = [];
-  courses: any = []
+  courses: any = [];
 
-  isLoading: boolean = true
+  isLoading: boolean = true;
 
   constructor(
     private electionService: ElectionService,
@@ -26,9 +26,9 @@ export class ElectionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUser()
-    this.getCourses()
-    this.getElectionEvent()
+    this.getUser();
+    this.getCourses();
+    this.getElectionEvent();
   }
 
   getElectionEvent() {
@@ -55,8 +55,8 @@ export class ElectionsComponent implements OnInit {
 
     this.electionService.getElections(data).subscribe(
       (response: any) => {
-        this.elections = response
-        this.isLoading = false
+        this.elections = response;
+        this.isLoading = false;
       },
       (error: any) => {
         console.log(error);

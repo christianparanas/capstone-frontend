@@ -168,6 +168,39 @@
             </div>
           </div>
 
+          <div class="mt-5">
+            <h2 class="text-sm font-semibold">Created by:</h2>
+            <div
+              [routerLink]="['/admin/peer']"
+              [queryParams]="{ id: election.UserId }"
+              class="grid grid-cols-[40px_1fr] gap-2 items-center w-fit border border-gray-200 py-1 px-2 rounded-md hover:bg-slate-100 cursor-pointer transition-all"
+            >
+              <div
+                class="w-fit h-fit rounded-full border border-gray-200 p-[2px]"
+              >
+                <img
+                  src="../../../../../assets/images/admin.png"
+                  alt=""
+                  class="w-[35px] h-[35px] object-cover rounded-full"
+                />
+              </div>
+
+              <div class="">
+                <div class="text-sm font-semibold">
+                  {{ election.User.name }}
+                </div>
+                <div class="text-[10px] flex items-center">
+                  <div
+                    *ngFor="let role of election.User.UserRoles"
+                    class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md mr-1"
+                  >
+                    {{ role.Role.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <hr class="my-10" />
 
           <div class="" *ngIf="election.status == 'draft'">
@@ -246,7 +279,7 @@
                   <h1 class="font-semibold">Election Result</h1>
                   <div class="flex items-center">
                     <div
-                    *ngIf="false"
+                      *ngIf="false"
                       class="mr-2 border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
                     >
                       <i class="fal fa-download mr-2"></i>Download Result
@@ -275,8 +308,8 @@
                           <div class="font-semibold">{{ position.title }}</div>
                           <div class="">
                             <div
-                            *ngIf="election.hasCampaign"
-                            (click)="getPrediction(position)"
+                              *ngIf="election.hasCampaign"
+                              (click)="getPrediction(position)"
                               class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
                             >
                               <i class="fal fa-vote-yea mr-1 text-[12px]"></i>
@@ -367,32 +400,51 @@
     [modal]="true"
     [style]="{ maxWidth: '400px', width: '400px' }"
   >
-  <div class="mt-3">
-    <div class="">
-      <h1 class="text-md font-semibold mb-2">{{ positionTitle }}</h1>
-      <div *ngIf="isPredictionAvailable && hasSentiments" class="p-2 rounded-md bg-slate-50">
-        <p-chart
-          type="bar"
-          [data]="chartData"
-          [options]="chartOptions"
-        ></p-chart>
-      </div>
-
-      <div *ngIf="!isPredictionAvailable" class="grid place-items-center h-[250px]">
-        <div class="">
-          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[80px] h-[80px] object-cover mx-auto">
-          <div class="text-[12px] mt-4">Prediction will be available after the campaign period.</div>
+    <div class="mt-3">
+      <div class="">
+        <h1 class="text-md font-semibold mb-2">{{ positionTitle }}</h1>
+        <div
+          *ngIf="isPredictionAvailable && hasSentiments"
+          class="p-2 rounded-md bg-slate-50"
+        >
+          <p-chart
+            type="bar"
+            [data]="chartData"
+            [options]="chartOptions"
+          ></p-chart>
         </div>
-      </div>
 
-      <div *ngIf="isPredictionAvailable && !hasSentiments" class="grid place-items-center h-[250px]">
-        <div class="">
-          <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[80px] h-[80px] object-cover mx-auto">
-          <div class="text-[12px] mt-4">No available data.</div>
+        <div
+          *ngIf="!isPredictionAvailable"
+          class="grid place-items-center h-[250px]"
+        >
+          <div class="">
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[80px] h-[80px] object-cover mx-auto"
+            />
+            <div class="text-[12px] mt-4">
+              Prediction will be available after the campaign period.
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="isPredictionAvailable && !hasSentiments"
+          class="grid place-items-center h-[250px]"
+        >
+          <div class="">
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[80px] h-[80px] object-cover mx-auto"
+            />
+            <div class="text-[12px] mt-4">No available data.</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </p-dialog>
 </div>
 
