@@ -287,6 +287,21 @@
         </div>
 
         <div
+          *ngIf="chat.length == 0"
+          class="bg-white h-[300px] grid place-items-center min-h-fit overflow-y-auto py-2 relative w-full pb-20"
+        >
+          <div class="">
+            <img
+              [src]="userData.image == null ? '../../../../../assets/images/empty-box.png' : userData.image"
+              alt=""
+              class="w-[100px] h-[100px] object-cover"
+            />
+            <p>No message yet.</p>
+          </div>
+        </div>
+
+        <div
+          *ngIf="chat.length != 0"
           class="bg-white h-[300px] min-h-fit overflow-y-auto py-2 relative w-full pb-20"
         >
           <div

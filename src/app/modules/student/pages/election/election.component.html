@@ -164,6 +164,39 @@
             </div>
           </div>
 
+          <div class="mt-5">
+            <h2 class="text-sm font-semibold">Created by:</h2>
+            <div
+              [routerLink]="['/user']"
+              [queryParams]="{ id: election.UserId }"
+              class="grid grid-cols-[40px_1fr] gap-2 items-center w-fit border border-gray-200 py-1 px-2 rounded-md hover:bg-slate-100 cursor-pointer transition-all"
+            >
+              <div
+                class="w-fit h-fit rounded-full border border-gray-200 p-[2px]"
+              >
+                <img
+                  src="../../../../../assets/images/admin.png"
+                  alt=""
+                  class="w-[35px] h-[35px] object-cover rounded-full"
+                />
+              </div>
+
+              <div class="">
+                <div class="text-sm font-semibold">
+                  {{ election.User.name }}
+                </div>
+                <div class="text-[10px] flex items-center">
+                  <div
+                    *ngFor="let role of election.User.UserRoles"
+                    class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md mr-1"
+                  >
+                    {{ role.Role.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <hr class="my-10" />
 
           <div

@@ -45,12 +45,17 @@ export class VotersComponent implements OnInit {
         (this.filter.year == item.StudentCredential.year ||
           this.filter.year == 0)
     );
+
+    console.log(this.filter)
   }
 
   getProfile() {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
+
+        if(response.coverage == 0) this.filter.CourseId = 0
+        if(response.coverage != 0) this.filter.CourseId = response.coverage
       },
       (error: any) => {}
     );
@@ -67,7 +72,6 @@ export class VotersComponent implements OnInit {
       (response: any) => {
         this.voters = response;
         this.isLoading = false;
-        console.log(response);
 
         this.filterVotersArr();
       },
@@ -75,6 +79,20 @@ export class VotersComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  getCourse(courseId: any) {
+    // this.filter.CourseId = courseId;
+
+    let acronym;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == courseId) {
+        acronym = course.acronym;
+      }
+    });
+
+    return acronym;
   }
 
   getCourses() {
