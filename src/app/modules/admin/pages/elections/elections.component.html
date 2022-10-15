@@ -65,40 +65,47 @@
             *ngFor="let election of elections"
             class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all"
           >
-            <div class="mb-2">
-              <div class="flex justify-between items-center">
-                <h1 class="font-semibold">{{ election.title }}</h1>
+          <div class="mb-2">
+            <div class="flex justify-between items-center mb-4">
+              <div class="">
+                <img src="../../../../../assets/images/dashvote.png" alt="" class="object-cover w-[40px] h-[40px]">
+              </div>
+              <div class="flex items-center">
                 <div class="flex items-center">
-                  <div
-                    *ngIf="election.status == 'draft'"
-                    class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                  >
-                    Configuring
+
+                  <div class="flex items-center ml-1">
+                    <div
+                      *ngIf="election.status == 'draft'"
+                      class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    >
+                      {{ election.status }}
+                    </div>
+                    <div
+                      *ngIf="election.stage == 'campaign_started'"
+                      class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    >
+                      Campaign Ongoing
+                    </div>
+                    <div
+                      *ngIf="election.stage == 'campaign_ended'"
+                      class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    >
+                      Campaign Ended
+                    </div>
+                    <div
+                      *ngIf="election.stage == 'election_started'"
+                      class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    >
+                      Election Ongoing
+                    </div>
+                    <div
+                      *ngIf="election.stage == 'election_ended'"
+                      class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                    >
+                      Election Ended
+                    </div>
                   </div>
-                  <div
-                    *ngIf="election.stage == 'campaign_started'"
-                    class="text-[11px] bg-green-200 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                  >
-                    Campaign Ongoing
-                  </div>
-                  <div
-                    *ngIf="election.stage == 'campaign_ended'"
-                    class="text-[11px] bg-red-200 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                  >
-                    Campaign Ended
-                  </div>
-                  <div
-                    *ngIf="election.stage == 'election_started'"
-                    class="text-[11px] bg-green-200 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                  >
-                    Election Ongoing
-                  </div>
-                  <div
-                    *ngIf="election.stage == 'election_ended'"
-                    class="text-[11px] bg-red-200 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                  >
-                    Election Ended
-                  </div>
+
                   <i
                     [routerLink]="['/admin/election']"
                     [queryParams]="{ id: election.id }"
@@ -106,8 +113,13 @@
                   ></i>
                 </div>
               </div>
-              <p class="text-sm">{{ election.description }}</p>
             </div>
+
+            <div class="flex justify-between items-center">
+              <h1 class="font-semibold">{{ election.title }}</h1>
+            </div>
+            <p class="text-sm mt-2">{{ election.description }}</p>
+          </div>
 
             <div class="mt-2">
               <div class="">
