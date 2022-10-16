@@ -10,6 +10,7 @@ import { ChatService } from '../../shared/services/chat.service';
 import { EventService } from '../../shared/services/event.service';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { TweetService } from '../../shared/services/tweet.service';
+import { ElectionService } from '../../shared/services/election.service';
 
 @Component({
   selector: 'app-user',
@@ -40,6 +41,10 @@ export class UserComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
 
+
+  voters: any = []
+  mentionItems: any = []
+
   @ViewChild('scrollToBottom') scrollElement: any;
 
   constructor(
@@ -52,7 +57,8 @@ export class UserComponent implements OnInit {
     private chatService: ChatService,
     private eventService: EventService,
     private courseService: CourseService,
-    private tweetService: TweetService
+    private tweetService: TweetService,
+    private electionService: ElectionService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +69,7 @@ export class UserComponent implements OnInit {
 
     this.getNewMsgEvent();
     this.getTweetEvent();
+    this.getVoters()
   }
 
   getNewMsgEvent() {
@@ -273,5 +280,30 @@ export class UserComponent implements OnInit {
     this.router.navigate([`/user`], {
       queryParams: { id: id },
     });
+  }
+
+  getVoters() {
+    const data = {
+      course: 0,
+      section: 0,
+      year: 0,
+    };
+
+    this.electionService.getVoters(data).subscribe(
+      (response: any) => {
+        this.voters = response;
+
+        response.forEach(async (voter: any) => {
+          if(voter.id == this.profile.id) {
+           return
+          }
+
+          this.mentionItems.push(voter.username);
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

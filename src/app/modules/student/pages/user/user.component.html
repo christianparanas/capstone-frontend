@@ -30,7 +30,10 @@
 
           <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
             <h1 class="font-semibold text-2xl">
-              {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.slice(1) }}
+              {{
+                user.name.split(" ")[0].charAt(0).toUpperCase() +
+                  user.name.slice(1)
+              }}
             </h1>
             <div class="lg:flex items-center">
               <div class="text-sm text-slate-700 mb-1 lg:mb-0">
@@ -77,7 +80,10 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.slice(1) }}
+                  {{
+                    user.name.split(" ")[0].charAt(0).toUpperCase() +
+                      user.name.slice(1)
+                  }}
                 </div>
                 <div class="flex items-center">
                   <div *ngIf="user.username" class="text-[12px]">
@@ -89,9 +95,10 @@
               </div>
             </div>
 
-            <div class="mt-3 text-sm">
-              {{ tweet.message }}
-            </div>
+            <div
+              [innerHTML]="tweet.message | linkify: voters"
+              class="mt-3 text-sm whitespace-pre-line h-fit"
+            ></div>
 
             <div class="mt-3 flex items-center">
               <div *ngIf="tweet.reactCount > 0" class="text-[12px]">
@@ -179,7 +186,11 @@
         >
           <div class="">
             <img
-              [src]="user.image == null ? '../../../../../assets/images/empty-box.png' : user.image"
+              [src]="
+                user.image == null
+                  ? '../../../../../assets/images/empty-box.png'
+                  : user.image
+              "
               alt=""
               class="w-[100px] h-[100px] object-cover"
             />
@@ -306,7 +317,7 @@
               </div>
             </div>
 
-            <div class="mt-2">{{ com.content }}</div>
+            <div class="mt-2" [innerHTML]="com.content | linkify: voters"></div>
           </div>
         </div>
       </div>
@@ -314,9 +325,10 @@
 
     <div class="relative w-full">
       <input
+        *ngIf="mentionItems.length > 0 || !isLoading"
         type="text"
         [(ngModel)]="comment"
-        placeholder="Write a comment"
+        [mention]="mentionItems"
         class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
       />
       <div

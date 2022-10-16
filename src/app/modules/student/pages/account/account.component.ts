@@ -7,6 +7,7 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { EventService } from '../../shared/services/event.service';
+import { ElectionService } from '../../shared/services/election.service';
 
 @Component({
   selector: 'app-account',
@@ -41,19 +42,50 @@ export class AccountComponent implements OnInit {
     CourseId: null,
   };
 
+  voters: any = []
+  mentionItems: any = [];
+
+
   constructor(
     private profileService: ProfileService,
     private courseService: CourseService,
     private toast: HotToastService,
     private router: Router,
     private tweetService: TweetService,
-    private eventService: EventService
+    private eventService: EventService,
+    private electionService: ElectionService
   ) {}
 
   ngOnInit(): void {
     this.getProfile();
     this.getCourses();
     this.getTweetEvent();
+  }
+
+  getVoters() {
+    const data = {
+      course: 0,
+      section: 0,
+      year: 0,
+    };
+
+    this.electionService.getVoters(data).subscribe(
+      (response: any) => {
+        this.voters = response;
+        this.isLoading = false;
+
+        response.forEach(async (voter: any) => {
+          if(voter.id == this.profile.id) {
+           return
+          }
+
+          this.mentionItems.push(voter.username);
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   onSubmit() {
@@ -114,6 +146,7 @@ export class AccountComponent implements OnInit {
         });
 
         this.submitLoading = false;
+        this.getVoters()
 
         this.profiledata = {
           name: response.name,

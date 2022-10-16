@@ -41,7 +41,7 @@ export class TweetsComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
-    this.getVoters();
+
   }
 
   getTweetEvent() {
@@ -94,7 +94,9 @@ export class TweetsComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
+        this.getVoters()
         this.getTweets();
+
       },
       (error: any) => {}
     );
@@ -201,6 +203,10 @@ export class TweetsComponent implements OnInit {
         this.isLoading = false;
 
         response.forEach(async (voter: any) => {
+          if(voter.id == this.user.id) {
+           return
+          }
+
           this.mentionItems.push(voter.username);
         });
       },
