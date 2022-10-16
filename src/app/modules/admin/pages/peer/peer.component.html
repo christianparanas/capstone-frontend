@@ -17,36 +17,41 @@
       <div
         class="flex items-center md:justify-between p-5 px-8 pt-0 relative -top-16"
       >
-      <div class="md:flex relative w-fit mx-auto md:mx-0">
-        <div
-          class="bg-slate-50/50 w-fit h-fit rounded-full lg:mr-4 border-2 border-gray-200/50"
-        >
-          <img
-            [src]="user.image == null ? defaultImg : user.image"
-            alt=""
-            class="w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] rounded-full object-cover"
-          />
-        </div>
+        <div class="md:flex relative w-fit mx-auto md:mx-0">
+          <div
+            class="bg-slate-50/50 w-fit h-fit rounded-full lg:mr-4 border-2 border-gray-200/50"
+          >
+            <img
+              [src]="user.image == null ? defaultImg : user.image"
+              alt=""
+              class="w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] rounded-full object-cover"
+            />
+          </div>
 
-        <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
-          <h1 class="font-semibold text-2xl">
-            {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.slice(1) }}
-          </h1>
-          <div class="lg:flex items-center">
-            <div class="text-sm text-slate-700 mb-1 lg:mb-0">@{{ user.username }}</div>
-            <span *ngIf="user.username" class="mx-2 hidden lg:block">·</span>
+          <div class="mt-5 lg:mt-20 mx-auto text-center lg:text-start">
+            <h1 class="font-semibold text-2xl">
+              {{
+                user.name.split(" ")[0].charAt(0).toUpperCase() +
+                  user.name.slice(1)
+              }}
+            </h1>
+            <div class="lg:flex items-center">
+              <div class="text-sm text-slate-700 mb-1 lg:mb-0">
+                @{{ user.username }}
+              </div>
+              <span *ngIf="user.username" class="mx-2 hidden lg:block">·</span>
 
-            <div class="text-[10px] flex items-center w-fit mx-auto  lg:mx-0">
-              <p
-                *ngFor="let role of user.UserRoles"
-                class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
-              >
-                {{ role.Role.title }}
-              </p>
+              <div class="text-[10px] flex items-center w-fit mx-auto lg:mx-0">
+                <p
+                  *ngFor="let role of user.UserRoles"
+                  class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
+                >
+                  {{ role.Role.title }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
         <div
           (click)="openChat()"
@@ -75,7 +80,10 @@
               </div>
               <div class="">
                 <div class="font-semibold">
-                  {{ user.name.split(" ")[0].charAt(0).toUpperCase() + user.name.slice(1) }}
+                  {{
+                    user.name.split(" ")[0].charAt(0).toUpperCase() +
+                      user.name.slice(1)
+                  }}
                 </div>
                 <div class="flex items-center">
                   <div *ngIf="user.username" class="text-[12px]">
@@ -87,9 +95,10 @@
               </div>
             </div>
 
-            <div class="mt-3 text-sm">
-              {{ tweet.message }}
-            </div>
+            <div
+              [innerHTML]="tweet.message | linkify: voters"
+              class="mt-3 text-sm whitespace-pre-line h-fit"
+            ></div>
 
             <div class="mt-3 flex items-center">
               <div *ngIf="tweet.reactCount > 0" class="text-[12px]">
@@ -159,7 +168,7 @@
           <div class="grid grid-cols-[40px_1fr] lg:grid-cols-[40px_1fr] gap-2">
             <div class="w-fit h-fit rounded-full border border-gray-200">
               <img
-              [src]="user.image == null ? defaultImg : user.image"
+                [src]="user.image == null ? defaultImg : user.image"
                 alt=""
                 class="w-[40px] h-[40px] rounded-full object-cover"
               />
@@ -177,7 +186,11 @@
         >
           <div class="">
             <img
-              [src]="user.image == null ? '../../../../../assets/images/empty-box.png' : user.image"
+              [src]="
+                user.image == null
+                  ? '../../../../../assets/images/empty-box.png'
+                  : user.image
+              "
               alt=""
               class="w-[100px] h-[100px] object-cover"
             />
@@ -304,7 +317,7 @@
               </div>
             </div>
 
-            <div class="mt-2">{{ com.content }}</div>
+            <div class="mt-2" [innerHTML]="com.content | linkify: voters"></div>
           </div>
         </div>
       </div>
@@ -312,8 +325,10 @@
 
     <div class="relative w-full">
       <input
+        *ngIf="mentionItems.length > 0 || !isLoading"
         type="text"
         [(ngModel)]="comment"
+        [mention]="mentionItems"
         placeholder="Write a comment"
         class="bg-slate-100 py-3 pb-4 pl-3 pr-[55px] rounded-md outline-none text-sm w-full"
       />

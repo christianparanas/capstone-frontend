@@ -478,10 +478,7 @@
               </div>
             </div>
 
-            <div
-                class="mt-2"
-                [innerHTML]="com.content | linkify: voters"
-              ></div>
+            <div class="mt-2" [innerHTML]="com.content | linkify: voters"></div>
           </div>
         </div>
       </div>
@@ -489,7 +486,7 @@
 
     <div class="relative w-full">
       <input
-      *ngIf="mentionItems.length > 0 || !isLoading"
+        *ngIf="mentionItems.length > 0 || !isLoading"
         type="text"
         [(ngModel)]="comment"
         [mention]="mentionItems"
