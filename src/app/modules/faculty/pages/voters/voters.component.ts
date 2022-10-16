@@ -35,8 +35,10 @@ export class VotersComponent implements OnInit {
   }
 
   filterVotersArr() {
-    if(this.user.coverage == 0) this.filter.CourseId = 0
+    if(this.user.coverage == 0 && this.filter.CourseId == 0) this.filter.CourseId = 0
     if(this.user.coverage != 0) this.filter.CourseId = this.user.coverage
+
+    console.log(this.filter)
 
     this.filteredVoters = this.voters.filter(
       (item: any) =>
@@ -47,8 +49,6 @@ export class VotersComponent implements OnInit {
         (this.filter.year == item.StudentCredential.year ||
           this.filter.year == 0)
     );
-
-    console.log(this.filter)
   }
 
   getProfile() {
