@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { VotereceiptsService } from '../../shared/services/votereceipts.service';
+import { CourseService } from 'src/app/core/shared/services/course.service';
 import * as moment from 'moment';
 
 @Component({
@@ -14,12 +14,16 @@ export class ReceiptsComponent implements OnInit {
   profile: any = [];
   isLoading: boolean = true
 
+  courses: any = []
+
   constructor(
     private votereceiptsService: VotereceiptsService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.getVoteReceipts();
+    this.getCourses()
   }
 
   getVoteReceipts() {
@@ -36,5 +40,17 @@ export class ReceiptsComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).format('lll');
+  }
+
+
+  getCourses() {
+    this.courseService.getCourses().subscribe(
+      (response: any) => {
+        this.courses = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

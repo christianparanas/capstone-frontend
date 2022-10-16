@@ -4,6 +4,8 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { ProfileService } from '../../shared/services/profile.service';
 
+
+
 @Component({
   selector: 'app-voters',
   templateUrl: './voters.component.html',

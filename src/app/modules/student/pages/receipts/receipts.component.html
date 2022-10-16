@@ -10,106 +10,26 @@
       ></p-skeleton>
     </div>
 
-    <div *ngIf="!isLoading && receipts.length == 0" class="grid place-items-center">
+    <div
+      *ngIf="!isLoading && receipts.length == 0"
+      class="grid place-items-center"
+    >
       <div class="h-[400px] w-full text-center mt-5">
-        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[150px] md:w-[200px] object-cover mx-auto">
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          alt=""
+          class="w-[150px] md:w-[200px] object-cover mx-auto"
+        />
         <p class="font-semibold mt-3">No vote receipts yet.</p>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-4">
-      <div
+    <div class="grid md:grid-cols-3 gap-4 ">
+      <app-receipt
         *ngFor="let receipt of receipts"
-        class="border border-gray-200 rounded-md p-3 h-fit"
-      >
-        <div class="flex items-center justify-between mb-1">
-          <h1 class="font-semibold text-slate-900 text-lg">
-            {{ receipt.Election.title }}
-          </h1>
-          <div class="grid grid-cols-[35px_35px] gap-2">
-            <div
-              class="bg-slate-50 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
-            >
-              <i class="fal fa-download"></i>
-            </div>
-            <div
-              [routerLink]="['/election']"
-              [queryParams]="{ id: receipt.Election.id }"
-              class="bg-slate-50 w-[35px] h-[35px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
-            >
-              <i class="fal fa-external-link"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="">
-          <p class="text-sm">{{ receipt.Election.description }}</p>
-
-          <div class="flex justify-between mt-4">
-            <div class=""></div>
-            <p class="text-[12px]">
-              Date voted:
-              <span
-                class="bg-slate-50 px-2 border border-gray-200 rounded-md"
-                >{{ dateFormat(receipt.createdAt) }}</span
-              >
-            </p>
-          </div>
-        </div>
-
-        <hr class="mb-4 mt-2" />
-
-        <div class="grid gap-3">
-          <div
-            *ngFor="let position of receipt.Election.ElectionPositions"
-            class=""
-          >
-            <div class="" *ngIf="position.ElectionCandidates.length != 0">
-              <div class="mb-1">
-                <h2 class="font-semibold text-slate-900">{{ position.title }}</h2>
-              </div>
-  
-              <div class="bg-slate-50 grid h-fit p-2 rounded-md">
-                <div
-                  *ngFor="let candidate of position.ElectionCandidates"
-                  class=""
-                >
-                  <div
-                    *ngIf="candidate.ElectionVotes.length != 0"
-                    class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100"
-                  >
-                    <div class="grid grid-cols-[40px_1fr] gap-2">
-                      <div
-                        class="border border-gray-200 w-[40px] h-[40px] rounded-full"
-                      >
-                        <img
-                          [src]="
-                            candidate.User.image == null
-                              ? '../../../../../assets/images/student.png'
-                              : candidate.User.image
-                          "
-                          alt=""
-                          class="w-[40px] h-[40px] rounded-full object-cover"
-                        />
-                      </div>
-                      <div class="">
-                        <h4 class="font-semibold text-sm">
-                          {{ candidate.User.name }}
-                        </h4>
-                        <p class="text-[11px]">
-                          {{ candidate.User.StudentCredential.Course.acronym }}
-                          {{ candidate.User.StudentCredential.year
-                          }}{{ candidate.User.StudentCredential.section }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        [receipt]="receipt"
+        [courses]="courses"
+      ></app-receipt>
     </div>
   </div>
 </div>
