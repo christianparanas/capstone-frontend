@@ -30,9 +30,8 @@ export class VotersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCourses();
-    this.getVoters();
     this.getProfile();
+    this.getCourses();
   }
 
   filterVotersArr() {
@@ -56,7 +55,7 @@ export class VotersComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
-        this.filterVotersArr()
+        this.getVoters();
       },
       (error: any) => {}
     );
@@ -73,6 +72,7 @@ export class VotersComponent implements OnInit {
       (response: any) => {
         this.voters = response;
         this.isLoading = false;
+        this.filterVotersArr()
       },
       (error: any) => {
         console.log(error);

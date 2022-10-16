@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
           let result: any;
 
           if (error.status == 0) {
-            result = 'Server is down!';
+            result = 'Server has fallen!';
           } else if (error.status == 401) {
             result = error.error.message;
           } else if (error.status == 422) {
