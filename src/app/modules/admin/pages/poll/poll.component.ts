@@ -35,7 +35,7 @@ export class PollComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if(course.id == courseId) {
-        courseTitle = course.acronym
+        courseTitle = course.title
       }
     });
 

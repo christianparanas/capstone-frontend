@@ -68,7 +68,7 @@ export class PollComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.acronym;
+        courseTitle = course.title;
       }
     });
 
@@ -186,6 +186,6 @@ export class PollComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).calendar();
+    return moment(date).format('lll');
   }
 }

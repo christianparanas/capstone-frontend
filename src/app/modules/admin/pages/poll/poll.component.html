@@ -75,32 +75,50 @@
           </p>
 
           <div class="grid items-center mt-3">
-            <div class="text-[12px]">
-              <fieldset
-                class="border border-solid border-gray-200 p-2 pb-3 pl-4 rounded-md"
-              >
-                <legend class="px-1">Restrictions</legend>
+            <div class="">
+              <h2 class="text-[12px] mb-1">Restrictions</h2>
 
-                <div class="">
-                  <div class="">
-                    Course:
-                    {{
-                      poll.course == 0 ? "All Courses" : getCourse(poll.course)
-                    }}
-                  </div>
-                  <div class="">
-                    Section:
-                    {{ poll.section == 0 ? "All section" : poll.section }}
-                  </div>
-                  <div class="">
-                    Year level:
-                    {{ poll.year == 0 ? "All year levels" : poll.year }}
-                  </div>
-                </div>
-              </fieldset>
+              <div class="bg-slate-50 p-1 w-full rounded-md">
+                <table class="border border-gray-300">
+                  <tr>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px]">
+                      Course:
+                    </td>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px] w-full">
+                      {{
+                        poll.course == 0
+                          ? "All Courses"
+                          : getCourse(poll.course)
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px]">
+                      Section:
+                    </td>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px]">
+                      {{
+                        poll.section == 0
+                          ? "All Sections"
+                          : poll.section
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px]">
+                      Year:
+                    </td>
+                    <td class="border border-gray-300 p-1 px-2 text-[12px]">
+                      {{
+                        poll.year == 0 ? "All Year Levels" : poll.year
+                      }}
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
 
-            <div class="mt-2 lg:flex lg:justify-between">
+            <div class="mt-2 lg:flex lg:justify-between items-center">
               <div class="">
                 <div
                   *ngIf="poll.published"
