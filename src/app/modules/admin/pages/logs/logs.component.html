@@ -14,6 +14,31 @@
 
     <div class="w-full">
       <div *ngIf="activeItem.label == 'System'">
+
+        <div *ngIf="isLoading" class="grid gap-2  mt-10">
+          <p-skeleton
+            width="100%"
+            height="60px"
+            *ngFor="let arr of ['', '', '', '', '', '', '', '']"
+          ></p-skeleton>
+        </div>
+  
+        <div
+          *ngIf="!isLoading && allLogs.length == 0"
+          class="text-center mt-10"
+        >
+          <div class="">
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[150px] h-[150px] object-cover mx-auto"
+            />
+            <h1 class="text-center mt-8 font-semibold text-slate-800 text-md">
+              No logs
+            </h1>
+          </div>
+        </div>
+
         <div class="mt-10">
           <div class="grid gap-2">
             <div

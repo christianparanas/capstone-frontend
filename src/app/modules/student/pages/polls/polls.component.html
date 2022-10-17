@@ -97,8 +97,8 @@
 
     <div *ngIf="!isLoading && polls.length == 0" class="grid place-items-center">
       <div class="">
-        <img src="../../../../../assets/images/empty-box.png" alt=""  class="w-[150px] md:w-[200px] object-cover mx-auto">
-        <h1 class="text-center mt-10 font-semibold text-slate-800">No poll/s available.</h1>
+        <img src="../../../../../assets/images/empty-box.png" alt=""  class="w-[150px] h-[150px] object-cover mx-auto">
+        <h1 class="text-center mt-10 font-semibold text-slate-800">No polls available.</h1>
       </div>
     </div>
 
@@ -149,7 +149,6 @@
               <div class="text-sm">
                 <app-countdown [expires]="poll.endsAt" [style]="{ title: 'text-[10px]', span: 'text-[8px] text-slate-200' }"></app-countdown>
               </div>
-
             </div>
         </div>
       </div>

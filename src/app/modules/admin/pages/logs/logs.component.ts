@@ -15,6 +15,7 @@ export class LogsComponent implements OnInit {
   logs: any[];
   allLogs: any = [];
   userId: any;
+  isLoading: boolean = true
 
   tabItems: MenuItem[];
   activeItem: MenuItem;
@@ -64,7 +65,7 @@ export class LogsComponent implements OnInit {
     this.logService.getAllLogs().subscribe(
       (response: any) => {
         this.allLogs = response;
-        console.log(response);
+        this.isLoading = false
       },
       (error: any) => {
         console.log(error);
