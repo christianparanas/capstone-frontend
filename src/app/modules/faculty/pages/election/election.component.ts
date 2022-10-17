@@ -57,6 +57,8 @@ export class ElectionComponent implements OnInit {
   positionTitle: any = '';
   hasSentiments: boolean = false;
 
+  chatLoading: boolean = false
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -159,6 +161,7 @@ export class ElectionComponent implements OnInit {
     }
 
     this.isPredictionAvailable = true;
+    this.chatLoading = true
 
     this.electionService
       .getPrediction({
@@ -167,6 +170,8 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
+
+          console.log(response)
 
           response.ElectionCandidates.forEach((candidate: any) => {
             if (candidate.Sentiments.length > 0) {
@@ -209,6 +214,8 @@ export class ElectionComponent implements OnInit {
               }
             }
           );
+
+          this.chatLoading = false
         },
         (error: any) => {}
       );
