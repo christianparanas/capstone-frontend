@@ -483,6 +483,8 @@ export class ElectionComponent implements OnInit {
       ElectionId: this.electionId,
     };
 
+    console.log(data)
+
     this.electionService.addCandidate(data).subscribe(
       (response: any) => {
         this.toast.success(response.message);
