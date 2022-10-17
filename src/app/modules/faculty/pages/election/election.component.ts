@@ -57,7 +57,7 @@ export class ElectionComponent implements OnInit {
   positionTitle: any = '';
   hasSentiments: boolean = false;
 
-  chatLoading: boolean = false
+  chartLoading: boolean = false
 
   constructor(
     private courseService: CourseService,
@@ -164,7 +164,7 @@ export class ElectionComponent implements OnInit {
     }
 
     this.isPredictionAvailable = true;
-    this.chatLoading = true
+    this.chartLoading = true
 
     this.electionService
       .getPrediction({
@@ -182,7 +182,10 @@ export class ElectionComponent implements OnInit {
             }
           });
 
-          if (this.hasSentiments == false) return;
+          if (this.hasSentiments == false) {
+            this.chartLoading = false
+            return
+          }
 
           response.ElectionCandidates.forEach(
             (candidate: any, canIndex: number) => {
@@ -219,7 +222,9 @@ export class ElectionComponent implements OnInit {
             }
           );
 
-          this.chatLoading = false
+          this.chartLoading = false
+
+          console.log(this.chartData)
         },
         (error: any) => {}
       );
