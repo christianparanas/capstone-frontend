@@ -10,6 +10,7 @@ import { PdfService } from 'src/app/core/shared/services/pdf.service';
 })
 export class ReceiptComponent implements OnInit {
   @Input() receipt: any = []
+  @Input() profile: any = []
   @Input() courses: any = []
 
   constructor(private pdfService: PdfService) { }
@@ -22,7 +23,7 @@ export class ReceiptComponent implements OnInit {
   }
 
   downloadPdf() {
-    this.pdfService.downloadPDF(this.receipt.Election.id, "election-vote-receipt")
+    this.pdfService.downloadPDF(this.receipt.Election.id, `${this.profile.StudentCredential.schoolId}-election-vote-receipt`)
   }
 
   getCourse(type: any, CourseId: any) {

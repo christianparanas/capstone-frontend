@@ -27,6 +27,7 @@
     <div class="grid md:grid-cols-3 gap-4 ">
       <app-receipt
         *ngFor="let receipt of receipts"
+        [profile]="profile"
         [receipt]="receipt"
         [courses]="courses"
       ></app-receipt>

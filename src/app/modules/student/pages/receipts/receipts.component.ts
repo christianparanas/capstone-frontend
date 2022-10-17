@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { VotereceiptsService } from '../../shared/services/votereceipts.service';
 import { CourseService } from 'src/app/core/shared/services/course.service';
+import { ProfileService } from '../../shared/services/profile.service';
 import * as moment from 'moment';
 
 @Component({
@@ -18,12 +19,26 @@ export class ReceiptsComponent implements OnInit {
 
   constructor(
     private votereceiptsService: VotereceiptsService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
     this.getVoteReceipts();
     this.getCourses()
+    this.getProfile()
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe(
+      (response: any) => {
+        this.profile = response;
+        this.isLoading = false
+      },
+      (error: any) => {
+        this.isLoading = false
+      }
+    );
   }
 
   getVoteReceipts() {

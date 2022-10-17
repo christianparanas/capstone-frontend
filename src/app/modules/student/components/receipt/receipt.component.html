@@ -6,7 +6,7 @@
     <div class="grid grid-cols-[30px_30px] gap-1">
       <div
         (click)="downloadPdf()"
-        class=" w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
+        class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
       >
         <i class="fal fa-download text-[13px]"></i>
       </div>
@@ -27,9 +27,10 @@
       <div class=""></div>
       <p class="text-[11px]">
         Date voted:
-        <span class="bg-slate-50 px-2 py-[2px] text-[10px] border border-gray-200 rounded-md">{{
-          dateFormat(receipt.createdAt)
-        }}</span>
+        <span
+          class="bg-slate-50 px-2 py-[2px] text-[10px] border border-gray-200 rounded-md"
+          >{{ dateFormat(receipt.createdAt) }}</span
+        >
       </p>
     </div>
   </div>
@@ -40,7 +41,9 @@
     <div *ngFor="let position of receipt.Election.ElectionPositions" class="">
       <div class="" *ngIf="position.ElectionCandidates.length != 0">
         <div class="mb-[2px]">
-          <h2 class="font-semibold text-slate-900 text-md">{{ position.title }}</h2>
+          <h2 class="font-semibold text-slate-900 text-md">
+            {{ position.title }}
+          </h2>
         </div>
 
         <div class="bg-slate-50 grid h-fit p-1 rounded-md">
@@ -91,14 +94,18 @@
           alt=""
           class="w-[100px] h-[100px] object-cover"
         />
-        <h1 class="font-semibold">EVSU Elections <span class="text-slate-500">- Vote Receipt</span></h1>
+        <h1 class="font-semibold">
+          EVSU Elections <span class="text-slate-500">- Vote Receipt</span>
+        </h1>
         <div class=""></div>
       </div>
 
       <div class="mt-6">
         <div class="">
           <div class="">
-            <h1 class="text-3xl font-semibold mb-2">{{ receipt.Election.title }}</h1>
+            <h1 class="text-3xl font-semibold mb-2">
+              {{ receipt.Election.title }}
+            </h1>
             <p>{{ receipt.Election.description }}</p>
           </div>
 
@@ -137,7 +144,9 @@
                   </td>
                   <td class="border border-gray-300 pb-3 px-2 text-[12px]">
                     {{
-                      receipt.Election.year == 0 ? "All Year Levels" : receipt.Election.year
+                      receipt.Election.year == 0
+                        ? "All Year Levels"
+                        : receipt.Election.year
                     }}
                   </td>
                 </tr>
@@ -145,24 +154,47 @@
             </div>
           </div>
 
-          <p class="text-[12px] my-5 mt-3">
+          <div class="mt-3 mb-2 px-1 md w-fit">
+            <span class="text-[12px] capitalize mr-1"> {{ profile.name }}</span><span class="text-[12px] ">{{ getCourse(2, profile.StudentCredential.CourseId) }} {{  profile.StudentCredential.year }}{{  profile.StudentCredential.section }}</span>
+           </div>
+          <p class="text-[12px] my-2 mb-5 px-1">
             Date voted: {{ dateFormat(receipt.createdAt) }}
           </p>
+
         </div>
 
-        <hr class="my-5">
+        <hr class="my-5" />
 
         <div class="mt-5">
           <h1 class="font-semibold mb-8">Voted Candidates</h1>
 
-          <div class="grid gap-4">
-            <div *ngFor="let position of receipt.Election.ElectionPositions" class="">
-              <div class="bg-slate-100 text-sm text-slate-800 px-4 pb-4 w-fit font-semibold">{{ position.title }}</div>
+          <div class="grid gap-2">
+            <div
+              *ngFor="let position of receipt.Election.ElectionPositions"
+              class=""
+            >
+              <div
+                class="bg-slate-100 text-sm text-slate-800 px-4 pb-4 w-fit font-semibold"
+              >
+                {{ position.title }}
+              </div>
 
               <div class="grid gap-3">
-                <div *ngFor="let candidate of position.ElectionCandidates" class="">
-                  <div *ngIf="candidate.ElectionVotes.length != 0" class="ml-2  text-[12px]">
-                    <span class="text-[10px]">⬤</span> <span class="capitalize"> {{ candidate.User.name }}</span> - {{ getCourse(2, candidate.User.StudentCredential.CourseId) }} {{ candidate.User.StudentCredential.year }}{{ candidate.User.StudentCredential.section }}
+                <div
+                  *ngFor="let candidate of position.ElectionCandidates"
+                  class=""
+                >
+                  <div
+                    *ngIf="candidate.ElectionVotes.length != 0"
+                    class="ml-2 text-[12px]"
+                  >
+                    <span class="text-[10px]">⬤</span>
+                    <span class="capitalize"> {{ candidate.User.name }}</span> -
+                    {{
+                      getCourse(2, candidate.User.StudentCredential.CourseId)
+                    }}
+                    {{ candidate.User.StudentCredential.year
+                    }}{{ candidate.User.StudentCredential.section }}
                   </div>
                 </div>
               </div>
