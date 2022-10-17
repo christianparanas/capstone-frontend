@@ -151,6 +151,9 @@ export class ElectionComponent implements OnInit {
 
   getPrediction(position: any) {
     this.chartData.labels = [];
+    this.chartData.datasets[0].data = [];
+    this.chartData.datasets[1].data = [];
+    this.chartData.datasets[2].data = [];
 
     this.positionTitle = position.title;
     this.predictionModal = true;
@@ -208,6 +211,7 @@ export class ElectionComponent implements OnInit {
               }
 
               let entries = Object.entries(scores);
+
 
               for (let [index, [key, value]] of entries.entries()) {
                 this.chartData.datasets[index].data[canIndex] = value;
