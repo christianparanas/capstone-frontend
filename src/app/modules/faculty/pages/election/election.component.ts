@@ -167,7 +167,6 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-          console.log(response);
 
           response.ElectionCandidates.forEach((candidate: any) => {
             if (candidate.Sentiments.length > 0) {
@@ -241,8 +240,6 @@ export class ElectionComponent implements OnInit {
       }).slice(0, position.no_of_winners);
 
       this.winners.push(winner);
-
-      console.log(this.winners);
     });
   }
 
@@ -371,7 +368,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.getSentiments(data).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
       },
       (error: any) => {
         this.submitLoading = false;
@@ -492,6 +489,8 @@ export class ElectionComponent implements OnInit {
         this.submitLoading = false;
         this.addCandidateModal = false;
         this.getElection();
+
+        console.log(response)
 
         this.addCandidateData = {
           image: null,
