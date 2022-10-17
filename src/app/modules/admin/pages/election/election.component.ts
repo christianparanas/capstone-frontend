@@ -51,6 +51,8 @@ export class ElectionComponent implements OnInit {
   positionTitle: any = ""
   hasSentiments: boolean = false
 
+  chartLoading: boolean = false
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -136,16 +138,20 @@ export class ElectionComponent implements OnInit {
 
   getPrediction(position: any) {
     this.chartData.labels = [];
+    this.chartData.datasets[0].data = [];
+    this.chartData.datasets[1].data = [];
+    this.chartData.datasets[2].data = [];
 
-    this.positionTitle = position.title
+    this.positionTitle = position.title;
     this.predictionModal = true;
 
-    if(new Date(this.election.campaignperiod_enddate) >= new Date()) {
-      this.isPredictionAvailable = false
-      return
+    if (new Date(this.election.campaignperiod_enddate) >= new Date()) {
+      this.isPredictionAvailable = false;
+      return;
     }
 
-    this.isPredictionAvailable = true
+    this.isPredictionAvailable = true;
+    this.chartLoading = true
 
     this.electionService
       .getPrediction({
@@ -158,12 +164,15 @@ export class ElectionComponent implements OnInit {
           console.log(response)
 
           response.ElectionCandidates.forEach((candidate: any) => {
-            if(candidate.Sentiments.length > 0) {
-              this.hasSentiments = true
+            if (candidate.Sentiments.length > 0) {
+              this.hasSentiments = true;
             }
-          })
+          });
 
-          if(this.hasSentiments == false) return
+          if (this.hasSentiments == false) {
+            this.chartLoading = false
+            return
+          }
 
           response.ElectionCandidates.forEach(
             (candidate: any, canIndex: number) => {
@@ -175,16 +184,16 @@ export class ElectionComponent implements OnInit {
                 neutral: 0,
               };
 
-              if(candidate.Sentiments.length != 0) {
+              if (candidate.Sentiments.length != 0) {
                 candidate.Sentiments.forEach((sentiment: any) => {
                   if (sentiment.score > 0) {
                     scores.positive = scores.positive + 1;
                   }
-  
+
                   if (sentiment.score == 0) {
                     scores.neutral = scores.neutral + 1;
                   }
-  
+
                   if (sentiment.score < 0) {
                     scores.negative = scores.negative + 1;
                   }
@@ -193,11 +202,16 @@ export class ElectionComponent implements OnInit {
 
               let entries = Object.entries(scores);
 
+
               for (let [index, [key, value]] of entries.entries()) {
                 this.chartData.datasets[index].data[canIndex] = value;
               }
             }
           );
+
+          this.chartLoading = false
+
+          console.log(this.chartData)
         },
         (error: any) => {}
       );
