@@ -4,7 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
 import { CourseService } from '../../shared/services/course.service';
-import { AuthStudentService } from '../../shared/services/auth-student.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
     private courseService: CourseService,
     public router: Router,
     private toast: HotToastService,
-    private authStudentService: AuthStudentService
+    private authService: AuthService
   ) {}
 
   attachFile(file: any) {
@@ -63,8 +63,7 @@ export class SignupComponent implements OnInit {
       this.attachments.ducument != '' &&
       this.attachments.selfie != ''
     ) {
-
-      this.submitLoading = true
+      this.submitLoading = true;
 
       const data = {
         ...this.signupForm.value,
@@ -73,21 +72,22 @@ export class SignupComponent implements OnInit {
         },
       };
 
-      this.authStudentService.register(data).subscribe(
+      this.authService.studentRegister(data).subscribe(
         (response: any) => {
-          this.submitLoading = false
+          this.submitLoading = false;
 
-          this.router.navigate(['/login'])
+          this.router.navigate([`/login`], {
+            queryParams: { type: 'student' },
+          });
 
           this.toast.success(response.message, {
             autoClose: false,
-            dismissible: true
+            dismissible: true,
           });
         },
         (error: any) => {
           this.toast.info(error.error.message);
-
-          this.submitLoading = false
+          this.submitLoading = false;
         }
       );
     } else {
@@ -125,9 +125,7 @@ export class SignupComponent implements OnInit {
       (response: any) => {
         this.courses = response;
       },
-      (error: any) => {
-
-      }
+      (error: any) => {}
     );
   }
 }

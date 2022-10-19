@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
-import { AuthFacultyService } from '../services/auth-faculty.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FacultyGuard implements CanActivate {
   constructor(
-    private authFacultyService: AuthFacultyService,
+    private authService: AuthService,
     private router: Router,
     private toast: HotToastService
   ) {}
@@ -29,7 +29,7 @@ export class FacultyGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authFacultyService.isLoggedIn()) return true;
+    if (this.authService.isLoggedIn('faculty')) return true;
 
     this.router.navigate([`/login`], {
       queryParams: { type: 'faculty' },

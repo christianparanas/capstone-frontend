@@ -22,13 +22,12 @@ export class MessagesComponent implements OnInit {
   currentChatId: any = '';
   isLoading: boolean = true
 
+  search: any = ''
+  tempChats: any 
+
   constructor(
     private location: Location,
-    private userService: UserService,
     private profileService: ProfileService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private toast: HotToastService,
     private chatService: ChatService,
     private eventService: EventService
   ) {}
@@ -57,6 +56,13 @@ export class MessagesComponent implements OnInit {
   closeChat() {
     this.isChatOpen = false;
     this.eventService.closeChat(this.currentChatId);
+
+    
+    this.chats.forEach((chat: any) => {
+      if(chat.ChatId == this.currentChatId) {
+        chat.isSelected = false
+      }
+    })
   }
 
   getProfile() {
@@ -89,6 +95,12 @@ export class MessagesComponent implements OnInit {
     });
 
     this.isChatOpen = true;
+
+    this.chats.forEach((chat: any) => {
+      if(chat.ChatId == chatId) {
+        chat.isSelected = true
+      }
+    })
   }
 
   updateChat(e: any) {
@@ -112,6 +124,7 @@ export class MessagesComponent implements OnInit {
 
         this.isLoading = false
       },
+
       (error: any) => {
         this.isLoading = false
       }

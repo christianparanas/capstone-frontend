@@ -3,9 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthStudentService } from '../../shared/services/auth-student.service';
-import { AuthFacultyService } from '../../shared/services/auth-faculty.service';
-import { AuthAdminService } from '../../shared/services/auth-admin.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +11,15 @@ import { AuthAdminService } from '../../shared/services/auth-admin.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginAcctType: String = 'student';
+  loginAcctType: string = '';
   loginForm: FormGroup;
   submitLoading: boolean = false;
-  tempService: any = null;
 
   constructor(
     public router: Router,
     private toast: HotToastService,
     private route: ActivatedRoute,
-    private authStudentService: AuthStudentService,
-    private authFacultyService: AuthFacultyService,
-    private authAdminService: AuthAdminService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -34,47 +29,20 @@ export class LoginComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((value) => {
-      switch (value.type) {
-        case 'student':
-          this.loginAcctType = 'student';
-          break;
-        case 'faculty':
-          this.loginAcctType = 'faculty';
-          break;
+      this.loginAcctType = value.type;
 
-        case 'admin':
-          this.loginAcctType = 'admin';
-          break;
-      }
+      this.router.navigate([`/login`], {
+        queryParams: { type: value.type },
+      });
     });
   }
 
   changeLoginAcctType(type: string) {
-    switch (type) {
-      case 'student':
-        this.loginAcctType = 'student';
-        this.router.navigate([`/login`], {
-          queryParams: { type: 'student' },
-        });
-        break;
+    this.loginAcctType = type;
 
-      case 'faculty':
-        this.loginAcctType = 'faculty';
-        this.router.navigate([`/login`], {
-          queryParams: { type: 'faculty' },
-        });
-        break;
-
-      case 'admin':
-        this.loginAcctType = 'admin';
-        this.router.navigate([`/login`], {
-          queryParams: { type: 'admin' },
-        });
-        break;
-
-      default:
-        break;
-    }
+    this.router.navigate([`/login`], {
+      queryParams: { type: type },
+    });
   }
 
   onSubmit() {
@@ -84,37 +52,31 @@ export class LoginComponent implements OnInit {
     ) {
       this.submitLoading = true;
 
-      if (this.loginAcctType == 'student') {
-        this.tempService = this.authStudentService;
-      } else if (this.loginAcctType == 'faculty') {
-        this.tempService = this.authFacultyService;
-      } else if (this.loginAcctType == 'admin') {
-        this.tempService = this.authAdminService;
-      }
+      this.authService
+        .login(this.loginAcctType, this.loginForm.value)
+        .subscribe(
+          (response: any) => {
+            this.submitLoading = false;
+            this.authService.setSession(this.loginAcctType, response);
+            this.toast.success(response.message);
+            this.loginForm.reset();
+          },
+          (error: any) => {
+            this.submitLoading = false;
+            let result: any;
 
-      this.tempService.login(this.loginForm.value).subscribe(
-        (response: any) => {
-          this.submitLoading = false;
-          this.tempService.setSession(response);
-          this.toast.success(response.message);
-          this.loginForm.reset();
-        },
-        (error: any) => {
-          this.submitLoading = false;
-          let result: any;
-
-          if (error.status == 0) {
-            result = 'Server has fallen!';
-          } else if (error.status == 401) {
-            result = error.error.message;
-          } else if (error.status == 422) {
-            result = error.error.email[0];
-          } else if (error.status == 500) {
-            result = error.statusText;
+            if (error.status == 0) {
+              result = 'Server has fallen!';
+            } else if (error.status == 401) {
+              result = error.error.message;
+            } else if (error.status == 422) {
+              result = error.error.email[0];
+            } else if (error.status == 500) {
+              result = error.statusText;
+            }
+            this.toast.error(result);
           }
-          this.toast.error(result);
-        }
-      );
+        );
     } else {
       this.toast.error('Invalid Email or Password');
     }

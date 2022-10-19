@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
-import { AuthAdminService } from '../services/auth-admin.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
   constructor(
-    private authAdminService: AuthAdminService,
+    private authService: AuthService,
     private router: Router,
     private toast: HotToastService
   ) {}
@@ -29,7 +29,7 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authAdminService.isLoggedIn()) return true;
+    if (this.authService.isLoggedIn('admin')) return true;
 
     this.router.navigate([`/login`], {
       queryParams: { type: 'admin' },

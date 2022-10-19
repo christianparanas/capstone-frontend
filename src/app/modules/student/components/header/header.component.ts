@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthStudentService } from 'src/app/core/shared/services/auth-student.service';
+import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authStudentService: AuthStudentService,
+    private authService: AuthService,
     private profileService: ProfileService
   ) {}
 
@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authStudentService.logout();
+    this.authService.logout('student');
   }
 
   listenScrollEvent = () => {

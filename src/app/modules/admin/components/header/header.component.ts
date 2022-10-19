@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthAdminService } from 'src/app/core/shared/services/auth-admin.service';
+import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authAdminService: AuthAdminService,
+    private authService: AuthService,
     private profileService: ProfileService,
     private router: Router
   ) {}
@@ -120,7 +120,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authAdminService.logout();
+    this.authService.logout('admin');
   }
 
   listenScrollEvent = () => {

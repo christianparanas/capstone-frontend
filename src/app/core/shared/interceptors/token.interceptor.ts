@@ -7,17 +7,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { AuthStudentService } from '../services/auth-student.service';
-import { AuthFacultyService } from '../services/auth-faculty.service';
-import { AuthAdminService } from '../services/auth-admin.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(
-    private authStudentService: AuthStudentService,
-    private authFacultyService: AuthFacultyService,
-    private authAdminService: AuthAdminService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -38,11 +32,11 @@ export class TokenInterceptor implements HttpInterceptor {
     let facultyToken: any = localStorage.getItem('faculty_access_token');
     let adminToken: any = localStorage.getItem('admin_access_token');
 
-    if (studentToken == null || this.authStudentService.isLoggedIn() == false)
+    if (studentToken == null || this.authService.isLoggedIn('student') == false)
       studentToken = 'christian';
-    if (facultyToken == null || this.authFacultyService.isLoggedIn() == false)
+    if (facultyToken == null || this.authService.isLoggedIn('faculty') == false)
       facultyToken = 'christian';
-    if (adminToken == null || this.authAdminService.isLoggedIn() == false)
+    if (adminToken == null || this.authService.isLoggedIn('admin') == false)
       adminToken = 'christian';
 
     const modifiedReq = req.clone({

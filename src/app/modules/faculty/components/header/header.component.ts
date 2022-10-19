@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthFacultyService } from 'src/app/core/shared/services/auth-faculty.service';
+import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authFacultyService: AuthFacultyService,
+    private authService: AuthService,
     private profileService: ProfileService
   ) {}
 
@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authFacultyService.logout();
+    this.authService.logout('faculty');
   }
 
   openCloseNavOverlay() {
