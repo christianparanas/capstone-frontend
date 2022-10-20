@@ -14,15 +14,14 @@
 
     <div class="w-full">
       <div *ngIf="activeItem.label == 'System'">
-
-        <div *ngIf="isLoading" class="grid gap-2  mt-10">
+        <div *ngIf="isLoading" class="grid gap-2 mt-10">
           <p-skeleton
             width="100%"
             height="60px"
             *ngFor="let arr of ['', '', '', '', '', '', '', '']"
           ></p-skeleton>
         </div>
-  
+
         <div
           *ngIf="!isLoading && allLogs.length == 0"
           class="text-center mt-10"
@@ -52,7 +51,7 @@
                   <div class="text-[8px] flex items-center">
                     <div
                       *ngFor="let role of log.User.UserRoles"
-                      class="bg-green-200 text-green-800 font-semibold px-1 h-fit py-0 rounded-lg mr-1"
+                      class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                     >
                       {{ role.Role.title }}
                     </div>

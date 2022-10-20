@@ -28,20 +28,26 @@
           <i class="fal fa-search absolute top-[11px] left-3"></i>
         </div> -->
       </div>
-      
+
       <div *ngIf="isLoading" class="grid gap-1">
         <p-skeleton
-        width="100%"
-        height="60px"
-        *ngFor="let arr of ['', '', '', '', '', '']"
-      ></p-skeleton>
+          width="100%"
+          height="60px"
+          *ngFor="let arr of ['', '', '', '', '', '']"
+        ></p-skeleton>
       </div>
 
-      <div *ngIf="!isLoading && chats.length == 0" class="text-[12px] text-center mt-5">
+      <div
+        *ngIf="!isLoading && chats.length == 0"
+        class="text-[12px] text-center mt-5"
+      >
         No chat messages yet.
       </div>
-      
-      <div *ngIf="!isLoading" class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5">
+
+      <div
+        *ngIf="!isLoading"
+        class="mt-1 h-[calc(100%_-_100px)] overflow-y-auto pb-5"
+      >
         <div
           (click)="openChat(chat.Chat.id, chat.Chat.ChatParticipants[0].User)"
           *ngFor="let chat of chats; trackBy: chatTrack"
@@ -70,7 +76,7 @@
                   *ngFor="
                     let role of chat.Chat.ChatParticipants[0].User.UserRoles
                   "
-                  class="mr-1 bg-green-200 text-green-900 text-[10px] font-semibold py-[2px] px-1 rounded-md mr-1"
+                  class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                 >
                   {{ role.Role.title }}
                 </div>
