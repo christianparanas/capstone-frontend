@@ -36,9 +36,9 @@ export class LoginComponent implements OnInit {
   changeLoginAcctType(type: string) {
     this.loginAcctType = type;
 
-    this.router.navigate([`/login`], {
+    this.router.navigate(['/login'], {
       queryParams: { type: type },
-    });
+    })
   }
 
   onSubmit() {
