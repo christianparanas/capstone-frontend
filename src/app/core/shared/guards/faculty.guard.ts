@@ -31,6 +31,8 @@ export class FacultyGuard implements CanActivate {
     | UrlTree {
     if (this.authService.isLoggedIn('faculty')) return true;
 
+    this.authService.logout('faculty')
+
     this.router.navigate([`/login`], {
       queryParams: { type: 'faculty' },
     });

@@ -29,7 +29,9 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.isLoggedIn('admin')) return true;
+    if (this.authService.isLoggedIn('admin') == true) return true;
+
+    this.authService.logout('admin')
 
     this.router.navigate([`/login`], {
       queryParams: { type: 'admin' },

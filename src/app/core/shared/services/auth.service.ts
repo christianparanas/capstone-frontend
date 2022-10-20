@@ -31,10 +31,8 @@ export class AuthService {
 
   isLoggedIn(type: string): boolean {
     const token: any = localStorage.getItem(`${type}_access_token`);
-
     const isExpired = HELPER.isTokenExpired(token);
-
-    if (isExpired) this.logout(type);
+    
     return !isExpired;
   }
 

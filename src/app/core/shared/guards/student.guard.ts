@@ -31,6 +31,8 @@ export class StudentGuard implements CanActivate {
     | UrlTree {
     if (this.authService.isLoggedIn('student')) return true;
 
+    this.authService.logout('student')
+
     this.router.navigate([`/login`], {
       queryParams: { type: 'student' },
     });

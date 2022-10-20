@@ -69,21 +69,26 @@ export class DashboardComponent implements OnInit {
     };
 
     this.electionService.getElections(data).subscribe((response: any) => {
-      response.forEach((election: any) => {
-        if(election.status == 'active') {
-          this.elections.push(election)
-        }
-      });
+      if(response.length > 0) {
+        response.forEach((election: any) => {
+          if(election.status == 'active') {
+            this.elections.push(election)
+          }
+        });
+      }
+      
     });
   }
 
   getPolls() {
     this.pollService.getPolls({}).subscribe((response: any) => {
-      response.forEach((poll: any) => {
-        if(poll.published == 1) {
-          this.polls.push(poll)
-        }
-      });
+      if(response.length > 0) {
+        response.forEach((poll: any) => {
+          if(poll.published == 1) {
+            this.polls.push(poll)
+          }
+        });
+      }
     });
   }
 }
