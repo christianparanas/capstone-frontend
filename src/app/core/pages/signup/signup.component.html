@@ -238,7 +238,8 @@
           <div class="text-[14px] text-center">
             <p>
               Already have an account?
-              <span class="text-red-500 cursor-pointer" routerLink="/login"
+              <span class="text-red-500 cursor-pointer" [routerLink]="['/login']"
+              [queryParams]="{ type: 'student' }"
                 >Login</span
               >
             </p>
