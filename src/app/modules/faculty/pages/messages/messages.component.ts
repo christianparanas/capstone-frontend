@@ -81,6 +81,7 @@ export class MessagesComponent implements OnInit {
 
   async openChat(chatId: any, user: any) {
     this.eventService.closeChat(this.currentChatId);
+    this.closeChat()
 
     this.currentChatId = chatId;
     this.eventService.openChat(chatId);
