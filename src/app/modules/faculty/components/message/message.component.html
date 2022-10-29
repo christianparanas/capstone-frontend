@@ -5,7 +5,7 @@
     <div class="grid grid-cols-[40px_40px_1fr] lg:grid-cols-[40px_1fr] gap-2">
       <div
         (click)="closeChat()"
-        class="lg:hidden  rounded-full border border-gray-200 w-[40px] h-[40px] grid place-items-center cursor-pointer hover:bg-gray-200 transition-all"
+        class="lg:hidden rounded-full border border-gray-200 w-[40px] h-[40px] grid place-items-center cursor-pointer hover:bg-gray-200 transition-all"
       >
         <i class="fal fa-arrow-left font-semibold"></i>
       </div>
@@ -22,7 +22,7 @@
       </div>
       <div class="">
         <h1 class="font-semibold">{{ chatData.user.name }}</h1>
-        <div class="text-[12px] text-slate-500">Active now</div>
+        <div class="text-[12px] text-slate-500">...</div>
       </div>
     </div>
     <div class="">
@@ -79,9 +79,7 @@
           *ngIf="message.isSelected"
           class="text-[10px] text-slate-700"
           [ngClass]="
-            message.UserId == chatData.ownId
-              ? 'mr-2 justify-self-end'
-              : 'ml-2'
+            message.UserId == chatData.ownId ? 'mr-2 justify-self-end' : 'ml-2'
           "
         >
           {{ dateFormat(message.createdAt) }}

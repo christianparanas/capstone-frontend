@@ -175,7 +175,7 @@
             </div>
             <div class="">
               <h1 class="font-semibold">{{ user.name }}</h1>
-              <div class="text-[12px] text-slate-500">Active now</div>
+              <div class="text-[12px] text-slate-500">...</div>
             </div>
           </div>
         </div>
@@ -186,11 +186,7 @@
         >
           <div class="">
             <img
-              [src]="
-                user.image == null
-                  ? '../../../../../assets/images/empty-box.png'
-                  : user.image
-              "
+              src="../../../../../assets/images/empty-box.png"
               alt=""
               class="w-[100px] h-[100px] object-cover"
             />

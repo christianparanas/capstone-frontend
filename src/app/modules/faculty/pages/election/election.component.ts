@@ -57,7 +57,9 @@ export class ElectionComponent implements OnInit {
   positionTitle: any = '';
   hasSentiments: boolean = false;
 
-  chartLoading: boolean = false
+  chartLoading: boolean = false;
+
+  electionResult: any = [];
 
   constructor(
     private courseService: CourseService,
@@ -164,7 +166,7 @@ export class ElectionComponent implements OnInit {
     }
 
     this.isPredictionAvailable = true;
-    this.chartLoading = true
+    this.chartLoading = true;
 
     this.electionService
       .getPrediction({
@@ -173,8 +175,7 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-
-          console.log(response)
+          console.log(response);
 
           response.ElectionCandidates.forEach((candidate: any) => {
             if (candidate.Sentiments.length > 0) {
@@ -183,8 +184,8 @@ export class ElectionComponent implements OnInit {
           });
 
           if (this.hasSentiments == false) {
-            this.chartLoading = false
-            return
+            this.chartLoading = false;
+            return;
           }
 
           response.ElectionCandidates.forEach(
@@ -215,16 +216,15 @@ export class ElectionComponent implements OnInit {
 
               let entries = Object.entries(scores);
 
-
               for (let [index, [key, value]] of entries.entries()) {
                 this.chartData.datasets[index].data[canIndex] = value;
               }
             }
           );
 
-          this.chartLoading = false
+          this.chartLoading = false;
 
-          console.log(this.chartData)
+          console.log(this.chartData);
         },
         (error: any) => {}
       );
@@ -247,33 +247,124 @@ export class ElectionComponent implements OnInit {
     });
   }
 
+  maxValues(arr: any, n: any) {
+    // Get object values and sort descending
+    const values = arr.sort(
+      (a: any, b: any) => a.ElectionVotes.length - b.ElectionVotes.length
+    );
+
+    // Check if more values exist than number required
+    if (values.length <= n) return arr;
+
+    // Find nth maximum value
+    const maxN = values[n - 1];
+
+    // Filter object to return only key/value pairs where value >= maxN
+    return arr.reduce(
+      (k: any, v: any, idx: any, o: any) =>
+        v.ElectionVotes.length >= maxN ? { ...o, [k]: v } : o,
+      {}
+    );
+  }
+
   getWinners() {
     this.winners = [];
 
-    this.election.ElectionPositions.forEach((position: any) => {
-      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
-        return y.ElectionVotes.length - x.ElectionVotes.length;
-      }).slice(0, position.no_of_winners);
+    if (this.election.ElectionVoters.length == 0) {
+      return;
+    }
 
-      this.winners.push(winner);
+    this.election.ElectionPositions.forEach((position: any, idx: any) => {
+      this.electionResult.push({
+        positionId: position.id,
+        candidates: [],
+      });
+
+
+      position.ElectionCandidates.forEach((candidate: any, ind: any) => {
+        let status;
+
+        position.ElectionCandidates.forEach((can1: any) => {
+          if (candidate.id == can1.id) return;
+        
+
+          if (candidate.ElectionVotes.length > can1.ElectionVotes.length) {
+            if(1 == position.ElectionCandidates.reduce((n: any, can: any) => n + (can.ElectionVotes.length == candidate.ElectionVotes.length), 0)) {
+              status = 'winner';
+            }
+          }
+
+          if (candidate.ElectionVotes.length < can1.ElectionVotes.length) {
+            status = 'loser';
+          }
+
+          if (
+            candidate.ElectionVotes.length == can1.ElectionVotes.length &&
+            candidate.ElectionVotes.length != 0 &&
+            can1.ElectionVotes.length != 0 &&
+            2 == position.ElectionCandidates.reduce((n: any, can: any) => n + (can.ElectionVotes.length == candidate.ElectionVotes.length), 0)
+          ) {
+              status = 'draw';
+          }
+        });
+
+        this.electionResult[idx].candidates.push({
+          positionId: candidate.ElectionPositionId,
+          candidateId: candidate.id,
+          result: status,
+        });
+      });
+
+      //   (candidate: any, candidateIdx: any) => {
+      //     let status;
+
+      //     position.ElectionCandidates.forEach((can: any, canIdx: any) => {
+      //       if (candidate.id == can.id) return;
+
+      //       if (
+      //         candidate.ElectionVotes.length > can.ElectionVotes.length &&
+      //         winnerCount <= position.no_of_winners
+      //       ) {
+      //         status = 'winner';
+
+      //         if (canIdx + 1 == position.ElectionCandidates.length - 1) {
+      //           winnerCount = winnerCount + 1;
+      //         }
+
+      //       } else if (
+      //         candidate.ElectionVotes.length < can.ElectionVotes.length
+      //       ) {
+      //         status = 'loser';
+
+      //       } else
+      //     });
+
+      //     this.electionResult[idx].candidates.push({
+      //       positionId: candidate.ElectionPositionId,
+      //       candidateId: candidate.id,
+      //       result: status,
+      //     });
+      //   }
+      // );
     });
+
+    console.log(this.electionResult);
   }
 
-  checkIfWinner(candidate: any) {
-    let isWinner = null;
+  checkResult(candidate: any) {
+    let result = null;
 
-    this.winners.forEach((winner: any) => {
-      winner.forEach((win: any) => {
-        if (
-          win.ElectionPositionId == candidate.ElectionPositionId &&
-          win.id == candidate.id
-        ) {
-          isWinner = true;
-        }
-      });
+    this.electionResult.forEach((res: any) => {
+      if (candidate.ElectionPositionId == res.positionId) {
+        res.candidates.forEach((candi: any) => {
+          if (candidate.id == candi.candidateId) {
+            result = candi.result;
+          }
+        });
+      }
     });
 
-    return isWinner;
+    return result;
   }
 
   deleteElection() {
@@ -499,7 +590,7 @@ export class ElectionComponent implements OnInit {
       ElectionId: this.electionId,
     };
 
-    console.log(data)
+    console.log(data);
 
     this.electionService.addCandidate(data).subscribe(
       (response: any) => {
@@ -508,7 +599,7 @@ export class ElectionComponent implements OnInit {
         this.addCandidateModal = false;
         this.getElection();
 
-        console.log(response)
+        console.log(response);
 
         this.addCandidateData = {
           image: null,

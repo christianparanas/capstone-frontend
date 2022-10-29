@@ -22,8 +22,8 @@ export class ElectionsComponent implements OnInit {
   isLoading: boolean = true;
 
   currentDate: string;
-  courses: any;
-  elections: any;
+  courses: any = [];
+  elections: any = [];
 
   electionData: any = {
     campaign: {
@@ -151,6 +151,8 @@ export class ElectionsComponent implements OnInit {
 
   getCourse(CourseId: any) {
     let courseTitle = null;
+
+    if(this.courses.length == 0) return
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {

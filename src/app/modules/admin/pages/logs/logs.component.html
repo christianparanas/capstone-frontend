@@ -47,7 +47,7 @@
               <div class="text-[10px]">{{ dateFormat(log.createdAt) }}</div>
               <div class="flex items-center text-[12px]">
                 <div class="flex items-center">
-                  <div class="font-semibold mr-1">{{ log.User.name }}</div>
+                  <div class="font-semibold mr-1 capitalize">{{ log.User.name }}</div>
                   <div class="text-[8px] flex items-center">
                     <div
                       *ngFor="let role of log.User.UserRoles"
