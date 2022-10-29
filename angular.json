@@ -32,7 +32,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/chart.js"
+              "node_modules/chart.js/dist/chart.js",
+              "node_modules/jspdf/dist/jspdf.min.js",
+              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
             ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"

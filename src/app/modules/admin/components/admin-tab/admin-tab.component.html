@@ -168,6 +168,9 @@
         responsiveLayout="scroll"
         [paginator]="true"
         [rows]="10"
+        [columns]="cols"
+        selectionMode="multiple"
+        [(selection)]="selectedAdmin"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
@@ -188,13 +191,49 @@
             </div>
 
             
+            <div class="flex">
+              <div class="flex items-center mr-2 gap-1">
+                <button
+                  (click)="dt2.exportCSV()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
+                >
+                  <i class="fad fa-download mr-1"></i>
+                  CSV
+                </button>
+                <button
+                  (click)="dt2.exportCSV({ selectionOnly: true })"
+                  pTooltip="Selection Only"
+                  tooltipPosition="bottom"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
+                >
+                  <i class="fad fa-download mr-1"></i>
+                  CSV (Selected)
+                </button>
+                <button
+                  (click)="exportExcel()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
+                >
+                  <i class="fad fa-download mr-1"></i>
+                  Excel
+                </button>
+                <button
+                  (click)="exportPdf()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
+                >
+                  <i class="fad fa-download mr-1"></i>
+                  PDF
+                </button>
+              </div>
+
+                          
             <button
-              (click)="createAccountModal = true"
-              class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
-            >
-              <i class="fal fa-file-plus mr-1"></i>
-              Create
-            </button>
+            (click)="createAccountModal = true"
+            class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
+          >
+            <i class="fal fa-file-plus mr-1"></i>
+            Create
+          </button>
+            </div>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -208,7 +247,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-admin>
-          <tr class="text-sm">
+          <tr class="text-sm" [pSelectableRow]="admin">
             <td>{{ admin.id }}</td>
             <td>{{ admin.name }}</td>
             <td>{{ admin.email }}</td>

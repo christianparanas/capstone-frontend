@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
+import * as FileSaver from 'file-saver';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 import { AdminService } from '../../shared/services/admin.service';
 import * as moment from 'moment';
@@ -24,6 +27,10 @@ export class AdminTabComponent implements OnInit {
     email: null,
   };
 
+  cols: any[];
+  exportColumns: any[];
+  selectedAdmin: any[];
+
   constructor(
     private adminService: AdminService,
     private router: Router,
@@ -38,6 +45,18 @@ export class AdminTabComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
+
+    this.cols = [
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'email', header: 'Email' },
+      { field: 'createdAt', header: 'Date Created' },
+    ];
+
+    this.exportColumns = this.cols.map((col) => ({
+      title: col.header,
+      dataKey: col.field,
+    }));
   }
 
   openEditModal(data: any) {
@@ -113,5 +132,46 @@ export class AdminTabComponent implements OnInit {
 
   momentFormatLLL(date: any) {
     return moment(date).format('lll');
+  }
+
+  exportPdf() {
+    const doc = new jsPDF('p', 'pt');
+
+    autoTable(doc, {
+      columns: this.exportColumns,
+      body: this.admins,
+      didDrawPage: (dataArg) => {
+        doc.text('\nEvsu Election System Admins', dataArg.settings.margin.top, 10);
+      },
+    });
+    doc.save('EvsuElection_Admin.pdf');
+  }
+
+  exportExcel() {
+    import('xlsx').then((xlsx) => {
+      const worksheet = xlsx.utils.json_to_sheet(this.admins);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array',
+      });
+      this.saveAsExcelFile(excelBuffer, 'EvsuElection_Admin');
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE =
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE,
+    });
+    FileSaver.saveAs(
+      data,
+      'EvsuElection_Admin' +
+        '_export_' +
+        new Date().getTime() +
+        EXCEL_EXTENSION
+    );
   }
 }
