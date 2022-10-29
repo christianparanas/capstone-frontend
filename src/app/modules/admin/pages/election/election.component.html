@@ -373,7 +373,8 @@
                           <img
                             *ngIf="
                               election.stage == 'election_ended' &&
-                              checkIfWinner(candidate)
+                              checkIfWinner(candidate) &&
+                              candidate.ElectionVotes != 0
                             "
                             src="../../../../../assets/images/medal.png"
                             alt=""

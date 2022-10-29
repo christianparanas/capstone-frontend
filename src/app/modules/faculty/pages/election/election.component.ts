@@ -273,7 +273,9 @@ export class ElectionComponent implements OnInit {
         return y.ElectionVotes.length - x.ElectionVotes.length;
       }).slice(0, position.no_of_winners);
 
-      this.winners.push(winner);
+
+        this.winners.push(winner);
+
     });
   }
 
