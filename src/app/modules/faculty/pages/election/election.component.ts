@@ -268,103 +268,30 @@ export class ElectionComponent implements OnInit {
   }
 
   getWinners() {
-    this.winners = [];
+    this.election.ElectionPositions.forEach((position: any) => {
+      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+        return y.ElectionVotes.length - x.ElectionVotes.length;
+      }).slice(0, position.no_of_winners);
 
-    if (this.election.ElectionVoters.length == 0) {
-      return;
-    }
-
-    this.election.ElectionPositions.forEach((position: any, idx: any) => {
-      this.electionResult.push({
-        positionId: position.id,
-        candidates: [],
-      });
-
-
-      position.ElectionCandidates.forEach((candidate: any, ind: any) => {
-        let status;
-
-        position.ElectionCandidates.forEach((can1: any) => {
-          if (candidate.id == can1.id) return;
-        
-
-          if (candidate.ElectionVotes.length > can1.ElectionVotes.length) {
-            if(1 == position.ElectionCandidates.reduce((n: any, can: any) => n + (can.ElectionVotes.length == candidate.ElectionVotes.length), 0)) {
-              status = 'winner';
-            }
-          }
-
-          if (candidate.ElectionVotes.length < can1.ElectionVotes.length) {
-            status = 'loser';
-          }
-
-          if (
-            candidate.ElectionVotes.length == can1.ElectionVotes.length &&
-            candidate.ElectionVotes.length != 0 &&
-            can1.ElectionVotes.length != 0 &&
-            2 == position.ElectionCandidates.reduce((n: any, can: any) => n + (can.ElectionVotes.length == candidate.ElectionVotes.length), 0)
-          ) {
-              status = 'draw';
-          }
-        });
-
-        this.electionResult[idx].candidates.push({
-          positionId: candidate.ElectionPositionId,
-          candidateId: candidate.id,
-          result: status,
-        });
-      });
-
-      //   (candidate: any, candidateIdx: any) => {
-      //     let status;
-
-      //     position.ElectionCandidates.forEach((can: any, canIdx: any) => {
-      //       if (candidate.id == can.id) return;
-
-      //       if (
-      //         candidate.ElectionVotes.length > can.ElectionVotes.length &&
-      //         winnerCount <= position.no_of_winners
-      //       ) {
-      //         status = 'winner';
-
-      //         if (canIdx + 1 == position.ElectionCandidates.length - 1) {
-      //           winnerCount = winnerCount + 1;
-      //         }
-
-      //       } else if (
-      //         candidate.ElectionVotes.length < can.ElectionVotes.length
-      //       ) {
-      //         status = 'loser';
-
-      //       } else
-      //     });
-
-      //     this.electionResult[idx].candidates.push({
-      //       positionId: candidate.ElectionPositionId,
-      //       candidateId: candidate.id,
-      //       result: status,
-      //     });
-      //   }
-      // );
+      this.winners.push(winner);
     });
-
-    console.log(this.electionResult);
   }
 
-  checkResult(candidate: any) {
-    let result = null;
+  checkIfWinner(candidate: any) {
+    let isWinner = null;
 
-    this.electionResult.forEach((res: any) => {
-      if (candidate.ElectionPositionId == res.positionId) {
-        res.candidates.forEach((candi: any) => {
-          if (candidate.id == candi.candidateId) {
-            result = candi.result;
-          }
-        });
-      }
+    this.winners.forEach((winner: any) => {
+      winner.forEach((win: any) => {
+        if (
+          win.ElectionPositionId == candidate.ElectionPositionId &&
+          win.id == candidate.id
+        ) {
+          isWinner = true;
+        }
+      });
     });
 
-    return result;
+    return isWinner;
   }
 
   deleteElection() {
