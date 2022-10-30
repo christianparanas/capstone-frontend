@@ -15,6 +15,8 @@ export class ElectionsComponent implements OnInit {
   courses: any = [];
 
   isLoading: boolean = true;
+  state: any = 'all';
+  tempElectionsArr: any = [];
 
   constructor(
     private electionService: ElectionService,
@@ -35,10 +37,21 @@ export class ElectionsComponent implements OnInit {
     });
   }
 
+  getElectionByState() {
+    this.tempElectionsArr = this.elections.filter((item: any) => {
+      if (this.state == 'all') return true;
+      if (this.state == 'draft') return item.status == 'draft';
+      if (this.state == 'ongoing') return item.stage == 'election_started';
+      if (this.state == 'ended') return item.stage == 'election_ended';
+    });
+  }
+
   getElections() {
     this.electionService.getElections().subscribe(
       (response: any) => {
         this.elections = response;
+
+        this.getElectionByState();
         this.isLoading = false;
       },
       (error: any) => {

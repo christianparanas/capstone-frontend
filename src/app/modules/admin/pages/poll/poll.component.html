@@ -22,12 +22,14 @@
     <div class="flex justify-between items-center">
       <div class="inline-block relative w-fit">
         <select
-          class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
-        >
-          <option>All Polls</option>
-          <option>Active Polls</option>
-          <option>Inactive Polls</option>
-        </select>
+            [(ngModel)]="state"
+            (change)="getPollsByState()"
+            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+          >
+            <option value="all">All Polls</option>
+            <option value="active">Active Polls</option>
+            <option value="inactive">Inactive Polls</option>
+          </select>
         <div
           class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
         >
@@ -47,24 +49,24 @@
 
     
     <div
-      *ngIf="!isLoading && polls.length == 0"
+      *ngIf="!isLoading && tempPollsArr.length == 0"
       class="grid place-items-center mt-20"
     >
       <div class="">
         <img
           src="../../../../../assets/images/empty-box.png"
           alt=""
-          class="w-[150px] md:w-[200px] object-cover mx-auto"
+          class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto"
         />
-        <h1 class="text-center mt-10 font-semibold text-slate-800">
-          No polls.
+        <h1 class="text-center mt-5 font-semibold text-slate-800">
+          No {{ state != 'all' ? state == "active" ? "active" : "inactive" : "" }} poll(s).
         </h1>
       </div>
     </div>
 
-    <div *ngIf="!isLoading && polls" class="mt-10 grid gap-3 md:grid-cols-2">
+    <div *ngIf="!isLoading && tempPollsArr" class="mt-5 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
       <div
-        *ngFor="let poll of polls"
+        *ngFor="let poll of tempPollsArr"
         class="grid divide-y p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit"
       >
         <div class="pb-2">

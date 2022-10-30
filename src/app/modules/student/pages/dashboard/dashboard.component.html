@@ -3,7 +3,13 @@
     Good <span *ngIf="isMorning">Morning</span>
     <span *ngIf="isAfternoon">Afternoon</span>
     <span *ngIf="isEvening">Evening</span>
-    <span *ngIf="isNight">Night</span>, <span *ngIf="profile.length != 0">{{ profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1) }}.</span>
+    <span *ngIf="isNight">Night</span>,
+    <span *ngIf="profile.length != 0"
+      >{{
+        profile.name.split(" ")[0].charAt(0).toUpperCase() +
+          profile.name.split(" ")[0].slice(1)
+      }}.</span
+    >
   </h1>
 
   <div class="mt-20 pb-10">
@@ -25,7 +31,7 @@
             {{ elections.length }}
           </h1>
           <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-            Active Elections
+            Ongoing {{ elections.length > 1 ? "Elections" : "Election" }}
           </p>
         </div>
       </a>
@@ -47,7 +53,7 @@
             {{ polls.length }}
           </h1>
           <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-            Active Polls
+            Active {{ polls.length > 1 ? "Polls" : "Poll" }}
           </p>
         </div>
       </a>
@@ -56,5 +62,5 @@
 
   <hr />
 
-  <button (click)="showPush()">Push</button>
+  <!-- <button (click)="showPush()">Push</button> -->
 </div>

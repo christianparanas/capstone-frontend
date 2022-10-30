@@ -18,6 +18,9 @@ export class ElectionsComponent implements OnInit {
 
   isLoading: boolean = true;
 
+  tempElectionsArr: any = []
+  state: any = "all"
+
   constructor(
     private electionService: ElectionService,
     private profileService: ProfileService,
@@ -56,12 +59,23 @@ export class ElectionsComponent implements OnInit {
     this.electionService.getElections(data).subscribe(
       (response: any) => {
         this.elections = response;
+        this.getElectionsByState()
+
         this.isLoading = false;
       },
       (error: any) => {
         console.log(error);
       }
     );
+  }
+
+  getElectionsByState() {
+    this.tempElectionsArr = this.elections.filter((item: any) => {
+      if (this.state == 'all') return true;
+      if (this.state == 'course') return item.course == this.user.StudentCredential.CourseId;
+      if (this.state == 'ongoing') return item.stage == 'election_started';
+      if (this.state == 'ended') return item.stage == 'election_ended';
+    });
   }
 
   getUser() {
@@ -76,12 +90,17 @@ export class ElectionsComponent implements OnInit {
     );
   }
 
-  getCourse(CourseId: any) {
+  getCourse(CourseId: any, op: any) {
     let courseTitle = null;
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.title;
+        if(op == 1) {
+          courseTitle = course.title;
+        }
+        else {
+          courseTitle = course.acronym;
+        }
       }
     });
 

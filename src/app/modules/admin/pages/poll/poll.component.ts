@@ -17,6 +17,9 @@ export class PollComponent implements OnInit {
   currentDate: string;
   isLoading: boolean = true;
 
+  tempPollsArr: any = []
+  state: any = "all"
+  
   constructor(
     private courseService: CourseService,
     private toast: HotToastService,
@@ -52,10 +55,20 @@ export class PollComponent implements OnInit {
     this.pollService.getPolls(0).subscribe(
       (response: any) => {
         this.polls = response;
+        this.getPollsByState()
+
         this.isLoading = false;
       },
       (error: any) => {}
     );
+  }
+
+  getPollsByState() {
+    this.tempPollsArr = this.polls.filter((item: any) => {
+      if (this.state == 'all') return true;
+      if (this.state == 'active') return item.published == true;
+      if (this.state == 'inactive') return item.published == false;
+    });
   }
 
   getCourses() {
@@ -70,6 +83,6 @@ export class PollComponent implements OnInit {
   }
 
   dateFormat(date: any) {
-    return moment(date).calendar();
+    return moment(date).format('lll');
   }
 }

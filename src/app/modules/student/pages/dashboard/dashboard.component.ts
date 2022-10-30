@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
     this.getProfile();
     this.date = new Date();
-    this.getPolls()
+    this.getPolls();
 
     this.isMorning = this.date.getHours() > 5 && this.date.getHours() <= 12;
     this.isAfternoon = this.date.getHours() > 12 && this.date.getHours() <= 18;
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.profile = response;
-        this.getElections()
+        this.getElections();
       },
       (error: any) => {}
     );
@@ -69,23 +69,22 @@ export class DashboardComponent implements OnInit {
     };
 
     this.electionService.getElections(data).subscribe((response: any) => {
-      if(response.length > 0) {
+      if (response.length > 0) {
         response.forEach((election: any) => {
-          if(election.status == 'active') {
-            this.elections.push(election)
+          if (election.stage == 'election_started') {
+            this.elections.push(election);
           }
         });
       }
-      
     });
   }
 
   getPolls() {
     this.pollService.getPolls({}).subscribe((response: any) => {
-      if(response.length > 0) {
+      if (response.length > 0) {
         response.forEach((poll: any) => {
-          if(poll.published == 1) {
-            this.polls.push(poll)
+          if (poll.published == 1) {
+            this.polls.push(poll);
           }
         });
       }

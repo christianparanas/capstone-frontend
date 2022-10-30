@@ -31,7 +31,7 @@
             {{ elections.length }}
           </h1>
           <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-            Active Elections
+            Ongoing {{ elections.length > 1 ? 'Elections' : 'Election' }}
           </p>
         </div>
       </a>
@@ -53,13 +53,13 @@
             {{ polls.length }}
           </h1>
           <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-            Active Polls
+            Active {{ polls.length > 1 ? 'Polls' : 'Poll' }}
           </p>
         </div>
       </a>
 
       <a
-        href="/admin/users?type=student"
+        href="/admin/users"
         class="bg-white shadow-lg border-4 border-gray-200 p-5 px-8 h-fit rounded-2xl grid grid-cols-2 gap-1 items-center cursor-pointer hover:bg-slate-50 transition-all"
       >
         <div class="h-[100px]">
@@ -75,7 +75,7 @@
             {{ voters.length }}
           </h1>
           <p class="text-end text-sm text-slate-600 font-semibold mt-1">
-            Voters
+            {{ voters.length > 1 ? 'Voters' : 'Voter' }}
           </p>
         </div>
       </a>

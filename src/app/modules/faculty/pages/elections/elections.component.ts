@@ -37,6 +37,9 @@ export class ElectionsComponent implements OnInit {
     },
   };
 
+  state: any = 'all';
+  tempElectionsArr: any = [];
+
   user: any = [];
 
   constructor(
@@ -137,10 +140,20 @@ export class ElectionsComponent implements OnInit {
     this.nextPanel = true;
   }
 
+  getElectionByState() {
+    this.tempElectionsArr = this.elections.filter((item: any) => {
+      if (this.state == 'all') return true;
+      if (this.state == 'draft') return item.status == 'draft';
+      if (this.state == 'ongoing') return item.stage == 'election_started';
+      if (this.state == 'ended') return item.stage == 'election_ended';
+    });
+  }
+
   getElections() {
     this.electionService.getElections().subscribe(
       (response: any) => {
         this.elections = response;
+        this.getElectionByState()
         this.isLoading = false;
       },
       (error: any) => {

@@ -9,12 +9,14 @@
       <div class="flex justify-between items-center">
         <div class="inline-block relative w-fit">
           <select
+            [(ngModel)]="state"
+            (change)="getElectionByState()"
             class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
           >
-            <option>All Elections</option>
-            <option>Draft Elections</option>
-            <option>Ongoing Elections</option>
-            <option>Ended Elections</option>
+            <option value="all">All Elections</option>
+            <option value="draft">Draft Elections</option>
+            <option value="ongoing">Ongoing Elections</option>
+            <option value="ended">Ended Elections</option>
           </select>
           <div
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -45,16 +47,16 @@
         </div>
 
         <div
-          *ngIf="!isLoading && elections.length == 0"
+          *ngIf="!isLoading && tempElectionsArr.length == 0"
           class="grid place-items-center"
         >
           <div class="">
             <img
               src="../../../../../assets/images/empty-box.png"
               alt=""
-              class="w-[150px] md:w-[200px] object-cover mx-auto"
+              class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto"
             />
-            <h1 class="text-center mt-10 font-semibold text-slate-800">
+            <h1 class="text-center mt-5 font-semibold text-slate-800">
               No elections.
             </h1>
           </div>
@@ -62,7 +64,7 @@
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           <div
-            *ngFor="let election of elections"
+            *ngFor="let election of tempElectionsArr"
             class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all"
           >
           <div class="mb-2">

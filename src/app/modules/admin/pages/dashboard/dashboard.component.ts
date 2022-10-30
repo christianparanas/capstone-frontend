@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
   getElections() {
     this.electionService.getElections().subscribe((response: any) => {
       response.forEach((election: any) => {
-        if(election.status == 'active') {
+        if(election.stage == 'election_started') {
           this.elections.push(election)
         }
       });
