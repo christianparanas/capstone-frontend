@@ -20,9 +20,9 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabItems = [
-      { label: 'Student', icon: 'pi pi-fw pi-home' },
-      { label: 'Faculty', icon: 'pi pi-fw pi-calendar' },
-      { label: 'Admin', icon: 'pi pi-fw pi-pencil' },
+      { label: 'Student', icon: 'pi pi-fw pi-user' },
+      { label: 'Faculty', icon: 'pi pi-fw pi-users' },
+      { label: 'Admin', icon: 'pi pi-fw pi-admin' },
     ];
 
     this.route.queryParams.subscribe((value) => {

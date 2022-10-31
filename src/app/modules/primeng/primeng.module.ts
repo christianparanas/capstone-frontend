@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ChartModule } from 'primeng/chart';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { ChartModule } from 'primeng/chart';
     DialogModule,
     SkeletonModule,
     ChartModule,
+    OverlayPanelModule,
   ],
 })
 export class PrimengModule {}
