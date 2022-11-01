@@ -247,53 +247,104 @@ export class ElectionComponent implements OnInit {
     });
   }
 
-  maxValues(arr: any, n: any) {
-    // Get object values and sort descending
-    const values = arr.sort(
-      (a: any, b: any) => a.ElectionVotes.length - b.ElectionVotes.length
-    );
-
-    // Check if more values exist than number required
-    if (values.length <= n) return arr;
-
-    // Find nth maximum value
-    const maxN = values[n - 1];
-
-    // Filter object to return only key/value pairs where value >= maxN
-    return arr.reduce(
-      (k: any, v: any, idx: any, o: any) =>
-        v.ElectionVotes.length >= maxN ? { ...o, [k]: v } : o,
-      {}
-    );
-  }
-
   getWinners() {
+    let temp: any = [];
+
     this.election.ElectionPositions.forEach((position: any) => {
-      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+      const candidates = position.ElectionCandidates.sort((x: any, y: any) => {
         return y.ElectionVotes.length - x.ElectionVotes.length;
-      }).slice(0, position.no_of_winners);
+      });
 
+      temp.push({
+        positionId: position.id,
+        noOfWinners: position.no_of_winners,
+        candidateSortedByVoteCount: candidates,
+      });
 
-        this.winners.push(winner);
-
+      this.winners.push(candidates);
     });
-  }
 
-  checkIfWinner(candidate: any) {
-    let isWinner = null;
+    temp.forEach((item: any) => {
+      let winners = item.candidateSortedByVoteCount.slice(0, item.noOfWinners);
 
-    this.winners.forEach((winner: any) => {
-      winner.forEach((win: any) => {
-        if (
-          win.ElectionPositionId == candidate.ElectionPositionId &&
-          win.id == candidate.id
-        ) {
-          isWinner = true;
+      let result: any = [];
+
+      winners.forEach((win: any) => {
+        if (win.ElectionVotes.length == 0) {
+          result.push({
+            candidateId: win.id,
+            result: 'loser',
+          });
+
+          return;
         }
+
+        let bb = item.candidateSortedByVoteCount.reduce(
+          (r: any, v: any, i: any) =>
+            r.concat(
+              v.ElectionVotes.length === win.ElectionVotes.length ? i : []
+            ),
+          []
+        );
+
+        if (bb.length == 1) {
+          result.push({
+            candidateId: win.id,
+            result: 'winner',
+          });
+        } else {
+          bb.forEach((b: any) => {
+            let candi = item.candidateSortedByVoteCount[b];
+
+            if (bb.length >= item.noOfWinners) {
+              result.push({
+                candidateId: candi.id,
+                result: 'draw',
+              });
+            } else {
+              let dd = result.filter((res: any) => res.candidateId == candi.id);
+
+              if (dd.length == 0) {
+                result.push({
+                  candidateId: candi.id,
+                  result: 'winner',
+                });
+              }
+            }
+          });
+        }
+      });
+
+      item.candidateSortedByVoteCount.forEach((a: any) => {
+        let dd = result.filter((res: any) => res.candidateId == a.id);
+
+        if (dd.length == 0) {
+          result.push({
+            candidateId: a.id,
+            result: 'loser',
+          });
+        }
+      });
+
+      this.electionResult.push({
+        positionId: item.positionId,
+        noOfWinners: item.noOfWinners,
+        results: result,
       });
     });
 
-    return isWinner;
+    console.log(this.electionResult);
+  }
+
+  async checkIfWinner(candidate: any) {
+    let pos = await this.electionResult.filter(
+      (item: any) => item.positionId == candidate.ElectionPositionId
+    );
+    let can = await pos.results.filter((item: any) => item.candidateId == candidate.id);
+
+    console.log(pos.results);
+
+    return true
   }
 
   deleteElection() {
