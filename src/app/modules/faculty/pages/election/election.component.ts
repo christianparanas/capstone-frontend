@@ -60,6 +60,7 @@ export class ElectionComponent implements OnInit {
   chartLoading: boolean = false;
 
   electionResult: any = [];
+  winnersModal: boolean = false
 
   constructor(
     private courseService: CourseService,
@@ -257,6 +258,7 @@ export class ElectionComponent implements OnInit {
 
       temp.push({
         positionId: position.id,
+        title: position.title,
         noOfWinners: position.no_of_winners,
         candidateSortedByVoteCount: candidates,
       });
@@ -271,6 +273,7 @@ export class ElectionComponent implements OnInit {
         if (win.ElectionVotes.length == 0) {
           result.push({
             candidateId: win.id,
+            name: win.User.name,
             result: 'loser',
           });
 
@@ -288,6 +291,7 @@ export class ElectionComponent implements OnInit {
         if (bb.length == 1) {
           result.push({
             candidateId: win.id,
+            name: win.User.name,
             result: 'winner',
           });
         } else {
@@ -297,6 +301,7 @@ export class ElectionComponent implements OnInit {
             if (bb.length >= item.noOfWinners) {
               result.push({
                 candidateId: candi.id,
+                name: candi.User.name,
                 result: 'draw',
               });
             } else {
@@ -305,6 +310,7 @@ export class ElectionComponent implements OnInit {
               if (dd.length == 0) {
                 result.push({
                   candidateId: candi.id,
+                  name: candi.User.name,
                   result: 'winner',
                 });
               }
@@ -319,6 +325,7 @@ export class ElectionComponent implements OnInit {
         if (dd.length == 0) {
           result.push({
             candidateId: a.id,
+            name: a.User.name,
             result: 'loser',
           });
         }
@@ -326,6 +333,7 @@ export class ElectionComponent implements OnInit {
 
       this.electionResult.push({
         positionId: item.positionId,
+        title: item.title,
         noOfWinners: item.noOfWinners,
         results: result,
       });
@@ -567,13 +575,10 @@ export class ElectionComponent implements OnInit {
     const data: any = {
       image: this.addCandidateData.image,
       platform: this.addCandidateData.platform,
-      status: 'approved',
       UserId: this.addCandidateData.UserId,
       ElectionPositionId: this.electionPositionId,
       ElectionId: this.electionId,
     };
-
-    console.log(data);
 
     this.electionService.addCandidate(data).subscribe(
       (response: any) => {
