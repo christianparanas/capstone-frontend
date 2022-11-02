@@ -424,13 +424,22 @@
                       <img
                         *ngIf="
                           election.stage == 'election_ended' &&
-                          checkIfWinner(candidate) &&
-                          candidate.ElectionVotes != 0
+                          checkResult(candidate) == 'winner'
                         "
                         src="../../../../../assets/images/medal.png"
                         alt=""
                         class="w-[25px] h-[25px] absolute right-0 -top-2"
                       />
+
+                      <div
+                        *ngIf="
+                          election.stage == 'election_ended' &&
+                          checkResult(candidate) == 'draw'
+                        "
+                        class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
+                      >
+                        Draw
+                      </div>
                     </div>
                   </div>
                 </div>

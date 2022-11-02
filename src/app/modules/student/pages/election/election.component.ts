@@ -28,7 +28,7 @@ export class ElectionComponent implements OnInit {
   election: any = [];
   candidate: any = [];
   votes: any = [];
-  winners: any = [];
+  electionResult: any = [];
 
   isVoteNotEmpty: boolean = false;
 
@@ -60,31 +60,107 @@ export class ElectionComponent implements OnInit {
     });
   }
 
-  getWinners() {
+  getResult() {
+    let temp: any = [];
+
     this.election.ElectionPositions.forEach((position: any) => {
-      const winner = position.ElectionCandidates.sort((x: any, y: any) => {
+      const candidates = position.ElectionCandidates.sort((x: any, y: any) => {
         return y.ElectionVotes.length - x.ElectionVotes.length;
-      }).slice(0, position.no_of_winners);
+      });
 
-      this.winners.push(winner);
-    });
-  }
-
-  checkIfWinner(candidate: any) {
-    let isWinner = null;
-
-    this.winners.forEach((winner: any) => {
-      winner.forEach((win: any) => {
-        if (
-          win.ElectionPositionId == candidate.ElectionPositionId &&
-          win.id == candidate.id
-        ) {
-          isWinner = true;
-        }
+      temp.push({
+        positionId: position.id,
+        noOfWinners: position.no_of_winners,
+        candidateSortedByVoteCount: candidates,
       });
     });
 
-    return isWinner;
+    temp.forEach((item: any) => {
+      let winners = item.candidateSortedByVoteCount.slice(0, item.noOfWinners);
+
+      let result: any = [];
+
+      winners.forEach((win: any) => {
+        if (win.ElectionVotes.length == 0) {
+          result.push({
+            candidateId: win.id,
+            result: 'loser',
+          });
+
+          return;
+        }
+
+        let bb = item.candidateSortedByVoteCount.reduce(
+          (r: any, v: any, i: any) =>
+            r.concat(
+              v.ElectionVotes.length === win.ElectionVotes.length ? i : []
+            ),
+          []
+        );
+
+        if (bb.length == 1) {
+          result.push({
+            candidateId: win.id,
+            result: 'winner',
+          });
+        } else {
+          bb.forEach((b: any) => {
+            let candi = item.candidateSortedByVoteCount[b];
+
+            if (bb.length >= item.noOfWinners) {
+              result.push({
+                candidateId: candi.id,
+                result: 'draw',
+              });
+            } else {
+              let dd = result.filter((res: any) => res.candidateId == candi.id);
+
+              if (dd.length == 0) {
+                result.push({
+                  candidateId: candi.id,
+                  result: 'winner',
+                });
+              }
+            }
+          });
+        }
+      });
+
+      item.candidateSortedByVoteCount.forEach((a: any) => {
+        let dd = result.filter((res: any) => res.candidateId == a.id);
+
+        if (dd.length == 0) {
+          result.push({
+            candidateId: a.id,
+            result: 'loser',
+          });
+        }
+      });
+
+      this.electionResult.push({
+        positionId: item.positionId,
+        noOfWinners: item.noOfWinners,
+        results: result,
+      });
+    });
+
+    console.log(this.electionResult);
+  }
+
+  checkResult(candidate: any) {
+    let result = null;
+
+    this.electionResult.forEach((pos: any) => {
+      if (candidate.ElectionPositionId == pos.positionId) {
+        pos.results.forEach((can: any) => {
+          if (candidate.id == can.candidateId) {
+            result = can.result;
+          }
+        });
+      }
+    });
+
+    return result;
   }
 
   selectCandidate(data: any) {
@@ -163,7 +239,7 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
-        this.getWinners();
+        this.getResult();
 
         response.ElectionPositions.forEach((position: any) => {
           this.votes.push({ ...position, selectedCandidateCount: 0 });

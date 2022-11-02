@@ -247,7 +247,7 @@ export class ElectionComponent implements OnInit {
     });
   }
 
-  getWinners() {
+  getResult() {
     let temp: any = [];
 
     this.election.ElectionPositions.forEach((position: any) => {
@@ -260,8 +260,6 @@ export class ElectionComponent implements OnInit {
         noOfWinners: position.no_of_winners,
         candidateSortedByVoteCount: candidates,
       });
-
-      this.winners.push(candidates);
     });
 
     temp.forEach((item: any) => {
@@ -336,15 +334,20 @@ export class ElectionComponent implements OnInit {
     console.log(this.electionResult);
   }
 
-  async checkIfWinner(candidate: any) {
-    let pos = await this.electionResult.filter(
-      (item: any) => item.positionId == candidate.ElectionPositionId
-    );
-    let can = await pos.results.filter((item: any) => item.candidateId == candidate.id);
+  checkResult(candidate: any) {
+    let result = null;
 
-    console.log(pos.results);
+    this.electionResult.forEach((pos: any) => {
+      if (candidate.ElectionPositionId == pos.positionId) {
+        pos.results.forEach((can: any) => {
+          if (candidate.id == can.candidateId) {
+            result = can.result;
+          }
+        });
+      }
+    });
 
-    return true
+    return result;
   }
 
   deleteElection() {
@@ -472,7 +475,7 @@ export class ElectionComponent implements OnInit {
 
         this.getStudents();
         this.getElectionEvent();
-        this.getWinners();
+        this.getResult();
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
