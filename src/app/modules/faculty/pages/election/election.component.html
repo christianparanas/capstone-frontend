@@ -358,7 +358,7 @@
                               />
                             </div>
                             <div class="">
-                              <h1 class="font-semibold text-sm text-slate-800">
+                              <h1 class="font-semibold text-sm text-slate-800 capitalize">
                                 {{ candidate.User.name }}
                               </h1>
                               <p class="text-[12px]">
@@ -715,7 +715,7 @@
                       alt=""
                       class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200"
                     />
-                    <h1 class="ml-2">{{ candidate.User.name }}</h1>
+                    <h1 class="ml-2 capitalize">{{ candidate.User.name }}</h1>
                   </div>
                   <div
                     *ngIf="this.election.status == 'draft'"
@@ -887,7 +887,7 @@
               />
             </div>
             <div class="">
-              <h1 class="font-semibold text-slate-800">
+              <h1 class="font-semibold text-slate-800 capitalize">
                 {{ voter.User.name }}
               </h1>
               <p class="text-[12px]">
@@ -959,7 +959,7 @@
                       />
                     </div>
                     <div class="">
-                      <h4 class="font-semibold text-sm">
+                      <h4 class="font-semibold text-sm capitalize">
                         {{ candidate.User.name }}
                       </h4>
                       <p class="text-[11px]">

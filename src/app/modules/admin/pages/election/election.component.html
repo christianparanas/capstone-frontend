@@ -186,7 +186,7 @@
               </div>
 
               <div class="">
-                <div class="text-sm font-semibold">
+                <div class="text-sm font-semibold capitalize">
                   {{ election.User.name }}
                 </div>
                 <div class="text-[10px] flex items-center">
@@ -246,7 +246,7 @@
                 >
                   <div class="flex justify-between">
                     <div class="">
-                      <h1 class="text-md font-semibold text-slate-800">
+                      <h1 class="text-md font-semibold text-slate-800 capitalize">
                         {{ position.title }}
                       </h1>
                       <p class="text-slate-700 text-[12px]">
@@ -345,7 +345,7 @@
                               />
                             </div>
                             <div class="">
-                              <h1 class="font-semibold text-sm text-slate-800">
+                              <h1 class="font-semibold text-sm text-slate-800 capitalize">
                                 {{ candidate.User.name }}
                               </h1>
                               <p class="text-[12px]">
@@ -473,7 +473,7 @@
               />
             </div>
             <div class="">
-              <h1 class="font-semibold text-slate-800">
+              <h1 class="font-semibold text-slate-800 capitalize">
                 {{ voter.User.name }}
               </h1>
               <p class="text-[12px]">
@@ -600,7 +600,7 @@
 
           <div class="grid gap-1 mt-2">
             <div *ngFor="let winner of position.results" class="">
-              <div *ngIf="winner.result == 'winner'" class="text-sm">- {{ winner.name }}</div>
+              <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">- {{ winner.name }}</div>
             </div>
           </div>
         </div>
