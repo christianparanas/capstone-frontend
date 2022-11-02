@@ -79,7 +79,7 @@
                 />
               </div>
               <div class="">
-                <div class="font-semibold">
+                <div class="font-semibold capitalize">
                   {{
                     user.name.split(" ")[0].charAt(0).toUpperCase() +
                       user.name.slice(1)
@@ -292,7 +292,7 @@
                 class="flex items-center cursor-pointer"
                 (click)="navigateToUser(com.User.id)"
               >
-                <div class="font-semibold mr-2">
+                <div class="font-semibold mr-2 capitalize">
                   {{ com.User.name }}
                 </div>
                 <div class="text-[10px] flex items-center">

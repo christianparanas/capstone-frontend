@@ -1,0 +1,25 @@
+<div
+  class="cursor-pointer bg-slate-50 p-2 rounded-sm hover:bg-slate-100 transition-all"
+>
+  <div class="grid grid-cols-[40px_1fr] gap-2">
+    <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
+      <img
+        [src]="
+          notification.User.image == null
+            ? '../../../../assets/images/student.png'
+            : notification.User.image
+        "
+        alt=""
+        class="w-[40px] h-[40px] rounded-full object-cover"
+      />
+    </div>
+
+    <div class="">
+      <p class="text-sm">
+        <span class="font-semibold capitalize">{{ notification.User.name }}</span>
+        {{ notification.message }}
+      </p>
+      <p class="text-[12px]">{{ dateFormat(notification.createdAt) }}</p>
+    </div>
+  </div>
+</div>

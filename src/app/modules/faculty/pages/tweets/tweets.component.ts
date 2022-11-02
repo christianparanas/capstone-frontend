@@ -25,6 +25,7 @@ export class TweetsComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
+  tweetPostOwner: any = null
 
   voters: any = [];
 
@@ -57,6 +58,8 @@ export class TweetsComponent implements OnInit {
     this.tweets.forEach((tweet: any) => {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
+
+        this.tweetPostOwner = tweet.User.id
       }
     });
 
@@ -76,7 +79,8 @@ export class TweetsComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.user.id,
+      receiverId: this.tweetPostOwner, 
+      senderId: this.user.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -133,7 +137,7 @@ export class TweetsComponent implements OnInit {
     );
   }
 
-  reactTweet(tweetId: number) {
+  reactTweet(tweet: any) {
     if (this.reactLoading == true) {
       return;
     }
@@ -141,7 +145,11 @@ export class TweetsComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweetId, UserId: this.user.id })
+      .reactTweet({
+        tweetId: tweet.id,
+        receiverId: tweet.User.id,
+        senderId: this.user.id,
+      })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;

@@ -45,7 +45,7 @@
                   class="flex items-center cursor-pointer"
                   (click)="navigateToUser(com.User)"
                 >
-                  <div class="font-semibold mr-2">
+                  <div class="font-semibold mr-2 capitalize">
                     {{ com.User.name }}
                   </div>
                   <div class="text-[10px] flex items-center">
@@ -207,7 +207,7 @@
                   class="flex items-center cursor-pointer"
                   (click)="navigateToUser(tweet.User)"
                 >
-                  <div class="font-semibold mr-2">
+                  <div class="font-semibold mr-2 capitalize">
                     {{ tweet.User.name }}
                   </div>
                   <div class="text-[10px] flex items-center">
@@ -255,7 +255,7 @@
           <div class="flex items-center text-sm border-t border-gray-100 pt-2">
             <div
               *ngIf="checkReactors(tweet.TweetReactors)"
-              (click)="reactTweet(tweet.id)"
+              (click)="reactTweet(tweet)"
               class="text-white font-semibold mr-2 cursor-pointer bg-red-500 hover:bg-red-600 w-[30px] h-[30px] rounded-full grid place-items-center transition-all"
             >
               <i class="fal fa-heart"></i>
@@ -263,7 +263,7 @@
 
             <div
               *ngIf="!checkReactors(tweet.TweetReactors)"
-              (click)="reactTweet(tweet.id)"
+              (click)="reactTweet(tweet)"
               class="mr-2 cursor-pointer hover:bg-gray-200 w-[30px] h-[30px] rounded-full grid place-items-center transition-all"
             >
               <i class="fal fa-heart"></i>
@@ -308,7 +308,7 @@
             </div>
             <div class="">
               <div class="flex items-center">
-                <h1 class="font-semibold text-slate-800">
+                <h1 class="font-semibold text-slate-800 capitalize">
                   {{ voter.name.split(" ")[0] }}
                 </h1>
               </div>

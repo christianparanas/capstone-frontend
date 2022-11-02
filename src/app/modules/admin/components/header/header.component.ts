@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { NotificationService } from 'src/app/core/shared/services/notification.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,8 @@ export class HeaderComponent implements OnInit {
   onScroll: boolean = false;
   user: any = [];
   defaultImg: any = '../../../../../assets/images/admin.png';
+
+  notifications: any = []
 
   routesArr: any = [
     {
@@ -78,7 +82,9 @@ export class HeaderComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +92,25 @@ export class HeaderComponent implements OnInit {
     window.addEventListener('scroll', this.listenScrollEvent);
 
     this.getCurrentRouteURL(this.route.snapshot.children[0].routeConfig?.path);
+  }
+
+  getNotificationEvent() {
+    this.eventService.getNotificationEvent().subscribe((response: any) => {
+      if (response.userId == this.user.id) {
+        this.getNotifications();
+      }
+    });
+  }
+
+  getNotifications() {
+    this.notificationService.getNotifications(this.user.id).subscribe(
+      (response: any) => {
+        this.notifications = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getCurrentRouteURL(route: any) {
@@ -104,6 +129,9 @@ export class HeaderComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
+
+        this.getNotifications()
+        this.getNotificationEvent();
       },
       (error: any) => {
       }

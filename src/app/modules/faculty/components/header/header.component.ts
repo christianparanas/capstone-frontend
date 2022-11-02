@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { NotificationService } from 'src/app/core/shared/services/notification.service';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,8 @@ export class HeaderComponent implements OnInit {
   onScroll: boolean = false;
   user: any = [];
   defaultImg: any = '../../../../../assets/images/faculty.png';
+
+  notifications: any = []
 
   routesArr: any = [
     {
@@ -57,7 +61,9 @@ export class HeaderComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private notificationService: NotificationService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +72,25 @@ export class HeaderComponent implements OnInit {
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
+  }
+
+  getNotificationEvent() {
+    this.eventService.getNotificationEvent().subscribe((response: any) => {
+      if (response.userId == this.user.id) {
+        this.getNotifications();
+      }
+    });
+  }
+
+  getNotifications() {
+    this.notificationService.getNotifications(this.user.id).subscribe(
+      (response: any) => {
+        this.notifications = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getCurrentRouteURL(route: any) {
@@ -78,6 +103,10 @@ export class HeaderComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
+
+        this.getNotifications()
+
+        this.getNotificationEvent();
       },
       (error: any) => {
         console.log(error);

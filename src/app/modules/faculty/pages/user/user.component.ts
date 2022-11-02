@@ -39,9 +39,10 @@ export class UserComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
+  tweetPostOwner: any = null;
 
-  voters: any = []
-  mentionItems: any = []
+  voters: any = [];
+  mentionItems: any = [];
 
   @ViewChild('scrollToBottom') scrollElement: any;
 
@@ -113,7 +114,7 @@ export class UserComponent implements OnInit {
           return this.router.navigate(['/account']);
         }
 
-        this.getVoters()
+        this.getVoters();
 
         this.profile = response;
         this.getUser(this.userId);
@@ -201,6 +202,8 @@ export class UserComponent implements OnInit {
     this.tweets.forEach((tweet: any) => {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
+
+        this.tweetPostOwner = tweet.User.id;
       }
     });
 
@@ -232,7 +235,11 @@ export class UserComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweetId, UserId: this.profile.id })
+      .reactTweet({
+        tweetId: tweetId,
+        receiverId: this.user.id,
+        senderId: this.profile.id,
+      })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
@@ -255,7 +262,8 @@ export class UserComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.profile.id,
+      receiverId: this.tweetPostOwner, 
+      senderId: this.profile.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
@@ -292,8 +300,8 @@ export class UserComponent implements OnInit {
         this.voters = response;
 
         response.forEach(async (voter: any) => {
-          if(voter.id == this.profile.id) {
-           return
+          if (voter.id == this.profile.id) {
+            return;
           }
 
           this.mentionItems.push(voter.username);
@@ -305,4 +313,3 @@ export class UserComponent implements OnInit {
     );
   }
 }
-

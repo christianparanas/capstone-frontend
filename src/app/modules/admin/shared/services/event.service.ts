@@ -51,4 +51,8 @@ export class EventService {
   sendMsg(data: any) {
     this.socket.emit('sendMsg', data);
   }
+
+  getNotificationEvent(): Observable<any> {
+    return this.socket.fromEvent<any>('notificationEvent');
+  }
 }

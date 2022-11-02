@@ -14,11 +14,18 @@
       </div>
 
       <div class="flex items-center">
-        <div (click)="op.toggle($event)" class="hover:bg-red-900 w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2">
+        <div
+          (click)="op.toggle($event)"
+          class="hover:bg-red-900 w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
+        >
           <i class="fal fa-bell"></i>
         </div>
-        
-        <div *ngIf="user.length != 0" class="mr-3 cursor-pointer border border-red-900 rounded-full w-fit h-fit" routerLink="/account">
+
+        <div
+          *ngIf="user.length != 0"
+          class="mr-3 cursor-pointer border border-red-900 rounded-full w-fit h-fit"
+          routerLink="/account"
+        >
           <img
             [src]="user.image != null ? user.image : defaultImg"
             alt=""
@@ -85,7 +92,7 @@
     >
       <div class="flex items-center">
         <h1 class="mr-6 font-semibold">Student Panel</h1>
-<!-- 
+        <!-- 
         <div class="relative">
           <input
             type="text"
@@ -115,7 +122,10 @@
           </div>
         </div>
 
-        <div (click)="op.toggle($event)" class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center mr-2">
+        <div
+          (click)="op.toggle($event)"
+          class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center mr-2"
+        >
           <i class="fad fa-bell"></i>
         </div>
 
@@ -130,19 +140,34 @@
   </div>
 </div>
 
-
-
 <p-overlayPanel #op>
   <ng-template pTemplate>
-      <div class="">
+    <div class="">
+      <div
+        *ngIf="notifications.length == 0"
+        class="grid place-items-center my-10 min-w-[250px]"
+      >
+        <div class="">
+          <img
+            src="../../../../../assets/images/empty-box.png"
+            alt=""
+            class="w-[90px] h-[90px] mx-auto object-cover"
+          />
+          <h1 class="text-center mt-3 text-[12px] text-slate-800">
+            No notification(s)
+          </h1>
+        </div>
+      </div>
+
+      <div *ngIf="notifications.length != 0" class="min-w-[250px]">
         <h2 class="font-semibold">Notifications</h2>
 
         <div class="grid mt-5 divide-y">
-          <div *ngFor="let item of ['', '', '', '', '', '', '']" class="cursor-pointer bg-slate-50 p-2 rounded-sm hover:bg-slate-100 transition-all">
-            <p class="text-sm">Liked your post Liked your post Liked your post</p>
-            <p class="text-[12px]">Aug 10 2020</p>
-          </div>
+          <app-notification [notification]="notification"
+            *ngFor="let notification of notifications"
+          ></app-notification>
         </div>
       </div>
+    </div>
   </ng-template>
 </p-overlayPanel>

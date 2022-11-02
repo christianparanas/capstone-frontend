@@ -17,6 +17,7 @@ import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.c
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 
 import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
     CountdownComponent,
     ForgotpasswordComponent,
     ResetpasswordComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,7 @@ import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
     PrimengModule,
     ReactiveFormsModule,
   ],
-  exports: [CountdownComponent, DateAgoPipe],
+  exports: [CountdownComponent, DateAgoPipe, NotificationComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

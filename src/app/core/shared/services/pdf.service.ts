@@ -32,7 +32,6 @@ downloadPDF(htmlId: any, filename: any ): void {
     let position = 0;
     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
     PDF.save(`${filename}.pdf`);
-    // window.open(PDF.output('bloburl'))
   });
 
 }
