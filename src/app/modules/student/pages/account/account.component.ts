@@ -230,7 +230,7 @@ export class AccountComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweetId, UserId: this.profile.id })
+      .reactTweet({ tweetId: tweetId, senderId: this.profile.id })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
@@ -283,7 +283,7 @@ export class AccountComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      UserId: this.profile.id,
+      senderId: this.profile.id,
     };
 
     this.tweetService.postTweetComment(data).subscribe(
