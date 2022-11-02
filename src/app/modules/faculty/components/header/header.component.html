@@ -135,7 +135,7 @@
 
 <p-overlayPanel #op>
   <ng-template pTemplate>
-    <div class="">
+    <div class="md:max-w-[400px]">
       <div
         *ngIf="notifications.length == 0"
         class="grid place-items-center my-10 min-w-[250px]"
@@ -155,7 +155,7 @@
       <div *ngIf="notifications.length != 0" class="min-w-[250px]">
         <h2 class="font-semibold">Notifications</h2>
 
-        <div class="grid mt-5 divide-y">
+        <div class="grid mt-5 divide-y  max-h-[400px] overflow-y-auto">
           <app-notification [notification]="notification"
             *ngFor="let notification of notifications"
           ></app-notification>
