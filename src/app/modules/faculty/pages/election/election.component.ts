@@ -9,7 +9,6 @@ import { MenuItem } from 'primeng/api';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
-import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-election',
@@ -26,6 +25,7 @@ export class ElectionComponent implements OnInit {
   finishSetupPrompt: boolean = false;
   deleteElectionPrompt: boolean = false;
   voteReceiptModal: boolean = false;
+  coreElectioModal: boolean = false
   electionPositionForm: FormGroup;
 
   currentDate: string;
@@ -35,6 +35,18 @@ export class ElectionComponent implements OnInit {
   election: any = [];
   tabItems: MenuItem[];
   activeItem: MenuItem;
+
+  electionData: any = {
+    campaign: {
+      hasCampaign: null,
+      start: null,
+      end: null,
+    },
+    election: {
+      start: null,
+      end: null,
+    },
+  };
 
   electionPositionId: any = null;
   addCandidatePreviewImg: any = null;
@@ -70,7 +82,7 @@ export class ElectionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private eventService: EventService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -227,7 +239,7 @@ export class ElectionComponent implements OnInit {
 
           console.log(this.chartData);
         },
-        (error: any) => {}
+        (error: any) => { }
       );
   }
 
@@ -237,7 +249,7 @@ export class ElectionComponent implements OnInit {
         this.receipt = response;
         this.voteReceiptModal = true;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
 
@@ -381,6 +393,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService
       .changeStatus({
+        core: { ...this.electionData },
         ElectionId: this.election.id,
         status: 'active',
         stage: this.election.hasCampaign
@@ -388,8 +401,8 @@ export class ElectionComponent implements OnInit {
             ? 'campaign'
             : 'initial'
           : this.election.election_startdate <= new Date()
-          ? 'election'
-          : 'initial',
+            ? 'election'
+            : 'initial',
       })
       .subscribe(
         (response: any) => {
@@ -622,7 +635,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => {}
+          (error: any) => { }
         );
     }
   }
@@ -642,7 +655,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => {}
+          (error: any) => { }
         );
     }
   }

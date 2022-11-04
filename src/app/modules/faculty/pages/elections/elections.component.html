@@ -8,62 +8,37 @@
     <div class="">
       <div class="flex justify-between items-center">
         <div class="inline-block relative w-fit">
-          <select
-            [(ngModel)]="state"
-            (change)="getElectionByState()"
-            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
-          >
+          <select [(ngModel)]="state" (change)="getElectionByState()"
+            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all">
             <option value="all">All Elections</option>
             <option value="draft">Draft Elections</option>
             <option value="ongoing">Ongoing Elections</option>
             <option value="ended">Ended Elections</option>
           </select>
-          <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              />
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
             </svg>
           </div>
         </div>
 
-        <button
-          (click)="createElectionModal = true"
-          class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
-        >
+        <button (click)="createElectionModal = true"
+          class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all">
           <i class="fal fa-file-plus mr-1"></i>
           Create Election
         </button>
       </div>
 
       <div class="mt-10">
-        <div
-          *ngIf="isLoading"
-          class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20"
-        >
-          <p-skeleton
-            width="100%"
-            height="180px"
-            *ngFor="let arr of ['', '', '', '', '', '', '', '', '', '', '', '']"
-          ></p-skeleton>
+        <div *ngIf="isLoading" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20">
+          <p-skeleton width="100%" height="180px" *ngFor="let arr of ['', '', '', '', '', '', '', '', '', '', '', '']">
+          </p-skeleton>
         </div>
 
-        <div
-          *ngIf="!isLoading && tempElectionsArr.length == 0"
-          class="grid place-items-center"
-        >
+        <div *ngIf="!isLoading && tempElectionsArr.length == 0" class="grid place-items-center">
           <div class="">
-            <img
-              src="../../../../../assets/images/empty-box.png"
-              alt=""
-              class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto"
-            />
+            <img src="../../../../../assets/images/empty-box.png" alt=""
+              class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto" />
             <h1 class="text-center mt-5 font-semibold text-slate-800">
               No elections. Create one.
             </h1>
@@ -71,56 +46,42 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div
-            *ngFor="let election of tempElectionsArr"
-            class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all"
-          >
+          <div *ngFor="let election of tempElectionsArr"
+            class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all">
             <div class="mb-2">
               <div class="flex justify-between items-center mb-4">
                 <div class="">
-                  <img src="../../../../../assets/images/propaganda.png" alt="" class="object-cover w-[40px] h-[40px] opacity-60">
+                  <img src="../../../../../assets/images/propaganda.png" alt=""
+                    class="object-cover w-[40px] h-[40px] opacity-60">
                 </div>
                 <div class="flex items-center">
                   <div class="flex items-center">
-  
+
                     <div class="flex items-center ml-1">
-                      <div
-                        *ngIf="election.status == 'draft'"
-                        class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                      >
+                      <div *ngIf="election.status == 'draft'"
+                        class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize">
                         Draft
                       </div>
-                      <div
-                        *ngIf="election.stage == 'campaign_started'"
-                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                      >
+                      <div *ngIf="election.stage == 'campaign_started'"
+                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize">
                         Campaign Ongoing
                       </div>
-                      <div
-                        *ngIf="election.stage == 'campaign_ended'"
-                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                      >
+                      <div *ngIf="election.stage == 'campaign_ended'"
+                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize">
                         Campaign Ended
                       </div>
-                      <div
-                        *ngIf="election.stage == 'election_started'"
-                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                      >
+                      <div *ngIf="election.stage == 'election_started'"
+                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize">
                         Election Ongoing
                       </div>
-                      <div
-                        *ngIf="election.stage == 'election_ended'"
-                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
-                      >
+                      <div *ngIf="election.stage == 'election_ended'"
+                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize">
                         Election Ended
                       </div>
                     </div>
-  
-                    <i
-                      [routerLink]="['/faculty/election']"
-                      [queryParams]="{ id: election.id }"
-                      class="fal fa-external-link text-sm ml-3 cursor-pointer transition-all hover:text-red-500"
-                    ></i>
+
+                    <i [routerLink]="['/faculty/election']" [queryParams]="{ id: election.id }"
+                      class="fal fa-external-link text-sm ml-3 cursor-pointer transition-all hover:text-red-500"></i>
                   </div>
                 </div>
               </div>
@@ -143,9 +104,9 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-[12px] w-full">
                         {{
-                          election.course == 0
-                            ? "All Courses"
-                            : getCourse(election.course)
+                        election.course == 0
+                        ? "All Courses"
+                        : getCourse(election.course)
                         }}
                       </td>
                     </tr>
@@ -155,9 +116,9 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-[12px]">
                         {{
-                          election.section == 0
-                            ? "All Sections"
-                            : election.section
+                        election.section == 0
+                        ? "All Sections"
+                        : election.section
                         }}
                       </td>
                     </tr>
@@ -167,7 +128,7 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-[12px]">
                         {{
-                          election.year == 0 ? "All Year Levels" : election.year
+                        election.year == 0 ? "All Year Levels" : election.year
                         }}
                       </td>
                     </tr>
@@ -176,10 +137,8 @@
               </div>
 
               <div class="flex items-center gap-2 text-[10px] mt-2 pl-1">
-                <div
-                  *ngIf="election.hasCampaign"
-                  class="bg-slate-200 text-slate-900 font-semibold px-2 py-[2px] rounded-md text-[10px]"
-                >
+                <div *ngIf="election.hasCampaign"
+                  class="bg-slate-200 text-slate-900 font-semibold px-2 py-[2px] rounded-md text-[10px]">
                   Campaign
                 </div>
                 <div class="text-[10px] text-slate-800">
@@ -195,66 +154,34 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog
-    header="Create Election"
-    [(visible)]="createElectionModal"
-    [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }"
-  >
+  <p-dialog header="Create Election" [(visible)]="createElectionModal" [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }">
     <div class="mt-3">
-      <form
-        *ngIf="!nextPanel"
-        class=""
-        (ngSubmit)="onSubmit()"
-        [formGroup]="electionForm"
-        class="grid gap-3"
-      >
+      <form class="" (ngSubmit)="onSubmit()" [formGroup]="electionForm" class="grid gap-3">
         <div>
-          <label class="block text-[12px] font-medium text-gray-700"
-            >Title</label
-          >
+          <label class="block text-[12px] font-medium text-gray-700">Title</label>
           <div class="mt-1 relative rounded-md">
-            <input
-              type="text"
-              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-              placeholder="Title"
-              formControlName="title"
-              required
-            />
+            <input type="text" class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              placeholder="Title" formControlName="title" required />
           </div>
         </div>
 
         <div>
-          <label class="block text-[12px] font-medium text-gray-700"
-            >Description</label
-          >
+          <label class="block text-[12px] font-medium text-gray-700">Description</label>
           <div class="mt-1 relative rounded-md">
-            <textarea
-              formControlName="description"
-              rows="3"
-              placeholder="Description"
-              required
-              class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-            ></textarea>
+            <textarea formControlName="description" rows="3" placeholder="Description" required
+              class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"></textarea>
           </div>
         </div>
 
-        <fieldset
-          class="border border-solid border-gray-200 p-3 rounded-md grid gap-3"
-        >
+        <fieldset class="border border-solid border-gray-200 p-3 rounded-md grid gap-3">
           <legend class="text-[12px] px-1">Restrictions</legend>
 
           <div>
-            <label class="block text-[12px] font-medium text-gray-700"
-              >Course</label
-            >
+            <label class="block text-[12px] font-medium text-gray-700">Course</label>
             <div class="mt-1 relative rounded-md">
-              <select
-                *ngIf="user.coverage == 0"
-                formControlName="course"
-                required
-                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
-              >
+              <select *ngIf="user.coverage == 0" formControlName="course" required
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer">
                 <option value="" selected disabled hidden class="">
                   Select Course
                 </option>
@@ -264,10 +191,7 @@
                 </option>
               </select>
 
-              <div
-                *ngIf="user.coverage != 0"
-                class="text-[12px] w-full p-3 rounded-md bg-slate-100"
-              >
+              <div *ngIf="user.coverage != 0" class="text-[12px] w-full p-3 rounded-md bg-slate-100">
                 {{ getCourse(user.coverage) }}
               </div>
             </div>
@@ -275,15 +199,10 @@
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[12px] font-medium text-gray-700"
-                >Section</label
-              >
+              <label class="block text-[12px] font-medium text-gray-700">Section</label>
               <div class="mt-1 relative rounded-md">
-                <select
-                  formControlName="section"
-                  required
-                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
-                >
+                <select formControlName="section" required
+                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer">
                   <option value="" selected disabled hidden class="">
                     Select Section
                   </option>
@@ -300,15 +219,10 @@
             </div>
 
             <div>
-              <label class="block text-[12px] font-medium text-gray-700"
-                >Year Level</label
-              >
+              <label class="block text-[12px] font-medium text-gray-700">Year Level</label>
               <div class="mt-1 relative rounded-md">
-                <select
-                  formControlName="year"
-                  required
-                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
-                >
+                <select formControlName="year" required
+                  class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer">
                   <option value="" selected disabled hidden class="">
                     Select Year level
                   </option>
@@ -325,226 +239,11 @@
           </div>
         </fieldset>
 
-        <button
-          type="submit"
-          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
-        >
-          Next
+        <button type="submit"
+          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full">
+          Submit
         </button>
       </form>
-
-      <div *ngIf="nextPanel" class="">
-        <div class="">
-          <div class="grid gap-5">
-            <div class="">
-              <div class="text-[12px] flex">
-                <i class="fad fa-question-circle mr-1 mt-[2px]"></i>
-                <div class="">Will this election have a Campaign period?</div>
-              </div>
-              <div class="">
-                <div
-                  *ngIf="electionData.campaign.hasCampaign == null"
-                  class="text-[12px] font-bold flex ml-4 mt-1"
-                >
-                  <div
-                    (click)="electionData.campaign.hasCampaign = false"
-                    class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    No
-                  </div>
-                  <div
-                    (click)="electionData.campaign.hasCampaign = true"
-                    class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Yes
-                  </div>
-                </div>
-
-                <div
-                  *ngIf="electionData.campaign.hasCampaign == false"
-                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
-                >
-                  <div class="mr-2 font-normal">You answered:</div>
-
-                  <div
-                    class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    No
-                  </div>
-                  <div
-                    (click)="
-                      electionData.campaign.hasCampaign = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Undo
-                  </div>
-                </div>
-
-                <div
-                  *ngIf="electionData.campaign.hasCampaign == true"
-                  class="text-[12px] font-bold flex items-center ml-4 mt-1"
-                >
-                  <div class="mr-2 font-normal">You answered:</div>
-
-                  <div
-                    class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Yes
-                  </div>
-                  <div
-                    (click)="
-                      electionData.campaign.hasCampaign = null;
-                      electionData.campaign.start = null;
-                      electionData.campaign.end = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                    class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
-                  >
-                    Undo
-                  </div>
-                </div>
-              </div>
-
-              <fieldset
-                *ngIf="electionData.campaign.hasCampaign == true"
-                class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3"
-              >
-                <legend class="text-[12px] px-1">Campaign Period</legend>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-[12px] font-medium text-gray-700"
-                      >Start</label
-                    >
-                    <div class="mt-1 relative rounded-md">
-                      <input
-                        type="datetime-local"
-                        [min]="currentDate"
-                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                        placeholder="Start"
-                        [(ngModel)]="electionData.campaign.start"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label class="block text-[12px] font-medium text-gray-700"
-                      >End</label
-                    >
-                    <div class="mt-1 relative rounded-md">
-                      <input
-                        type="datetime-local"
-                        [min]="electionData.campaign.start"
-                        [disabled]="electionData.campaign.start == null"
-                        class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                        placeholder="End"
-                        [(ngModel)]="electionData.campaign.end"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-
-            <fieldset
-              *ngIf="
-                electionData.campaign.hasCampaign != null &&
-                (electionData.campaign.hasCampaign == true
-                  ? electionData.campaign.start != null &&
-                    electionData.campaign.end != null
-                  : true)
-              "
-              class="border border-solid border-gray-200 p-2 rounded-md grid gap-3"
-            >
-              <legend class="text-[12px] px-1">Election</legend>
-
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-[12px] font-medium text-gray-700"
-                    >Start</label
-                  >
-                  <div class="mt-1 relative rounded-md">
-                    <input
-                      type="datetime-local"
-                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                      placeholder="Start"
-                      [(ngModel)]="electionData.election.start"
-                      [min]="
-                        electionData.campaign.hasCampaign
-                          ? electionData.campaign.end
-                          : currentDate
-                      "
-                      required
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-[12px] font-medium text-gray-700"
-                    >End</label
-                  >
-                  <div class="mt-1 relative rounded-md">
-                    <input
-                      type="datetime-local"
-                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                      [disabled]="electionData.election.start == null"
-                      [min]="electionData.election.start"
-                      placeholder="End"
-                      [(ngModel)]="electionData.election.end"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-
-        <div class="mt-5 grid grid-cols-[100px_1fr]">
-          <button
-            (click)="nextPanel = false"
-            class="cursor-pointer text-sm font-semibold hover:text-red-500 transition-all"
-          >
-            Back
-          </button>
-          <button
-            (click)="createElection()"
-            [disabled]="submitLoading"
-            class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
-          >
-            <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-              <svg
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-
-              <span>Processing</span>
-            </div>
-
-            <span *ngIf="!submitLoading">Create</span>
-          </button>
-        </div>
-      </div>
     </div>
   </p-dialog>
 </div>

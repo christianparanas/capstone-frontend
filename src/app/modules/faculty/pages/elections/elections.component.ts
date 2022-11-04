@@ -49,7 +49,7 @@ export class ElectionsComponent implements OnInit {
     private toast: HotToastService,
     private router: Router,
     private eventService: EventService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.currentDate = new Date().toISOString().slice(0, 16);
@@ -81,27 +81,9 @@ export class ElectionsComponent implements OnInit {
   }
 
   createElection() {
-    if (this.electionData.campaign.hasCampaign == null) {
-      return this.toast.info('Please answer the questions to proceed.', {
-        position: 'top-right',
-      });
-    }
-
-    if (this.electionData.election.start == null) {
-      return this.toast.info('Please input election start date.', {
-        position: 'top-right',
-      });
-    }
-
-    if (this.electionData.election.end == null) {
-      return this.toast.info('Please input election end date.', {
-        position: 'top-right',
-      });
-    }
-
     const data: any = {
       ...this.electionForm.value,
-      core: { ...this.electionData },
+
     };
 
     this.submitLoading = true;
@@ -112,7 +94,6 @@ export class ElectionsComponent implements OnInit {
         this.toast.success(response.message);
         this.createElectionModal = false;
         this.electionForm.reset();
-        this.nextPanel = false;
 
         this.router.navigate([`/faculty/election`], {
           queryParams: { id: response.electionId },
@@ -137,7 +118,7 @@ export class ElectionsComponent implements OnInit {
       this.electionForm.value.course = this.user.coverage;
     }
 
-    this.nextPanel = true;
+    this.createElection()
   }
 
   getElectionByState() {
@@ -165,7 +146,7 @@ export class ElectionsComponent implements OnInit {
   getCourse(CourseId: any) {
     let courseTitle = null;
 
-    if(this.courses.length == 0) return
+    if (this.courses.length == 0) return
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
