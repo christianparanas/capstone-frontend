@@ -19,7 +19,7 @@ export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
   candidateModal: boolean = false;
-  bulletVotingModal: boolean = false
+  bulletVotingModal: boolean = false;
   isAlreadyVoted: boolean = false;
 
   profile: any = [];
@@ -32,7 +32,8 @@ export class ElectionComponent implements OnInit {
   electionResult: any = [];
 
   isVoteNotEmpty: boolean = false;
-  winnersModal: boolean = false
+  winnersModal: boolean = false;
+  selectedPartyId: any = null;
 
   constructor(
     private courseService: CourseService,
@@ -172,8 +173,57 @@ export class ElectionComponent implements OnInit {
     return result;
   }
 
-  selectCandidate(data: any) {
+  bulletVote(id: any) {
+    this.election.Partylists.forEach((party: any) => {
+      if (party.id == id) {
+        if (party.isSelected == true) {
+          party.isSelected = false;
 
+          party.ElectionCandidates.forEach((candidate: any) => {
+            this.selectPartyMembers(candidate, 2);
+          });
+        } else {
+          party.isSelected = true;
+
+          party.ElectionCandidates.forEach((candidate: any) => {
+            this.selectPartyMembers(candidate, 1);
+          });
+        }
+      } else {
+        party.isSelected = false;
+
+        party.ElectionCandidates.forEach((candidate: any) => {
+          this.selectPartyMembers(candidate, 2);
+        });
+      }
+    });
+  }
+
+  selectPartyMembers(data: any, op: any) {
+    this.votes.forEach((item: any) => {
+      if (data.ElectionPositionId == item.id) {
+        item.ElectionCandidates.forEach((candidate: any) => {
+          if (candidate.id == data.id) {
+            candidate.isSelected = op == 1 ? true : false;
+
+            if(op == 1) {
+              item.selectedCandidateCount -= item.selectedCandidateCount
+            } 
+            
+            if(op == 2){
+              item.selectedCandidateCount += item.selectedCandidateCount
+            } 
+          }
+        });
+      }
+    });
+
+    this.checkIfBallotEmpty();
+
+    console.log(this.votes)
+  }
+
+  selectCandidate(data: any) {
     this.votes.forEach((item: any) => {
       if (data.ElectionPositionId == item.id) {
         item.ElectionCandidates.forEach((candidate: any) => {
@@ -205,6 +255,7 @@ export class ElectionComponent implements OnInit {
   }
 
   checkIfBallotEmpty() {
+
     this.votes.forEach((vote: any) => {
       if (vote.selectedCandidateCount > 0) {
         this.isVoteNotEmpty = true;
@@ -241,19 +292,23 @@ export class ElectionComponent implements OnInit {
   }
 
   getElection() {
-    this.votes = []
+    this.votes = [];
 
     this.electionService.getElection(this.electionId).subscribe(
       (response: any) => {
         this.election = response;
         this.isLoading = false;
 
-        console.log(response)
+        console.log(response);
 
         this.getResult();
 
         response.ElectionPositions.forEach((position: any) => {
           this.votes.push({ ...position, selectedCandidateCount: 0 });
+        });
+
+        this.election.Partylists.forEach((party: any) => {
+          party.isSelected = false;
         });
 
         this.votes.forEach((item: any) => {

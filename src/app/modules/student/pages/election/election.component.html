@@ -223,7 +223,9 @@
               </h1>
 
               <div
-                *ngIf="election.Partylists.length == 0 || election.Partylist == null"
+                *ngIf="
+                  election.Partylists.length != 0 || election.Partylist != null
+                "
                 (click)="bulletVotingModal = true"
                 class="bg-slate-100 border border-slate-200 py-1 px-2 rounded-md text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-all cursor-pointer"
               >
@@ -627,9 +629,17 @@
         </div>
       </div>
 
+      <h1 class="font-semibold text-md my-2">Partylist</h1>
+
       <div class="grid gap-5">
-        <div *ngFor="let party of election.Partylists" class="">
-          <div class="bg-slate-100 px-2 py-1 rounded-md text-sm font-semibold flex items-center"><input type="checkbox" /> <span class="ml-1">{{ party.title }}</span></div>
+        <div *ngFor="let party of election.Partylists" (click)="bulletVote(party.id)" class="border border-slate-50 hover:border-slate-100 transition-all cursor-pointer p-1 rounded-md relative" [ngClass]=" party.isSelected ? 'border-green-200 hover:border-green-200' : 'border-slate-50' ">
+          <div *ngIf="party.isSelected" class="bg-green-200 text-green-800 text-[12px] w-fit absolute right-3 -top-2 font-semibold py-1 px-2 rounded-md">Party selected</div>
+
+          <div
+            class="bg-slate-50 px-2 py-1 rounded-md text-sm font-semibold flex items-center border border-slate-100 "
+          >
+            <i class="fal fa-users mr-1"></i> <span>{{ party.title }}</span>
+          </div>
 
           <div class="mt-2 grid gap-2">
             <div
@@ -653,8 +663,13 @@
                 <h1 class="font-semibold text-sm text-slate-800 capitalize">
                   {{ candidate.User.name }}
                 </h1>
-                <div class="w-fit bg-slate-100 border border-slate-200 rounded-md px-1 text-[12px]">
-                  For <span class="capitalize">{{ candidate.ElectionPosition.title }}</span>
+                <div
+                  class="w-fit bg-slate-100 font-semibold border border-slate-200 rounded-md px-1 text-[12px]"
+                >
+                  For
+                  <span class="capitalize">{{
+                    candidate.ElectionPosition.title
+                  }}</span>
                 </div>
               </div>
             </div>
