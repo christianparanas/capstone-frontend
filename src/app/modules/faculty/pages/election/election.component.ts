@@ -26,11 +26,16 @@ export class ElectionComponent implements OnInit {
   deleteElectionPrompt: boolean = false;
   voteReceiptModal: boolean = false;
   coreElectioModal: boolean = false
+  partylistCreationModal: boolean = false
+  partylistsModal: boolean = false
+
   electionPositionForm: FormGroup;
+  partylistCreationForm: FormGroup;
 
   currentDate: string;
   courses: any = [];
   students: any = [];
+  partylists: any = []
   electionId: number;
   election: any = [];
   tabItems: MenuItem[];
@@ -53,8 +58,11 @@ export class ElectionComponent implements OnInit {
   addCandidateData: any = {
     image: null,
     platform: null,
+    partylist: 0,
     UserId: null,
   };
+
+
   candidates: any = [];
   limitOfCandidates: any;
   winners: any = [];
@@ -100,6 +108,11 @@ export class ElectionComponent implements OnInit {
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
+
+    this.partylistCreationForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+    })
 
     this.chartData = {
       labels: [],
@@ -422,7 +435,7 @@ export class ElectionComponent implements OnInit {
     if(!ans) return
 
     this.electionService
-      .changeStatus({
+      .finishSetup({
         core: { ...this.electionData },
         ElectionId: this.election.id,
         status: 'active',
@@ -492,6 +505,33 @@ export class ElectionComponent implements OnInit {
     );
   }
 
+  onPartylistCreationSubmit() {
+    if (!this.partylistCreationForm.valid) {
+      return this.toast.info('Please fill out all the required input fields');
+    }
+
+    this.submitLoading = true;
+
+    const data = {
+      ...this.partylistCreationForm.value,
+      ElectionId: this.electionId,
+    };
+
+    this.electionService.addPartylist(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.getElection();
+        this.submitLoading = false;
+        this.partylistCreationModal = false;
+        this.partylistCreationForm.reset();
+      },
+      (error: any) => {
+        this.submitLoading = false;
+        this.toast.error(error.error.message);
+      }
+    );
+  }
+
   candidatesTrack(item: any, index: any) {
     return `${item.id}-${index}`;
   }
@@ -521,6 +561,10 @@ export class ElectionComponent implements OnInit {
         this.getStudents();
         this.getElectionEvent();
         this.getResult();
+
+        this.partylists = response.Partylists
+
+        console.log(response)
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
@@ -612,6 +656,7 @@ export class ElectionComponent implements OnInit {
     const data: any = {
       image: this.addCandidateData.image,
       platform: this.addCandidateData.platform,
+      partylist: this.addCandidateData.partylist,
       UserId: this.addCandidateData.UserId,
       ElectionPositionId: this.electionPositionId,
       ElectionId: this.electionId,

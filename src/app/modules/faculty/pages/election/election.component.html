@@ -2,20 +2,32 @@
   <div class="p-5 max-w-[1200px] mx-auto pb-[200px]">
     <div
       class="flex w-[40px] h-[40px] rounded-full items-center justify-center bg-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
-      (click)="goBack()">
+      (click)="goBack()"
+    >
       <i class="fal fa-arrow-left"></i>
     </div>
 
-    <div *ngIf="election == null && isLoading" class="mt-20 grid place-items-center">
+    <div
+      *ngIf="election == null && isLoading"
+      class="mt-20 grid place-items-center"
+    >
       <div class="">
-        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[150px] h-[150px] object-cover mx-auto">
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          alt=""
+          class="w-[150px] h-[150px] object-cover mx-auto"
+        />
         <div class="mt-5 text-[12px]">Oopss. There's nothing here.</div>
       </div>
     </div>
 
     <div *ngIf="election != null && !isLoading" class="">
       <div class="">
-        <img src="../../../../../assets/images/propaganda.png" alt="" class="w-[200px] h-[200px]" />
+        <img
+          src="../../../../../assets/images/propaganda.png"
+          alt=""
+          class="w-[200px] h-[200px]"
+        />
 
         <h1 class="font-semibold text-4xl text-slate-800 mt-10">
           {{ election.title }}
@@ -29,16 +41,22 @@
                 <div class="grid gap-2" *ngIf="election.hasCampaign">
                   <div class="text-sm font-semibold">Campaign Period</div>
 
-                  <div class="flex gap-2 items-center text-[12px] bg-gray-100 w-fit py-2 px-2 rounded-md">
+                  <div
+                    class="flex gap-2 items-center text-[12px] bg-gray-100 w-fit py-2 px-2 rounded-md"
+                  >
                     <div class="">
                       <div class="">Start</div>
-                      <div class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md">
+                      <div
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
+                      >
                         {{ dateFormat(election.campaignperiod_startdate) }}
                       </div>
                     </div>
                     <div class="">
                       <div class="">End</div>
-                      <div class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md">
+                      <div
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
+                      >
                         {{ dateFormat(election.campaignperiod_enddate) }}
                       </div>
                     </div>
@@ -47,16 +65,22 @@
 
                 <div class="grid gap-2">
                   <div class="text-sm font-semibold">Election Period</div>
-                  <div class="flex gap-2 items-center text-[12px] bg-gray-100 w-fit py-2 px-2 rounded-md">
+                  <div
+                    class="flex gap-2 items-center text-[12px] bg-gray-100 w-fit py-2 px-2 rounded-md"
+                  >
                     <div class="">
                       <div class="">Start</div>
-                      <div class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md">
+                      <div
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
+                      >
                         {{ dateFormat(election.election_startdate) }}
                       </div>
                     </div>
                     <div class="">
                       <div class="">End</div>
-                      <div class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md">
+                      <div
+                        class="bg-slate-700 font-semibold text-white px-2 py-1 rounded-md"
+                      >
                         {{ dateFormat(election.election_enddate) }}
                       </div>
                     </div>
@@ -75,9 +99,9 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-sm">
                         {{
-                        election.course == 0
-                        ? "All Courses"
-                        : getCourse(election.course)
+                          election.course == 0
+                            ? "All Courses"
+                            : getCourse(election.course)
                         }}
                       </td>
                     </tr>
@@ -87,9 +111,9 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-sm">
                         {{
-                        election.section == 0
-                        ? "All Sections"
-                        : election.section
+                          election.section == 0
+                            ? "All Sections"
+                            : election.section
                         }}
                       </td>
                     </tr>
@@ -99,7 +123,7 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-sm">
                         {{
-                        election.year == 0 ? "All Year Levels" : election.year
+                          election.year == 0 ? "All Year Levels" : election.year
                         }}
                       </td>
                     </tr>
@@ -114,7 +138,8 @@
                 <div class="">
                   <p class="text-[12px] ml-2">Phase</p>
                   <div
-                    class="text-[12px] bg-gray-100 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center">
+                    class="text-[12px] bg-gray-100 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center"
+                  >
                     <div class="" *ngIf="election.stage == 'configuring'">
                       Configuring
                     </div>
@@ -137,16 +162,22 @@
                 </div>
                 <div class="">
                   <p class="text-[12px] ml-2">Status</p>
-                  <div *ngIf="election.status == 'draft'"
-                    class="text-[12px] bg-slate-100 text-slate-800 font-semibold px-2 py-2 rounded-full capitalize text-center">
+                  <div
+                    *ngIf="election.status == 'draft'"
+                    class="text-[12px] bg-slate-100 text-slate-800 font-semibold px-2 py-2 rounded-full capitalize text-center"
+                  >
                     {{ election.status }}
                   </div>
-                  <div *ngIf="election.status == 'active'"
-                    class="text-[12px] bg-green-200 text-green-800 font-semibold px-2 py-2 rounded-full capitalize text-center">
+                  <div
+                    *ngIf="election.status == 'active'"
+                    class="text-[12px] bg-green-200 text-green-800 font-semibold px-2 py-2 rounded-full capitalize text-center"
+                  >
                     {{ election.status }}
                   </div>
-                  <div *ngIf="election.status == 'inactive'"
-                    class="text-[12px] bg-red-200 text-red-800 font-semibold px-2 py-2 rounded-full capitalize text-center">
+                  <div
+                    *ngIf="election.status == 'inactive'"
+                    class="text-[12px] bg-red-200 text-red-800 font-semibold px-2 py-2 rounded-full capitalize text-center"
+                  >
                     {{ election.status }}
                   </div>
                 </div>
@@ -159,33 +190,65 @@
           <div class="" *ngIf="election.status == 'draft'">
             <div class="flex justify-between items-center">
               <h1 class="text-md font-semibold">Positions</h1>
-              <button *ngIf="election.status == 'draft'" (click)="electionPositionModal = true"
-                class="bg-red-500 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all">
-                <i class="fal fa-file-plus mr-1"></i>
-                Add Position
-              </button>
+
+              <div class="flex items-center">
+                <button
+                  *ngIf="election.status == 'draft'"
+                  (click)="partylistsModal = true"
+                  class="mr-2 bg-slate-100 border border-slate-200 text-slate-800 text-sm font-semibold py-2 px-4 rounded-3xl hover:bg-slate-200/80 hover:border-slate-300 cursor-pointer transition-all"
+                >
+                  <i class="fal fa-eye mr-1"></i>
+                  View Partylists
+                </button>
+
+                <button
+                  *ngIf="election.status == 'draft'"
+                  (click)="electionPositionModal = true"
+                  class="bg-red-500 text-white text-sm font-semibold py-2 px-4 rounded-3xl hover:bg-red-500/80 cursor-pointer transition-all"
+                >
+                  <i class="fal fa-file-plus mr-1"></i>
+                  Add Position
+                </button>
+              </div>
             </div>
 
             <div class="mt-10">
               <div *ngIf="isLoading" class="grid md:grid-cols-2 gap-5 mt-20">
-                <p-skeleton width="100%" height="180px" *ngFor="
+                <p-skeleton
+                  width="100%"
+                  height="180px"
+                  *ngFor="
                     let arr of ['', '', '', '', '', '', '', '', '', '', '', '']
-                  "></p-skeleton>
+                  "
+                ></p-skeleton>
               </div>
 
-              <div *ngIf="!isLoading && election.ElectionPositions.length == 0" class="grid place-items-center">
+              <div
+                *ngIf="!isLoading && election.ElectionPositions.length == 0"
+                class="grid place-items-center"
+              >
                 <div class="">
-                  <img src="../../../../../assets/images/empty-box.png" alt=""
-                    class="w-[200px] h-[200px] object-cover" />
-                  <h1 class="text-center mt-10 font-semibold text-slate-800">
+                  <img
+                    src="../../../../../assets/images/empty-box.png"
+                    alt=""
+                    class="mx-auto w-[150px] h-[150px] object-cover"
+                  />
+                  <h1
+                    class="text-center mt-5 text-sm font-semibold text-slate-800"
+                  >
                     No election position added yet.
                   </h1>
                 </div>
               </div>
 
-              <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3" *ngIf="!isLoading && election">
-                <div *ngFor="let position of election.ElectionPositions"
-                  class="border border-gray-200 bg-white p-3 rounded-md shadow-sm">
+              <div
+                class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+                *ngIf="!isLoading && election"
+              >
+                <div
+                  *ngFor="let position of election.ElectionPositions"
+                  class="border border-gray-200 bg-white p-3 rounded-md shadow-sm"
+                >
                   <div class="flex justify-between">
                     <div class="">
                       <h1 class="text-md font-semibold text-slate-800">
@@ -197,38 +260,54 @@
                     </div>
 
                     <div class="flex items-center text-sm">
-                      <div *ngIf="election.status == 'draft'" (click)="removePosition(position)"
-                        class="w-[35px] h-[35px] rounded-full group hover:bg-gray-100 transition-all cursor-pointer grid place-items-center">
+                      <div
+                        *ngIf="election.status == 'draft'"
+                        (click)="removePosition(position)"
+                        class="w-[35px] h-[35px] rounded-full group hover:bg-gray-100 transition-all cursor-pointer grid place-items-center"
+                      >
                         <i class="fal fa-trash group-hover:text-red-700"></i>
                       </div>
-                      <div (click)="positionModal(position)"
-                        class="w-[35px] h-[35px] rounded-full hover:bg-gray-100 transition-all cursor-pointer grid place-items-center">
+                      <div
+                        (click)="positionModal(position)"
+                        class="w-[35px] h-[35px] rounded-full hover:bg-gray-100 transition-all cursor-pointer grid place-items-center"
+                      >
                         <i class="fal fa-external-link"></i>
                       </div>
                     </div>
                   </div>
 
                   <div class="text-[10px] mt-3 grid gap-1">
-                    <div class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit">
+                    <div
+                      class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
+                    >
                       Limit no. of winners: {{ position.no_of_winners }}
                     </div>
-                    <div class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit">
+                    <div
+                      class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
+                    >
                       Limit no. of candidates: {{ position.no_of_candidates }}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="mt-16 flex justify-between items-center" *ngIf="election.status == 'draft'">
+              <div
+                class="mt-20 flex justify-between items-center"
+                *ngIf="election.status == 'draft'"
+              >
                 <div class=""></div>
                 <div class="flex itesm-center">
-                  <button (click)="deleteElectionPrompt = true"
-                    class="bg-red-500 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600 cursor-pointer transition-all mr-2">
+                  <button
+                    (click)="deleteElectionPrompt = true"
+                    class="bg-red-500 text-white text-sm font-semibold py-2 px-4 rounded-3xl hover:bg-red-600 cursor-pointer transition-all mr-2"
+                  >
                     <i class="fal fa-trash mr-1"></i>
                     Delete Election
                   </button>
-                  <button (click)="checkAddedPosition()"
-                    class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all">
+                  <button
+                    (click)="checkAddedPosition()"
+                    class="bg-slate-800 text-white text-sm font-semibold py-2 px-4 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all"
+                  >
                     <i class="fal fa-check mr-1"></i>
                     Set Time and Date
                   </button>
@@ -243,12 +322,17 @@
                 <div class="mb-5 flex items-center justify-between">
                   <h1 class="font-semibold">Election Result</h1>
                   <div class="flex items-center">
-                    <div *ngIf="election.stage == 'election_ended'" (click)="winnersModal = true"
-                      class="mr-2 border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all">
+                    <div
+                      *ngIf="election.stage == 'election_ended'"
+                      (click)="winnersModal = true"
+                      class="mr-2 border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
+                    >
                       <i class="fal fa-eye mr-2"></i>View Winners
                     </div>
-                    <div (click)="votersModal = true"
-                      class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all">
+                    <div
+                      (click)="votersModal = true"
+                      class="border border-gray-200 py-1 px-2 rounded-md w-fit text-sm font-semibold cursor-pointer hover:bg-slate-100 transition-all"
+                    >
                       <i class="fal fa-vote-yea mr-1 text-[12px]"></i> View
                       Voters
                     </div>
@@ -256,14 +340,23 @@
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-4">
-                  <div *ngFor="let position of election.ElectionPositions" class="">
-                    <div class="border border-gray-200 rounded-lg p-3" *ngIf="position.ElectionCandidates.length != 0">
+                  <div
+                    *ngFor="let position of election.ElectionPositions"
+                    class=""
+                  >
+                    <div
+                      class="border border-gray-200 rounded-lg p-3"
+                      *ngIf="position.ElectionCandidates.length != 0"
+                    >
                       <div class="mb-4">
                         <div class="flex items-center justify-between">
                           <div class="font-semibold">{{ position.title }}</div>
                           <div class="">
-                            <div *ngIf="election.hasCampaign" (click)="getPrediction(position)"
-                              class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all">
+                            <div
+                              *ngIf="election.hasCampaign"
+                              (click)="getPrediction(position)"
+                              class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
+                            >
                               <i class="fal fa-vote-yea mr-1 text-[12px]"></i>
                               Prediction
                             </div>
@@ -275,53 +368,75 @@
                       </div>
 
                       <div class="grid gap-2">
-                        <div *ngFor="let candidate of position.ElectionCandidates"
-                          class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200">
-                          <div class="grid grid-cols-[40px_1fr] gap-2 items-center">
-                            <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-                              <img [src]="
+                        <div
+                          *ngFor="let candidate of position.ElectionCandidates"
+                          class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200"
+                        >
+                          <div
+                            class="grid grid-cols-[40px_1fr] gap-2 items-center"
+                          >
+                            <div
+                              class="w-[40px] h-[40px] rounded-full border border-gray-200"
+                            >
+                              <img
+                                [src]="
                                   candidate.User.image == null
                                     ? '../../../../../assets/images/student.png'
                                     : candidate.User.image
-                                " alt="" class="w-[40px] h-[40px] rounded-full object-cover" />
+                                "
+                                alt=""
+                                class="w-[40px] h-[40px] rounded-full object-cover"
+                              />
                             </div>
                             <div class="">
-                              <h1 class="font-semibold text-sm text-slate-800 capitalize">
+                              <h1
+                                class="font-semibold text-sm text-slate-800 capitalize"
+                              >
                                 {{ candidate.User.name }}
                               </h1>
-                              <p class="text-[12px]">
-                                {{
-                                candidate.User.StudentCredential.Course
-                                .acronym
-                                }}
-                                {{ candidate.User.StudentCredential.year
-                                }}{{ candidate.User.StudentCredential.section }}
-                              </p>
+                              <div class="flex items-center">
+                                <p class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                                <p class="text-[12px]">
+                                  {{
+                                    candidate.User.StudentCredential.Course
+                                      .acronym
+                                  }}
+                                  {{ candidate.User.StudentCredential.year
+                                  }}{{ candidate.User.StudentCredential.section }}
+                                </p>
+                              </div>
                             </div>
                           </div>
                           <div class="text-[12px] font-semibold">
                             {{
-                            candidate.ElectionVotes.length == 0
-                            ? "0"
-                            : candidate.ElectionVotes.length
+                              candidate.ElectionVotes.length == 0
+                                ? "0"
+                                : candidate.ElectionVotes.length
                             }}
                             {{
-                            candidate.ElectionVotes.length > 1
-                            ? "votes"
-                            : "vote"
+                              candidate.ElectionVotes.length > 1
+                                ? "votes"
+                                : "vote"
                             }}
                           </div>
 
-                          <img *ngIf="
+                          <img
+                            *ngIf="
                               election.stage == 'election_ended' &&
                               checkResult(candidate) == 'winner'
-                            " src="../../../../../assets/images/medal.png" alt=""
-                            class="w-[25px] h-[25px] absolute right-0 -top-2" />
+                            "
+                            src="../../../../../assets/images/medal.png"
+                            alt=""
+                            class="w-[25px] h-[25px] absolute right-0 -top-2"
+                          />
 
-                          <div *ngIf="
+                          <div
+                            *ngIf="
                               election.stage == 'election_ended' &&
                               checkResult(candidate) == 'draw'
-                            " class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1">
+                            "
+                            class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
+                          >
                             Draw
                           </div>
                         </div>
@@ -339,34 +454,56 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Prediction" [(visible)]="predictionModal" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Prediction"
+    [(visible)]="predictionModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <div class="">
         <h1 class="text-md font-semibold mb-2">{{ positionTitle }}</h1>
-        <div *ngIf="isPredictionAvailable && hasSentiments && !chartLoading"
-          class="p-2 rounded-md bg-slate-50 h-[210px]">
-          <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
+        <div
+          *ngIf="isPredictionAvailable && hasSentiments && !chartLoading"
+          class="p-2 rounded-md bg-slate-50 h-[210px]"
+        >
+          <p-chart
+            type="bar"
+            [data]="chartData"
+            [options]="chartOptions"
+          ></p-chart>
         </div>
 
         <div *ngIf="chartLoading" class="grid place-items-center h-[210px]">
           Loading..
         </div>
 
-        <div *ngIf="!isPredictionAvailable" class="grid place-items-center h-[210px]">
+        <div
+          *ngIf="!isPredictionAvailable"
+          class="grid place-items-center h-[210px]"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt=""
-              class="w-[80px] h-[80px] object-cover mx-auto" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[80px] h-[80px] object-cover mx-auto"
+            />
             <div class="text-[12px] mt-4">
               Prediction will be available after the campaign period.
             </div>
           </div>
         </div>
 
-        <div *ngIf="isPredictionAvailable && !hasSentiments && !chartLoading" class="grid place-items-center h-[210px]">
+        <div
+          *ngIf="isPredictionAvailable && !hasSentiments && !chartLoading"
+          class="grid place-items-center h-[210px]"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt=""
-              class="w-[80px] h-[80px] object-cover mx-auto" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[80px] h-[80px] object-cover mx-auto"
+            />
             <div class="text-[12px] mt-4">No available data.</div>
           </div>
         </div>
@@ -376,20 +513,28 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Delete Election" [(visible)]="deleteElectionPrompt" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Delete Election"
+    [(visible)]="deleteElectionPrompt"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <div class="font-semibold my-2 mb-3">
         This action cannot be undone. Are you sure?
       </div>
 
       <div class="flex">
-        <div (click)="deleteElectionPrompt = false"
-          class="mr-2 bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center">
+        <div
+          (click)="deleteElectionPrompt = false"
+          class="mr-2 bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center"
+        >
           No
         </div>
-        <div (click)="deleteElection()"
-          class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center">
+        <div
+          (click)="deleteElection()"
+          class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center"
+        >
           Yes
         </div>
       </div>
@@ -398,51 +543,102 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Add Election Position" [(visible)]="electionPositionModal" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Add Election Position"
+    [(visible)]="electionPositionModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
-      <form (ngSubmit)="onElectionPositionSubmit()" [formGroup]="electionPositionForm" class="grid gap-3">
+      <form
+        (ngSubmit)="onElectionPositionSubmit()"
+        [formGroup]="electionPositionForm"
+        class="grid gap-3"
+      >
         <div>
-          <label class="block text-[12px] font-medium text-gray-700">Title</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Title</label
+          >
           <div class="mt-1 relative rounded-md">
-            <input type="text" class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-              placeholder="Title" formControlName="title" required />
+            <input
+              type="text"
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              placeholder="Title"
+              formControlName="title"
+              required
+            />
           </div>
         </div>
 
         <div>
-          <label class="block text-[12px] font-medium text-gray-700">Description</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Description</label
+          >
           <div class="mt-1 relative rounded-md">
-            <textarea formControlName="description" rows="3" placeholder="Description"
-              class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"></textarea>
+            <textarea
+              formControlName="description"
+              rows="3"
+              placeholder="Description"
+              class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+            ></textarea>
           </div>
         </div>
 
         <div>
-          <label class="block text-[12px] font-medium text-gray-700">No. of winners</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >No. of winners</label
+          >
           <div class="mt-1 relative rounded-md">
-            <input type="number" formControlName="no_of_winners" placeholder="No. of winners" required
-              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100" />
+            <input
+              type="number"
+              formControlName="no_of_winners"
+              placeholder="No. of winners"
+              required
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+            />
           </div>
         </div>
 
         <div>
-          <label class="block text-[12px] font-medium text-gray-700">No. of candidates</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >No. of candidates</label
+          >
           <div class="mt-1 relative rounded-md">
-            <input type="number" formControlName="no_of_candidates" placeholder="No. of candidates" required
-              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100" />
+            <input
+              type="number"
+              formControlName="no_of_candidates"
+              placeholder="No. of candidates"
+              required
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+            />
           </div>
         </div>
 
-        <button type="submit" [disabled]="submitLoading"
-          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full">
+        <button
+          type="submit"
+          [disabled]="submitLoading"
+          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+        >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-              </path>
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
             </svg>
 
             <span>Processing</span>
@@ -456,50 +652,81 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Candidates" [(visible)]="candidatesModal" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Candidates"
+    [(visible)]="candidatesModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <div class="">
-        <p-tabMenu #tab [model]="tabItems" [activeItem]="activeItem" (click)="changeTab(tab)"></p-tabMenu>
 
-        <div class="mt-5" *ngIf="activeItem">
-          <div *ngIf="activeItem.label == 'Candidates'" class="">
+        <div class="mt-5">
+          <div class="">
             <div class="flex justify-between items-center">
               <div class=""></div>
-              <button *ngIf="
+              <button
+                *ngIf="
                   election.status == 'draft' &&
                   limitOfCandidates > candidates.length
-                " (click)="addCandidateModal = true"
-                class="bg-red-500 text-white text-[12px] font-semibold py-2 px-4 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all">
+                "
+                (click)="addCandidateModal = true"
+                class="bg-red-500 text-white text-[12px] font-semibold py-2 px-4 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
+              >
                 <i class="fal fa-file-plus mr-1"></i>
                 Add Candidate
               </button>
             </div>
 
-            <div class="mt-10">
-              <div *ngIf="candidates.length == 0" class="grid place-items-center">
+            <hr class="my-3">
+
+            <div class="my-10">
+              <div
+                *ngIf="candidates.length == 0 && !isLoading"
+                class="grid place-items-center"
+              >
                 <div class="">
-                  <img src="../../../../../assets/images/empty-box.png" alt=""
-                    class="w-[180px] h-[180px] object-cover" />
-                  <h1 class="text-center mt-5 text-sm font-semibold text-slate-800">
-                    No candidates added yet.
+                  <img
+                    src="../../../../../assets/images/empty-box.png"
+                    alt=""
+                    class="w-[100px] h-[100px] mx-auto object-cover"
+                  />
+                  <h1
+                    class="text-center mt-5 text-sm font-semibold text-slate-800"
+                  >
+                    No candidate(s) added yet.
                   </h1>
                 </div>
               </div>
 
-              <div *ngIf="candidates.length != 0" class="grid gap-3 max-h-[300px]">
-                <div *ngFor="let candidate of candidates; trackBy: candidatesTrack"
-                  class="border border-gray-200 p-2 rounded-md flex justify-between items-center">
+              <div
+                *ngIf="candidates.length != 0"
+                class="grid gap-3 max-h-[300px]"
+              >
+                <div
+                  *ngFor="let candidate of candidates; trackBy: candidatesTrack"
+                  class="border border-gray-200 p-2 rounded-md flex justify-between items-center"
+                >
                   <div class="flex items-center">
-                    <img [src]="
+                    <img
+                      [src]="
                         candidate.User.image != null
                           ? candidate.User.image
                           : '../../../../../assets/images/student.png'
-                      " alt="" class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200" />
-                    <h1 class="ml-2 capitalize">{{ candidate.User.name }}</h1>
+                      "
+                      alt=""
+                      class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200"
+                    />
+                    <div class="ml-2 ">
+                      <h1 class="capitalize text-sm">{{ candidate.User.name }}</h1>
+                      <p class="text-[12px] bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                    </div>
                   </div>
-                  <div *ngIf="this.election.status == 'draft'" (click)="removeCandidate(candidate)"
-                    class="ml-2 rounded-full w-[35px] h-[35px] hover:bg-gray-200 transition-all cursor-pointer grid place-items-center">
+                  <div
+                    *ngIf="this.election.status == 'draft'"
+                    (click)="removeCandidate(candidate)"
+                    class="ml-2 rounded-full w-[35px] h-[35px] hover:bg-gray-200 transition-all cursor-pointer grid place-items-center"
+                  >
                     <i class="fal fa-times"></i>
                   </div>
                 </div>
@@ -513,25 +740,45 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Add Candidate" [(visible)]="addCandidateModal" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Add Candidate"
+    [(visible)]="addCandidateModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <form (ngSubmit)="onAddCandidateSubmit()">
         <div class="">
-          <label class="block text-[12px] font-medium text-gray-700">Candidate's Image</label>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Candidate's Image</label
+          >
           <div class="">
-            <div class="relative mx-auto mb-5 bg-slate-50 rounded-full w-[150px] h-[150px] border-2 border-gray-200">
-              <img [src]="
+            <div
+              class="relative mx-auto mb-5 bg-slate-50 rounded-full w-[150px] h-[150px] border-2 border-gray-200"
+            >
+              <img
+                [src]="
                   addCandidatePreviewImg == null
                     ? '../../../../../assets/images/student.png'
                     : addCandidatePreviewImg
-                " alt="" class="object-cover w-full h-full rounded-full" />
+                "
+                alt=""
+                class="object-cover w-full h-full rounded-full"
+              />
 
-              <input #imageInput type="file" accept="image/x-png,image/gif,image/jpeg"
-                [(ngModel)]="addCandidateData.image" [ngModelOptions]="{ standalone: true }" class="hidden"
-                (change)="loadInputImgToSrc($event)" />
-              <div (click)="imageInput.click()"
-                class="absolute top-[60%] left-[60%] bg-gray-800/30 w-[35px] h-[35px] hover:bg-gray-900/50 transition-all rounded-full grid place-items-center text-white cursor-pointer">
+              <input
+                #imageInput
+                type="file"
+                accept="image/x-png,image/gif,image/jpeg"
+                [(ngModel)]="addCandidateData.image"
+                [ngModelOptions]="{ standalone: true }"
+                class="hidden"
+                (change)="loadInputImgToSrc($event)"
+              />
+              <div
+                (click)="imageInput.click()"
+                class="absolute top-[60%] left-[60%] bg-gray-800/30 w-[35px] h-[35px] hover:bg-gray-900/50 transition-all rounded-full grid place-items-center text-white cursor-pointer"
+              >
                 <div class="fal fa-camera"></div>
               </div>
             </div>
@@ -540,11 +787,20 @@
 
         <div class="grid gap-2">
           <div>
-            <label class="block text-[12px] font-medium text-gray-700">Select Candidate</label>
+            <label class="block text-[12px] font-medium text-gray-700"
+              >Select Candidate</label
+            >
             <div class="mt-1 relative rounded-md">
-              <select [(ngModel)]="addCandidateData.UserId" [ngModelOptions]="{ standalone: true }"
-                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100">
-                <option *ngFor="let student of students" [value]="student.id" class="py-2">
+              <select
+                [(ngModel)]="addCandidateData.UserId"
+                [ngModelOptions]="{ standalone: true }"
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              >
+                <option
+                  *ngFor="let student of students"
+                  [value]="student.id"
+                  class="py-2"
+                >
                   {{ student.StudentCredential.Course.acronym }}
                   {{ student.StudentCredential.year
                   }}{{ student.StudentCredential.section }} - {{ student.name }}
@@ -554,23 +810,68 @@
           </div>
 
           <div>
-            <label class="block text-[12px] font-medium text-gray-700">Platform</label>
+            <label class="block text-[12px] font-medium text-gray-700"
+              >Select Partylist</label
+            >
             <div class="mt-1 relative rounded-md">
-              <textarea type="text" rows="3" class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-                placeholder="Candidate's platform" [(ngModel)]="addCandidateData.platform"
-                [ngModelOptions]="{ standalone: true }" required></textarea>
+              <select
+                [(ngModel)]="addCandidateData.partylist"
+                [ngModelOptions]="{ standalone: true }"
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              >
+                <option value="0">Independent</option>
+                <option
+                  *ngFor="let party of partylists"
+                  [value]="party.id"
+                  class="py-2"
+                >
+                  {{ party.title }}
+                </option>
+              </select>
             </div>
           </div>
 
-          <button [disabled]="submitLoading"
-            class="mt-2 grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full">
+          <div>
+            <label class="block text-[12px] font-medium text-gray-700"
+              >Platform</label
+            >
+            <div class="mt-1 relative rounded-md">
+              <textarea
+                type="text"
+                rows="3"
+                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+                placeholder="Candidate's platform"
+                [(ngModel)]="addCandidateData.platform"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <button
+            [disabled]="submitLoading"
+            class="mt-2 grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+          >
             <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
+              <svg
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
 
               <span>Processing</span>
@@ -585,20 +886,32 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Voters" [(visible)]="votersModal" [modal]="true" [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Voters"
+    [(visible)]="votersModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="" *ngIf="election">
       <div class="mt-3" *ngIf="election">
         <div class=""></div>
 
         <div class="grid gap-2">
-          <div *ngFor="let voter of election.ElectionVoters" (click)="selectVoter(voter)"
-            class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all">
+          <div
+            *ngFor="let voter of election.ElectionVoters"
+            (click)="selectVoter(voter)"
+            class="border border-gray-200 p-2 rounded-lg grid grid-cols-[40px_1fr] items-center gap-2 cursor-pointer hover:bg-gray-100 transition-all"
+          >
             <div class="w-[40px] h-[40px] rounded-full border border-gray-200">
-              <img [src]="
+              <img
+                [src]="
                   voter.User.image == null
                     ? '../../../../../assets/images/student.png'
                     : voter.User.image
-                " alt="" class="w-[40px] h-[40px] rounded-full object-cover" />
+                "
+                alt=""
+                class="w-[40px] h-[40px] rounded-full object-cover"
+              />
             </div>
             <div class="">
               <h1 class="font-semibold text-slate-800 capitalize">
@@ -613,9 +926,16 @@
       </div>
 
       <div class="" *ngIf="election.length != 0">
-        <div class="h-[300px] grid place-items-center" *ngIf="election.ElectionVoters.length == 0">
+        <div
+          class="h-[300px] grid place-items-center"
+          *ngIf="election.ElectionVoters.length == 0"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[100px] h-[100px] object-cover" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[100px] h-[100px] object-cover"
+            />
             <p>No voters yet.</p>
           </div>
         </div>
@@ -625,27 +945,45 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Vote Receipt" [(visible)]="voteReceiptModal" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Vote Receipt"
+    [(visible)]="voteReceiptModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="" *ngIf="receipt.length != 0">
       <div class="grid gap-3">
-        <div *ngFor="let position of receipt.Election.ElectionPositions" class="">
+        <div
+          *ngFor="let position of receipt.Election.ElectionPositions"
+          class=""
+        >
           <div class="" *ngIf="position.ElectionCandidates.length != 0">
             <div class="mb-1">
               <h2 class="font-semibold text-slate-900">{{ position.title }}</h2>
             </div>
 
             <div class="bg-slate-50 grid h-fit p-2 rounded-md">
-              <div *ngFor="let candidate of position.ElectionCandidates" class="">
-                <div *ngIf="candidate.ElectionVotes.length != 0"
-                  class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100">
+              <div
+                *ngFor="let candidate of position.ElectionCandidates"
+                class=""
+              >
+                <div
+                  *ngIf="candidate.ElectionVotes.length != 0"
+                  class="p-2 mb-1 bg-white rounded-md shadow-sm border boder-gray-100"
+                >
                   <div class="grid grid-cols-[40px_1fr] gap-2">
-                    <div class="border border-gray-200 w-[40px] h-[40px] rounded-full">
-                      <img [src]="
+                    <div
+                      class="border border-gray-200 w-[40px] h-[40px] rounded-full"
+                    >
+                      <img
+                        [src]="
                           candidate.User.image == null
                             ? '../../../../../assets/images/student.png'
                             : candidate.User.image
-                        " alt="" class="w-[40px] h-[40px] rounded-full object-cover" />
+                        "
+                        alt=""
+                        class="w-[40px] h-[40px] rounded-full object-cover"
+                      />
                     </div>
                     <div class="">
                       <h4 class="font-semibold text-sm capitalize">
@@ -666,12 +1004,16 @@
       </div>
 
       <div class="grid grid-cols-2 mt-2 gap-2">
-        <button [routerLink]="['/faculty/user']" [queryParams]="{ id: receipt.UserId }"
-          class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all">
+        <button
+          [routerLink]="['/faculty/user']"
+          [queryParams]="{ id: receipt.UserId }"
+          class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all"
+        >
           Profile
         </button>
         <button
-          class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all">
+          class="bg-red-800 text-white font-semibold w-full rounded-md py-2 text-sm mt-2 hover:bg-red-900 transition-all"
+        >
           <i class="fal fa-download"></i> Download
         </button>
       </div>
@@ -680,25 +1022,35 @@
 </div>
 
 <div class="relative z-50">
-  <p-dialog header="Winners" [(visible)]="winnersModal" [modal]="true" [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Winners"
+    [(visible)]="winnersModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="">
       <div class="flex items-center justify-between mb-2">
         <div class=""></div>
         <div
-          class="bg-slate-50 hover:bg-slate-100 border border-slate-200 h-fit px-2 py-[2px] text-sm rounded-md cursor-pointer">
+          class="bg-slate-50 hover:bg-slate-100 border border-slate-200 h-fit px-2 py-[2px] text-sm rounded-md cursor-pointer"
+        >
           <i class="fad fa-download mr-1"></i> Download
         </div>
       </div>
 
-
       <div class="grid gap-4">
         <div *ngFor="let position of electionResult" class="">
-          <div class="font-semibold text-md text-slate-800 border-b border-slate-200 py-[2px] w-full">{{ position.title
-            }}</div>
+          <div
+            class="font-semibold text-md text-slate-800 border-b border-slate-200 py-[2px] w-full"
+          >
+            {{ position.title }}
+          </div>
 
           <div class="grid gap-1 mt-2">
             <div *ngFor="let winner of position.results" class="">
-              <div *ngIf="winner.result == 'winner'" class="text-sm">- {{ winner.name }}</div>
+              <div *ngIf="winner.result == 'winner'" class="text-sm">
+                - {{ winner.name }}
+              </div>
             </div>
           </div>
         </div>
@@ -707,11 +1059,13 @@
   </p-dialog>
 </div>
 
-
-<p-dialog header="Set Time and Date" [(visible)]="coreElectioModal" [modal]="true"
-  [style]="{ maxWidth: '400px', width: '400px' }">
+<p-dialog
+  header="Set Time and Date"
+  [(visible)]="coreElectioModal"
+  [modal]="true"
+  [style]="{ maxWidth: '400px', width: '400px' }"
+>
   <div class="mt-3">
-
     <div class="">
       <div class="">
         <div class="grid gap-5">
@@ -721,107 +1075,161 @@
               <div class="">Will this election have a Campaign period?</div>
             </div>
             <div class="">
-              <div *ngIf="electionData.campaign.hasCampaign == null" class="text-[12px] font-bold flex ml-4 mt-1">
-                <div (click)="electionData.campaign.hasCampaign = false"
-                  class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+              <div
+                *ngIf="electionData.campaign.hasCampaign == null"
+                class="text-[12px] font-bold flex ml-4 mt-1"
+              >
+                <div
+                  (click)="electionData.campaign.hasCampaign = false"
+                  class="mr-2 bg-red-100 hover:bg-red-200 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   No
                 </div>
-                <div (click)="electionData.campaign.hasCampaign = true"
-                  class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+                <div
+                  (click)="electionData.campaign.hasCampaign = true"
+                  class="bg-green-100 hover:bg-green-300/80 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   Yes
                 </div>
               </div>
 
-              <div *ngIf="electionData.campaign.hasCampaign == false"
-                class="text-[12px] font-bold flex items-center ml-4 mt-1">
+              <div
+                *ngIf="electionData.campaign.hasCampaign == false"
+                class="text-[12px] font-bold flex items-center ml-4 mt-1"
+              >
                 <div class="mr-2 font-normal">You answered:</div>
 
-                <div class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+                <div
+                  class="mr-2 bg-red-100 text-red-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   No
                 </div>
-                <div (click)="
-                      electionData.campaign.hasCampaign = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                  class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+                <div
+                  (click)="
+                    electionData.campaign.hasCampaign = null;
+                    electionData.election.start = null;
+                    electionData.election.end = null
+                  "
+                  class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   Undo
                 </div>
               </div>
 
-              <div *ngIf="electionData.campaign.hasCampaign == true"
-                class="text-[12px] font-bold flex items-center ml-4 mt-1">
+              <div
+                *ngIf="electionData.campaign.hasCampaign == true"
+                class="text-[12px] font-bold flex items-center ml-4 mt-1"
+              >
                 <div class="mr-2 font-normal">You answered:</div>
 
-                <div class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+                <div
+                  class="mr-2 bg-green-100 text-green-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   Yes
                 </div>
-                <div (click)="
-                      electionData.campaign.hasCampaign = null;
-                      electionData.campaign.start = null;
-                      electionData.campaign.end = null;
-                      electionData.election.start = null;
-                      electionData.election.end = null
-                    "
-                  class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all">
+                <div
+                  (click)="
+                    electionData.campaign.hasCampaign = null;
+                    electionData.campaign.start = null;
+                    electionData.campaign.end = null;
+                    electionData.election.start = null;
+                    electionData.election.end = null
+                  "
+                  class="bg-gray-100 hover:bg-gray-200/80 text-gray-800 w-fit py-1 px-3 rounded-md cursor-pointer transition-all"
+                >
                   Undo
                 </div>
               </div>
             </div>
 
-            <fieldset *ngIf="electionData.campaign.hasCampaign == true"
-              class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3">
+            <fieldset
+              *ngIf="electionData.campaign.hasCampaign == true"
+              class="mt-3 border border-solid border-gray-200 p-2 rounded-md grid gap-3"
+            >
               <legend class="text-[12px] px-1">Campaign Period</legend>
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[12px] font-medium text-gray-700">Start</label>
+                  <label class="block text-[12px] font-medium text-gray-700"
+                    >Start</label
+                  >
                   <div class="mt-1 relative rounded-md">
-                    <input type="datetime-local" [min]="currentDate"
-                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100" placeholder="Start"
-                      [(ngModel)]="electionData.campaign.start" required />
+                    <input
+                      type="datetime-local"
+                      [min]="currentDate"
+                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                      placeholder="Start"
+                      [(ngModel)]="electionData.campaign.start"
+                      required
+                    />
                   </div>
                 </div>
                 <div>
-                  <label class="block text-[12px] font-medium text-gray-700">End</label>
+                  <label class="block text-[12px] font-medium text-gray-700"
+                    >End</label
+                  >
                   <div class="mt-1 relative rounded-md">
-                    <input type="datetime-local" [min]="electionData.campaign.start"
+                    <input
+                      type="datetime-local"
+                      [min]="electionData.campaign.start"
                       [disabled]="electionData.campaign.start == null"
-                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100" placeholder="End"
-                      [(ngModel)]="electionData.campaign.end" required />
+                      class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                      placeholder="End"
+                      [(ngModel)]="electionData.campaign.end"
+                      required
+                    />
                   </div>
                 </div>
               </div>
             </fieldset>
           </div>
 
-          <fieldset *ngIf="
-                electionData.campaign.hasCampaign != null &&
-                (electionData.campaign.hasCampaign == true
-                  ? electionData.campaign.start != null &&
-                    electionData.campaign.end != null
-                  : true)
-              " class="border border-solid border-gray-200 p-2 rounded-md grid gap-3">
+          <fieldset
+            *ngIf="
+              electionData.campaign.hasCampaign != null &&
+              (electionData.campaign.hasCampaign == true
+                ? electionData.campaign.start != null &&
+                  electionData.campaign.end != null
+                : true)
+            "
+            class="border border-solid border-gray-200 p-2 rounded-md grid gap-3"
+          >
             <legend class="text-[12px] px-1">Election</legend>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-[12px] font-medium text-gray-700">Start</label>
+                <label class="block text-[12px] font-medium text-gray-700"
+                  >Start</label
+                >
                 <div class="mt-1 relative rounded-md">
-                  <input type="datetime-local" class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                    placeholder="Start" [(ngModel)]="electionData.election.start" [min]="
-                        electionData.campaign.hasCampaign
-                          ? electionData.campaign.end
-                          : currentDate
-                      " required />
+                  <input
+                    type="datetime-local"
+                    class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                    placeholder="Start"
+                    [(ngModel)]="electionData.election.start"
+                    [min]="
+                      electionData.campaign.hasCampaign
+                        ? electionData.campaign.end
+                        : currentDate
+                    "
+                    required
+                  />
                 </div>
               </div>
               <div>
-                <label class="block text-[12px] font-medium text-gray-700">End</label>
+                <label class="block text-[12px] font-medium text-gray-700"
+                  >End</label
+                >
                 <div class="mt-1 relative rounded-md">
-                  <input type="datetime-local" class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
-                    [disabled]="electionData.election.start == null" [min]="electionData.election.start"
-                    placeholder="End" [(ngModel)]="electionData.election.end" required />
+                  <input
+                    type="datetime-local"
+                    class="outline-none block text-[12px] w-full p-2 rounded-md bg-slate-100"
+                    [disabled]="electionData.election.start == null"
+                    [min]="electionData.election.start"
+                    placeholder="End"
+                    [(ngModel)]="electionData.election.end"
+                    required
+                  />
                 </div>
               </div>
             </div>
@@ -830,15 +1238,31 @@
       </div>
 
       <div class="mt-5">
-        <button (click)="finishSetup()" [disabled]="submitLoading"
-          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full">
+        <button
+          (click)="finishSetup()"
+          [disabled]="submitLoading"
+          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+        >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-              </path>
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
             </svg>
 
             <span>Processing</span>
@@ -850,3 +1274,155 @@
     </div>
   </div>
 </p-dialog>
+
+
+<div class="relative z-50">
+  <p-dialog
+    header="Partylists"
+    [(visible)]="partylistsModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="mt-3">
+      <div class="">
+        <div class="mt-5">
+          <div class="">
+            <div class="flex justify-between items-center">
+              <div class=""></div>
+              <button
+                (click)="partylistCreationModal = true"
+                class="bg-red-500 text-white text-[12px] font-semibold py-2 px-4 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
+              >
+                <i class="fal fa-file-plus mr-1"></i>
+                Add Partylist
+              </button>
+            </div>
+
+            <hr class="my-3">
+
+            <div class="my-10">
+              <div
+                *ngIf="partylists.length == 0 && !isLoading"
+                class="grid place-items-center"
+              >
+                <div class="">
+                  <img
+                    src="../../../../../assets/images/empty-box.png"
+                    alt=""
+                    class="w-[100px] h-[100px] mx-auto object-cover"
+                  />
+                  <h1
+                    class="text-center mt-5 text-sm font-semibold text-slate-800"
+                  >
+                    No partylist added yet.
+                  </h1>
+                </div>
+              </div>
+
+              <div
+                *ngIf="partylists.length != 0 && !isLoading"
+                class="grid gap-3 max-h-[300px]"
+              >
+                <div
+                  *ngFor="let party of partylists; trackBy: candidatesTrack"
+                  class="border border-gray-100 py-1 px-2 rounded-md flex justify-between items-center cursor-pointer"
+                >
+                  <div class="flex items-center">
+                    <img
+                      src="../../../../../assets/images/background.jpg"
+                      alt=""
+                      class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200"
+                    />
+                    <h1 class="ml-2 capitalize text-[12px] font-semibold">{{ party.title }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+<div class="relative z-50">
+  <p-dialog
+    header="Add Partylist"
+    [(visible)]="partylistCreationModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="mt-3">
+      <form
+        (ngSubmit)="onPartylistCreationSubmit()"
+        [formGroup]="partylistCreationForm"
+        class="grid gap-3"
+      >
+        <div>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Title</label
+          >
+          <div class="mt-1 relative rounded-md">
+            <input
+              type="text"
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+              placeholder="Title"
+              formControlName="title"
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Description</label
+          >
+          <div class="mt-1 relative rounded-md">
+            <textarea
+              formControlName="description"
+              rows="3"
+              placeholder="Description"
+              class="resize-none outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
+            ></textarea>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="submitLoading"
+          class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+        >
+          <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+
+            <span>Processing</span>
+          </div>
+
+          <span *ngIf="!submitLoading">Create</span>
+        </button>
+      </form>
+    </div>
+  </p-dialog>
+</div>
+
+
+

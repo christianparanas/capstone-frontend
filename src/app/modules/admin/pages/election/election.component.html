@@ -355,14 +355,17 @@
                               <h1 class="font-semibold text-sm text-slate-800 capitalize">
                                 {{ candidate.User.name }}
                               </h1>
-                              <p class="text-[12px]">
-                                {{
-                                  candidate.User.StudentCredential.Course
-                                    .acronym
-                                }}
-                                {{ candidate.User.StudentCredential.year
-                                }}{{ candidate.User.StudentCredential.section }}
-                              </p>
+                              <div class="flex items-center">
+                                <p class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                                <p class="text-[12px]">
+                                  {{
+                                    candidate.User.StudentCredential.Course
+                                      .acronym
+                                  }}
+                                  {{ candidate.User.StudentCredential.year
+                                  }}{{ candidate.User.StudentCredential.section }}
+                                </p>
+                              </div>
                             </div>
                           </div>
                           <div class="text-[12px] font-semibold">
