@@ -7,9 +7,16 @@
       <i class="fal fa-arrow-left"></i>
     </div>
 
-    <div *ngIf="election == null && !isLoading" class="mt-20 grid place-items-center">
+    <div
+      *ngIf="election == null && !isLoading"
+      class="mt-20 grid place-items-center"
+    >
       <div class="">
-        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[150px] h-[150px] object-cover mx-auto">
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          alt=""
+          class="w-[150px] h-[150px] object-cover mx-auto"
+        />
         <div class="mt-5 text-[12px]">Oopss. There's nothing here.</div>
       </div>
     </div>
@@ -214,6 +221,14 @@
               <h1 class="text-lg font-semibold">
                 <i class="fad fa-poll"></i> Positions
               </h1>
+
+              <div
+                *ngIf="election.Partylists.length == 0 || election.Partylist == null"
+                (click)="bulletVotingModal = true"
+                class="bg-slate-100 border border-slate-200 py-1 px-2 rounded-md text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-all cursor-pointer"
+              >
+                <i class="far fa-users mr-1"></i> <span>Bullet Voting</span>
+              </div>
             </div>
 
             <div class="mt-10">
@@ -301,11 +316,25 @@
                             <h1 class="font-semibold text-sm capitalize">
                               {{ candidate.User.name }}
                             </h1>
-                            <p class="text-[12px]">
-                              {{
-                                candidate.User.StudentCredential.Course.title
-                              }}
-                            </p>
+                            <div class="flex items-center">
+                              <p
+                                class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                              >
+                                {{
+                                  candidate.Partylist == null
+                                    ? "Indendent"
+                                    : candidate.Partylist.title
+                                }}
+                              </p>
+                              <p class="text-[12px]">
+                                {{
+                                  candidate.User.StudentCredential.Course
+                                    .acronym
+                                }}
+                                {{ candidate.User.StudentCredential.year
+                                }}{{ candidate.User.StudentCredential.section }}
+                              </p>
+                            </div>
                           </div>
                           <div
                             *ngIf="candidate.isSelected"
@@ -407,15 +436,24 @@
                           />
                         </div>
                         <div class="">
-                          <h1 class="font-semibold text-sm text-slate-800 capitalize">
+                          <h1
+                            class="font-semibold text-sm text-slate-800 capitalize"
+                          >
                             {{ candidate.User.name }}
                           </h1>
                           <div class="flex items-center">
-                            <p class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                            <p
+                              class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                            >
+                              {{
+                                candidate.Partylist == null
+                                  ? "Indendent"
+                                  : candidate.Partylist.title
+                              }}
+                            </p>
                             <p class="text-[12px]">
                               {{
-                                candidate.User.StudentCredential.Course
-                                  .acronym
+                                candidate.User.StudentCredential.Course.acronym
                               }}
                               {{ candidate.User.StudentCredential.year
                               }}{{ candidate.User.StudentCredential.section }}
@@ -556,6 +594,68 @@
             <div *ngFor="let winner of position.results" class="">
               <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">
                 - {{ winner.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+<div class="relative z-50">
+  <p-dialog
+    header="Bullet Voting"
+    [(visible)]="bulletVotingModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
+    <div class="">
+      <div
+        *ngIf="election.Partylists.length == 0 && !isLoading"
+        class="grid place-items-center"
+      >
+        <div class="">
+          <img
+            src="../../../../../assets/images/empty-box.png"
+            alt=""
+            class="w-[100px] h-[100px] mx-auto object-cover"
+          />
+          <h1 class="text-center mt-5 text-sm font-semibold text-slate-800">
+            No partylist(s) added.
+          </h1>
+        </div>
+      </div>
+
+      <div class="grid gap-5">
+        <div *ngFor="let party of election.Partylists" class="">
+          <div class="bg-slate-100 px-2 py-1 rounded-md text-sm font-semibold flex items-center"><input type="checkbox" /> <span class="ml-1">{{ party.title }}</span></div>
+
+          <div class="mt-2 grid gap-2">
+            <div
+              *ngFor="let candidate of party.ElectionCandidates"
+              class="grid grid-cols-[40px_1fr] gap-2 items-center"
+            >
+              <div
+                class="w-[40px] h-[40px] rounded-full border border-gray-200"
+              >
+                <img
+                  [src]="
+                    candidate.User.image == null
+                      ? '../../../../../assets/images/student.png'
+                      : candidate.User.image
+                  "
+                  alt=""
+                  class="w-[40px] h-[40px] rounded-full object-cover"
+                />
+              </div>
+              <div class="">
+                <h1 class="font-semibold text-sm text-slate-800 capitalize">
+                  {{ candidate.User.name }}
+                </h1>
+                <div class="w-fit bg-slate-100 border border-slate-200 rounded-md px-1 text-[12px]">
+                  For <span class="capitalize">{{ candidate.ElectionPosition.title }}</span>
+                </div>
               </div>
             </div>
           </div>

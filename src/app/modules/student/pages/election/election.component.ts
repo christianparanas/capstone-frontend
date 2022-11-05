@@ -19,6 +19,7 @@ export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
   candidateModal: boolean = false;
+  bulletVotingModal: boolean = false
   isAlreadyVoted: boolean = false;
 
   profile: any = [];
