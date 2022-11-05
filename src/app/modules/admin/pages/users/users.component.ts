@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
     this.tabItems = [
       { label: 'Student', icon: 'pi pi-fw pi-user' },
       { label: 'Faculty', icon: 'pi pi-fw pi-users' },
-      { label: 'Admin', icon: 'pi pi-fw pi-admin' },
+      { label: 'Admin', icon: 'pi pi-fw pi-users' },
     ];
 
     this.route.queryParams.subscribe((value) => {

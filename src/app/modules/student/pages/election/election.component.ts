@@ -247,6 +247,8 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
+        console.log(response)
+
         this.getResult();
 
         response.ElectionPositions.forEach((position: any) => {

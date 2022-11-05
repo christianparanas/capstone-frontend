@@ -7,7 +7,14 @@
       <i class="fal fa-arrow-left"></i>
     </div>
 
-    <div class="">
+    <div *ngIf="election == null && isLoading" class="mt-20 grid place-items-center">
+      <div class="">
+        <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[150px] h-[150px] object-cover mx-auto">
+        <div class="mt-5 text-[12px]">Oopss. There's nothing here.</div>
+      </div>
+    </div>
+
+    <div *ngIf="election != null && !isLoading" class="">
       <div class="">
         <img
           src="../../../../../assets/images/propaganda.png"
