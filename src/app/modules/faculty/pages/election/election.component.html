@@ -18,7 +18,7 @@
         <div class="mt-10">
           <div class="grid lg:grid-cols-2 gap-5 items-start">
             <div class="grid gap-3">
-              <div class="grid gap-3">
+              <div *ngIf="election.status == 'active'" class="grid gap-3">
                 <div class="grid gap-2" *ngIf="election.hasCampaign">
                   <div class="text-sm font-semibold">Campaign Period</div>
 
@@ -108,6 +108,9 @@
                   <p class="text-[12px] ml-2">Phase</p>
                   <div
                     class="text-[12px] bg-gray-100 text-gray-800 font-semibold px-2 py-2 rounded-full capitalize w-full text-center">
+                    <div class="" *ngIf="election.stage == 'configuring'">
+                      Configuring
+                    </div>
                     <div class="" *ngIf="election.stage == 'initial'">
                       Initial
                     </div>
@@ -128,7 +131,7 @@
                 <div class="">
                   <p class="text-[12px] ml-2">Status</p>
                   <div *ngIf="election.status == 'draft'"
-                    class="text-[12px] bg-slate-200 text-slate-800 font-semibold px-2 py-2 rounded-full capitalize text-center">
+                    class="text-[12px] bg-slate-100 text-slate-800 font-semibold px-2 py-2 rounded-full capitalize text-center">
                     {{ election.status }}
                   </div>
                   <div *ngIf="election.status == 'active'"
@@ -217,10 +220,10 @@
                     <i class="fal fa-trash mr-1"></i>
                     Delete Election
                   </button>
-                  <button (click)="finishSetupPrompt = true"
+                  <button (click)="checkAddedPosition()"
                     class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all">
                     <i class="fal fa-check mr-1"></i>
-                    Finish Setup
+                    Set Time and Date
                   </button>
                 </div>
               </div>
@@ -379,28 +382,6 @@
           No
         </div>
         <div (click)="deleteElection()"
-          class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center">
-          Yes
-        </div>
-      </div>
-    </div>
-  </p-dialog>
-</div>
-
-<div class="relative z-50">
-  <p-dialog header="Finish Setup" [(visible)]="finishSetupPrompt" [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }">
-    <div class="mt-3">
-      <div class="font-semibold my-2 mb-3">
-        This action cannot be undone. Are you sure?
-      </div>
-
-      <div class="flex">
-        <div (click)="finishSetupPrompt = false"
-          class="mr-2 bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center">
-          No
-        </div>
-        <div (click)="finishSetup()"
           class="bg-slate-800 text-white text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-slate-900 cursor-pointer transition-all w-full text-center">
           Yes
         </div>
@@ -720,7 +701,7 @@
 </div>
 
 
-<p-dialog header="Create Election" [(visible)]="coreElectioModal" [modal]="true"
+<p-dialog header="Set Time and Date" [(visible)]="coreElectioModal" [modal]="true"
   [style]="{ maxWidth: '400px', width: '400px' }">
   <div class="mt-3">
 
@@ -841,10 +822,7 @@
         </div>
       </div>
 
-      <div class="mt-5 grid grid-cols-[100px_1fr]">
-        <button class="cursor-pointer text-sm font-semibold hover:text-red-500 transition-all">
-          Back
-        </button>
+      <div class="mt-5">
         <button (click)="finishSetup()" [disabled]="submitLoading"
           class="grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full">
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
@@ -859,7 +837,7 @@
             <span>Processing</span>
           </div>
 
-          <span *ngIf="!submitLoading">Create</span>
+          <span *ngIf="!submitLoading">Finish Setup</span>
         </button>
       </div>
     </div>

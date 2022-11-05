@@ -89,6 +89,8 @@ export class ElectionComponent implements OnInit {
       this.electionId = value.id;
     });
 
+    this.currentDate = new Date().toISOString().slice(0, 16);
+
     this.getElection();
     this.getCourses();
 
@@ -382,34 +384,56 @@ export class ElectionComponent implements OnInit {
     );
   }
 
-  finishSetup() {
+  checkAddedPosition() {
     if (this.election.ElectionPositions.length == 0) {
       this.finishSetupPrompt = false;
       return this.toast.info(
-        "There's no added election position. Please provide, or else this election cannot be accepted",
-        { position: 'top-right', duration: 5000 }
+        "There's no added election position.",
+        { duration: 5000 }
       );
     }
+
+    if (this.election.ElectionCandidates.length == 0) {
+      this.finishSetupPrompt = false;
+      return this.toast.info(
+        "There's no added election candidate.",
+        { duration: 5000 }
+      );
+    }
+
+    this.coreElectioModal = true
+  }
+
+  finishSetup() {
+    if (this.electionData.campaign.hasCampaign == null) {
+      return this.toast.info('Please answer the questions to proceed.');
+    }
+
+    if (this.electionData.election.start == null) {
+      return this.toast.info('Please input election start date.');
+    }
+
+    if (this.electionData.election.end == null) {
+      return this.toast.info('Please input election end date.');
+    }
+
+    const ans = confirm("Finish Setup? Are you sure?")
+
+    if(!ans) return
 
     this.electionService
       .changeStatus({
         core: { ...this.electionData },
         ElectionId: this.election.id,
         status: 'active',
-        stage: this.election.hasCampaign
-          ? this.election.campaignperiod_startdate <= new Date()
-            ? 'campaign'
-            : 'initial'
-          : this.election.election_startdate <= new Date()
-            ? 'election'
-            : 'initial',
+
       })
       .subscribe(
         (response: any) => {
           this.toast.success(response.message);
 
           this.getElection();
-          this.finishSetupPrompt = false;
+          this.coreElectioModal = false;
 
           this.eventService.sendNewElectionEvent({
             course: this.election.course,
