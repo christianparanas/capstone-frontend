@@ -174,6 +174,10 @@ export class ElectionComponent implements OnInit {
   }
 
   bulletVote(id: any) {
+    this.votes.forEach((vote: any) => [
+      vote.selectedCandidateCount = 0
+    ])
+
     this.election.Partylists.forEach((party: any) => {
       if (party.id == id) {
         if (party.isSelected == true) {
@@ -206,21 +210,32 @@ export class ElectionComponent implements OnInit {
           if (candidate.id == data.id) {
             candidate.isSelected = op == 1 ? true : false;
 
-            if(op == 1) {
-              item.selectedCandidateCount -= item.selectedCandidateCount
-            } 
-            
-            if(op == 2){
-              item.selectedCandidateCount += item.selectedCandidateCount
-            } 
+            if (op == 1) {
+              item.selectedCandidateCount = item.selectedCandidateCount + 1;
+            } else {
+              if (item.selectedCandidateCount == item.no_of_winners) {
+                
+              } else if(candidate.isSelected == true) {
+                item.selectedCandidateCount = item.selectedCandidateCount - 1;
+              }
+            }
+
+            // if (op == 2) {
+            //   item.selectedCandidateCount = item.selectedCandidateCount - 1;
+            // } else {
+            //   if (item.selectedCandidateCount == item.no_of_winners) {
+            //   } else {
+            //     item.selectedCandidateCount = item.selectedCandidateCount + 1;
+            //   }
+            // }
           }
         });
       }
+
+      this.checkIfBallotEmpty();
+
+      console.log(this.votes[0].selectedCandidateCount)
     });
-
-    this.checkIfBallotEmpty();
-
-    console.log(this.votes)
   }
 
   selectCandidate(data: any) {
@@ -255,7 +270,6 @@ export class ElectionComponent implements OnInit {
   }
 
   checkIfBallotEmpty() {
-
     this.votes.forEach((vote: any) => {
       if (vote.selectedCandidateCount > 0) {
         this.isVoteNotEmpty = true;
