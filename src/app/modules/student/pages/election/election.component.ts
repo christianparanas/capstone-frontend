@@ -219,22 +219,11 @@ export class ElectionComponent implements OnInit {
                 item.selectedCandidateCount = item.selectedCandidateCount - 1;
               }
             }
-
-            // if (op == 2) {
-            //   item.selectedCandidateCount = item.selectedCandidateCount - 1;
-            // } else {
-            //   if (item.selectedCandidateCount == item.no_of_winners) {
-            //   } else {
-            //     item.selectedCandidateCount = item.selectedCandidateCount + 1;
-            //   }
-            // }
           }
         });
       }
 
       this.checkIfBallotEmpty();
-
-      console.log(this.votes[0].selectedCandidateCount)
     });
   }
 

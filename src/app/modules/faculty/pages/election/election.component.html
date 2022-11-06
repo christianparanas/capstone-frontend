@@ -21,6 +21,20 @@
       </div>
     </div>
 
+    <div
+      *ngIf="isLoading"
+      class="mt-20 grid place-items-center"
+    >
+      <div class="">
+        <img
+          src="../../../../../assets/images/dashvote.png"
+          alt=""
+          class="w-[150px] h-[150px] object-cover mx-auto"
+        />
+        <div class="mt-5 text-[12px]">Loading, Please wait..</div>
+      </div>
+    </div>
+
     <div *ngIf="election != null && !isLoading" class="">
       <div class="">
         <img
