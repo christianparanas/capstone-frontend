@@ -19,7 +19,7 @@
       >
         <div class="md:flex relative w-fit mx-auto md:mx-0">
           <div
-            class="bg-slate-50/50 w-fit h-fit rounded-full lg:mr-4 border-2 border-gray-200/50"
+            class="bg-slate-50/50 w-fit h-fit rounded-full lg:mr-4 border-2 border-gray-200/50 mx-auto"
           >
             <img
               [src]="user.image == null ? defaultImg : user.image"
@@ -36,7 +36,7 @@
               }}
             </h1>
             <div class="lg:flex items-center">
-              <div class="text-sm text-slate-700 mb-1 lg:mb-0">
+              <div *ngIf="user.username != ''" class="text-sm text-slate-700 mb-1 lg:mb-0">
                 @{{ user.username }}
               </div>
               <span *ngIf="user.username" class="mx-2 hidden lg:block">·</span>
@@ -191,7 +191,7 @@
         >
           <div class="">
             <img
-            src="../../../../../assets/images/empty-box.png"
+              src="../../../../../assets/images/empty-box.png"
               alt=""
               class="w-[100px] h-[100px] object-cover"
             />

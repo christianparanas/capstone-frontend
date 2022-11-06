@@ -14,13 +14,22 @@
       </div>
 
       <div class="flex items-center">
-        <div (click)="op.toggle($event)" class="hover:bg-red-900 w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2">
+        <div
+          (click)="op.toggle($event)"
+          class=" w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
+          [ngClass]="onScroll ? 'hover:bg-slate-100' : 'hover:bg-red-900' "
+        >
           <i class="fal fa-bell"></i>
         </div>
 
-        <div *ngIf="user.length != 0" class="mr-3 cursor-pointer border border-red-900 rounded-full w-fit h-fit" routerLink="/faculty/account">
+        <div
+          *ngIf="user.length != 0"
+          class="mr-3 cursor-pointer border rounded-full w-fit h-fit"
+          [ngClass]="onScroll ? 'border-slate-200' : 'border-red-900' "
+          routerLink="/faculty/account"
+        >
           <img
-          [src]="user && user.image != null ? user.image : defaultImg"
+            [src]="user && user.image != null ? user.image : defaultImg"
             alt=""
             class="w-[35px] h-[35px] object-cover rounded-full"
           />
@@ -118,7 +127,10 @@
           </div>
         </div>
 
-        <div (click)="op.toggle($event)" class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center mr-2">
+        <div
+          (click)="op.toggle($event)"
+          class="bg-red-900 w-[40px] h-[40px] p-2 rounded-full hover:bg-red-900/80 transition-all cursor-pointer grid place-items-center mr-2"
+        >
           <i class="fad fa-bell"></i>
         </div>
 
@@ -155,8 +167,9 @@
       <div *ngIf="notifications.length != 0" class="min-w-[250px]">
         <h2 class="font-semibold">Notifications</h2>
 
-        <div class="grid mt-5 divide-y  max-h-[400px] overflow-y-auto">
-          <app-notification [notification]="notification"
+        <div class="grid mt-5 divide-y max-h-[400px] overflow-y-auto">
+          <app-notification
+            [notification]="notification"
             *ngFor="let notification of notifications"
           ></app-notification>
         </div>

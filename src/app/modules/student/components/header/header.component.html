@@ -16,14 +16,16 @@
       <div class="flex items-center">
         <div
           (click)="op.toggle($event)"
-          class="hover:bg-red-900 w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
+          class=" w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
+          [ngClass]="onScroll ? 'hover:bg-slate-100' : 'hover:bg-red-900' "
         >
           <i class="fal fa-bell"></i>
         </div>
 
         <div
           *ngIf="user.length != 0"
-          class="mr-3 cursor-pointer border border-red-900 rounded-full w-fit h-fit"
+          class="mr-3 cursor-pointer border rounded-full w-fit h-fit"
+          [ngClass]="onScroll ? 'border-slate-200' : 'border-red-900' "
           routerLink="/account"
         >
           <img
