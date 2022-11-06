@@ -33,10 +33,8 @@ export class ReceiptsComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.profile = response;
-        this.isLoading = false
       },
       (error: any) => {
-        this.isLoading = false
       }
     );
   }
