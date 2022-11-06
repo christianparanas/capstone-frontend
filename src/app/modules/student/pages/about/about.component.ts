@@ -46,16 +46,17 @@ export class AboutComponent implements OnInit {
 
           this.submitLoading = false;
 
-          if (this.message) {
-            this.toast.info(
-              'Your feedback has been recorded. It will undergo a checking before being published to avoid spamming.',
-              { position: 'top-right' }
-            );
-          } else {
+          // if (this.message) {
+          //   this.toast.info(
+          //     'Your feedback has been recorded. It will undergo a checking before being published to avoid spamming.',
+          //     { position: 'top-right' }
+          //   );
+          // }
+
             this.toast.success('Your rating has been added. Many thanks!', {
               position: 'top-right',
             });
-          }
+          
 
           // clear data
           this.rating = 0;
