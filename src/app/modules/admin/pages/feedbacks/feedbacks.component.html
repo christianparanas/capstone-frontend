@@ -4,7 +4,7 @@
     <p class="text-slate-100 text-[12px]">Opinion given by the End-users</p>
   </div>
 
-  <div class="mt-20 pb-10">
+  <div class="mt-10 pb-10">
     <div class="text-sm w-full relative mt-10 grid gap-20">
       <div class="" *ngIf="needReviewFeedbacks.length != 0">
         <h1 class="font-bold text-lg text-slate-900 mb-3">Pending Feedbacks</h1>
@@ -100,7 +100,7 @@
       <div class="" *ngIf="feedbacks">
         <h1 class="font-bold text-lg text-slate-900 mb-3">Feedbacks</h1>
 
-        <div class="">
+        <div class="relative w-[350px] lg:w-full">
           <p-table
             [value]="feedbacks"
             #dt1
