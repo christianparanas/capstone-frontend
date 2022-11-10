@@ -1,24 +1,30 @@
 <div class="border border-gray-200 rounded-md p-3 h-fit">
-  <div class="flex items-center justify-between mb-1">
-    <h1 class="font-semibold text-slate-900 text-md">
-      {{ receipt.Election.title }}
-    </h1>
-    <div class="grid grid-cols-[30px_30px] gap-1">
+  <div class="flex items-center justify-between mb-3">
+    <img
+      src="../../../../../assets/images/invoice.png"
+      alt=""
+      class="w-[30px] h-[30px] object-cover"
+    />
+    <div class="grid grid-cols-[30px_30px] gap-2">
       <div
         (click)="downloadPdf()"
-        class="w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
+        class="bg-slate-50 w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-md font-semibold text-slate-800 border border-slate-200"
       >
-        <i class="fal fa-download text-[14px]"></i>
+        <i class="fad fa-download"></i>
       </div>
       <div
         [routerLink]="['/election']"
         [queryParams]="{ id: receipt.Election.id }"
-        class="bg-slate-50 w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-sm font-semibold text-slate-800"
+        class="bg-slate-50 w-[30px] h-[30px] grid place-items-center cursor-pointer hover:bg-slate-100 transition-all rounded-md font-semibold text-slate-800 border border-slate-200"
       >
-        <i class="fal fa-external-link text-[14px]"></i>
+        <i class="fad fa-external-link"></i>
       </div>
     </div>
   </div>
+
+  <h1 class="font-semibold text-slate-900 text-lg mb-1">
+    {{ receipt.Election.title }}
+  </h1>
 
   <div class="">
     <p class="text-[12px]">{{ receipt.Election.description }}</p>
@@ -155,18 +161,22 @@
           </div>
 
           <div class="mt-3 mb-2 px-1 md w-fit">
-            <span class="text-sm capitalize mr-1"> {{ profile.name }}</span><span class="text-sm ">{{ getCourse(2, profile.StudentCredential.CourseId) }} {{  profile.StudentCredential.year }}{{  profile.StudentCredential.section }}</span>
-           </div>
+            <span class="text-sm capitalize mr-1"> {{ profile.name }}</span
+            ><span class="text-sm"
+              >{{ getCourse(2, profile.StudentCredential.CourseId) }}
+              {{ profile.StudentCredential.year
+              }}{{ profile.StudentCredential.section }}</span
+            >
+          </div>
           <p class="text-sm my-2 mb-5 px-1">
             Date voted: {{ dateFormat(receipt.createdAt) }}
           </p>
-
         </div>
 
         <hr class="my-5" />
 
         <div class="mt-5">
-          <h1 class="font-semibold mb-8 text-base ">Voted Candidates</h1>
+          <h1 class="font-semibold mb-8 text-base">Voted Candidates</h1>
 
           <div class="grid gap-2">
             <div

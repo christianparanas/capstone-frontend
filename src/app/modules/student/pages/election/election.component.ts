@@ -9,6 +9,7 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
 import { ProfileService } from '../../shared/services/profile.service';
+import { PdfService } from 'src/app/core/shared/services/pdf.service';
 
 @Component({
   selector: 'app-election',
@@ -42,7 +43,8 @@ export class ElectionComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private eventService: EventService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private pdfService: PdfService
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +63,10 @@ export class ElectionComponent implements OnInit {
 
       this.getElection();
     });
+  }
+
+  downloadPdf() {
+    this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
   }
 
   getResult() {
@@ -332,12 +338,17 @@ export class ElectionComponent implements OnInit {
     );
   }
 
-  getCourse(CourseId: any) {
+  getCourse(type: any, CourseId: any) {
     let courseTitle = null;
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        courseTitle = course.acronym;
+        if(type == 2) {
+          courseTitle = course.acronym;
+        }
+        else {
+          courseTitle = course.title;
+        }
       }
     });
 

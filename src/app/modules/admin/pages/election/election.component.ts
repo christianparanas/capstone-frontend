@@ -9,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
+import { PdfService } from 'src/app/core/shared/services/pdf.service';
 
 @Component({
   selector: 'app-election',
@@ -61,7 +62,8 @@ export class ElectionComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+    private pdfService: PdfService
   ) {}
 
   ngOnInit(): void {
@@ -135,6 +137,10 @@ export class ElectionComponent implements OnInit {
         this.getElection();
       }
     });
+  }
+
+  downloadPdf() {
+    this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
   }
 
   getPrediction(position: any) {
@@ -396,16 +402,19 @@ export class ElectionComponent implements OnInit {
     );
   }
 
-  getCourse(CourseId: any) {
+  getCourse(type: any, CourseId: any) {
     let courseTitle = null;
 
-    if (this.courses.length != 0) {
-      this.courses.forEach((course: any) => {
-        if (course.id == CourseId) {
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        if(type == 2) {
+          courseTitle = course.acronym;
+        }
+        else {
           courseTitle = course.title;
         }
-      });
-    }
+      }
+    });
 
     return courseTitle;
   }

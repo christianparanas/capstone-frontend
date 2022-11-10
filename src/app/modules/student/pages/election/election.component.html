@@ -123,7 +123,7 @@
                         {{
                           election.course == 0
                             ? "All Courses"
-                            : getCourse(election.course)
+                            : getCourse(1, election.course)
                         }}
                       </td>
                     </tr>
@@ -550,7 +550,7 @@
               {{ candidate.User.name }}
             </h1>
             <p class="text-sm text-slate-700">
-              {{ getCourse(candidate.User.StudentCredential.CourseId) }}
+              {{ getCourse(2, candidate.User.StudentCredential.CourseId) }}
               {{ candidate.User.StudentCredential.year
               }}{{ candidate.User.StudentCredential.section }}
             </p>
@@ -592,6 +592,7 @@
       <div class="flex items-center justify-between mb-2">
         <div class=""></div>
         <div
+          (click)="downloadPdf()"
           class="bg-slate-50 hover:bg-slate-100 border border-slate-200 h-fit px-2 py-[2px] text-sm rounded-md cursor-pointer"
         >
           <i class="fad fa-download mr-1"></i> Download
@@ -615,7 +616,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>    
   </p-dialog>
 </div>
 
@@ -692,4 +693,106 @@
       </div>
     </div>
   </p-dialog>
+</div>
+
+
+
+
+<div class="fixed -right-[1000px]" [id]="election.id">
+  <div class="p-8 w-[800px]">
+    <div class="">
+      <div class="flex justify-between items-center">
+        <img
+          src="../../../../../assets/logo/evsu_logo_3.png"
+          alt=""
+          class="w-[100px] h-[100px] object-cover"
+        />
+        <h1 class="font-semibold">
+          EVSU Elections <span class="text-slate-500">- Winners</span>
+        </h1>
+        <div class=""></div>
+      </div>
+
+      <div class="mt-6">
+        <div class="">
+          <div class="">
+            <h1 class="text-4xl font-semibold mb-2">
+              {{ election.title }}
+            </h1>
+            <p class="text-sm">{{ election.description }}</p>
+          </div>
+
+          <div class="mt-8">
+            <h2 class="text-sm mb-3">Restrictions</h2>
+
+            <div class="">
+              <table class="border border-gray-300">
+                <tr>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    Course:
+                  </td>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    {{
+                      election.course == 0
+                        ? "All Courses"
+                        : getCourse(1, election.course)
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    Section:
+                  </td>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    {{
+                      election.section == 0
+                        ? "All Sections"
+                        : election.section
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    Year:
+                  </td>
+                  <td class="border border-gray-300 pb-3 px-2 text-sm">
+                    {{
+                      election.year == 0
+                        ? "All Year Levels"
+                        : election.year
+                    }}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="my-5" />
+
+        <div class="mt-5">
+          <h1 class="font-semibold mb-8 text-base ">Winners</h1>
+
+          <div class="grid gap-4">
+            <div *ngFor="let position of electionResult" class="">
+              <div
+                class="font-semibold text-md text-slate-800 border-b pb-2 border-slate-200 py-[2px] w-full"
+              >
+                {{ position.title }}
+              </div>
+    
+              <div class="grid gap-1 mt-2">
+                <div *ngFor="let winner of position.results" class="">
+                  <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">
+                    - {{ winner.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
