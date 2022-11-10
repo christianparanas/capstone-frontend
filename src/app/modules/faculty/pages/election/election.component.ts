@@ -56,11 +56,12 @@ export class ElectionComponent implements OnInit {
 
   electionPositionId: any = null;
   addCandidatePreviewImg: any = null;
+
   addCandidateData: any = {
     image: null,
     platform: null,
     partylist: 0,
-    UserId: null,
+    user: null,
   };
 
 
@@ -83,6 +84,9 @@ export class ElectionComponent implements OnInit {
   electionResult: any = [];
   winnersModal: boolean = false
 
+  countries: any[]
+  selectedStudent: any = {}
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -95,6 +99,7 @@ export class ElectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.route.queryParams.subscribe((value) => {
       this.electionId = value.id;
     });
@@ -107,6 +112,7 @@ export class ElectionComponent implements OnInit {
     this.electionPositionForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl(''),
+      course: new FormControl(''),
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });
@@ -484,9 +490,7 @@ export class ElectionComponent implements OnInit {
 
   onElectionPositionSubmit() {
     if (!this.electionPositionForm.valid) {
-      return this.toast.info('Please fill out all the input fields', {
-        position: 'top-right',
-      });
+      return this.toast.info('Please fill out all the input fields');
     }
 
     this.submitLoading = true;
@@ -656,7 +660,7 @@ export class ElectionComponent implements OnInit {
       return this.toast.info('Please write platform');
     }
 
-    if (this.addCandidateData.UserId == null) {
+    if (this.addCandidateData.user == null) {
       return this.toast.info('Please select a candidate');
     }
 
@@ -666,7 +670,7 @@ export class ElectionComponent implements OnInit {
       image: this.addCandidateData.image,
       platform: this.addCandidateData.platform,
       partylist: this.addCandidateData.partylist,
-      UserId: this.addCandidateData.UserId,
+      UserId: this.addCandidateData.user.id,
       ElectionPositionId: this.electionPositionId,
       ElectionId: this.electionId,
     };

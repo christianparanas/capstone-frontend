@@ -31,7 +31,7 @@
           alt=""
           class="w-[120px] h-[120px] object-cover mx-auto"
         />
-        <div class="mt-5 text-[12px] text-center">Loading, Please wait..</div>
+        <div class="mt-5 text-[12px] text-center">Loading....</div>
       </div>
     </div>
 
@@ -593,9 +593,10 @@
         <div class=""></div>
         <div
           (click)="downloadPdf()"
-          class="bg-slate-50 hover:bg-slate-100 border border-slate-200 h-fit px-2 py-[2px] text-sm rounded-md cursor-pointer"
+          class="items-center bg-slate-50 w-fit p-1 flex cursor-pointer hover:bg-slate-100 transition-all rounded-md font-semibold text-slate-800 border border-slate-200"
         >
-          <i class="fad fa-download mr-1"></i> Download
+          <i class="fad fa-download mr-1"></i>
+          <span class="text-[12px]">Download</span>
         </div>
       </div>
 
@@ -616,7 +617,7 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
   </p-dialog>
 </div>
 
@@ -647,11 +648,25 @@
       <h1 class="font-semibold text-md my-2">Partylist</h1>
 
       <div class="grid gap-5">
-        <div *ngFor="let party of election.Partylists" (click)="bulletVote(party.id)" class="border border-slate-50 hover:border-slate-100 transition-all cursor-pointer p-1 rounded-md relative" [ngClass]=" party.isSelected ? 'border-green-200 hover:border-green-200' : 'border-slate-50' ">
-          <div *ngIf="party.isSelected" class="bg-green-200 text-green-800 text-[12px] w-fit absolute right-3 -top-2 font-semibold py-1 px-2 rounded-md">Party selected</div>
+        <div
+          *ngFor="let party of election.Partylists"
+          (click)="bulletVote(party.id)"
+          class="border border-slate-50 hover:border-slate-100 transition-all cursor-pointer p-1 rounded-md relative"
+          [ngClass]="
+            party.isSelected
+              ? 'border-green-200 hover:border-green-200'
+              : 'border-slate-50'
+          "
+        >
+          <div
+            *ngIf="party.isSelected"
+            class="bg-green-200 text-green-800 text-[12px] w-fit absolute right-3 -top-2 font-semibold py-1 px-2 rounded-md"
+          >
+            Party selected
+          </div>
 
           <div
-            class="bg-slate-50 px-2 py-1 rounded-md text-sm font-semibold flex items-center border border-slate-100 "
+            class="bg-slate-50 px-2 py-1 rounded-md text-sm font-semibold flex items-center border border-slate-100"
           >
             <i class="fal fa-users mr-1"></i> <span>{{ party.title }}</span>
           </div>
@@ -694,9 +709,6 @@
     </div>
   </p-dialog>
 </div>
-
-
-
 
 <div class="fixed -right-[1000px]" [id]="election.id">
   <div class="p-8 w-[800px]">
@@ -745,9 +757,7 @@
                   </td>
                   <td class="border border-gray-300 pb-3 px-2 text-sm">
                     {{
-                      election.section == 0
-                        ? "All Sections"
-                        : election.section
+                      election.section == 0 ? "All Sections" : election.section
                     }}
                   </td>
                 </tr>
@@ -756,23 +766,18 @@
                     Year:
                   </td>
                   <td class="border border-gray-300 pb-3 px-2 text-sm">
-                    {{
-                      election.year == 0
-                        ? "All Year Levels"
-                        : election.year
-                    }}
+                    {{ election.year == 0 ? "All Year Levels" : election.year }}
                   </td>
                 </tr>
               </table>
             </div>
           </div>
-
         </div>
 
         <hr class="my-5" />
 
         <div class="mt-5">
-          <h1 class="font-semibold mb-8 text-base ">Winners</h1>
+          <h1 class="font-semibold mb-8 text-base">Winners</h1>
 
           <div class="grid gap-4">
             <div *ngFor="let position of electionResult" class="">
@@ -781,10 +786,13 @@
               >
                 {{ position.title }}
               </div>
-    
+
               <div class="grid gap-1 mt-2">
                 <div *ngFor="let winner of position.results" class="">
-                  <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">
+                  <div
+                    *ngIf="winner.result == 'winner'"
+                    class="text-sm capitalize"
+                  >
                     - {{ winner.name }}
                   </div>
                 </div>

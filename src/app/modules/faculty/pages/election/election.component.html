@@ -31,7 +31,7 @@
           alt=""
           class="w-[120px] h-[120px] object-cover mx-auto"
         />
-        <div class="mt-5 text-[12px] text-center">Loading, Please wait..</div>
+        <div class="mt-5 text-[12px] text-center">Loading....</div>
       </div>
     </div>
 
@@ -261,7 +261,7 @@
               >
                 <div
                   *ngFor="let position of election.ElectionPositions"
-                  class="border border-gray-200 bg-white p-3 rounded-md shadow-sm"
+                  class="border border-gray-200 bg-white p-3 rounded-md shadow-sm h-fit"
                 >
                   <div class="flex justify-between">
                     <div class="">
@@ -294,12 +294,19 @@
                     <div
                       class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
                     >
-                      Limit no. of winners: {{ position.no_of_winners }}
+                      No. of winners: {{ position.no_of_winners }}
                     </div>
                     <div
                       class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
                     >
-                      Limit no. of candidates: {{ position.no_of_candidates }}
+                      No. of candidates: {{ position.no_of_candidates }}
+                    </div>
+
+                    <div
+                      *ngIf="position.course != 0"
+                      class="bg-slate-50 font-semibold text-slate-800 border border-slate-200 rounded-md py-1 px-2 w-fit"
+                    >
+                      {{ getCourse(1, position.course) }}
                     </div>
                   </div>
                 </div>
@@ -409,14 +416,24 @@
                                 {{ candidate.User.name }}
                               </h1>
                               <div class="flex items-center">
-                                <p class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                                <p
+                                  class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                                >
+                                  {{
+                                    candidate.Partylist == null
+                                      ? "Indendent"
+                                      : candidate.Partylist.title
+                                  }}
+                                </p>
                                 <p class="text-[12px]">
                                   {{
                                     candidate.User.StudentCredential.Course
                                       .acronym
                                   }}
                                   {{ candidate.User.StudentCredential.year
-                                  }}{{ candidate.User.StudentCredential.section }}
+                                  }}{{
+                                    candidate.User.StudentCredential.section
+                                  }}
                                 </p>
                               </div>
                             </div>
@@ -628,6 +645,26 @@
           </div>
         </div>
 
+        <div *ngIf="election.course == 0">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Allowed course</label
+          >
+          <div class="mt-1 relative rounded-md">
+            <select
+              formControlName="course"
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
+            >
+              <option value="" selected disabled hidden class="">
+                Select Course
+              </option>
+              <option value="0" class="">All Courses</option>
+              <option *ngFor="let course of courses" [value]="course.id">
+                {{ course.title }}
+              </option>
+            </select>
+          </div>
+        </div>
+
         <button
           type="submit"
           [disabled]="submitLoading"
@@ -674,7 +711,6 @@
   >
     <div class="mt-3">
       <div class="">
-
         <div class="mt-5">
           <div class="">
             <div class="flex justify-between items-center">
@@ -692,7 +728,7 @@
               </button>
             </div>
 
-            <hr class="my-3">
+            <hr class="my-3" />
 
             <div class="my-10">
               <div
@@ -731,9 +767,19 @@
                       alt=""
                       class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200"
                     />
-                    <div class="ml-2 ">
-                      <h1 class="capitalize text-sm">{{ candidate.User.name }}</h1>
-                      <p class="text-[12px] bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize">{{ candidate.Partylist == null ? "Indendent" : candidate.Partylist.title }}</p>
+                    <div class="ml-2">
+                      <h1 class="capitalize text-sm">
+                        {{ candidate.User.name }}
+                      </h1>
+                      <p
+                        class="text-[12px] bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                      >
+                        {{
+                          candidate.Partylist == null
+                            ? "Indendent"
+                            : candidate.Partylist.title
+                        }}
+                      </p>
                     </div>
                   </div>
                   <div
@@ -804,23 +850,62 @@
             <label class="block text-[12px] font-medium text-gray-700"
               >Select Candidate</label
             >
-            <div class="mt-1 relative rounded-md">
-              <select
-                [(ngModel)]="addCandidateData.UserId"
-                [ngModelOptions]="{ standalone: true }"
-                class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-              >
-                <option
-                  *ngFor="let student of students"
-                  [value]="student.id"
-                  class="py-2"
+            <p-dropdown
+            class="text-sm bg-slate-200"
+              [options]="students"
+              [(ngModel)]="addCandidateData.user"
+              [ngModelOptions]="{ standalone: true }"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="StudentCredential.schoolId"
+              placeholder="Select a candidate"
+            >
+              <ng-template pTemplate="selectedItem">
+                <div
+                  class="country-item country-item-value"
+                  *ngIf="addCandidateData.user"
                 >
-                  {{ student.StudentCredential.Course.acronym }}
-                  {{ student.StudentCredential.year
-                  }}{{ student.StudentCredential.section }} - {{ student.name }}
-                </option>
-              </select>
-            </div>
+                  <div class="grid grid-cols-[40px_1fr] gap-1 items-center">
+                    <div
+                      class="border w-[40px] h-[40px] border-slate-100 rounded-full"
+                    >
+                      <img
+                        src="../../../../../assets/images/student.png"
+                        alt=""
+                        class="w-[40px] h-[40px] object-cover rounded-full"
+                      />
+                    </div>
+                    <div class="">
+                      <div class="font-semibold text-sm capitalize">
+                        {{ addCandidateData.user.name }}
+                      </div>
+                      <p class="text-[11px]">
+                        {{ addCandidateData.user.StudentCredential.schoolId }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-student pTemplate="item">
+                <div class="grid grid-cols-[40px_1fr] gap-1 items-center">
+                  <div
+                    class="border w-[40px] h-[40px] border-slate-100 rounded-full"
+                  >
+                    <img
+                      src="../../../../../assets/images/student.png"
+                      alt=""
+                      class="w-[40px] h-[40px] object-cover rounded-full"
+                    />
+                  </div>
+                  <div class="">
+                    <div class="font-semibold text-sm capitalize">{{ student.name }}</div>
+                    <p class="text-[11px]">
+                      {{ student.StudentCredential.schoolId }}
+                    </p>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
           </div>
 
           <div>
@@ -1046,9 +1131,10 @@
         <div class=""></div>
         <div
           (click)="downloadPdf()"
-          class="bg-slate-50 hover:bg-slate-100 border border-slate-200 h-fit px-2 py-[2px] text-sm rounded-md cursor-pointer"
+          class="items-center bg-slate-50 w-fit p-1 flex cursor-pointer hover:bg-slate-100 transition-all rounded-md font-semibold text-slate-800 border border-slate-200"
         >
-          <i class="fad fa-download mr-1"></i> Download
+          <i class="fad fa-download mr-1"></i>
+          <span class="text-[12px]">Download</span>
         </div>
       </div>
 
@@ -1289,7 +1375,6 @@
   </div>
 </p-dialog>
 
-
 <div class="relative z-50">
   <p-dialog
     header="Partylists"
@@ -1312,7 +1397,7 @@
               </button>
             </div>
 
-            <hr class="my-3">
+            <hr class="my-3" />
 
             <div class="my-10">
               <div
@@ -1347,7 +1432,9 @@
                       alt=""
                       class="w-[40px] h-[40px] rounded-full object-cover border border-gray-200"
                     />
-                    <h1 class="ml-2 capitalize text-[12px] font-semibold">{{ party.title }}</h1>
+                    <h1 class="ml-2 capitalize text-[12px] font-semibold">
+                      {{ party.title }}
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -1438,10 +1525,6 @@
   </p-dialog>
 </div>
 
-
-
-
-
 <div class="fixed -right-[2000px]" [id]="election.id">
   <div class="p-8 w-[800px]">
     <div class="">
@@ -1489,9 +1572,7 @@
                   </td>
                   <td class="border border-gray-300 pb-3 px-2 text-sm">
                     {{
-                      election.section == 0
-                        ? "All Sections"
-                        : election.section
+                      election.section == 0 ? "All Sections" : election.section
                     }}
                   </td>
                 </tr>
@@ -1500,23 +1581,18 @@
                     Year:
                   </td>
                   <td class="border border-gray-300 pb-3 px-2 text-sm">
-                    {{
-                      election.year == 0
-                        ? "All Year Levels"
-                        : election.year
-                    }}
+                    {{ election.year == 0 ? "All Year Levels" : election.year }}
                   </td>
                 </tr>
               </table>
             </div>
           </div>
-
         </div>
 
         <hr class="my-5" />
 
         <div class="mt-5">
-          <h1 class="font-semibold mb-8 text-base ">Winners</h1>
+          <h1 class="font-semibold mb-8 text-base">Winners</h1>
 
           <div class="grid gap-4">
             <div *ngFor="let position of electionResult" class="">
@@ -1525,10 +1601,13 @@
               >
                 {{ position.title }}
               </div>
-    
+
               <div class="grid gap-1 mt-2">
                 <div *ngFor="let winner of position.results" class="">
-                  <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">
+                  <div
+                    *ngIf="winner.result == 'winner'"
+                    class="text-sm capitalize"
+                  >
                     - {{ winner.name }}
                   </div>
                 </div>
@@ -1540,8 +1619,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
