@@ -112,7 +112,7 @@ export class ElectionComponent implements OnInit {
     this.electionPositionForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl(''),
-      course: new FormControl(''),
+      allowedCourse: new FormControl(0),
       no_of_winners: new FormControl('', Validators.required),
       no_of_candidates: new FormControl('', Validators.required),
     });

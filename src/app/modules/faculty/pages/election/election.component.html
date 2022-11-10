@@ -202,8 +202,8 @@
           <hr class="my-10" />
 
           <div class="" *ngIf="election.status == 'draft'">
-            <div class="flex justify-between items-center">
-              <h1 class="text-md font-semibold">Positions</h1>
+            <div class="grid md:flex justify-between items-center">
+              <h1 class="text-md font-semibold mb-2 md:mb-0">Positions</h1>
 
               <div class="flex items-center">
                 <button
@@ -292,6 +292,17 @@
 
                   <div class="text-[10px] mt-3 grid gap-1">
                     <div
+                      *ngIf="election.course == 0"
+                      class="bg-slate-50 font-semibold text-slate-800 border border-slate-200 rounded-md py-1 px-2 w-fit"
+                    >
+                      {{
+                        position.allowedCourse != 0
+                          ? "By Course"
+                          : "All Courses"
+                      }}
+                    </div>
+
+                    <div
                       class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
                     >
                       No. of winners: {{ position.no_of_winners }}
@@ -300,13 +311,6 @@
                       class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
                     >
                       No. of candidates: {{ position.no_of_candidates }}
-                    </div>
-
-                    <div
-                      *ngIf="position.course != 0"
-                      class="bg-slate-50 font-semibold text-slate-800 border border-slate-200 rounded-md py-1 px-2 w-fit"
-                    >
-                      {{ getCourse(1, position.course) }}
                     </div>
                   </div>
                 </div>
@@ -651,16 +655,11 @@
           >
           <div class="mt-1 relative rounded-md">
             <select
-              formControlName="course"
+              formControlName="allowedCourse"
               class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
             >
-              <option value="" selected disabled hidden class="">
-                Select Course
-              </option>
               <option value="0" class="">All Courses</option>
-              <option *ngFor="let course of courses" [value]="course.id">
-                {{ course.title }}
-              </option>
+              <option value="1" class="">By Course</option>
             </select>
           </div>
         </div>
@@ -851,7 +850,7 @@
               >Select Candidate</label
             >
             <p-dropdown
-            class="text-sm bg-slate-200"
+              class="text-sm bg-slate-200"
               [options]="students"
               [(ngModel)]="addCandidateData.user"
               [ngModelOptions]="{ standalone: true }"
@@ -867,7 +866,7 @@
                 >
                   <div class="grid grid-cols-[40px_1fr] gap-1 items-center">
                     <div
-                      class="border w-[40px] h-[40px] border-slate-100 rounded-full"
+                      class="border w-[40px] h-[40px] border-slate-200 rounded-full"
                     >
                       <img
                         src="../../../../../assets/images/student.png"
@@ -898,7 +897,9 @@
                     />
                   </div>
                   <div class="">
-                    <div class="font-semibold text-sm capitalize">{{ student.name }}</div>
+                    <div class="font-semibold text-sm capitalize">
+                      {{ student.name }}
+                    </div>
                     <p class="text-[11px]">
                       {{ student.StudentCredential.schoolId }}
                     </p>
