@@ -17,7 +17,7 @@
     <div class="">
       <p class="text-sm">
         <span class="font-semibold capitalize">{{ notification.User.name }}</span>
-        {{ notification.message }}
+        <span class="ml-1">{{ notification.message.toLowerCase() }}</span>
       </p>
       <p class="text-[12px]">{{ dateFormat(notification.createdAt) }}</p>
     </div>
