@@ -40,7 +40,7 @@ export class UserComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
-  tweetPostOwner: any = null
+  tweetPostOwner: any = null;
 
   voters: any = [];
   mentionItems: any = [];
@@ -204,7 +204,7 @@ export class UserComponent implements OnInit {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
 
-        this.tweetPostOwner = tweet.User.id
+        this.tweetPostOwner = tweet.User.id;
       }
     });
 
@@ -228,7 +228,27 @@ export class UserComponent implements OnInit {
     return bool;
   }
 
-  reactTweet(tweetId: number) {
+  reactTweet(tweet: any) {
+    let indx;
+
+    const res = tweet.TweetReactors.some((reactor: any, idx: any) => {
+      if (reactor.UserId == this.profile.id) {
+        indx = idx;
+        return true;
+      }
+    });
+
+    if (res) {
+      tweet.TweetReactors.splice(indx, 1);
+      tweet.reactCount = tweet.reactCount - 1;
+    } else {
+      tweet.TweetReactors.push({
+        UserId: this.profile.id,
+      });
+
+      tweet.reactCount = tweet.reactCount + 1;
+    }
+
     if (this.reactLoading == true) {
       return;
     }
@@ -236,11 +256,15 @@ export class UserComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweetId, receiverId: this.user.id, senderId: this.profile.id })
+      .reactTweet({
+        tweetId: tweet.id,
+        receiverId: this.user.id,
+        senderId: this.profile.id,
+      })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          this.getUser(this.userId);
+          // this.getUser(this.userId);
           this.eventService.sendTweetEvent();
         },
         (error: any) => {
@@ -259,7 +283,7 @@ export class UserComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      receiverId: this.tweetPostOwner, 
+      receiverId: this.tweetPostOwner,
       senderId: this.profile.id,
     };
 

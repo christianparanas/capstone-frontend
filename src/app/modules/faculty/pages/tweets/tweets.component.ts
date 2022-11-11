@@ -25,7 +25,7 @@ export class TweetsComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
-  tweetPostOwner: any = null
+  tweetPostOwner: any = null;
 
   voters: any = [];
 
@@ -59,7 +59,7 @@ export class TweetsComponent implements OnInit {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
 
-        this.tweetPostOwner = tweet.User.id
+        this.tweetPostOwner = tweet.User.id;
       }
     });
 
@@ -79,7 +79,7 @@ export class TweetsComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      receiverId: this.tweetPostOwner, 
+      receiverId: this.tweetPostOwner,
       senderId: this.user.id,
     };
 
@@ -138,9 +138,25 @@ export class TweetsComponent implements OnInit {
   }
 
   reactTweet(tweet: any) {
-    tweet.TweetReactors.push({
-      UserId: this.user.id
-    })
+    let indx;
+
+    const res = tweet.TweetReactors.some((reactor: any, idx: any) => {
+      if (reactor.UserId == this.user.id) {
+        indx = idx;
+        return true;
+      }
+    });
+
+    if (res) {
+      tweet.TweetReactors.splice(indx, 1);
+      tweet.reactCount = tweet.reactCount - 1;
+    } else {
+      tweet.TweetReactors.push({
+        UserId: this.user.id,
+      });
+
+      tweet.reactCount = tweet.reactCount + 1;
+    }
 
     if (this.reactLoading == true) {
       return;
@@ -157,7 +173,6 @@ export class TweetsComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          // this.getTweets();
           this.eventService.sendTweetEvent();
         },
         (error: any) => {

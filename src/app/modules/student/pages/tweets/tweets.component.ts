@@ -26,7 +26,7 @@ export class TweetsComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
-  tweetPostOwner: any = null
+  tweetPostOwner: any = null;
 
   voters: any = [];
   mentionItems: any = [];
@@ -44,7 +44,6 @@ export class TweetsComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
-
   }
 
   getTweetEvent() {
@@ -60,7 +59,7 @@ export class TweetsComponent implements OnInit {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
 
-        this.tweetPostOwner = tweet.User.id
+        this.tweetPostOwner = tweet.User.id;
       }
     });
 
@@ -80,7 +79,7 @@ export class TweetsComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      receiverId: this.tweetPostOwner, 
+      receiverId: this.tweetPostOwner,
       senderId: this.user.id,
     };
 
@@ -100,9 +99,8 @@ export class TweetsComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
-        this.getVoters()
+        this.getVoters();
         this.getTweets();
-
       },
       (error: any) => {}
     );
@@ -141,6 +139,26 @@ export class TweetsComponent implements OnInit {
   }
 
   reactTweet(tweet: any) {
+    let indx;
+
+    const res = tweet.TweetReactors.some((reactor: any, idx: any) => {
+      if (reactor.UserId == this.user.id) {
+        indx = idx;
+        return true;
+      }
+    });
+
+    if (res) {
+      tweet.TweetReactors.splice(indx, 1);
+      tweet.reactCount = tweet.reactCount - 1;
+    } else {
+      tweet.TweetReactors.push({
+        UserId: this.user.id,
+      });
+
+      tweet.reactCount = tweet.reactCount + 1;
+    }
+
     if (this.reactLoading == true) {
       return;
     }
@@ -148,11 +166,15 @@ export class TweetsComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-      .reactTweet({ tweetId: tweet.id, receiverId: tweet.User.id, senderId: this.user.id })
+      .reactTweet({
+        tweetId: tweet.id,
+        receiverId: tweet.User.id,
+        senderId: this.user.id,
+      })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          this.getTweets();
+          // this.getTweets();
           this.eventService.sendTweetEvent();
         },
         (error: any) => {
@@ -209,8 +231,8 @@ export class TweetsComponent implements OnInit {
         this.isLoading = false;
 
         response.forEach(async (voter: any) => {
-          if(voter.id == this.user.id) {
-           return
+          if (voter.id == this.user.id) {
+            return;
           }
 
           this.mentionItems.push(voter.username);

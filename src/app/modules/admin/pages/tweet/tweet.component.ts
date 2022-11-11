@@ -158,6 +158,26 @@ export class TweetComponent implements OnInit {
   }
 
   reactTweet(tweet: any) {
+    let indx;
+
+    const res = tweet.TweetReactors.some((reactor: any, idx: any) => {
+      if (reactor.UserId == this.user.id) {
+        indx = idx;
+        return true;
+      }
+    });
+
+    if (res) {
+      tweet.TweetReactors.splice(indx, 1);
+      tweet.reactCount = tweet.reactCount - 1;
+    } else {
+      tweet.TweetReactors.push({
+        UserId: this.user.id,
+      });
+
+      tweet.reactCount = tweet.reactCount + 1;
+    }
+
     if (this.reactLoading == true) {
       return;
     }
@@ -169,7 +189,7 @@ export class TweetComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          this.getTweets();
+          // this.getTweets();
           this.eventService.sendTweetEvent();
         },
         (error: any) => {

@@ -227,7 +227,27 @@ export class PeerComponent implements OnInit {
     return bool;
   }
 
-  reactTweet(tweetId: number) {
+  reactTweet(tweet: any) {
+    let indx;
+
+    const res = tweet.TweetReactors.some((reactor: any, idx: any) => {
+      if (reactor.UserId == this.profile.id) {
+        indx = idx;
+        return true;
+      }
+    });
+
+    if (res) {
+      tweet.TweetReactors.splice(indx, 1);
+      tweet.reactCount = tweet.reactCount - 1;
+    } else {
+      tweet.TweetReactors.push({
+        UserId: this.profile.id,
+      });
+
+      tweet.reactCount = tweet.reactCount + 1;
+    }
+
     if (this.reactLoading == true) {
       return;
     }
@@ -236,14 +256,14 @@ export class PeerComponent implements OnInit {
 
     this.tweetService
       .reactTweet({
-        tweetId: tweetId,
+        tweetId: tweet.id,
         receiverId: this.user.id,
         senderId: this.profile.id,
       })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          this.getUser(this.userId);
+          // this.getUser(this.userId);
           this.eventService.sendTweetEvent();
         },
         (error: any) => {
