@@ -138,6 +138,10 @@ export class TweetsComponent implements OnInit {
   }
 
   reactTweet(tweet: any) {
+    tweet.TweetReactors.push({
+      UserId: this.user.id
+    })
+
     if (this.reactLoading == true) {
       return;
     }
@@ -153,7 +157,7 @@ export class TweetsComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
-          this.getTweets();
+          // this.getTweets();
           this.eventService.sendTweetEvent();
         },
         (error: any) => {
