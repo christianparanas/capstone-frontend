@@ -29,6 +29,51 @@
   <div class="">
     <p class="text-[12px]">{{ receipt.Election.description }}</p>
 
+    <div class="mt-5">
+      <h2 class="text-[12px] mb-1">Restrictions</h2>
+
+      <div class="bg-slate-50 p-1 w-full rounded-md">
+        <table class="border border-gray-300">
+          <tr>
+            <td class="border border-gray-300 p-1 px-2 text-[12px]">
+              Course:
+            </td>
+            <td
+              class="border border-gray-300 p-1 px-2 text-[12px] w-full"
+            >
+              {{
+                receipt.Election.course == 0
+                  ? "All Courses"
+                  : getCourse(1, receipt.Election.course)
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-1 px-2 text-[12px]">
+              Section:
+            </td>
+            <td class="border border-gray-300 p-1 px-2 text-[12px]">
+              {{
+                receipt.Election.section == 0
+                  ? "All Sections"
+                  : receipt.Election.section
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-1 px-2 text-[12px]">
+              Year:
+            </td>
+            <td class="border border-gray-300 p-1 px-2 text-[12px]">
+              {{
+                receipt.Election.year == 0 ? "All Year Levels" : receipt.Election.year
+              }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
     <div class="flex justify-between mt-4">
       <div class=""></div>
       <p class="text-[11px]">
@@ -48,7 +93,7 @@
       <div class="" *ngIf="position.ElectionCandidates.length != 0">
         <div class="mb-[2px]">
           <h2 class="font-semibold text-slate-900 text-md">
-            {{ position.title }}
+            {{ position.allowedCourse != 0 ? getCourse(2, profile.StudentCredential.CourseId) : '' }} {{ position.title }}
           </h2>
         </div>
 

@@ -26,9 +26,9 @@ export class ElectionComponent implements OnInit {
   finishSetupPrompt: boolean = false;
   deleteElectionPrompt: boolean = false;
   voteReceiptModal: boolean = false;
-  coreElectioModal: boolean = false
-  partylistCreationModal: boolean = false
-  partylistsModal: boolean = false
+  coreElectioModal: boolean = false;
+  partylistCreationModal: boolean = false;
+  partylistsModal: boolean = false;
 
   electionPositionForm: FormGroup;
   partylistCreationForm: FormGroup;
@@ -36,7 +36,7 @@ export class ElectionComponent implements OnInit {
   currentDate: string;
   courses: any = [];
   students: any = [];
-  partylists: any = []
+  partylists: any = [];
   electionId: number;
   election: any = [];
   tabItems: MenuItem[];
@@ -64,7 +64,6 @@ export class ElectionComponent implements OnInit {
     user: null,
   };
 
-
   candidates: any = [];
   limitOfCandidates: any;
   winners: any = [];
@@ -82,10 +81,10 @@ export class ElectionComponent implements OnInit {
   chartLoading: boolean = false;
 
   electionResult: any = [];
-  winnersModal: boolean = false
+  winnersModal: boolean = false;
 
-  countries: any[]
-  selectedStudent: any = {}
+  countries: any[];
+  selectedStudent: any = {};
 
   constructor(
     private courseService: CourseService,
@@ -96,10 +95,9 @@ export class ElectionComponent implements OnInit {
     private router: Router,
     private eventService: EventService,
     private pdfService: PdfService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe((value) => {
       this.electionId = value.id;
     });
@@ -114,13 +112,12 @@ export class ElectionComponent implements OnInit {
       description: new FormControl(''),
       allowedCourse: new FormControl(0),
       no_of_winners: new FormControl('', Validators.required),
-      no_of_candidates: new FormControl('', Validators.required),
     });
 
     this.partylistCreationForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl(''),
-    })
+    });
 
     this.chartData = {
       labels: [],
@@ -188,7 +185,44 @@ export class ElectionComponent implements OnInit {
   }
 
   downloadPdf() {
-    this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
+    this.pdfService.downloadPDF(
+      this.election.id,
+      `${this.election.title}-winners`
+    );
+  }
+
+  byCourseArr(candidates: any) {
+    let arr: any = [];
+
+    candidates.forEach((candi: any) => {
+      let id = candi.User.StudentCredential.CourseId;
+
+      let bb = null;
+
+      if (arr.length >= 1) {
+        arr.forEach((item: any, idx: any) => {
+          if (id == item.course) {
+            arr[idx].candidates.push(candi);
+          } else {
+            bb = true;
+          }
+        });
+
+        if (bb && undefined == arr.find((item: any) => item.course == id)) {
+          arr.push({
+            course: candi.User.StudentCredential.CourseId,
+            candidates: [candi],
+          });
+        }
+      } else {
+        arr.push({
+          course: candi.User.StudentCredential.CourseId,
+          candidates: [candi],
+        });
+      }
+    });
+
+    return arr;
   }
 
   getPrediction(position: any) {
@@ -266,7 +300,7 @@ export class ElectionComponent implements OnInit {
 
           console.log(this.chartData);
         },
-        (error: any) => { }
+        (error: any) => {}
       );
   }
 
@@ -276,7 +310,7 @@ export class ElectionComponent implements OnInit {
         this.receipt = response;
         this.voteReceiptModal = true;
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
 
@@ -412,21 +446,19 @@ export class ElectionComponent implements OnInit {
   checkAddedPosition() {
     if (this.election.ElectionPositions.length == 0) {
       this.finishSetupPrompt = false;
-      return this.toast.info(
-        "There's no added election position.",
-        { duration: 5000 }
-      );
+      return this.toast.info("There's no added election position.", {
+        duration: 5000,
+      });
     }
 
     if (this.election.ElectionCandidates.length == 0) {
       this.finishSetupPrompt = false;
-      return this.toast.info(
-        "There's no added election candidate.",
-        { duration: 5000 }
-      );
+      return this.toast.info("There's no added election candidate.", {
+        duration: 5000,
+      });
     }
 
-    this.coreElectioModal = true
+    this.coreElectioModal = true;
   }
 
   finishSetup() {
@@ -442,16 +474,15 @@ export class ElectionComponent implements OnInit {
       return this.toast.info('Please input election end date.');
     }
 
-    const ans = confirm("Finish Setup? Are you sure?")
+    const ans = confirm('Finish Setup? Are you sure?');
 
-    if(!ans) return
+    if (!ans) return;
 
     this.electionService
       .finishSetup({
         core: { ...this.electionData },
         ElectionId: this.election.id,
         status: 'active',
-
       })
       .subscribe(
         (response: any) => {
@@ -572,9 +603,9 @@ export class ElectionComponent implements OnInit {
         this.getElectionEvent();
         this.getResult();
 
-        this.partylists = response.Partylists
+        this.partylists = response.Partylists;
 
-        console.log(response)
+        console.log(response);
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
@@ -607,10 +638,9 @@ export class ElectionComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        if(type == 2) {
+        if (type == 2) {
           courseTitle = course.acronym;
-        }
-        else {
+        } else {
           courseTitle = course.title;
         }
       }
@@ -717,7 +747,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => { }
+          (error: any) => {}
         );
     }
   }
@@ -737,7 +767,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => { }
+          (error: any) => {}
         );
     }
   }

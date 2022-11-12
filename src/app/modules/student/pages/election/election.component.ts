@@ -66,7 +66,10 @@ export class ElectionComponent implements OnInit {
   }
 
   downloadPdf() {
-    this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
+    this.pdfService.downloadPDF(
+      this.election.id,
+      `${this.election.title}-winners`
+    );
   }
 
   getResult() {
@@ -180,9 +183,7 @@ export class ElectionComponent implements OnInit {
   }
 
   bulletVote(id: any) {
-    this.votes.forEach((vote: any) => [
-      vote.selectedCandidateCount = 0
-    ])
+    this.votes.forEach((vote: any) => [(vote.selectedCandidateCount = 0)]);
 
     this.election.Partylists.forEach((party: any) => {
       if (party.id == id) {
@@ -220,8 +221,7 @@ export class ElectionComponent implements OnInit {
               item.selectedCandidateCount = item.selectedCandidateCount + 1;
             } else {
               if (item.selectedCandidateCount == item.no_of_winners) {
-                
-              } else if(candidate.isSelected == true) {
+              } else if (candidate.isSelected == true) {
                 item.selectedCandidateCount = item.selectedCandidateCount - 1;
               }
             }
@@ -308,12 +308,21 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
-        console.log(response);
-
         this.getResult();
 
-        response.ElectionPositions.forEach((position: any) => {
+        this.election.ElectionPositions.forEach((position: any, idx: any) => {
+  
+          if(position.allowedCourse != 0) {
+            position.ElectionCandidates = position.ElectionCandidates.filter((candidate: any) => {
+              if(candidate.User.StudentCredential.CourseId == this.profile.StudentCredential.CourseId) {
+                return true
+              }
+            })
+          }
+
           this.votes.push({ ...position, selectedCandidateCount: 0 });
+
+          console.log(this.votes)
         });
 
         this.election.Partylists.forEach((party: any) => {
@@ -343,10 +352,9 @@ export class ElectionComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        if(type == 2) {
+        if (type == 2) {
           courseTitle = course.acronym;
-        }
-        else {
+        } else {
           courseTitle = course.title;
         }
       }

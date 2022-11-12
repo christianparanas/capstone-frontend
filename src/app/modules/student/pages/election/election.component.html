@@ -287,15 +287,14 @@
                 >
                   <div
                     class="border border-gray-100 bg-white p-3 rounded-md shadow-sm"
-                    *ngIf="position.ElectionCandidates.length != 0"
                   >
                     <div class="">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
-                        {{ position.title }}
+                        {{ position.allowedCourse != 0 ? getCourse(2, profile.StudentCredential.CourseId) : '' }} {{ position.title }}
                       </h1>
                     </div>
 
-                    <div class="text-[12px]">
+                    <div *ngIf="position.ElectionCandidates.length != 0" class="text-[12px]">
                       Select only {{ position.no_of_winners }}
                       {{
                         position.no_of_winners.length > 1
@@ -305,58 +304,72 @@
                     </div>
 
                     <div
+                      *ngIf="position.ElectionCandidates.length == 0"
+                      class="grid place-items-center py-5"
+                    >
+                      <div class="text-[12px]">No candidates</div>
+                    </div>
+
+                    <div
+                      *ngIf="position.ElectionCandidates.length != 0"
                       class="grid mt-3 border border-gray-100 rounded-md p-1"
                     >
                       <div
                         (click)="openCandidateModal(candidate)"
                         *ngFor="let candidate of position.ElectionCandidates"
-                        class="grid grid-cols-[45px_1fr] gap-2 items-center rounded-md hover:bg-slate-50 transition-all cursor-pointer p-1"
+                        class=""
                       >
                         <div
-                          class="w-[45px] h-[45px] rounded-full border border-gray-200"
+                          class="grid grid-cols-[45px_1fr] gap-2 items-center rounded-md hover:bg-slate-50 transition-all cursor-pointer p-1"
                         >
-                          <img
-                            [src]="
-                              candidate.image == null
-                                ? candidate.User.image == null
-                                  ? '../../../../../assets/images/student.png'
-                                  : candidate.User.image
-                                : candidate.image
-                            "
-                            alt=""
-                            class="w-full h-full object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <div class="">
-                            <h1 class="font-semibold text-sm capitalize">
-                              {{ candidate.User.name }}
-                            </h1>
-                            <div class="flex items-center">
-                              <p
-                                class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
-                              >
-                                {{
-                                  candidate.Partylist == null
-                                    ? "Indendent"
-                                    : candidate.Partylist.title
-                                }}
-                              </p>
-                              <p class="text-[12px]">
-                                {{
-                                  candidate.User.StudentCredential.Course
-                                    .acronym
-                                }}
-                                {{ candidate.User.StudentCredential.year
-                                }}{{ candidate.User.StudentCredential.section }}
-                              </p>
-                            </div>
-                          </div>
                           <div
-                            *ngIf="candidate.isSelected"
-                            class="w-[25px] h-[25px] rounded-full text-white font-semibold grid place-items-center bg-green-400"
+                            class="w-[45px] h-[45px] rounded-full border border-gray-200"
                           >
-                            <i class="fal fa-check text-[12px]"></i>
+                            <img
+                              [src]="
+                                candidate.image == null
+                                  ? candidate.User.image == null
+                                    ? '../../../../../assets/images/student.png'
+                                    : candidate.User.image
+                                  : candidate.image
+                              "
+                              alt=""
+                              class="w-full h-full object-cover rounded-full"
+                            />
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="">
+                              <h1 class="font-semibold text-sm capitalize">
+                                {{ candidate.User.name }}
+                              </h1>
+                              <div class="flex items-center">
+                                <p
+                                  class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                                >
+                                  {{
+                                    candidate.Partylist == null
+                                      ? "Indendent"
+                                      : candidate.Partylist.title
+                                  }}
+                                </p>
+                                <p class="text-[12px]">
+                                  {{
+                                    candidate.User.StudentCredential.Course
+                                      .acronym
+                                  }}
+                                  {{ candidate.User.StudentCredential.year
+                                  }}{{
+                                    candidate.User.StudentCredential.section
+                                  }}
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              *ngIf="candidate.isSelected"
+                              class="w-[25px] h-[25px] rounded-full text-white font-semibold grid place-items-center bg-green-400"
+                            >
+                              <i class="fal fa-check text-[12px]"></i>
+                            </div>
                           </div>
                         </div>
                       </div>

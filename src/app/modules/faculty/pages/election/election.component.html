@@ -305,12 +305,7 @@
                     <div
                       class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
                     >
-                      No. of winners: {{ position.no_of_winners }}
-                    </div>
-                    <div
-                      class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
-                    >
-                      No. of candidates: {{ position.no_of_candidates }}
+                      Slot(s): {{ position.no_of_winners }}
                     </div>
                   </div>
                 </div>
@@ -388,11 +383,114 @@
                           </div>
                         </div>
                         <div class="text-sm">
-                          No. of winners: {{ position.no_of_winners }}
+                          Slot(s)
+                          {{ position.allowedCourse != 0 ? "per course" : "" }}:
+                          {{ position.no_of_winners }}
                         </div>
                       </div>
 
-                      <div class="grid gap-2">
+                      <div *ngIf="position.allowedCourse != 0" class="grid gap-4">
+                        <div
+                          *ngFor="
+                            let course of byCourseArr(
+                              position.ElectionCandidates
+                            )
+                          "
+                          class=""
+                        >
+                          <div class="font-semibold text-[12px]">{{ getCourse(2, course.course) }}</div>
+
+                          <div class="grid gap-2 pl-1 mt-1">
+                            <div
+                              *ngFor="let candidate of course.candidates"
+                              class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200"
+                            >
+                              <div
+                                class="grid grid-cols-[40px_1fr] gap-2 items-center"
+                              >
+                                <div
+                                  class="w-[40px] h-[40px] rounded-full border border-gray-200"
+                                >
+                                  <img
+                                    [src]="
+                                      candidate.User.image == null
+                                        ? '../../../../../assets/images/student.png'
+                                        : candidate.User.image
+                                    "
+                                    alt=""
+                                    class="w-[40px] h-[40px] rounded-full object-cover"
+                                  />
+                                </div>
+                                <div class="">
+                                  <h1
+                                    class="font-semibold text-sm text-slate-800 capitalize"
+                                  >
+                                    {{ candidate.User.name }}
+                                  </h1>
+                                  <div class="flex items-center">
+                                    <p
+                                      class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                                    >
+                                      {{
+                                        candidate.Partylist == null
+                                          ? "Indendent"
+                                          : candidate.Partylist.title
+                                      }}
+                                    </p>
+                                    <p class="text-[12px]">
+                                      {{
+                                        candidate.User.StudentCredential.Course
+                                          .acronym
+                                      }}
+                                      {{ candidate.User.StudentCredential.year
+                                      }}{{
+                                        candidate.User.StudentCredential.section
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-[12px] font-semibold">
+                                {{
+                                  candidate.ElectionVotes.length == 0
+                                    ? "0"
+                                    : candidate.ElectionVotes.length
+                                }}
+                                {{
+                                  candidate.ElectionVotes.length > 1
+                                    ? "votes"
+                                    : "vote"
+                                }}
+                              </div>
+
+                              <img
+                                *ngIf="
+                                  election.stage == 'election_ended' &&
+                                  checkResult(candidate) == 'winner'
+                                "
+                                src="../../../../../assets/images/medal.png"
+                                alt=""
+                                class="w-[25px] h-[25px] absolute right-0 -top-2"
+                              />
+
+                              <div
+                                *ngIf="
+                                  election.stage == 'election_ended' &&
+                                  checkResult(candidate) == 'draw'
+                                "
+                                class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
+                              >
+                                Draw
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        *ngIf="position.allowedCourse == 0"
+                        class="grid gap-2"
+                      >
                         <div
                           *ngFor="let candidate of position.ElectionCandidates"
                           class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200"
@@ -621,28 +719,13 @@
 
         <div>
           <label class="block text-[12px] font-medium text-gray-700"
-            >No. of winners</label
+            >Slot</label
           >
           <div class="mt-1 relative rounded-md">
             <input
               type="number"
               formControlName="no_of_winners"
               placeholder="No. of winners"
-              required
-              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[12px] font-medium text-gray-700"
-            >No. of candidates</label
-          >
-          <div class="mt-1 relative rounded-md">
-            <input
-              type="number"
-              formControlName="no_of_candidates"
-              placeholder="No. of candidates"
               required
               class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100"
             />
@@ -715,10 +798,7 @@
             <div class="flex justify-between items-center">
               <div class=""></div>
               <button
-                *ngIf="
-                  election.status == 'draft' &&
-                  limitOfCandidates > candidates.length
-                "
+                *ngIf="election.status == 'draft'"
                 (click)="addCandidateModal = true"
                 class="bg-red-500 text-white text-[12px] font-semibold py-2 px-4 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
               >
@@ -878,9 +958,24 @@
                       <div class="font-semibold text-sm capitalize">
                         {{ addCandidateData.user.name }}
                       </div>
-                      <p class="text-[11px]">
-                        {{ addCandidateData.user.StudentCredential.schoolId }}
-                      </p>
+                      <div class="flex iitems-center">
+                        <p class="text-[11px]">
+                          {{ addCandidateData.user.StudentCredential.schoolId }}
+                          _
+                        </p>
+                        <p class="text-[11px]">
+                          {{
+                            getCourse(
+                              2,
+                              addCandidateData.user.StudentCredential.CourseId
+                            )
+                          }}
+                          {{ addCandidateData.user.StudentCredential.year
+                          }}{{
+                            addCandidateData.user.StudentCredential.section
+                          }}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -900,9 +995,16 @@
                     <div class="font-semibold text-sm capitalize">
                       {{ student.name }}
                     </div>
-                    <p class="text-[11px]">
-                      {{ student.StudentCredential.schoolId }}
-                    </p>
+                    <div class="flex iitems-center">
+                      <p class="text-[11px]">
+                        {{ student.StudentCredential.schoolId }} _
+                      </p>
+                      <p class="text-[11px]">
+                        {{ getCourse(2, student.StudentCredential.CourseId) }}
+                        {{ student.StudentCredential.year
+                        }}{{ student.StudentCredential.section }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </ng-template>
