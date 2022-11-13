@@ -80,6 +80,8 @@ export class ElectionComponent implements OnInit {
         return y.ElectionVotes.length - x.ElectionVotes.length;
       });
 
+      console.log(position)
+
       temp.push({
         positionId: position.id,
         title: position.title,
@@ -308,8 +310,6 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
-        this.getResult();
-
         this.election.ElectionPositions.forEach((position: any, idx: any) => {
           if (position.allowedCourse != 0) {
             position.ElectionCandidates = position.ElectionCandidates.filter(
@@ -325,8 +325,6 @@ export class ElectionComponent implements OnInit {
           }
 
           this.votes.push({ ...position, selectedCandidateCount: 0 });
-
-          console.log(this.votes);
         });
 
         this.election.Partylists.forEach((party: any) => {
@@ -344,6 +342,9 @@ export class ElectionComponent implements OnInit {
             this.isAlreadyVoted = true;
           }
         });
+
+        console.log(this.election)
+        this.getResult();
       },
       (error: any) => {
         this.isLoading = false;
