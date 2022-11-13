@@ -231,77 +231,6 @@
 
           <hr class="my-10" />
 
-          <div class="" *ngIf="election.status == 'draft'">
-            <div class="flex justify-between items-center">
-              <h1 class="text-md font-semibold">Positions</h1>
-              <div class=""></div>
-            </div>
-
-            <div class="mt-10">
-              <div *ngIf="isLoading" class="grid md:grid-cols-2 gap-5 mt-20">
-                <p-skeleton
-                  width="100%"
-                  height="180px"
-                  *ngFor="
-                    let arr of ['', '', '', '', '', '', '', '', '', '', '', '']
-                  "
-                ></p-skeleton>
-              </div>
-
-              <div
-                *ngIf="!isLoading && election.ElectionPositions.length == 0"
-                class="grid place-items-center"
-              >
-                <div class="">
-                  <img
-                    src="../../../../../assets/images/empty-box.png"
-                    alt=""
-                    class="w-[200px] h-[200px] object-cover"
-                  />
-                  <h1 class="text-center mt-10 font-semibold text-slate-800">
-                    No election position added yet.
-                  </h1>
-                </div>
-              </div>
-
-              <div
-                class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-                *ngIf="!isLoading && election"
-              >
-                <div
-                  *ngFor="let position of election.ElectionPositions"
-                  class="border border-gray-200 bg-white p-3 rounded-md shadow-sm"
-                >
-                  <div class="flex justify-between">
-                    <div class="">
-                      <h1
-                        class="text-md font-semibold text-slate-800 capitalize"
-                      >
-                        {{ position.title }}
-                      </h1>
-                      <p class="text-slate-700 text-[12px]">
-                        {{ position.description }}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="text-[10px] mt-3 grid gap-1">
-                    <div
-                      class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
-                    >
-                      Limit no. of winners: {{ position.no_of_winners }}
-                    </div>
-                    <div
-                      class="bg-slate-800 font-semibold text-white rounded-md py-1 px-2 w-fit"
-                    >
-                      Limit no. of candidates: {{ position.no_of_candidates }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="">
             <div class="mt-10">
               <div class="" *ngIf="election.status != 'draft'">
@@ -331,8 +260,8 @@
                     class=""
                   >
                     <div
-                      *ngIf="position.ElectionCandidates.length != 0"
                       class="border border-gray-200 rounded-lg p-3"
+                      *ngIf="position.ElectionCandidates.length != 0"
                     >
                       <div class="mb-4">
                         <div class="flex items-center justify-between">
@@ -349,11 +278,119 @@
                           </div>
                         </div>
                         <div class="text-sm">
-                          No. of winners: {{ position.no_of_winners }}
+                          Slot(s)
+                          {{ position.allowedCourse != 0 ? "per course" : "" }}:
+                          {{ position.no_of_winners }}
                         </div>
                       </div>
 
-                      <div class="grid gap-2">
+                      <div
+                        *ngIf="position.allowedCourse != 0"
+                        class="grid gap-4"
+                      >
+                        <div
+                          *ngFor="
+                            let course of byCourseArr(
+                              position.ElectionCandidates
+                            )
+                          "
+                          class=""
+                        >
+                          <div class="font-semibold text-[12px]">
+                            {{ getCourse(2, course.course) }}
+                          </div>
+
+                          <div class="grid gap-2 pl-1 mt-1">
+                            <div
+                              *ngFor="let candidate of course.candidates"
+                              class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200"
+                            >
+                              <div
+                                class="grid grid-cols-[40px_1fr] gap-2 items-center"
+                              >
+                                <div
+                                  class="w-[40px] h-[40px] rounded-full border border-gray-200"
+                                >
+                                  <img
+                                    [src]="
+                                      candidate.User.image == null
+                                        ? '../../../../../assets/images/student.png'
+                                        : candidate.User.image
+                                    "
+                                    alt=""
+                                    class="w-[40px] h-[40px] rounded-full object-cover"
+                                  />
+                                </div>
+                                <div class="">
+                                  <h1
+                                    class="font-semibold text-sm text-slate-800 capitalize"
+                                  >
+                                    {{ candidate.User.name }}
+                                  </h1>
+                                  <div class="flex items-center">
+                                    <p
+                                      class="text-[12px] mr-1 bg-slate-100 border border-slate-200 rounded-md font-semibold px-1 w-fit capitalize"
+                                    >
+                                      {{
+                                        candidate.Partylist == null
+                                          ? "Indendent"
+                                          : candidate.Partylist.title
+                                      }}
+                                    </p>
+                                    <p class="text-[12px]">
+                                      {{
+                                        candidate.User.StudentCredential.Course
+                                          .acronym
+                                      }}
+                                      {{ candidate.User.StudentCredential.year
+                                      }}{{
+                                        candidate.User.StudentCredential.section
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-[12px] font-semibold">
+                                {{
+                                  candidate.ElectionVotes.length == 0
+                                    ? "0"
+                                    : candidate.ElectionVotes.length
+                                }}
+                                {{
+                                  candidate.ElectionVotes.length > 1
+                                    ? "votes"
+                                    : "vote"
+                                }}
+                              </div>
+
+                              <img
+                                *ngIf="
+                                  election.stage == 'election_ended' &&
+                                  checkResult(candidate) == 'winner'
+                                "
+                                src="../../../../../assets/images/medal.png"
+                                alt=""
+                                class="w-[25px] h-[25px] absolute right-0 -top-2"
+                              />
+
+                              <div
+                                *ngIf="
+                                  election.stage == 'election_ended' &&
+                                  checkResult(candidate) == 'draw'
+                                "
+                                class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
+                              >
+                                Draw
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        *ngIf="position.allowedCourse == 0"
+                        class="grid gap-2"
+                      >
                         <div
                           *ngFor="let candidate of position.ElectionCandidates"
                           class="relative flex items-center justify-between rounded-md p-1 px-3 cursor-pointer hover:bg-slate-100 transition-all border border-gray-200"
@@ -668,9 +705,23 @@
             {{ position.title }}
           </div>
 
-          <div class="grid gap-1 mt-2">
+          <div *ngIf="position.allowed != 0" class="grid gap-3 mt-2">
             <div *ngFor="let winner of position.results" class="">
-              <div *ngIf="winner.result == 'winner'" class="text-sm capitalize">
+              <div class="font-semibold text-[12px]">{{ getCourse(2, winner.course) }}</div>
+
+              <div *ngFor="let win of winner.candidates" class="grid gap-1 mt-1 pl-1">
+                <div *ngIf="win.result == 'winner'" class="text-[12px] capitalize">
+                  - {{ win.User.name }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div *ngIf="position.allowed == 0" class="grid gap-1 mt-2">
+            <div *ngFor="let winner of position.results" class="">
+              <div *ngIf="winner.result == 'winner'" class="text-[12px] capitalize">
                 - {{ winner.name }}
               </div>
             </div>
@@ -753,17 +804,28 @@
           <div class="grid gap-4">
             <div *ngFor="let position of electionResult" class="">
               <div
-                class="font-semibold text-md text-slate-800 border-b pb-2 border-slate-200 py-[2px] w-full"
+                class="font-semibold text-md text-slate-800 border-b border-slate-200 py-[2px] w-full"
               >
                 {{ position.title }}
               </div>
-
-              <div class="grid gap-1 mt-2">
+    
+              <div *ngIf="position.allowed != 0" class="grid gap-3 mt-2">
                 <div *ngFor="let winner of position.results" class="">
-                  <div
-                    *ngIf="winner.result == 'winner'"
-                    class="text-sm capitalize"
-                  >
+                  <div class="font-semibold text-[12px]">{{ getCourse(2, winner.course) }}</div>
+    
+                  <div *ngFor="let win of winner.candidates" class="grid gap-1 mt-1 pl-1">
+                    <div *ngIf="win.result == 'winner'" class="text-[12px] capitalize">
+                      - {{ win.User.name }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+    
+    
+              <div *ngIf="position.allowed == 0" class="grid gap-1 mt-2">
+                <div *ngFor="let winner of position.results" class="">
+                  <div *ngIf="winner.result == 'winner'" class="text-[12px] capitalize">
                     - {{ winner.name }}
                   </div>
                 </div>

@@ -16,6 +16,7 @@ export class ReceiptComponent implements OnInit {
   constructor(private pdfService: PdfService) { }
 
   ngOnInit(): void {
+    console.log(this.receipt)
   }
 
   dateFormat(date: any) {

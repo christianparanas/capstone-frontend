@@ -122,7 +122,7 @@ export class ElectionComponent implements OnInit {
           bb.forEach((b: any) => {
             let candi = item.candidateSortedByVoteCount[b];
 
-            if (bb.length >= item.noOfWinners) {
+            if (bb.length > item.noOfWinners) {
               result.push({
                 candidateId: candi.id,
                 name: candi.User.name,
@@ -311,18 +311,22 @@ export class ElectionComponent implements OnInit {
         this.getResult();
 
         this.election.ElectionPositions.forEach((position: any, idx: any) => {
-  
-          if(position.allowedCourse != 0) {
-            position.ElectionCandidates = position.ElectionCandidates.filter((candidate: any) => {
-              if(candidate.User.StudentCredential.CourseId == this.profile.StudentCredential.CourseId) {
-                return true
+          if (position.allowedCourse != 0) {
+            position.ElectionCandidates = position.ElectionCandidates.filter(
+              (candidate: any) => {
+                if (
+                  candidate.User.StudentCredential.CourseId ==
+                  this.profile.StudentCredential.CourseId
+                ) {
+                  return true;
+                }
               }
-            })
+            );
           }
 
           this.votes.push({ ...position, selectedCandidateCount: 0 });
 
-          console.log(this.votes)
+          console.log(this.votes);
         });
 
         this.election.Partylists.forEach((party: any) => {

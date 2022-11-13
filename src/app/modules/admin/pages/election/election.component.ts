@@ -143,6 +143,40 @@ export class ElectionComponent implements OnInit {
     this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
   }
 
+  byCourseArr(candidates: any) {
+    let arr: any = [];
+
+    candidates.forEach((candi: any) => {
+      let id = candi.User.StudentCredential.CourseId;
+
+      let bb = null;
+
+      if (arr.length >= 1) {
+        arr.forEach((item: any, idx: any) => {
+          if (id == item.course) {
+            arr[idx].candidates.push(candi);
+          } else {
+            bb = true;
+          }
+        });
+
+        if (bb && undefined == arr.find((item: any) => item.course == id)) {
+          arr.push({
+            course: candi.User.StudentCredential.CourseId,
+            candidates: [candi],
+          });
+        }
+      } else {
+        arr.push({
+          course: candi.User.StudentCredential.CourseId,
+          candidates: [candi],
+        });
+      }
+    });
+
+    return arr;
+  }
+
   getPrediction(position: any) {
     this.chartData.labels = [];
     this.chartData.datasets[0].data = [];
@@ -245,91 +279,179 @@ export class ElectionComponent implements OnInit {
     let temp: any = [];
 
     this.election.ElectionPositions.forEach((position: any) => {
-      const candidates = position.ElectionCandidates.sort((x: any, y: any) => {
-        return y.ElectionVotes.length - x.ElectionVotes.length;
-      });
+      if (position.allowedCourse != 0) {
+        let arr: any = [];
 
-      temp.push({
-        positionId: position.id,
-        title: position.title,
-        noOfWinners: position.no_of_winners,
-        candidateSortedByVoteCount: candidates,
-      });
-    });
+        position.ElectionCandidates.forEach((candi: any) => {
+          let id = candi.User.StudentCredential.CourseId;
 
-    temp.forEach((item: any) => {
-      let winners = item.candidateSortedByVoteCount.slice(0, item.noOfWinners);
+          let bb = null;
 
-      let result: any = [];
+          if (arr.length >= 1) {
+            arr.forEach((item: any, idx: any) => {
+              if (id == item.course) {
+                arr[idx].candidates.push(candi);
+              } else {
+                bb = true;
+              }
+            });
 
-      winners.forEach((win: any) => {
-        if (win.ElectionVotes.length == 0) {
-          result.push({
-            candidateId: win.id,
-            name: win.User.name,
-            result: 'loser',
+            if (bb && undefined == arr.find((item: any) => item.course == id)) {
+              arr.push({
+                course: candi.User.StudentCredential.CourseId,
+                candidates: [candi],
+              });
+            }
+          } else {
+            arr.push({
+              course: candi.User.StudentCredential.CourseId,
+              candidates: [candi],
+            });
+          }
+        });
+
+        temp.push({
+          positionId: position.id,
+          title: position.title,
+          allowed: position.allowedCourse,
+          noOfWinners: position.no_of_winners,
+          courseCandidates: [],
+        });
+
+        arr.forEach((aaa: any) => {
+          const candi = aaa.candidates.sort((a: any, b: any) => {
+            return b.ElectionVotes.length - a.ElectionVotes.length;
           });
 
-          return;
-        }
-
-        let bb = item.candidateSortedByVoteCount.reduce(
-          (r: any, v: any, i: any) =>
-            r.concat(
-              v.ElectionVotes.length === win.ElectionVotes.length ? i : []
-            ),
-          []
+          temp[temp.length - 1].courseCandidates.push({
+            course: candi[0].User.StudentCredential.CourseId,
+            candidates: candi,
+          });
+        });
+      } else {
+        const candidates = position.ElectionCandidates.sort(
+          (x: any, y: any) => {
+            return y.ElectionVotes.length - x.ElectionVotes.length;
+          }
         );
 
-        if (bb.length == 1) {
-          result.push({
-            candidateId: win.id,
-            name: win.User.name,
-            result: 'winner',
+        temp.push({
+          positionId: position.id,
+          title: position.title,
+          allowed: position.allowedCourse,
+          noOfWinners: position.no_of_winners,
+          candidateSortedByVoteCount: candidates,
+        });
+      }
+    });
+
+    temp.forEach(async (item: any) => {
+      let winners: any = [];
+      let result: any = [];
+
+      if (item.allowed == 0) {
+        winners = await item.candidateSortedByVoteCount.slice(
+          0,
+          item.noOfWinners
+        );
+      } else {
+        item.courseCandidates.forEach((each: any) => {
+          let abc = each.candidates.slice(0, item.noOfWinners);
+
+          winners.push({
+            course: each.course,
+            candidates: abc,
           });
-        } else {
-          bb.forEach((b: any) => {
-            let candi = item.candidateSortedByVoteCount[b];
+        });
 
-            if (bb.length >= item.noOfWinners) {
-              result.push({
-                candidateId: candi.id,
-                name: candi.User.name,
-                result: 'draw',
-              });
-            } else {
-              let dd = result.filter((res: any) => res.candidateId == candi.id);
+        winners.forEach((winner: any) => {
+          winner.candidates.forEach((cand: any) => {
+            cand.result = 'winner';
+          });
+        });
 
-              if (dd.length == 0) {
+        this.electionResult.push({
+          positionId: item.positionId,
+          allowed: item.allowed,
+          title: item.title,
+          noOfWinners: item.noOfWinners,
+          results: winners,
+        });
+      }
+
+      if (item.allowed == 0) {
+        winners.forEach((win: any) => {
+          if (win.ElectionVotes.length == 0) {
+            result.push({
+              candidateId: win.id,
+              name: win.User.name,
+              result: 'loser',
+            });
+
+            return;
+          }
+
+          let bb = item.candidateSortedByVoteCount.reduce(
+            (r: any, v: any, i: any) =>
+              r.concat(
+                v.ElectionVotes.length === win.ElectionVotes.length ? i : []
+              ),
+            []
+          );
+
+          if (bb.length == 1) {
+            result.push({
+              candidateId: win.id,
+              name: win.User.name,
+              result: 'winner',
+            });
+          } else {
+            bb.forEach((b: any) => {
+              let candi = item.candidateSortedByVoteCount[b];
+
+              if (bb.length >= item.noOfWinners) {
                 result.push({
                   candidateId: candi.id,
                   name: candi.User.name,
-                  result: 'winner',
+                  result: 'draw',
                 });
+              } else {
+                let dd = result.filter(
+                  (res: any) => res.candidateId == candi.id
+                );
+
+                if (dd.length == 0) {
+                  result.push({
+                    candidateId: candi.id,
+                    name: candi.User.name,
+                    result: 'winner',
+                  });
+                }
               }
-            }
-          });
-        }
-      });
+            });
+          }
+        });
 
-      item.candidateSortedByVoteCount.forEach((a: any) => {
-        let dd = result.filter((res: any) => res.candidateId == a.id);
+        item.candidateSortedByVoteCount.forEach((a: any) => {
+          let dd = result.filter((res: any) => res.candidateId == a.id);
 
-        if (dd.length == 0) {
-          result.push({
-            candidateId: a.id,
-            name: a.User.name,
-            result: 'loser',
-          });
-        }
-      });
+          if (dd.length == 0) {
+            result.push({
+              candidateId: a.id,
+              name: a.User.name,
+              result: 'loser',
+            });
+          }
+        });
 
-      this.electionResult.push({
-        positionId: item.positionId,
-        title: item.title,
-        noOfWinners: item.noOfWinners,
-        results: result,
-      });
+        this.electionResult.push({
+          positionId: item.positionId,
+          allowed: item.allowed,
+          title: item.title,
+          noOfWinners: item.noOfWinners,
+          results: result,
+        });
+      }
     });
 
     console.log(this.electionResult);
@@ -339,12 +461,24 @@ export class ElectionComponent implements OnInit {
     let result = null;
 
     this.electionResult.forEach((pos: any) => {
-      if (candidate.ElectionPositionId == pos.positionId) {
-        pos.results.forEach((can: any) => {
-          if (candidate.id == can.candidateId) {
-            result = can.result;
-          }
-        });
+      if (pos.allowed == 0) {
+        if (candidate.ElectionPositionId == pos.positionId) {
+          pos.results.forEach((can: any) => {
+            if (candidate.id == can.candidateId) {
+              result = can.result;
+            }
+          });
+        }
+      } else {
+        if (candidate.ElectionPositionId == pos.positionId) {
+          pos.results.forEach((res: any) => {
+            res.candidates.forEach((candi: any) => {
+              if (candidate.id == candi.id) {
+                result = candi.result != undefined ? candi.result : 'loser';
+              }
+            });
+          });
+        }
       }
     });
 

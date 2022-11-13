@@ -290,11 +290,19 @@
                   >
                     <div class="">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
-                        {{ position.allowedCourse != 0 ? getCourse(2, profile.StudentCredential.CourseId) : '' }} {{ position.title }}
+                        {{
+                          position.allowedCourse != 0
+                            ? getCourse(2, profile.StudentCredential.CourseId)
+                            : ""
+                        }}
+                        {{ position.title }}
                       </h1>
                     </div>
 
-                    <div *ngIf="position.ElectionCandidates.length != 0" class="text-[12px]">
+                    <div
+                      *ngIf="position.ElectionCandidates.length != 0"
+                      class="text-[12px]"
+                    >
                       Select only {{ position.no_of_winners }}
                       {{
                         position.no_of_winners.length > 1
@@ -432,17 +440,28 @@
 
             <div class="grid lg:grid-cols-2 gap-4">
               <div *ngFor="let position of election.ElectionPositions" class="">
-                <div
-                  class="border border-gray-200 rounded-lg p-3"
-                  *ngIf="position.ElectionCandidates.length != 0"
-                >
+                <div class="border border-gray-200 rounded-lg p-3">
                   <div class="mb-4">
                     <div class="flex items-center justify-between">
-                      <div class="font-semibold">{{ position.title }}</div>
+                      <h1 class="text-md font-semibold text-slate-800 text-xl">
+                        {{
+                          position.allowedCourse != 0
+                            ? getCourse(2, profile.StudentCredential.CourseId)
+                            : ""
+                        }}
+                        {{ position.title }}
+                      </h1>
                     </div>
                     <div class="text-sm">
-                      No. of winners: {{ position.no_of_winners }}
+                      Slot(s): {{ position.no_of_winners }}
                     </div>
+                  </div>
+
+                  <div
+                    *ngIf="position.ElectionCandidates.length == 0"
+                    class="grid place-items-center py-5"
+                  >
+                    <div class="text-[12px]">No candidates</div>
                   </div>
 
                   <div class="grid gap-2">
@@ -618,6 +637,11 @@
           <div
             class="font-semibold text-md text-slate-800 border-b border-slate-200 py-[2px] w-full"
           >
+            {{
+              position.allowedCourse != 0
+                ? getCourse(2, profile.StudentCredential.CourseId)
+                : ""
+            }}
             {{ position.title }}
           </div>
 
@@ -797,6 +821,11 @@
               <div
                 class="font-semibold text-md text-slate-800 border-b pb-2 border-slate-200 py-[2px] w-full"
               >
+                {{
+                  position.allowedCourse != 0
+                    ? getCourse(2, profile.StudentCredential.CourseId)
+                    : ""
+                }}
                 {{ position.title }}
               </div>
 
