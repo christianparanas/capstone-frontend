@@ -80,7 +80,7 @@ export class ElectionComponent implements OnInit {
         return y.ElectionVotes.length - x.ElectionVotes.length;
       });
 
-      console.log(position)
+      console.log(position);
 
       temp.push({
         positionId: position.id,
@@ -342,8 +342,7 @@ export class ElectionComponent implements OnInit {
             this.isAlreadyVoted = true;
           }
         });
-
-        console.log(this.election)
+        
         this.getResult();
       },
       (error: any) => {
