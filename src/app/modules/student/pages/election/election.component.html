@@ -638,7 +638,7 @@
             class="font-semibold text-md text-slate-800 border-b border-slate-200 py-[2px] w-full"
           >
             {{
-              position.allowedCourse != 0
+              position.allowed != 0
                 ? getCourse(2, profile.StudentCredential.CourseId)
                 : ""
             }}
@@ -822,7 +822,7 @@
                 class="font-semibold text-md text-slate-800 border-b pb-2 border-slate-200 py-[2px] w-full"
               >
                 {{
-                  position.allowedCourse != 0
+                  position.allowed != 0
                     ? getCourse(2, profile.StudentCredential.CourseId)
                     : ""
                 }}

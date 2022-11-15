@@ -80,11 +80,10 @@ export class ElectionComponent implements OnInit {
         return y.ElectionVotes.length - x.ElectionVotes.length;
       });
 
-      console.log(position);
-
       temp.push({
         positionId: position.id,
         title: position.title,
+        allowed: position.allowedCourse,
         noOfWinners: position.no_of_winners,
         candidateSortedByVoteCount: candidates,
       });
@@ -160,12 +159,11 @@ export class ElectionComponent implements OnInit {
       this.electionResult.push({
         positionId: item.positionId,
         title: item.title,
+        allowed: item.allowed,
         noOfWinners: item.noOfWinners,
         results: result,
       });
     });
-
-    console.log(this.electionResult);
   }
 
   checkResult(candidate: any) {
