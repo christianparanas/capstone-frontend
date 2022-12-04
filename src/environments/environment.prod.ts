@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: "https://election-backend.onrender.com"
+  baseURL: "https://dull-pink-greyhound-tux.cyclic.app"
 };
