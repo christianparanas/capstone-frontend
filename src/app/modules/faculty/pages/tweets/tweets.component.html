@@ -213,9 +213,12 @@
                   <div class="text-[10px] flex items-center">
                     <div
                       *ngFor="let role of tweet.User.UserRoles"
-                      class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      class=""
                     >
+                    <div *ngIf="role.Role.title != 'Student'" class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1">
                       {{ role.Role.title }}
+                    </div>
+                      
                     </div>
                   </div>
                 </div>
