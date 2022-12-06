@@ -11,6 +11,10 @@
 ::ng-deep .p-dropdown {
   @apply px-1 py-[2px] outline-none block w-full relative lg:max-w-[350px] sm:text-sm border-0 bg-slate-50 rounded-md cursor-pointer;
 
+  .p-dropdown-label {
+    @apply w-[250px] lg:w-full;
+  }
+
   .p-dropdown-items-wrapper {
     @apply w-full md:max-w-[350px];
 
