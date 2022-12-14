@@ -45,7 +45,7 @@ export class ElectionComponent implements OnInit {
     private eventService: EventService,
     private profileService: ProfileService,
     private pdfService: PdfService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -242,7 +242,7 @@ export class ElectionComponent implements OnInit {
               candidate.isSelected = false;
               item.selectedCandidateCount = item.selectedCandidateCount - 1;
               this.candidateModal = false;
-              this.toast.info('Candidate Unvoted.');
+              this.toast.info('Candidate unselected.');
 
               this.checkIfBallotEmpty();
             } else {
@@ -253,7 +253,7 @@ export class ElectionComponent implements OnInit {
                 candidate.isSelected = true;
                 item.selectedCandidateCount = item.selectedCandidateCount + 1;
                 this.candidateModal = false;
-                this.toast.success('Candidate Voted.');
+                this.toast.success('Candidate selected.');
 
                 this.checkIfBallotEmpty();
               }
@@ -340,7 +340,7 @@ export class ElectionComponent implements OnInit {
             this.isAlreadyVoted = true;
           }
         });
-        
+
         this.getResult();
       },
       (error: any) => {
