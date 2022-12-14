@@ -1,79 +1,44 @@
 <div class="relative z-50">
-  <p-dialog
-    header="Create account"
-    [(visible)]="createAccountModal"
-    [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }"
-  >
+  <p-dialog header="Create account" [(visible)]="createAccountModal" [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }">
     <div class="mt-3">
-      <form
-        (ngSubmit)="onSubmit()"
-        [formGroup]="createForm"
-        class="w-full grid gap-2"
-      >
+      <form (ngSubmit)="onSubmit()" [formGroup]="createForm" class="w-full grid gap-2">
         <div class="w-full">
           <label class="block text-[12px] font-medium text-gray-700">Name</label>
           <div class="mt-1 relative rounded-md w-full">
-            <input
-              type="text"
+            <input type="text"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              placeholder="Enter name"
-              formControlName="name"
-            />
+              placeholder="Enter name" formControlName="name" />
           </div>
         </div>
 
         <div class="w-full">
           <label class="block text-[12px] font-medium text-gray-700">Email</label>
           <div class="mt-1 relative rounded-md w-full">
-            <input
-              type="email"
+            <input type="email"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              placeholder="Enter email"
-              formControlName="email"
-            />
+              placeholder="Enter email" formControlName="email" />
           </div>
         </div>
 
         <div class="w-full">
-          <label class="block text-[12px] font-medium text-gray-700"
-            >Password</label
-          >
+          <label class="block text-[12px] font-medium text-gray-700">Password</label>
           <div class="mt-1 relative rounded-md w-full">
-            <input
-              type="text"
+            <input type="text"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              placeholder="Enter password"
-              formControlName="password"
-            />
+              placeholder="Enter password" formControlName="password" />
           </div>
         </div>
 
-        <button
-          [disabled]="submitLoading"
-          type="submit"
-          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
-        >
+        <button [disabled]="submitLoading" type="submit"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2">
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg
-              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
             </svg>
 
             <span>Processing</span>
@@ -85,65 +50,36 @@
     </div>
   </p-dialog>
 
-  <p-dialog
-    header="Edit"
-    [(visible)]="editAccountModal"
-    [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }"
-  >
+  <p-dialog header="Edit" [(visible)]="editAccountModal" [modal]="true" [style]="{ maxWidth: '400px', width: '400px' }">
     <div class="mt-3">
       <form (ngSubmit)="editFormSubmit()" class="w-full grid gap-2">
         <div class="w-full">
           <label class="block text-[12px] font-medium text-gray-700">Name</label>
           <div class="mt-1 relative rounded-md w-full">
-            <input
-              type="text"
+            <input type="text"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              placeholder="Enter name"
-              [(ngModel)]="editForm.name"
-              [ngModelOptions]="{ standalone: true }"
-            />
+              placeholder="Enter name" [(ngModel)]="editForm.name" [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="w-full">
           <label class="block text-[12px] font-medium text-gray-700">Email</label>
           <div class="mt-1 relative rounded-md w-full">
-            <input
-              type="email"
+            <input type="email"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
-              placeholder="Enter email"
-              [(ngModel)]="editForm.email"
-              [ngModelOptions]="{ standalone: true }"
-            />
+              placeholder="Enter email" [(ngModel)]="editForm.email" [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
-        <button
-          [disabled]="submitLoading"
-          type="submit"
-          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2"
-        >
+        <button [disabled]="submitLoading" type="submit"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2">
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg
-              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
             </svg>
 
             <span>Processing</span>
@@ -161,78 +97,51 @@
     <h1 class="font-bold text-lg text-slate-900 mb-3">Admin Accounts</h1>
 
     <div class="relative w-[350px] lg:w-full">
-      <p-table
-        [value]="admins"
-        #dt2
-        dataKey="id"
-        responsiveLayout="scroll"
-        [paginator]="true"
-        [rows]="10"
-        [columns]="cols"
-        selectionMode="multiple"
-        [(selection)]="selectedAdmin"
-        [showCurrentPageReport]="true"
+      <p-table [value]="admins" #dt2 dataKey="id" responsiveLayout="scroll" [paginator]="true" [rows]="10"
+        [columns]="cols" selectionMode="multiple" [(selection)]="selectedAdmin" [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        styleClass="p-datatable-gridlines"
-        [globalFilterFields]="['id', 'name', 'email', 'createdAt', 'status']"
-      >
+        [rowsPerPageOptions]="[10, 25, 50]" styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['id', 'name', 'email', 'createdAt', 'status']">
         <ng-template pTemplate="caption">
           <div class="grid gap-2 md:flex md:justify-between">
             <div class="p-input-icon-left">
               <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                #textInput
-                (input)="dt2.filterGlobal(textInput.value, 'contains')"
-                placeholder="Search keyword"
-              />
+              <input pInputText type="text" #textInput (input)="dt2.filterGlobal(textInput.value, 'contains')"
+                placeholder="Search keyword" />
             </div>
 
-            
+
             <div class="flex">
               <div class="flex items-center mr-2 gap-1">
-                <button
-                  (click)="dt2.exportCSV()"
-                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
-                >
+                <button (click)="dt2.exportCSV()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md">
                   <i class="fad fa-download mr-1"></i>
                   CSV
                 </button>
-                <button
-                  (click)="dt2.exportCSV({ selectionOnly: true })"
-                  pTooltip="Selection Only"
+                <button (click)="dt2.exportCSV({ selectionOnly: true })" pTooltip="Selection Only"
                   tooltipPosition="bottom"
-                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
-                >
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md">
                   <i class="fad fa-download mr-1"></i>
                   CSV (Selected)
                 </button>
-                <button
-                  (click)="exportExcel()"
-                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
-                >
+                <button (click)="exportExcel()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md">
                   <i class="fad fa-download mr-1"></i>
                   Excel
                 </button>
-                <button
-                  (click)="exportPdf()"
-                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
-                >
+                <button (click)="exportPdf()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md">
                   <i class="fad fa-download mr-1"></i>
                   PDF
                 </button>
               </div>
 
-                          
-            <button
-            (click)="createAccountModal = true"
-            class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
-          >
-            <i class="fal fa-file-plus mr-1"></i>
-            Create
-          </button>
+
+              <button (click)="createAccountModal = true"
+                class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all">
+                <i class="fal fa-file-plus mr-1"></i>
+                Create
+              </button>
             </div>
           </div>
         </ng-template>
@@ -241,6 +150,7 @@
             <th field="id">ID</th>
             <th field="name">Name</th>
             <th field="email">Email</th>
+            <th field="email">Position</th>
             <th field="createdAt">Date created</th>
             <th field="status">Status</th>
             <th>Action</th>
@@ -251,24 +161,20 @@
             <td>{{ admin.id }}</td>
             <td>{{ admin.name }}</td>
             <td>{{ admin.email }}</td>
+            <td>{{ admin.email }}</td>
             <td>{{ momentFormatLLL(admin.createdAt) }}</td>
             <td>
-              <div
-                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
-                [ngClass]="
+              <div class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize" [ngClass]="
                   admin.status == 'active'
                     ? 'bg-green-200 text-green-900'
                     : 'bg-red-200 text-red-900'
-                "
-              >
+                ">
                 {{ admin.status }}
               </div>
             </td>
             <td>
-              <div
-                (click)="openEditModal(admin)"
-                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
-              >
+              <div (click)="openEditModal(admin)"
+                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer">
                 <i class="fad fa-edit"></i> Edit
               </div>
             </td>
