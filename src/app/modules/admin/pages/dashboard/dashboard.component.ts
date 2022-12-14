@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
 
   profile: any = [];
   voters: any = [];
-  elections: any = []
-  polls: any = []
+  elections: any = [];
+  polls: any = [];
 
   constructor(
     private profileService: ProfileService,
@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getProfile();
     this.getVoters();
-    this.getPolls()
-    this.getElections()
+    this.getPolls();
+    this.getElections();
     this.date = new Date();
 
     this.isMorning = this.date.getHours() > 5 && this.date.getHours() <= 12;
@@ -55,8 +55,8 @@ export class DashboardComponent implements OnInit {
   getElections() {
     this.electionService.getElections().subscribe((response: any) => {
       response.forEach((election: any) => {
-        if(election.stage == 'election_started') {
-          this.elections.push(election)
+        if (election.stage == 'election_started') {
+          this.elections.push(election);
         }
       });
     });
@@ -65,8 +65,8 @@ export class DashboardComponent implements OnInit {
   getPolls() {
     this.pollService.getPolls({}).subscribe((response: any) => {
       response.forEach((poll: any) => {
-        if(poll.published == 1) {
-          this.polls.push(poll)
+        if (poll.published == 1) {
+          this.polls.push(poll);
         }
       });
     });

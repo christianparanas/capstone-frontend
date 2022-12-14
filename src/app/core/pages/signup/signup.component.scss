@@ -1,0 +1,34 @@
+
+
+::ng-deep .p-inputtext {
+  @apply py-2 px-3 outline-none block w-full pr-12 sm:text-sm border-0 bg-slate-50 rounded-md cursor-pointer;
+}
+
+::ng-deep .p-inputtext:enabled:focus {
+  @apply border-white shadow-none;
+}
+
+::ng-deep .p-dropdown {
+  @apply px-1 py-[2px] outline-none block w-full relative lg:max-w-[350px] sm:text-sm border-0 bg-slate-50 rounded-md cursor-pointer;
+
+  .p-dropdown-label {
+    @apply w-[250px] lg:w-full;
+  }
+
+  .p-dropdown-items-wrapper {
+    @apply w-full md:max-w-[350px];
+
+    .p-dropdown-items {
+      @apply w-full max-w-[280px] md:max-w-[350px];
+
+      .p-dropdown-item {
+        @apply overflow-x-auto;
+      }
+    }
+  }
+}
+
+::ng-deep .p-dropdown:not(.p-disabled).p-focus {
+  @apply border-white shadow-none;
+
+}

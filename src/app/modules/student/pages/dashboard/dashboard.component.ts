@@ -30,11 +30,10 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._pushNotifications.requestPermission();
+    // this._pushNotifications.requestPermission();
 
     this.getProfile();
     this.date = new Date();
-    this.getPolls();
 
     this.isMorning = this.date.getHours() > 5 && this.date.getHours() <= 12;
     this.isAfternoon = this.date.getHours() > 12 && this.date.getHours() <= 18;
@@ -56,6 +55,7 @@ export class DashboardComponent implements OnInit {
       (response: any) => {
         this.profile = response;
         this.getElections();
+        this.getPolls()
       },
       (error: any) => {}
     );
@@ -80,10 +80,16 @@ export class DashboardComponent implements OnInit {
   }
 
   getPolls() {
-    this.pollService.getPolls({}).subscribe((response: any) => {
-      if (response.length > 0) {
-        this.polls = response
-      }
+    const data = {
+      section: this.profile.StudentCredential.section,
+      year: this.profile.StudentCredential.year,
+      CourseId: this.profile.StudentCredential.CourseId,
+    };
+
+    this.pollService.getPolls(data).subscribe((response: any) => {
+      this.polls = response;
+
+      console.log(response)
     });
   }
 }

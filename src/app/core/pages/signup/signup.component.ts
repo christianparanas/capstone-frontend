@@ -20,6 +20,9 @@ export class SignupComponent implements OnInit {
 
   typeOfAttachment: any = null;
 
+  schoolIdInput: any = null
+  courseInput: any = null
+
   attachments: any = {
     document: '',
     selfie: '',
@@ -67,18 +70,22 @@ export class SignupComponent implements OnInit {
 
       const data = {
         ...this.signupForm.value,
+        schoolId: this.schoolIdInput,
+        courseId: this.courseInput.id,
         verificationFiles: {
           ...this.attachments,
         },
       };
 
+      console.log(data)
+
       this.authService.studentRegister(data).subscribe(
         (response: any) => {
           this.submitLoading = false;
 
-          this.router.navigate([`/login`], {
-            queryParams: { type: 'student' },
-          });
+          // this.router.navigate([`/login`], {
+          //   queryParams: { type: 'student' },
+          // });
 
           this.toast.success(response.message, {
             autoClose: false,
@@ -101,10 +108,10 @@ export class SignupComponent implements OnInit {
     this.signupForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      schoolId: new FormControl('', Validators.required),
+      // schoolId: new FormControl('', Validators.required),
       section: new FormControl(''),
       year: new FormControl('', Validators.required),
-      courseId: new FormControl('', Validators.required),
+      // courseId: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
@@ -112,7 +119,9 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     if (
       this.signupForm.status == 'VALID' &&
-      this.signupForm.controls.password.value.trim()
+      this.signupForm.controls.password.value.trim() &&
+      this.schoolIdInput != null && this.schoolIdInput != '' &&
+      this.courseInput != null
     ) {
       this.isNextStep = true;
     } else {

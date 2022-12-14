@@ -126,7 +126,7 @@
         <button
           (click)="postTweet()"
           [disabled]="submitLoading"
-          class="grid place-items-center items-center absolute -bottom-3 right-2 lg:right-8 lg:bottom-2 text-sm bg-red-500 text-white text-[12px] md:text-sm font-semibold rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all px-5 py-2 rounded-3xl"
+          class="grid place-items-center items-center absolute -bottom-3 right-2 lg:right-8 lg:bottom-2 text-sm bg-red-500 text-white text-[12px] md:text-sm font-semibold hover:bg-red-600/80 cursor-pointer transition-all px-5 py-2 rounded-3xl"
         >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
             <svg
@@ -214,9 +214,12 @@
                   <div class="text-[10px] flex items-center">
                     <div
                       *ngFor="let role of tweet.User.UserRoles"
-                      class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      class=""
                     >
+                    <div *ngIf="role.Role.title != 'Student'" class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1">
                       {{ role.Role.title }}
+                    </div>
+                      
                     </div>
                   </div>
                 </div>

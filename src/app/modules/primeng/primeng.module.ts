@@ -14,6 +14,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ChartModule } from 'primeng/chart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @NgModule({
   declarations: [],
@@ -31,7 +32,8 @@ import { DropdownModule } from 'primeng/dropdown';
     SkeletonModule,
     ChartModule,
     OverlayPanelModule,
-    DropdownModule
+    DropdownModule,
+    InputMaskModule
   ],
 })
 export class PrimengModule {}
