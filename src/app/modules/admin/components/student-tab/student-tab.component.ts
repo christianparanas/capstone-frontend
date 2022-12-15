@@ -6,6 +6,8 @@ import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+import { read, utils, writeFile } from 'xlsx';
+
 import { StudentService } from '../../shared/services/student.service';
 import { CourseService } from 'src/app/core/shared/services/course.service';
 
@@ -34,6 +36,8 @@ export class StudentTabComponent implements OnInit {
     private router: Router,
     private toast: HotToastService
   ) {}
+
+  importedStudents: any[] = [];
 
   ngOnInit(): void {
     this.getStudents();
@@ -74,6 +78,39 @@ export class StudentTabComponent implements OnInit {
     );
   }
 
+  handleImport($event: any) {
+    const files = $event.target.files;
+    if (files.length) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const wb = read(event.target.result);
+        const sheets = wb.SheetNames;
+
+        if (sheets.length) {
+          const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
+          this.importedStudents = rows;
+
+          console.log(rows);
+          this.importStudents();
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  importStudents() {
+    this.studentService
+      .importStudents({ students: this.importedStudents })
+      .subscribe((response: any) => {
+
+        setTimeout(() => {
+          this.toast.success('Dataset successfully imported');
+          this.getStudents();
+        }, 3000);
+      });
+  }
+
   getCourses() {
     this.courseService.getCourses().subscribe(
       (response: any) => {
@@ -94,9 +131,7 @@ export class StudentTabComponent implements OnInit {
 
   onSubmit() {
     if (!this.createForm.valid) {
-      this.toast.warning('Please fill out the fields with valid data.', {
-        position: 'top-right',
-      });
+      this.toast.warning('Please fill out the fields with valid data.');
       return;
     }
 
@@ -123,12 +158,12 @@ export class StudentTabComponent implements OnInit {
     let data: any = [];
 
     let columns = [
-      { title: "Student ID", dataKey: "studentId" },
-      { title: "Name", dataKey: "name" },
-      { title: "Email", dataKey: "email" },
-      { title: "Course", dataKey: "course" },
-      { title: "Section", dataKey: "section" },
-      { title: "Year", dataKey: "year" }
+      { title: 'Student ID', dataKey: 'studentId' },
+      { title: 'Name', dataKey: 'name' },
+      { title: 'Email', dataKey: 'email' },
+      { title: 'Course', dataKey: 'course' },
+      { title: 'Section', dataKey: 'section' },
+      { title: 'Year', dataKey: 'year' },
     ];
 
     this.students.map((item: any) => {
@@ -146,7 +181,11 @@ export class StudentTabComponent implements OnInit {
       columns: columns,
       body: data,
       didDrawPage: (dataArg) => {
-        doc.text('\nEvsu Election System Voters', dataArg.settings.margin.top, 10);
+        doc.text(
+          '\nEvsu Election System Voters',
+          dataArg.settings.margin.top,
+          10
+        );
       },
     });
     doc.save('EvsuElection_Voters.pdf');

@@ -1,5 +1,4 @@
 <div class="text-sm w-full relative mt-10 grid gap-20 z-40">
-
   <!-- <div class="" *ngIf="pendingStudentApplications.length != 0">
     <h1 class="font-bold text-lg text-slate-900 mb-3">
       Account Application Request
@@ -51,7 +50,7 @@
             <th field="StudentCredential.year">Year</th>
             <th field="email">Email</th>
             <!-- <th field="StudentCredential.verificationStatus">Verification</th> -->
-            <!-- <th>Action</th>
+  <!-- <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
@@ -109,7 +108,7 @@
           'email',
           'StudentCredential.section',
           'StudentCredential.year',
-          'StudentCredential.Course.acronym',
+          'StudentCredential.Course.acronym'
         ]"
       >
         <ng-template pTemplate="caption">
@@ -127,6 +126,25 @@
 
             <div class="flex">
               <div class="flex items-center mr-2 gap-1">
+                <input
+                  type="file"
+                  name="file"
+                  #importInput
+                  class="custom-file-input hidden"
+                  id="inputGroupFile"
+                  required
+                  (change)="handleImport($event)"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                />
+
+                <button
+                  (click)="importInput.click()"
+                  class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"
+                >
+                  <i class="fad fa-upload mr-1"></i>
+                  Import
+                </button>
+
                 <button
                   (click)="dt2.exportCSV()"
                   class="bg-slate-100 hover:bg-slate-200 border border-slate-200 h-fit px-2 py-1 text-sm rounded-md"

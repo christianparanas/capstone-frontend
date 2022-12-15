@@ -29,4 +29,8 @@ export class StudentService {
   createStudentAccount(data: any): any {
     return this.http.post(`${BASEURL}/api/user/student`, data);
   }
+
+  importStudents(data: any): any {
+    return this.http.post(`${BASEURL}/api/user/import`, data);
+  }
 }
