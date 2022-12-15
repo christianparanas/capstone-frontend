@@ -16,8 +16,8 @@
       <div class="flex items-center">
         <div
           (click)="op.toggle($event)"
-          class=" w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
-          [ngClass]="onScroll ? 'hover:bg-slate-100' : 'hover:bg-red-900' "
+          class="w-[40px] h-[40px] p-2 rounded-full transition-all cursor-pointer grid place-items-center mr-2"
+          [ngClass]="onScroll ? 'hover:bg-slate-100' : 'hover:bg-red-900'"
         >
           <i class="fal fa-bell"></i>
         </div>
@@ -25,7 +25,7 @@
         <div
           *ngIf="user.length != 0"
           class="mr-3 cursor-pointer border rounded-full w-fit h-fit"
-          [ngClass]="onScroll ? 'border-slate-200' : 'border-red-900' "
+          [ngClass]="onScroll ? 'border-slate-200' : 'border-red-900'"
           routerLink="/faculty/account"
         >
           <img
@@ -96,7 +96,16 @@
       class="w-[calc(100%_-_280px)] flex justify-between items-center p-5 pb-3 bg-red-800"
     >
       <div class="flex items-center">
-        <h1 class="mr-6 font-semibold">Faculty Panel</h1>
+        <div *ngIf="user.length != 0" class="flex items-center">
+          <h1 class="mr-2 font-semibold">
+            {{
+              user.coverage == "0"
+                ? "Student Affairs Office"
+                : getCourse(user.coverage) + " Department"
+            }}
+          </h1>
+          <p class="bg-red-900 text-[12px] font-semibold p-2 rounded-md text-red-100">{{ getPosition(user.position) }}</p>
+        </div>
 
         <!-- <div class="relative">
           <input

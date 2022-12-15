@@ -63,19 +63,45 @@
               >
               <div class="mt-1 relative rounded-md w-full">
                 <select
-                formControlName="coverage"
-                class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
-              >
-                <option value="0" class="">
-                  All Courses
-                </option>
-                <option *ngFor="let course of courses" [value]="course.id">
-                  {{ course.title }}
-                </option>
-              </select>
+                  formControlName="coverage"
+                  class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="0" class="">All Courses</option>
+                  <option *ngFor="let course of courses" [value]="course.id">
+                    {{ course.title }}
+                  </option>
+                </select>
               </div>
             </div>
 
+            <div class="w-full">
+              <label class="block text-[12px] font-medium text-gray-700"
+                >Position</label
+              >
+              <div class="mt-1 relative rounded-md w-full">
+                <select
+                  formControlName="position"
+                  class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="0" class="">Head</option>
+                  <option
+                    *ngIf="createForm.controls['coverage'].value === '0'"
+                    value="1"
+                    class=""
+                  >
+                    Scholarship Officer
+                  </option>
+                  <option
+                    *ngIf="createForm.controls['coverage'].value === '0'"
+                    value="2"
+                    class=""
+                  >
+                    Administrative Aide
+                  </option>
+                  <option value="3" class="">Staff</option>
+                </select>
+              </div>
+            </div>
 
             <button
               [disabled]="submitLoading"
@@ -158,17 +184,37 @@
               >
               <div class="mt-1 relative rounded-md w-full">
                 <select
-                [(ngModel)]="editForm.coverage"
-                [ngModelOptions]="{ standalone: true }"
-                class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                  [(ngModel)]="editForm.coverage"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="0" class="">All Courses</option>
+                  <option *ngFor="let course of courses" [value]="course.id">
+                    {{ course.title }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="w-full">
+              <label class="block text-[12px] font-medium text-gray-700"
+                >Position</label
               >
-                <option value="0" class="">
-                  All Courses
-                </option>
-                <option *ngFor="let course of courses" [value]="course.id">
-                  {{ course.title }}
-                </option>
-              </select>
+              <div class="mt-1 relative rounded-md w-full">
+                <select
+                  [(ngModel)]="editForm.position"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+                >
+                  <option value="0" class="">Head</option>
+                  <option *ngIf="editForm.coverage === '0'" value="1" class="">
+                    Scholarship Officer
+                  </option>
+                  <option *ngIf="editForm.coverage === '0'" value="2" class="">
+                    Administrative Aide
+                  </option>
+                  <option value="3" class="">Staff</option>
+                </select>
               </div>
             </div>
 
@@ -227,7 +273,14 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
         styleClass="p-datatable-gridlines"
-        [globalFilterFields]="['id', 'name', 'email', 'coverage', 'createdAt', 'status']"
+        [globalFilterFields]="[
+          'id',
+          'name',
+          'email',
+          'coverage',
+          'createdAt',
+          'status'
+        ]"
       >
         <ng-template pTemplate="caption">
           <div class="grid gap-2 md:flex md:justify-between">
@@ -276,25 +329,22 @@
                 </button>
               </div>
 
-                          
-            <button
-            (click)="createAccountModal = true"
-            class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
-          >
-            <i class="fal fa-file-plus mr-1"></i>
-            Create
-          </button>
+              <button
+                (click)="createAccountModal = true"
+                class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
+              >
+                <i class="fal fa-file-plus mr-1"></i>
+                Create
+              </button>
             </div>
-
-
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th field="id">ID</th>
             <th field="name">Name</th>
             <th field="email">Email</th>
-            <th field="email">Coverage</th>
+            <th field="coverage">Department</th>
+            <th field="coverage">Position</th>
             <th field="createdAt">Date created</th>
             <th field="status">Status</th>
             <th>Action</th>
@@ -302,10 +352,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-faculty>
           <tr class="text-sm" [pSelectableRow]="faculty">
-            <td>{{ faculty.id }}</td>
             <td>{{ faculty.name }}</td>
             <td>{{ faculty.email }}</td>
             <td>{{ getCourse(faculty.coverage) }}</td>
+            <td>{{ getPosition(faculty.position) }}</td>
             <td>{{ momentFormatLLL(faculty.createdAt) }}</td>
             <td>
               <div

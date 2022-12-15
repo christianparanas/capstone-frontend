@@ -8,7 +8,7 @@ import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.comp
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "signup", component: SignupComponent },
+  // { path: "signup", component: SignupComponent },
   { path: "forgotpassword", component: ForgotpasswordComponent },
   { path: "resetpassword", component: ResetpasswordComponent },
 ];

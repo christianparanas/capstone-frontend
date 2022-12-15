@@ -29,6 +29,7 @@ export class FacultyTabComponent implements OnInit {
     name: null,
     email: null,
     coverage: null,
+    position: null
   };
 
   cols: any[];
@@ -51,6 +52,7 @@ export class FacultyTabComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       coverage: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),
+      position: new FormControl('', Validators.required),
     });
 
     this.cols = [
@@ -77,10 +79,33 @@ export class FacultyTabComponent implements OnInit {
       name: data.name,
       email: data.email,
       coverage: data.coverage,
+      position: data.position
     };
 
     console.log(this.editForm);
     this.editAccountModal = true;
+  }
+
+  getPosition(posId: any) {
+    if (posId == 0) {
+      return 'Head';
+    }
+
+    if (posId == 1) {
+      return 'Scholarship Officer';
+    }
+
+    if (posId == 2) {
+      return ' Administrative Aide';
+    }
+
+    if (posId == 3) {
+      return 'Staff';
+    }
+
+    if (posId == 5) {
+      return "Director";
+    }
   }
 
   getCourse(courseId: any) {
@@ -94,7 +119,7 @@ export class FacultyTabComponent implements OnInit {
 
     if (acr) return acr;
 
-    return 'All Courses';
+    return 'SAO';
   }
 
   editFormSubmit() {
@@ -135,9 +160,7 @@ export class FacultyTabComponent implements OnInit {
 
   onSubmit() {
     if (!this.createForm.valid) {
-      this.toast.warning('Please fill out the fields with valid data.', {
-        position: 'top-right',
-      });
+      this.toast.warning('Please fill out the fields with valid data.');
       return;
     }
 
@@ -168,10 +191,10 @@ export class FacultyTabComponent implements OnInit {
     let data: any = [];
 
     let columns = [
-      { title: "ID", dataKey: "id" },
-      { title: "Name", dataKey: "name" },
-      { title: "Email", dataKey: "email" },
-      { title: "Coverage", dataKey: "coverage" },
+      { title: 'ID', dataKey: 'id' },
+      { title: 'Name', dataKey: 'name' },
+      { title: 'Email', dataKey: 'email' },
+      { title: 'Coverage', dataKey: 'coverage' },
       { field: 'createdAt', header: 'Date Created' },
     ];
 
@@ -180,7 +203,8 @@ export class FacultyTabComponent implements OnInit {
         id: item.id,
         name: item.name,
         email: item.email,
-        coverage: item.coverage == 0 ? "All Courses" : this.getCourse(item.coverage),
+        coverage:
+          item.coverage == 0 ? 'All Courses' : this.getCourse(item.coverage),
         createdAt: item.createdAt,
       });
     });
@@ -189,7 +213,11 @@ export class FacultyTabComponent implements OnInit {
       columns: columns,
       body: data,
       didDrawPage: (dataArg) => {
-        doc.text('\nEvsu Election System Faculty', dataArg.settings.margin.top, 10);
+        doc.text(
+          '\nEvsu Election System Faculty',
+          dataArg.settings.margin.top,
+          10
+        );
       },
     });
     doc.save('EvsuElection_Faculty.pdf');

@@ -30,6 +30,21 @@
           </div>
         </div>
 
+        <div class="w-full">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Position</label
+          >
+          <div class="mt-1 relative rounded-md w-full">
+            <select
+              formControlName="position"
+              class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+            >
+              <option value="5" class="">Director</option>
+              <option value="0" class="">Head</option>
+            </select>
+          </div>
+        </div>
+
         <button [disabled]="submitLoading" type="submit"
           class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-3 hover:bg-red-600/80 transition-all w-full mt-2">
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
@@ -68,6 +83,21 @@
             <input type="email"
               class="py-2 outline-none w-full block px-3 text-[12px] border-gray-300 rounded-md bg-slate-50"
               placeholder="Enter email" [(ngModel)]="editForm.email" [ngModelOptions]="{ standalone: true }" />
+          </div>
+        </div>
+
+        <div class="w-full">
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Position</label
+          >
+          <div class="mt-1 relative rounded-md w-full">
+            <select
+            [(ngModel)]="editForm.position" [ngModelOptions]="{ standalone: true }"
+              class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
+            >
+              <option value="5" class="">Director</option>
+              <option value="0" class="">Head</option>
+            </select>
           </div>
         </div>
 
@@ -147,7 +177,6 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr class="text-sm">
-            <th field="id">ID</th>
             <th field="name">Name</th>
             <th field="email">Email</th>
             <th field="email">Position</th>
@@ -158,10 +187,9 @@
         </ng-template>
         <ng-template pTemplate="body" let-admin>
           <tr class="text-sm" [pSelectableRow]="admin">
-            <td>{{ admin.id }}</td>
             <td>{{ admin.name }}</td>
             <td>{{ admin.email }}</td>
-            <td>{{ admin.email }}</td>
+            <td>{{ getPosition(admin.position) }}</td>
             <td>{{ momentFormatLLL(admin.createdAt) }}</td>
             <td>
               <div class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize" [ngClass]="

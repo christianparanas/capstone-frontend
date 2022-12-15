@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { NotificationService } from 'src/app/core/shared/services/notification.service';
 import { EventService } from '../../shared/services/event.service';
+import { CourseService } from 'src/app/core/shared/services/course.service';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +17,10 @@ export class HeaderComponent implements OnInit {
   currentRoute: any;
   onScroll: boolean = false;
   user: any = [];
+  courses: any = [];
   defaultImg: any = '../../../../../assets/images/faculty.png';
 
-  notifications: any = []
+  notifications: any = [];
 
   routesArr: any = [
     {
@@ -63,12 +65,14 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-    private eventService: EventService
+    private eventService: EventService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     window.addEventListener('scroll', this.listenScrollEvent);
+    this.getCourses();
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
@@ -80,6 +84,28 @@ export class HeaderComponent implements OnInit {
         this.getNotifications();
       }
     });
+  }
+
+  getPosition(posId: any) {
+    if (posId == 0) {
+      return 'Head';
+    }
+
+    if (posId == 1) {
+      return 'Scholarship Officer';
+    }
+
+    if (posId == 2) {
+      return ' Administrative Aide';
+    }
+
+    if (posId == 3) {
+      return 'Staff';
+    }
+
+    if (posId == 5) {
+      return 'Director';
+    }
   }
 
   getNotifications() {
@@ -103,9 +129,7 @@ export class HeaderComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (response: any) => {
         this.user = response;
-
-        this.getNotifications()
-
+        this.getNotifications();
         this.getNotificationEvent();
       },
       (error: any) => {
@@ -130,4 +154,29 @@ export class HeaderComponent implements OnInit {
   listenScrollEvent = () => {
     window.scrollY > 15 ? (this.onScroll = true) : (this.onScroll = false);
   };
+
+  getCourse(CourseId: any) {
+    let courseTitle = null;
+
+    if (this.courses.length == 0) return;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        courseTitle = course.acronym;
+      }
+    });
+
+    return courseTitle;
+  }
+
+  getCourses() {
+    this.courseService.getCourses().subscribe(
+      (response: any) => {
+        this.courses = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 }

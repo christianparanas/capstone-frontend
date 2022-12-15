@@ -1,5 +1,6 @@
 <div class="text-sm w-full relative mt-10 grid gap-20 z-40">
-  <div class="" *ngIf="pendingStudentApplications.length != 0">
+
+  <!-- <div class="" *ngIf="pendingStudentApplications.length != 0">
     <h1 class="font-bold text-lg text-slate-900 mb-3">
       Account Application Request
     </h1>
@@ -22,8 +23,7 @@
           'email',
           'StudentCredential.section',
           'StudentCredential.year',
-          'StudentCredential.Course.acronym',
-          'StudentCredential.verificationStatus'
+          'StudentCredential.Course.acronym'
         ]"
       >
         >
@@ -50,8 +50,8 @@
             <th field="StudentCredential.section">Section</th>
             <th field="StudentCredential.year">Year</th>
             <th field="email">Email</th>
-            <th field="StudentCredential.verificationStatus">Verification</th>
-            <th>Action</th>
+            <!-- <th field="StudentCredential.verificationStatus">Verification</th> -->
+            <!-- <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
@@ -82,7 +82,7 @@
         </ng-template>
       </p-table>
     </div>
-  </div>
+  </div> -->
 
   <div class="" *ngIf="students">
     <h1 class="font-bold text-lg text-slate-900 mb-3">Student Accounts</h1>
@@ -110,7 +110,6 @@
           'StudentCredential.section',
           'StudentCredential.year',
           'StudentCredential.Course.acronym',
-          'StudentCredential.verificationStatus'
         ]"
       >
         <ng-template pTemplate="caption">
@@ -178,7 +177,6 @@
             <th field="StudentCredential.section">Section</th>
             <th field="StudentCredential.year">Year</th>
             <th field="email">Email</th>
-            <th field="StudentCredential.verificationStatus">Verification</th>
             <th>Action</th>
           </tr>
         </ng-template>
@@ -190,13 +188,6 @@
             <td>{{ student.StudentCredential.section }}</td>
             <td>{{ student.StudentCredential.year }}</td>
             <td>{{ student.email }}</td>
-            <td>
-              <div
-                class="bg-green-200 text-green-800 py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize"
-              >
-                {{ student.StudentCredential.verificationStatus }}
-              </div>
-            </td>
             <td>
               <div
                 class="cursor-pointer"

@@ -8,8 +8,11 @@
     <div class="">
       <div class="flex justify-between items-center">
         <div class="inline-block relative w-fit">
-          <select [(ngModel)]="state" (change)="getElectionsByState()"
-            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all">
+          <select
+            [(ngModel)]="state"
+            (change)="getElectionsByState()"
+            class="text-sm block cursor-pointer appearance-none w-full relative rounded-xl border-2 border-gray-100 px-4 py-2 pr-8 outline-none bg-white hover:bg-slate-50 transition-all"
+          >
             <option value="all">All Elections</option>
             <option *ngIf="user" value="course">
               {{ getCourse(user.StudentCredential.CourseId, 2) }} Elections
@@ -17,24 +20,45 @@
             <option value="ongoing">Ongoing Elections</option>
             <option value="ended">Ended Elections</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+          >
+            <svg
+              class="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />
             </svg>
           </div>
         </div>
       </div>
 
       <div class="mt-10">
-        <div *ngIf="isLoading" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20">
-          <p-skeleton width="100%" height="180px" *ngFor="let arr of ['', '', '', '', '', '', '', '', '', '', '', '']">
+        <div
+          *ngIf="isLoading"
+          class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          <p-skeleton
+            width="100%"
+            height="180px"
+            *ngFor="let arr of ['', '', '', '', '', '', '', '', '', '', '', '']"
+          >
           </p-skeleton>
         </div>
 
-        <div *ngIf="!isLoading && tempElectionsArr.length == 0" class="grid place-items-center">
+        <div
+          *ngIf="!isLoading && tempElectionsArr.length == 0"
+          class="grid place-items-center"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt=""
-              class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover mx-auto"
+            />
             <h1 class="text-center mt-5 font-semibold text-slate-800">
               No election/s available.
             </h1>
@@ -42,49 +66,69 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div *ngFor="let election of tempElectionsArr"
-            class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all">
+          <div
+            *ngFor="let election of tempElectionsArr"
+            class="grid p-4 shadow-sm relative rounded-xl border-2 border-gray-100 h-fit bg-white transition-all"
+          >
             <div class="mb-2">
               <div class="flex justify-between items-center mb-4">
                 <div class="">
-                  <img src="../../../../../assets/images/propaganda.png" alt=""
-                    class="object-cover w-[40px] h-[40px] opacity-60" />
+                  <img
+                    src="../../../../../assets/images/propaganda.png"
+                    alt=""
+                    class="object-cover w-[40px] h-[40px] opacity-60"
+                  />
                 </div>
                 <div class="flex items-center">
                   <div class="flex items-center">
                     <div *ngFor="let voter of election.ElectionVoters">
-                      <div *ngIf="voter.UserId == user.id"
-                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="voter.UserId == user.id"
+                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         Voted
                       </div>
                     </div>
 
                     <div class="flex items-center ml-1">
-                      <div *ngIf="election.status == 'draft'"
-                        class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="election.status == 'draft'"
+                        class="text-[11px] bg-slate-200 text-slate-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         {{ election.status }}
                       </div>
-                      <div *ngIf="election.stage == 'campaign_started'"
-                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="election.stage == 'campaign_started'"
+                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         Campaign Ongoing
                       </div>
-                      <div *ngIf="election.stage == 'campaign_ended'"
-                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="election.stage == 'campaign_ended'"
+                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         Campaign Ended
                       </div>
-                      <div *ngIf="election.stage == 'election_started'"
-                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="election.stage == 'election_started'"
+                        class="text-[11px] bg-green-100 text-green-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         Election Ongoing
                       </div>
-                      <div *ngIf="election.stage == 'election_ended'"
-                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize">
+                      <div
+                        *ngIf="election.stage == 'election_ended'"
+                        class="text-[11px] bg-red-100 text-red-800 font-semibold px-2 py-[2px] rounded-md capitalize"
+                      >
                         Election Ended
                       </div>
                     </div>
 
-                    <div [routerLink]="['/election']" [queryParams]="{ id: election.id }"
-                      class="bg-slate-100 w-[40px] h-[40px] rounded-full ml-3  cursor-pointer transition-all hover:bg-slate-200">
-                      <i class="fal fa-external-link text-sm "></i>
+                    <div
+                      [routerLink]="['/election']"
+                      [queryParams]="{ id: election.id }"
+                      class="bg-slate-50 w-[35px] h-[35px] rounded-full ml-3 cursor-pointer transition-all hover:bg-slate-100 grid place-content-center"
+                    >
+                      <i class="fal fa-external-link text-sm"></i>
                     </div>
                   </div>
                 </div>
@@ -106,11 +150,13 @@
                       <td class="border border-gray-300 p-1 px-2 text-[12px]">
                         Course:
                       </td>
-                      <td class="border border-gray-300 p-1 px-2 text-[12px] w-full">
+                      <td
+                        class="border border-gray-300 p-1 px-2 text-[12px] w-full"
+                      >
                         {{
-                        election.course == 0
-                        ? "All Courses"
-                        : getCourse(election.course, 1)
+                          election.course == 0
+                            ? "All Courses"
+                            : getCourse(election.course, 1)
                         }}
                       </td>
                     </tr>
@@ -120,9 +166,9 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-[12px]">
                         {{
-                        election.section == 0
-                        ? "All Sections"
-                        : election.section
+                          election.section == 0
+                            ? "All Sections"
+                            : election.section
                         }}
                       </td>
                     </tr>
@@ -132,7 +178,7 @@
                       </td>
                       <td class="border border-gray-300 p-1 px-2 text-[12px]">
                         {{
-                        election.year == 0 ? "All Year Levels" : election.year
+                          election.year == 0 ? "All Year Levels" : election.year
                         }}
                       </td>
                     </tr>
@@ -141,8 +187,10 @@
               </div>
 
               <div class="flex items-center gap-2 text-[10px] mt-2 pl-1">
-                <div *ngIf="election.hasCampaign"
-                  class="bg-slate-200 text-slate-900 font-semibold px-2 py-[2px] rounded-md text-[10px]">
+                <div
+                  *ngIf="election.hasCampaign"
+                  class="bg-slate-200 text-slate-900 font-semibold px-2 py-[2px] rounded-md text-[10px]"
+                >
                   Campaign
                 </div>
                 <div class="text-[10px] text-slate-800">

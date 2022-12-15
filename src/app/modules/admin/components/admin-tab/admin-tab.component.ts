@@ -25,6 +25,7 @@ export class AdminTabComponent implements OnInit {
     id: null,
     name: null,
     email: null,
+    position: null
   };
 
   cols: any[];
@@ -44,12 +45,14 @@ export class AdminTabComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
+      position: new FormControl('', Validators.required),
     });
 
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Name' },
       { field: 'email', header: 'Email' },
+      { field: 'position', header: 'Position' }, 
       { field: 'createdAt', header: 'Date Created' },
     ];
 
@@ -64,6 +67,7 @@ export class AdminTabComponent implements OnInit {
       id: data.id,
       name: data.name,
       email: data.email,
+      position: data.position
     };
 
     this.editAccountModal = true;
@@ -107,9 +111,7 @@ export class AdminTabComponent implements OnInit {
 
   onSubmit() {
     if (!this.createForm.valid) {
-      this.toast.warning('Please fill out the fields with valid data.', {
-        position: 'top-right',
-      });
+      this.toast.warning('Please fill out the fields with valid data.');
       return;
     }
 
@@ -128,6 +130,28 @@ export class AdminTabComponent implements OnInit {
         this.toast.error(error.error.message);
       }
     );
+  }
+
+  getPosition(posId: any) {
+    if (posId == 0) {
+      return 'Head';
+    }
+
+    if (posId == 1) {
+      return 'Scholarship Officer';
+    }
+
+    if (posId == 2) {
+      return ' Administrative Aide';
+    }
+
+    if (posId == 3) {
+      return 'Staff';
+    }
+
+    if (posId == 5) {
+      return "Director";
+    }
   }
 
   momentFormatLLL(date: any) {

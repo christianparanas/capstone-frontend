@@ -20,6 +20,16 @@ export class HeaderComponent implements OnInit {
 
   notifications: any = []
 
+  getPosition(posId: any) {
+    if (posId == 0) {
+      return 'Head';
+    }
+
+    if (posId == 5) {
+      return 'Director';
+    }
+  }
+
   routesArr: any = [
     {
       title: 'Dashboard',
