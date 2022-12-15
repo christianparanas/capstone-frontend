@@ -15,6 +15,7 @@ import { ChartModule } from 'primeng/chart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     ChartModule,
     OverlayPanelModule,
     DropdownModule,
-    InputMaskModule
+    InputMaskModule,
+    MenuModule
   ],
 })
 export class PrimengModule {}

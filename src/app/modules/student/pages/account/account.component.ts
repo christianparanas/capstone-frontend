@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { HotToastService } from '@ngneat/hot-toast';
+import { MenuItem } from 'primeng/api';
 
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { TweetService } from '../../shared/services/tweet.service';
@@ -43,9 +44,10 @@ export class AccountComponent implements OnInit {
     CourseId: null,
   };
 
-  voters: any = []
+  voters: any = [];
   mentionItems: any = [];
 
+  optionItems: MenuItem[]
 
   constructor(
     private profileService: ProfileService,
@@ -62,6 +64,11 @@ export class AccountComponent implements OnInit {
     this.getProfile();
     this.getCourses();
     this.getTweetEvent();
+
+    this.optionItems = [
+      { label: 'Edit Info', icon: 'pi pi-fw pi-plus' },
+      { label: 'Change Password', icon: 'pi pi-fw pi-download' },
+    ];
   }
 
   logout() {
@@ -81,8 +88,8 @@ export class AccountComponent implements OnInit {
         this.isLoading = false;
 
         response.forEach(async (voter: any) => {
-          if(voter.id == this.profile.id) {
-           return
+          if (voter.id == this.profile.id) {
+            return;
           }
 
           this.mentionItems.push(voter.username);
@@ -152,7 +159,7 @@ export class AccountComponent implements OnInit {
         });
 
         this.submitLoading = false;
-        this.getVoters()
+        this.getVoters();
 
         this.profiledata = {
           name: response.name,

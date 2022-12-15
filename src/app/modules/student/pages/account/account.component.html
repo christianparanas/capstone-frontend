@@ -239,6 +239,7 @@
             </div>
           </div>
         </div>
+        <p-menu #optionmenu [popup]="true" class="right-20" [model]="optionItems"></p-menu>
 
         <div class="flex items-center">
           <button
@@ -250,8 +251,9 @@
             Logout
           </button>
 
+
           <div
-            (click)="editModal = true"
+          (click)="editModal = true"
             class="absolute -top-32 lg:top-0 right-3 lg:right-0 lg:relative bg-gray-200 w-[40px] h-[40px] rounded-full grid place-items-center text-gray-500 cursor-pointer hover:bg-gray-200/80 transition-all"
           >
             <i class="fal fa-cog text-2xl"></i>
