@@ -8,6 +8,7 @@ import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { EventService } from '../../shared/services/event.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { AuthService } from 'src/app/core/shared/services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -53,13 +54,18 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private tweetService: TweetService,
     private eventService: EventService,
-    private electionService: ElectionService
+    private electionService: ElectionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getProfile();
     this.getCourses();
     this.getTweetEvent();
+  }
+
+  logout() {
+    this.authService.logout('student');
   }
 
   getVoters() {

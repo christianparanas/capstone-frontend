@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 
 import { AuthService } from 'src/app/core/shared/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
@@ -25,7 +26,9 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router,
+    private toast: HotToastService
   ) {}
 
   routesArr: any = [
@@ -79,6 +82,14 @@ export class HeaderComponent implements OnInit {
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
   }
 
+  accountChangedPass() {
+    if(this.user.isPasswordChange == 0) {
+
+      this.toast.info('Please change your account password to access the restricted pages.')
+      this.router.navigate(['/account'])
+    }
+  }
+
   getNotificationEvent() {
     this.eventService.getNotificationEvent().subscribe((response: any) => {
       if (response.userId == this.user.id) {
@@ -103,8 +114,11 @@ export class HeaderComponent implements OnInit {
       (response: any) => {
         this.user = response;
 
+        console.log(response)
+
         this.getNotifications();
         this.getNotificationEvent();
+        this.accountChangedPass()
       },
       (error: any) => {
         console.log(error);
