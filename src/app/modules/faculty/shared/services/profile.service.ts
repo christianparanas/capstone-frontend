@@ -17,4 +17,8 @@ export class ProfileService {
   updateProfile(data: any): any {
     return this.http.put(`${BASEURL}/api/user/faculty/profile`, data);
   }
+
+  changePassword(data: any): any {
+    return this.http.put(`${BASEURL}/api/user/student/changepassword`, data);
+  }
 }

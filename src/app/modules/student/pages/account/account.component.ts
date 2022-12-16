@@ -84,6 +84,8 @@ export class AccountComponent implements OnInit {
       return this.toast.info('New password is required.');
     }
 
+    this.submitLoading = true
+
     const data = {
       id: this.profile.id,
       oldpass: this.changePassData.oldpass,
@@ -92,6 +94,8 @@ export class AccountComponent implements OnInit {
 
     this.profileService.changePassword(data).subscribe((response: any) => {
       this.toast.success(response.message)
+
+      this.submitLoading = false
 
       this.changePassData = {
         oldpass: null,
@@ -103,6 +107,8 @@ export class AccountComponent implements OnInit {
       this.changePasswordModal = false
     }, (error: any) => {
       this.toast.error(error.error.message)
+
+      this.submitLoading = false
     })
   }
 

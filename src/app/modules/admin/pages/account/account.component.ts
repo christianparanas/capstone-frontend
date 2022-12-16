@@ -38,8 +38,15 @@ export class AccountComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
 
-  voters: any = []
-  mentionItems: any = []
+  changePassData: any = {
+    oldpass: null,
+    newpass: null,
+  };
+
+  voters: any = [];
+  mentionItems: any = [];
+
+  changePasswordModal: boolean = false;
 
   constructor(
     private profileService: ProfileService,
@@ -53,6 +60,43 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.getProfile();
     this.getTweetEvent();
+  }
+
+  changePassOnsubmit() {
+    if (this.changePassData.oldpass == null || this.changePassData.oldpass == '') {
+      return this.toast.info('Old password is required.');
+    }
+
+    if (this.changePassData.newpass == null || this.changePassData.newpass == '') {
+      return this.toast.info('New password is required.');
+    }
+
+    this.submitLoading = true
+
+    const data = {
+      id: this.profile.id,
+      oldpass: this.changePassData.oldpass,
+      newpass: this.changePassData.newpass
+    }
+
+    this.profileService.changePassword(data).subscribe((response: any) => {
+      this.toast.success(response.message)
+
+      this.submitLoading = false
+
+      this.changePassData = {
+        oldpass: null,
+        newpass: null
+      }
+
+      this.getProfile()
+
+      this.changePasswordModal = false
+    }, (error: any) => {
+      this.toast.error(error.error.message)
+
+      this.submitLoading = false
+    })
   }
 
   onSubmit() {
