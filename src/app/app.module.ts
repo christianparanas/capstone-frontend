@@ -15,6 +15,7 @@ import { StudentModule } from './modules/student/student.module';
 import { FacultyModule } from './modules/faculty/faculty.module';
 import { AdminModule } from './modules/admin/admin.module';
 
+
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 const BASEURL = environment.baseURL;

@@ -91,7 +91,6 @@ export class StudentTabComponent implements OnInit {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
           this.importedStudents = rows;
 
-          console.log(rows);
           this.importStudents();
         }
       };
@@ -103,11 +102,8 @@ export class StudentTabComponent implements OnInit {
     this.studentService
       .importStudents({ students: this.importedStudents })
       .subscribe((response: any) => {
-
-        setTimeout(() => {
-          this.toast.success('Dataset successfully imported');
-          this.getStudents();
-        }, 3000);
+        this.toast.success('Dataset successfully imported');
+        this.getStudents();
       });
   }
 
