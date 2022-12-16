@@ -45,7 +45,7 @@ export class ElectionComponent implements OnInit {
     private eventService: EventService,
     private profileService: ProfileService,
     private pdfService: PdfService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -279,12 +279,16 @@ export class ElectionComponent implements OnInit {
     let ans = confirm('Done Voting? this action cannot be undone.');
 
     if (ans) {
+      this.submitLoading = true;
+
       this.electionService.vote(this.votes).subscribe((res: any) => {
         this.toast.success(res.message);
 
         const data = {
           electionId: this.election.id,
         };
+
+        this.submitLoading = false;
 
         this.eventService.sendElectionVoteEvent(data);
         this.getElection();
