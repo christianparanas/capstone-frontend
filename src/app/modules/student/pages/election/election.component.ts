@@ -5,8 +5,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as moment from 'moment';
 
-import { NgxSpinnerService } from "ngx-spinner";
-
 import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
@@ -47,7 +45,6 @@ export class ElectionComponent implements OnInit {
     private eventService: EventService,
     private profileService: ProfileService,
     private pdfService: PdfService,
-    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
