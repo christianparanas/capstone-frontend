@@ -44,10 +44,15 @@ export class AccountComponent implements OnInit {
     CourseId: null,
   };
 
+  changePassData: any = {
+    oldpass: null,
+    newpass: null,
+  };
+
   voters: any = [];
   mentionItems: any = [];
 
-  optionItems: MenuItem[]
+  changePasswordModal: boolean = false;
 
   constructor(
     private profileService: ProfileService,
@@ -64,15 +69,41 @@ export class AccountComponent implements OnInit {
     this.getProfile();
     this.getCourses();
     this.getTweetEvent();
-
-    this.optionItems = [
-      { label: 'Edit Info', icon: 'pi pi-fw pi-plus' },
-      { label: 'Change Password', icon: 'pi pi-fw pi-download' },
-    ];
   }
 
   logout() {
     this.authService.logout('student');
+  }
+
+  changePassOnsubmit() {
+    if (this.changePassData.oldpass == null || this.changePassData.oldpass == '') {
+      return this.toast.info('Old password is required.');
+    }
+
+    if (this.changePassData.newpass == null || this.changePassData.newpass == '') {
+      return this.toast.info('New password is required.');
+    }
+
+    const data = {
+      id: this.profile.id,
+      oldpass: this.changePassData.oldpass,
+      newpass: this.changePassData.newpass
+    }
+
+    this.profileService.changePassword(data).subscribe((response: any) => {
+      this.toast.success(response.message)
+
+      this.changePassData = {
+        oldpass: null,
+        newpass: null
+      }
+
+      this.getProfile()
+
+      this.changePasswordModal = false
+    }, (error: any) => {
+      this.toast.error(error.error.message)
+    })
   }
 
   getVoters() {
