@@ -54,6 +54,15 @@ export class AccountComponent implements OnInit {
 
   changePasswordModal: boolean = false;
 
+  // tweet modification
+  selectedTweet: any = {
+    id: null,
+    content: null,
+  };
+
+  tweetSubmitLoading: boolean = false;
+  editTweetModal: boolean = false;
+
   constructor(
     private profileService: ProfileService,
     private courseService: CourseService,
@@ -71,45 +80,108 @@ export class AccountComponent implements OnInit {
     this.getTweetEvent();
   }
 
+  editTweetSubmit() {
+    if (
+      this.selectedTweet.content == null ||
+      this.selectedTweet.content == ''
+    ) {
+      this.toast.info('Input field cannot be empty.');
+      return;
+    }
+
+    this.tweetSubmitLoading = true;
+
+    this.tweetService.updateTweet(this.selectedTweet).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+
+        this.tweetSubmitLoading = false;
+        this.editTweetModal = false;
+        this.getProfile();
+
+        this.selectedTweet = {
+          id: null,
+          content: null,
+        };
+      },
+      (error: any) => {
+        this.tweetSubmitLoading = false;
+
+        this.toast.error(error.error.message);
+      }
+    );
+  }
+
+  deleteTweet() {
+    const ans = confirm('Delete this tweet?');
+
+    if (!ans) return;
+
+    this.tweetService.deleteTweet(this.selectedTweet).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+
+        this.getProfile();
+
+        this.selectedTweet = {
+          id: null,
+          content: null,
+        };
+      },
+      (error: any) => {
+        this.toast.error(error.error.message);
+      }
+    );
+  }
+
   logout() {
     this.authService.logout('student');
   }
 
   changePassOnsubmit() {
-    if (this.changePassData.oldpass == null || this.changePassData.oldpass == '') {
+    if (
+      this.changePassData.oldpass == null ||
+      this.changePassData.oldpass == ''
+    ) {
       return this.toast.info('Old password is required.');
     }
 
-    if (this.changePassData.newpass == null || this.changePassData.newpass == '') {
+    if (
+      this.changePassData.newpass == null ||
+      this.changePassData.newpass == ''
+    ) {
       return this.toast.info('New password is required.');
     }
 
-    this.submitLoading = true
+    this.submitLoading = true;
 
     const data = {
       id: this.profile.id,
       oldpass: this.changePassData.oldpass,
-      newpass: this.changePassData.newpass
-    }
+      newpass: this.changePassData.newpass,
+    };
 
-    this.profileService.changePassword(data).subscribe((response: any) => {
-      this.toast.success(response.message)
+    this.profileService.changePassword(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
 
-      this.submitLoading = false
+        this.submitLoading = false;
 
-      this.changePassData = {
-        oldpass: null,
-        newpass: null
+        this.changePassData = {
+          oldpass: null,
+          newpass: null,
+        };
+
+        this.getProfile();
+
+        this.changePasswordModal = false;
+      },
+      (error: any) => {
+        this.toast.error(error.error.message);
+
+        this.submitLoading = false;
       }
-
-      this.getProfile()
-
-      this.changePasswordModal = false
-    }, (error: any) => {
-      this.toast.error(error.error.message)
-
-      this.submitLoading = false
-    })
+    );
   }
 
   getVoters() {

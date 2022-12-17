@@ -202,32 +202,44 @@
                   alt=""
                 />
               </div>
-              <div class="">
-                <div
-                  class="flex items-center cursor-pointer"
-                  (click)="navigateToUser(tweet.User)"
-                >
-                  <div class="font-semibold mr-2 capitalize">
-                    {{ tweet.User.name }}
+              <div class="flex justify-between">
+                <div class="">
+                  <div
+                    class="flex items-center cursor-pointer"
+                    (click)="navigateToUser(tweet.User.id)"
+                  >
+                    <div class="font-semibold mr-2 capitalize">
+                      {{ tweet.User.name }}
+                    </div>
+                    <div class="text-[10px] flex items-center">
+                      <div *ngFor="let role of tweet.User.UserRoles" class="">
+                        <div
+                          *ngIf="role.Role.title != 'Student'"
+                          class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                        >
+                          {{ role.Role.title }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="text-[10px] flex items-center">
-                    <div
-                      *ngFor="let role of tweet.User.UserRoles"
-                      class=""
-                    >
-                    <div *ngIf="role.Role.title != 'Student'" class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1">
-                      {{ role.Role.title }}
+                  <div class="flex items-center">
+                    <div *ngIf="tweet.User.username" class="text-[12px]">
+                      @{{ tweet.User.username }}
                     </div>
-                      
-                    </div>
+                    <span *ngIf="tweet.User.username" class="mx-1">·</span>
+                    <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
                   </div>
                 </div>
-                <div class="flex items-center">
-                  <div *ngIf="tweet.User.username" class="text-[12px]">
-                    @{{ tweet.User.username }}
-                  </div>
-                  <span *ngIf="tweet.User.username" class="mx-1">·</span>
-                  <p class="text-[12px]">{{ dateFormat(tweet.createdAt) }}</p>
+
+                <div
+                  *ngIf="tweet.User.id === user.id"
+                  (click)="
+                    op.toggle($event);
+                    selectedTweet = { id: tweet.id, content: tweet.message }
+                  "
+                  class="bg-white w-[35px] h-[35px] rounded-full ml-3 cursor-pointer transition-all hover:bg-slate-50 grid place-content-center"
+                >
+                <i class="fal fa-ellipsis-h text-sm"></i>
                 </div>
               </div>
             </div>
@@ -317,7 +329,7 @@
               </div>
 
               <div class="text-[12px]">
-                {{ voter.StudentCredential.Course.acronym }}
+                @{{ voter.username }}
               </div>
             </div>
           </div>
@@ -326,3 +338,90 @@
     </div>
   </div>
 </div>
+
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="md:max-w-[400px]">
+      <div class="grid gap-1">
+        <div
+          (click)="editTweetModal = true; op.toggle($event)"
+          class="text-[12px] px-2 py-2 hover:bg-slate-100 cursor-pointer transition-all"
+        >
+          <i class="fal fa-edit mr-1"></i>Edit
+        </div>
+        <div
+          (click)="deleteTweet(); op.toggle($event)"
+          class="text-[12px] px-2 py-2 hover:bg-slate-100 cursor-pointer transition-all"
+        >
+          <i class="fal fa-trash mr-1"></i>Delete
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>
+
+<p-dialog
+  header="Edit Tweet"
+  [(visible)]="editTweetModal"
+  [modal]="true"
+  [style]="{ maxWidth: '400px', width: '400px' }"
+>
+  <div class="">
+    <form (ngSubmit)="editTweetSubmit()">
+      <div class="grid gap-2">
+        <div>
+          <label class="block text-[12px] font-medium text-gray-700"
+            >Content</label
+          >
+          <div class="mt-1 relative rounded-md">
+            <textarea
+              type="text"
+              rows="6"
+              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 resize-none"
+              placeholder="Your tweet message"
+              [(ngModel)]="selectedTweet.content"
+              [ngModelOptions]="{ standalone: true }"
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <button
+          [disabled]="tweetSubmitLoading"
+          class="mt-2 grid place-items-center bg-red-500 font-semibold rounded-md shadow-sm text-slate-50 py-2 border-red-600 hover:bg-red-500/80 transition-all w-full"
+        >
+          <div
+            class="flex items-center w-fit mx-auto"
+            *ngIf="tweetSubmitLoading"
+          >
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+
+            <span>Processing</span>
+          </div>
+
+          <span *ngIf="!tweetSubmitLoading">Update</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

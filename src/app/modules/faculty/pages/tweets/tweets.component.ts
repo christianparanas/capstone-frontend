@@ -31,6 +31,15 @@ export class TweetsComponent implements OnInit {
 
   mentionItems: any = [];
 
+  // tweet modification
+  selectedTweet: any = {
+    id: null,
+    content: null,
+  };
+
+  tweetSubmitLoading: boolean = false;
+  editTweetModal: boolean = false;
+
   constructor(
     private toast: HotToastService,
     private tweetService: TweetService,
@@ -44,6 +53,60 @@ export class TweetsComponent implements OnInit {
     this.getUser();
     this.getTweetEvent();
     this.getVoters();
+  }
+
+  editTweetSubmit() {
+    if (
+      this.selectedTweet.content == null ||
+      this.selectedTweet.content == ''
+    ) {
+      this.toast.info('Input field cannot be empty.');
+      return;
+    }
+
+    this.tweetSubmitLoading = true;
+
+    this.tweetService.updateTweet(this.selectedTweet).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+
+        this.tweetSubmitLoading = false;
+        this.editTweetModal = false;
+        this.getTweets();
+
+        this.selectedTweet = {
+          id: null,
+          content: null,
+        };
+      },
+      (error: any) => {
+        this.tweetSubmitLoading = false;
+
+        this.toast.error(error.error.message);
+      }
+    );
+  }
+
+  deleteTweet() {
+    const ans = confirm('Delete this tweet?');
+
+    if (!ans) return;
+
+    this.tweetService.deleteTweet(this.selectedTweet).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+
+        this.getTweets();
+
+        this.selectedTweet = {
+          id: null,
+          content: null,
+        };
+      },
+      (error: any) => {
+        this.toast.error(error.error.message);
+      }
+    );
   }
 
   getTweetEvent() {

@@ -25,4 +25,12 @@ export class TweetService {
   postTweetComment(data: any) {
     return this.http.post(`${BASEURL}/api/tweet/comment`, data);
   }
+
+  updateTweet(data: any) {
+    return this.http.put(`${BASEURL}/api/tweet`, data);
+  }
+
+  deleteTweet(data: any) {
+    return this.http.delete(`${BASEURL}/api/tweet/${data.id}`);
+  }
 }
