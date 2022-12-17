@@ -80,9 +80,11 @@ export class StudentTabComponent implements OnInit {
 
   handleImport($event: any) {
     const files = $event.target.files;
+
     if (files.length) {
       const file = files[0];
       const reader = new FileReader();
+
       reader.onload = (event: any) => {
         const wb = read(event.target.result);
         const sheets = wb.SheetNames;
@@ -101,10 +103,18 @@ export class StudentTabComponent implements OnInit {
   importStudents() {
     this.studentService
       .importStudents({ students: this.importedStudents })
-      .subscribe((response: any) => {
-        this.toast.success('Dataset successfully imported');
-        this.getStudents();
-      });
+      .subscribe(
+        (response: any) => {
+          setTimeout(() => {
+            this.toast.success(response.message);
+            this.getStudents();
+          }, 5000);
+        },
+        (error: any) => {
+          this.toast.error(error.error.message);
+          console.log(error.error.message);
+        }
+      );
   }
 
   getCourses() {
