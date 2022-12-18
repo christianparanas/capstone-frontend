@@ -28,6 +28,7 @@ import { SearchComponent } from './pages/search/search.component';
 
 import { LinkifyPipe } from './shared/pipes/linkify.pipe';
 import { ReceiptComponent } from './components/receipt/receipt.component';
+import { TweetComponent } from './pages/tweet/tweet.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ReceiptComponent } from './components/receipt/receipt.component';
     UserComponent,
     SearchComponent,
     ReceiptComponent,
+    TweetComponent,
   ],
   imports: [
     CoreModule,

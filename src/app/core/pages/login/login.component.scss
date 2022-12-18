@@ -3,9 +3,7 @@
 }
 
 ::ng-deep .p-inputtext {
-  @apply w-full py-[10px] outline-none block pr-8 px-3 sm:text-sm border-gray-300 rounded-md bg-slate-50;
-
-  
+  @apply w-full py-2 outline-none block pr-8 px-3 text-[12px] border-gray-300 rounded-md bg-slate-50;
 }
 
 ::ng-deep .p-inputtext:enabled:hover {
@@ -13,6 +11,6 @@
 }
 
 ::ng-deep .p-inputtext:enabled:focus {
-  @apply border-gray-500;
-  box-shadow: 0 0 0 0.2rem rgb(169, 168, 168);
+  @apply border-gray-400;
+  box-shadow: 0 0 0 0.2rem rgb(206, 204, 204);
 }
