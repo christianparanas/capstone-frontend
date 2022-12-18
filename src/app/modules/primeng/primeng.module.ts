@@ -16,6 +16,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { MenuModule } from 'primeng/menu';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { MenuModule } from 'primeng/menu';
     OverlayPanelModule,
     DropdownModule,
     InputMaskModule,
-    MenuModule
+    MenuModule,
+    PasswordModule
   ],
 })
 export class PrimengModule {}
