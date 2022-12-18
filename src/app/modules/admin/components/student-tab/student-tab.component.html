@@ -133,7 +133,9 @@
                   class="custom-file-input hidden"
                   id="inputGroupFile"
                   required
+                  value=""
                   (change)="handleImport($event)"
+                  (click)="importInput.value = ''"
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                 />
 

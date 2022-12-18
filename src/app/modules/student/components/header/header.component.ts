@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
       icon: 'fal fa-poll-people',
     },
     {
-      title: 'Vote Receipts',
+      title: 'Receipts',
       route: 'receipts',
       icon: 'fal fa-receipt',
     },
@@ -83,10 +83,11 @@ export class HeaderComponent implements OnInit {
   }
 
   accountChangedPass() {
-    if(this.user.isPasswordChange == 0) {
-
-      this.toast.info('Please change your account password to access the restricted pages.')
-      this.router.navigate(['/account'])
+    if (this.user.isPasswordChange == 0) {
+      this.toast.info(
+        'Please change your account password to access the restricted pages.'
+      );
+      this.router.navigate(['/account']);
     }
   }
 
@@ -114,11 +115,11 @@ export class HeaderComponent implements OnInit {
       (response: any) => {
         this.user = response;
 
-        console.log(response)
+        console.log(response);
 
         this.getNotifications();
         this.getNotificationEvent();
-        this.accountChangedPass()
+        this.accountChangedPass();
       },
       (error: any) => {
         console.log(error);
