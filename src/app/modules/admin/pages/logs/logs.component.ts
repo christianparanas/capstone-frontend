@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { LogService } from '../../shared/services/log.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { EventService } from '../../shared/services/event.service';
+import { CourseService } from 'src/app/core/shared/services/course.service';
 
 @Component({
   selector: 'app-logs',
@@ -16,6 +17,7 @@ export class LogsComponent implements OnInit {
   allLogs: any = [];
   userId: any;
   isLoading: boolean = true
+  courses: any = [];
 
   tabItems: MenuItem[];
   activeItem: MenuItem;
@@ -23,13 +25,15 @@ export class LogsComponent implements OnInit {
   constructor(
     private logService: LogService,
     private profileService: ProfileService,
-    private eventService: EventService
+    private eventService: EventService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getAllLogs();
     this.getLogEvent();
+    this.getCourses()
 
     this.tabItems = [
       { label: 'System', icon: 'pi pi-fw pi-users' },
@@ -66,6 +70,8 @@ export class LogsComponent implements OnInit {
       (response: any) => {
         this.allLogs = response;
         this.isLoading = false
+
+        console.log(response)
       },
       (error: any) => {
         console.log(error);
@@ -94,5 +100,28 @@ export class LogsComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).format('lll');
+  }
+
+  getCourse(CourseId: any) {
+    let courseTitle = null;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        courseTitle = course.acronym;
+      }
+    });
+
+    return courseTitle;
+  }
+
+  getCourses() {
+    this.courseService.getCourses().subscribe(
+      (response: any) => {
+        this.courses = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

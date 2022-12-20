@@ -22,6 +22,8 @@
           ></p-skeleton>
         </div>
 
+
+        <!-- TODO: add show more functionality instead of pulling all the logs in the database every time calling the api endpoint -->
         <div
           *ngIf="!isLoading && allLogs.length == 0"
           class="text-center mt-10"
@@ -45,20 +47,79 @@
               class="bg-slate-50 rounded-md py-2 px-3 cursor-pointer hover:bg-slate-100 transition-all"
             >
               <div class="text-[10px]">{{ dateFormat(log.createdAt) }}</div>
-              <div class="flex items-center text-[12px]">
+              <div class="text-[12px]">
                 <div class="flex items-center">
-                  <div class="font-semibold mr-1 capitalize">{{ log.User.name }}</div>
+                  <div class="font-semibold mr-1 capitalize">
+                    {{ log.User.name }}
+                  </div>
                   <div class="text-[8px] flex items-center">
-                    <div
-                      *ngFor="let role of log.User.UserRoles"
-                      class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
-                    >
-                      {{ role.Role.title }}
+                    <div *ngFor="let role of log.User.UserRoles">
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage == 0 &&
+                          log.User.position == 0
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        SAO Head
+                      </div>
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage == 0 &&
+                          log.User.position == 1
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        Scholarship Officer
+                      </div>
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage == 0 &&
+                          log.User.position == 2
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        SAO Administrative Aide
+                      </div>
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage == 0 &&
+                          log.User.position == 3
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        SAO Staff
+                      </div>
+
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage != 0 &&
+                          log.User.position == 0
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        {{ getCourse(log.User.coverage) }} Head
+                      </div>
+
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Faculty' &&
+                          log.User.coverage != 0 &&
+                          log.User.position == 3
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        {{ getCourse(log.User.coverage) }} Staff
+                      </div>
                     </div>
                   </div>
                 </div>
-                <span class="mx-1 hidden md:block">-</span>
-                <div class="">{{ log.description }}</div>
+                <div class="">- {{ log.description }}</div>
               </div>
             </div>
           </div>
@@ -69,9 +130,11 @@
         <div class="mt-10">
           <p-timeline [value]="logs" align="left">
             <ng-template pTemplate="content" let-log>
-              <div class="mb-3">
-                <div class="text-[12px]">{{ dateFormat(log.createdAt) }}</div>
-                <div class="text-sm">{{ log.description }}</div>
+              <div class="mb-1">
+                <div class="text-[10px] md:text-[12px]">
+                  {{ dateFormat(log.createdAt) }}
+                </div>
+                <div class="text-[12px] md:text-sm">{{ log.description }}</div>
               </div>
             </ng-template>
           </p-timeline>

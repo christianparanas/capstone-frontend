@@ -25,6 +25,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { VotersComponent } from './pages/voters/voters.component';
 
 import { LinkifyPipe } from './shared/pipes/linkify.pipe';
+import { TweetComponent } from './pages/tweet/tweet.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { LinkifyPipe } from './shared/pipes/linkify.pipe';
     UserComponent,
     SearchComponent,
     VotersComponent,
+    TweetComponent,
   ],
   imports: [CoreModule, CommonModule, FacultyRoutingModule, PrimengModule, ReactiveFormsModule, FormsModule, MentionModule],
 })
