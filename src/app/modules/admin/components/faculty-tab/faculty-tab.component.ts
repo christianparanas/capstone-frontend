@@ -9,6 +9,7 @@ import autoTable from 'jspdf-autotable';
 import { FacultyService } from '../../shared/services/faculty.service';
 import * as moment from 'moment';
 import { CourseService } from 'src/app/core/shared/services/course.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-faculty-tab',
@@ -29,7 +30,7 @@ export class FacultyTabComponent implements OnInit {
     name: null,
     email: null,
     coverage: null,
-    position: null
+    position: null,
   };
 
   cols: any[];
@@ -39,6 +40,7 @@ export class FacultyTabComponent implements OnInit {
   constructor(
     private facultyService: FacultyService,
     private router: Router,
+    private userService: UserService,
     private toast: HotToastService,
     private courseService: CourseService
   ) {}
@@ -79,7 +81,7 @@ export class FacultyTabComponent implements OnInit {
       name: data.name,
       email: data.email,
       coverage: data.coverage,
-      position: data.position
+      position: data.position,
     };
 
     console.log(this.editForm);
@@ -104,7 +106,7 @@ export class FacultyTabComponent implements OnInit {
     }
 
     if (posId == 5) {
-      return "Director";
+      return 'Director';
     }
   }
 
@@ -248,6 +250,26 @@ export class FacultyTabComponent implements OnInit {
         '_export_' +
         new Date().getTime() +
         EXCEL_EXTENSION
+    );
+  }
+
+  deleteAccount(id: any) {
+    const ans = confirm('Delete this account?');
+
+    if (!ans) return;
+
+    const data = {
+      id: id,
+    };
+
+    this.userService.deleteAccount(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.getFaculties();
+      },
+      (error: any) => {
+        this.toast.error('Something went wrong');
+      }
     );
   }
 }

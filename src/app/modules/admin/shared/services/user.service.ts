@@ -18,4 +18,8 @@ export class UserService {
   updateUser(data: any): any {
     return this.http.put(`${BASEURL}/api/user`, data)
   }
+
+  deleteAccount(data: any): any {
+    return this.http.post(`${BASEURL}/api/user/delete`, data);
+  }
 }

@@ -369,12 +369,19 @@
                 {{ faculty.status }}
               </div>
             </td>
-            <td>
+            <td class="flex items-center">
               <div
                 (click)="openEditModal(faculty)"
-                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
+                class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-300 transition-all cursor-pointer"
               >
                 <i class="fad fa-edit"></i> Edit
+              </div>
+              <div
+                *ngIf="true"
+                (click)="deleteAccount(faculty.id)"
+                class="py-1 ml-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-red-100 text-red-800 hover:bg-red-300 transition-all cursor-pointer"
+              >
+                <i class="fal fa-trash"></i> Delete
               </div>
             </td>
           </tr>

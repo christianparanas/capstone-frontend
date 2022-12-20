@@ -56,6 +56,26 @@
                     <div *ngFor="let role of log.User.UserRoles">
                       <div
                         *ngIf="
+                          role.Role.title == 'Admin' &&
+                          log.User.position == 0
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        SAO Head
+                      </div>
+
+                      <div
+                        *ngIf="
+                          role.Role.title == 'Admin' &&
+                          log.User.position == 5
+                        "
+                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                      >
+                        SAO Director
+                      </div>
+
+                      <div
+                        *ngIf="
                           role.Role.title == 'Faculty' &&
                           log.User.coverage == 0 &&
                           log.User.position == 0
