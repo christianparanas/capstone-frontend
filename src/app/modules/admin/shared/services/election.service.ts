@@ -22,8 +22,8 @@ export class ElectionService {
     return this.http.get(`${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`);
   }
 
-  getVoters(data: any): any {
-    return this.http.post(`${BASEURL}/api/election/voters`, data);
+  getVoters(): any {
+    return this.http.get(`${BASEURL}/api/election/voters`);
   }
 
   getPrediction(data: any): any {

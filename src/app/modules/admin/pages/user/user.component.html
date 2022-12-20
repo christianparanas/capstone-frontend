@@ -4,14 +4,18 @@
   <div class="max-w-[1200px] mx-auto relative z-20 p-5 pb-10">
     <div
       class="flex w-[40px] h-[40px] rounded-full items-center justify-center font-semibold text-white bg-red-900 py-2 px-3 cursor-pointer hover:bg-red-900/50 hover:shadow-md transition-all"
-      (click)="goBack()">
+      (click)="goBack()"
+    >
       <i class="fal fa-arrow-left"></i>
     </div>
 
     <div *ngIf="!isLoading && !userData" class="mt-52 grid place-items-center">
       <div class="text-slate-800 text-center">
-        <img src="../../../../../assets/images/empty-box.png" class="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]"
-          alt="" />
+        <img
+          src="../../../../../assets/images/empty-box.png"
+          class="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]"
+          alt=""
+        />
         <h1 class="text-center mt-5 font-semibold">
           Oops! There's nothing here.
         </h1>
@@ -19,69 +23,108 @@
     </div>
 
     <div *ngIf="userData" class="mt-20 lg:mt-24">
-      <p-dialog header="Decline?" [(visible)]="declineModal" [modal]="true" [style]="{ maxWidth: '400px' }">
+      <p-dialog
+        header="Decline?"
+        [(visible)]="declineModal"
+        [modal]="true"
+        [style]="{ maxWidth: '400px' }"
+      >
         <div class="">
           <div class="">
             <p class="text-sm mt-3">
               If yes, then construct a message about why you declined the
               request.
             </p>
-            <textarea rows="8" class="w-full bg-slate-100 outline-none text-sm my-2 mt-3 p-3 rounded-md resize-none"
-              placeholder="Type your message here." [(ngModel)]="requestDecisionMessage"></textarea>
+            <textarea
+              rows="8"
+              class="w-full bg-slate-100 outline-none text-sm my-2 mt-3 p-3 rounded-md resize-none"
+              placeholder="Type your message here."
+              [(ngModel)]="requestDecisionMessage"
+            ></textarea>
           </div>
           <div class="grid grid-cols-2 gap-2">
-            <button (click)="declineModal = false"
-              class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all">
-              <i class="fad fa-ban"></i> Cancel</button><button (click)="sendDecision(); declineModal = false"
-              class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all">
+            <button
+              (click)="declineModal = false"
+              class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all"
+            >
+              <i class="fad fa-ban"></i> Cancel</button
+            ><button
+              (click)="sendDecision(); declineModal = false"
+              class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all"
+            >
               <i class="fad fa-paper-plane"></i> Send Decision
             </button>
           </div>
         </div>
       </p-dialog>
 
-      <p-dialog header="Approve?" [(visible)]="approveModal" [modal]="true"
-        [style]="{ width: '400px', maxWidth: '400px' }">
+      <p-dialog
+        header="Approve?"
+        [(visible)]="approveModal"
+        [modal]="true"
+        [style]="{ width: '400px', maxWidth: '400px' }"
+      >
         <div class="grid grid-cols-2 gap-2 mt-3">
-          <button (click)="approveModal = false"
-            class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all">
-            <i class="fad fa-ban"></i> Cancel</button><button (click)="sendDecision(); approveModal = false"
-            class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all">
+          <button
+            (click)="approveModal = false"
+            class="bg-red-200 text-red-900 font-semibold text-sm py-3 rounded-md hover:bg-red-300 transition-all"
+          >
+            <i class="fad fa-ban"></i> Cancel</button
+          ><button
+            (click)="sendDecision(); approveModal = false"
+            class="bg-red-800 text-white font-semibold text-sm py-3 rounded-md hover:bg-red-900 transition-all"
+          >
             <i class="fad fa-paper-plane"></i> Send Decision
           </button>
         </div>
       </p-dialog>
 
-      <h1 *ngIf="
+      <h1
+        *ngIf="
           userData && userData.StudentCredential.verificationStatus == 'pending'
-        " class="font-bold text-3xl text-white">
+        "
+        class="font-bold text-3xl text-white"
+      >
         Student Account Application Request
       </h1>
 
-      <div *ngIf="
+      <div
+        *ngIf="
           userData && userData.StudentCredential.verificationStatus != 'pending'
-        " class="flex justify-between items-center">
+        "
+        class="flex justify-between items-center"
+      >
         <div class="md:flex">
           <div class="bg-red-900 w-fit rounded-full">
-            <img [src]="userData.image == null ? defaultImg : userData.image" alt=""
-              class="w-[200px] h-[200px] rounded-full object-cover" />
+            <img
+              [src]="userData.image == null ? defaultImg : userData.image"
+              alt=""
+              class="w-[200px] h-[200px] rounded-full object-cover"
+            />
           </div>
 
           <div class="md:ml-5 mt-5 md:mt-24">
             <h1 class="font-bold text-2xl md:text-3xl text-slate-900">
               {{
-              userData.name.split(" ")[0].charAt(0).toUpperCase() +
-              userData.name.slice(1)
+                userData.name.split(" ")[0].charAt(0).toUpperCase() +
+                  userData.name.slice(1)
               }}
             </h1>
             <div class="lg:flex items-center">
               <div class="text-sm text-slate-700 mb-1 lg:mb-0">
                 @{{ userData.username }}
               </div>
-              <span *ngIf="userData.username" class="mx-2 hidden lg:block">·</span>
+              <span *ngIf="userData.username" class="mx-2 hidden lg:block"
+                >·</span
+              >
 
-              <div class="text-[10px] flex items-center w-fit mx-auto lg:mx-0">
-                <p *ngFor="let role of userData.UserRoles" class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md">
+              <div
+                class="text-[10px] flex md:items-center w-fit md:mx-auto lg:mx-0"
+              >
+                <p
+                  *ngFor="let role of userData.UserRoles"
+                  class="mr-1 font-semibold bg-gray-100 py-1 px-2 rounded-md"
+                >
                   {{ role.Role.title }}
                 </p>
               </div>
@@ -90,94 +133,89 @@
         </div>
 
         <div class="flex items-center">
-          <div (click)="actionModal = true"
-            class="md:mt-5 flex items-center mr-2 bg-red-800 text-white text-sm font-bold py-2 rounded-md w-fit px-4 hover:bg-red-600/80 transition-all cursor-pointer">
-            <i class="fad fa-edit"></i>
-            <div class="ml-2 hidden md:block">Action</div>
-          </div>
-          <div (click)="openChat()"
-            class="md:mt-5 flex items-center bg-red-800 text-white text-sm font-bold py-2 rounded-md w-fit px-4 hover:bg-red-600/80 transition-all cursor-pointer">
+          <div
+            (click)="openChat()"
+            class="md:mt-5 flex items-center mr-2 bg-gray-100 text-slate-800 border-2 border-slate-300 text-sm font-bold py-2 md:py-1 rounded-md w-fit px-3 hover:bg-slate-200 transition-all cursor-pointer"
+          >
             <i class="fad fa-comment"></i>
             <div class="ml-2 hidden md:block">Message</div>
+          </div>
+          <div
+            (click)="opAction.toggle($event)" 
+            class="md:mt-5 flex items-center bg-gray-100 text-slate-800 border-2 border-slate-300 text-sm font-bold py-2 md:py-1 rounded-md w-fit px-3 hover:bg-slate-200 transition-all cursor-pointer"
+          >
+            <i class="fad fa-cog"></i>
+            <div class="ml-2 hidden md:block">Action</div>
           </div>
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_500px] mt-20">
-        <div class="grid gap-4">
-          <div class="text-[12px]">
-            Account Created: {{ momentFormatLLL(userData.createdAt) }}
-          </div>
-
-          <div class="">
-            <div class="text-sm text-slate-900 mb-2">Student ID number</div>
-            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.StudentCredential.schoolId }}
+      <div class="grid mt-16 mb-20">
+        <div class="grid gap-5 md:grid-cols-[1fr_400px]">
+          <div class="grid gap-4 h-fit">
+            <div class="text-[12px]">
+              Account Created: {{ momentFormatLLL(userData.createdAt) }}
             </div>
-          </div>
-
-          <div class="">
-            <div class="text-sm text-slate-900 mb-2">Name</div>
-            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.name }}
-            </div>
-          </div>
-
-          <div class="">
-            <div class="text-sm text-slate-900 mb-2">Course</div>
-            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.StudentCredential.Course.title }}
-            </div>
-          </div>
-
-          <div class="">
-            <div class="text-sm text-slate-900 mb-2">Email</div>
-            <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
-              {{ userData.email }}
-            </div>
-          </div>
-
-          <hr />
-
-          <div *ngIf="
-              userData.StudentCredential.selfieWithDocument == null &&
-              userData.StudentCredential.document == null
-            " class="">
-            <div class="bg-green-200 text-green-800 py-2 px-2 font-semibold text-[12px] w-fit rounded-md">
-              Account created and verified by the administrator
-            </div>
-          </div>
-
-          <!-- <div class="mt-5" *ngIf="
-              userData.StudentCredential.selfieWithDocument != null &&
-              userData.StudentCredential.document != null
-            ">
-            <h2 class="text-sm font-semibold text-slate-900 w-fit py-1 px-3 rounded-md mb-5">
-              Attachments
-            </h2>
-
-            <div
-              class="grid md:grid-cols-2 gap-4 bg-slate-100 p-3 py-2 rounded-md shadow-md border-gray-300 relative h-fit">
-              <div class="h-fit">
-                <h3 class="text-[12px] mb-2 font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md">
-                  Document
-                </h3>
-
-                <div class="">
-                  <p-image [src]="userData.StudentCredential.document" alt="Image" [preview]="true"></p-image>
-                </div>
-              </div>
-              <div class="">
-                <h3 class="text-[12px] mb-2 font-semibold text-white bg-red-800 w-fit py-1 px-3 rounded-md">
-                  Selfie with document
-                </h3>
-
-                <div class="">
-                  <p-image [src]="userData.StudentCredential.selfieWithDocument" alt="Image" [preview]="true"></p-image>
-                </div>
+  
+            <div class="">
+              <div class="text-sm text-slate-900 mb-2">Student ID number</div>
+              <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+                {{ userData.StudentCredential.schoolId }}
               </div>
             </div>
-          </div> -->
+  
+            <div class="">
+              <div class="text-sm text-slate-900 mb-2">Name</div>
+              <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+                {{ userData.name }}
+              </div>
+            </div>
+  
+            <div class="">
+              <div class="text-sm text-slate-900 mb-2">Course</div>
+              <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+                {{ userData.StudentCredential.Course.title }}
+              </div>
+            </div>
+  
+            <div class="">
+              <div class="text-sm text-slate-900 mb-2">Email</div>
+              <div class="bg-slate-100 py-1 px-3 rounded-md w-fit text-sm">
+                {{ userData.email }}
+              </div>
+            </div>
+          </div>
+
+          <hr class=" md:hidden" />
+
+          <div class="mt-5 md:mt-0">
+            <div class="mb-2 font-semibold pl-6">Activity logs</div>
+
+            <div class="max-h-[400px] min-h-[200px] overflow-y-auto p-2 border border-slate-100 rounded-md">
+
+              <div *ngIf="userData.Logs.length == 0" class="h-[200px] grid place-items-center">
+                <div class="">
+                  <img
+                    src="../../../../../assets/images/empty-box.png"
+                    alt=""
+                    class="w-[80px] h-[80px] object-cover mx-auto"
+                  />
+                  <p class="text-[12px] text-center mt-2">No logs yet.</p>
+                </div>
+              </div>
+
+              <p-timeline [value]="userData.Logs" align="left">
+                <ng-template pTemplate="content" let-log>
+                  <div class="mb-1">
+                    <div class="text-[10px] md:text-[11px]">
+                      {{ dateFormat(log.createdAt) }}
+                    </div>
+                    <div class="text-[12px] md:text-sm">{{ log.description }}</div>
+                  </div>
+                </ng-template>
+              </p-timeline>
+            </div>
+          </div>
         </div>
 
         <!-- <div *ngIf="
@@ -203,14 +241,24 @@
 </div>
 
 <div class="relative z-50" *ngIf="userData">
-  <p-dialog header="Chat" [(visible)]="chatModal" [modal]="true" [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Chat"
+    [(visible)]="chatModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <div class="relative bg-white z-50 w-full">
-        <div class="flex justify-between items-center bg-white pb-2 border-b border-gray-200 w-full">
+        <div
+          class="flex justify-between items-center bg-white pb-2 border-b border-gray-200 w-full"
+        >
           <div class="grid grid-cols-[40px_1fr] lg:grid-cols-[40px_1fr] gap-2">
             <div class="w-fit h-fit rounded-full border border-gray-200">
-              <img src="../../../../../assets/images/student.png" alt=""
-                class="w-[40px] h-[40px] rounded-full object-cover" />
+              <img
+                src="../../../../../assets/images/student.png"
+                alt=""
+                class="w-[40px] h-[40px] rounded-full object-cover"
+              />
             </div>
             <div class="">
               <h1 class="font-semibold">{{ userData.name }}</h1>
@@ -219,22 +267,38 @@
           </div>
         </div>
 
-        <div *ngIf="chat.length == 0"
-          class="bg-white h-[300px] grid place-items-center min-h-fit overflow-y-auto py-2 relative w-full pb-20">
+        <div
+          *ngIf="chat.length == 0"
+          class="bg-white h-[300px] grid place-items-center min-h-fit overflow-y-auto py-2 relative w-full pb-20"
+        >
           <div class="">
-            <img src="../../../../../assets/images/empty-box.png" alt="" class="w-[80px] h-[80px] object-cover mx-auto" />
+            <img
+              src="../../../../../assets/images/empty-box.png"
+              alt=""
+              class="w-[80px] h-[80px] object-cover mx-auto"
+            />
             <p class="text-[12px] mt-2">No message yet.</p>
           </div>
         </div>
 
-        <div *ngIf="chat.length != 0" class="bg-white h-[300px] min-h-fit overflow-y-auto py-2 relative w-full pb-20">
-          <div class="msg" *ngFor="let message of chat; trackBy: chatTrack" class="gap-2"
-            [ngClass]="message.UserId == profile.id ? 'grid mb-1' : 'grid mb-1'">
-            <p class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all" [ngClass]="
+        <div
+          *ngIf="chat.length != 0"
+          class="bg-white h-[300px] min-h-fit overflow-y-auto py-2 relative w-full pb-20"
+        >
+          <div
+            class="msg"
+            *ngFor="let message of chat; trackBy: chatTrack"
+            class="gap-2"
+            [ngClass]="message.UserId == profile.id ? 'grid mb-1' : 'grid mb-1'"
+          >
+            <p
+              class="text-sm w-fit py-1 px-3 rounded-full h-fit break-all"
+              [ngClass]="
                 message.UserId == profile.id
                   ? 'col-start-2 justify-self-end bg-red-500 text-white'
                   : 'bg-gray-100'
-              ">
+              "
+            >
               {{ message.message }}
             </p>
           </div>
@@ -242,11 +306,24 @@
         </div>
 
         <div class="py-2 pb-4 bg-white fixed w-[calc(100%_-_40px)] bottom-0">
-          <form (ngSubmit)="sendMessage(); input.focus()" class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm">
-            <input type="text" placeholder="Aa" [(ngModel)]="message" #input (click)="scroll()" (focus)="scroll()"
-              [ngModelOptions]="{ standalone: true }" class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none" />
-            <button type="submit"
-              class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center">
+          <form
+            (ngSubmit)="sendMessage(); input.focus()"
+            class="grid grid-cols-[1fr_40px] gap-2 items-center text-sm"
+          >
+            <input
+              type="text"
+              placeholder="Aa"
+              [(ngModel)]="message"
+              #input
+              (click)="scroll()"
+              (focus)="scroll()"
+              [ngModelOptions]="{ standalone: true }"
+              class="w-full bg-slate-100 py-2 px-3 rounded-full outline-none"
+            />
+            <button
+              type="submit"
+              class="hover:bg-gray-100 transition-all cursor-pointer w-[40px] h-[40px] rounded-full grid place-items-center"
+            >
               <i class="fal fa-arrow-right font-semibold"></i>
             </button>
           </form>
@@ -257,13 +334,16 @@
 </div>
 
 <div class="relative z-50" *ngIf="userData">
-  <p-dialog header="Action" [(visible)]="actionModal" [modal]="true" [style]="{ maxWidth: '400px', width: '400px' }">
+  <p-dialog
+    header="Action"
+    [(visible)]="actionModal"
+    [modal]="true"
+    [style]="{ maxWidth: '400px', width: '400px' }"
+  >
     <div class="mt-3">
       <div class="grid gap-4">
-
-
         <!-- <div class="mb-3"> -->
-          <!-- <h3 class="font-semibold text-slate-900 mb-1">Role</h3>
+        <!-- <h3 class="font-semibold text-slate-900 mb-1">Role</h3>
           <div class="grid gap-2">
             <div *ngFor="let role of userData.UserRoles" class="flex items-center">
               <div class="relative w-fit">
@@ -288,32 +368,61 @@
         </div> -->
 
         <div class="w-full flex items-center">
-          <label class="block text-sm font-semibold text-gray-700 mr-2">Status:</label>
+          <label class="block text-sm font-semibold text-gray-700 mr-2"
+            >Status:</label
+          >
           <div class="flex justify-between items-center w-full">
             <div class="inline-block relative w-full">
-              <select [(ngModel)]="status"
-                class="text-[12px] block cursor-pointer appearance-none w-full relative rounded-md border border-gray-100 font-semibold px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all">
+              <select
+                [(ngModel)]="status"
+                class="text-[12px] block cursor-pointer appearance-none w-full relative rounded-md border border-gray-100 font-semibold px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all"
+              >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+              >
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
                 </svg>
               </div>
             </div>
           </div>
         </div>
 
-        <button (click)="saveChanges()" [disabled]="submitLoading" type="submit"
-          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full">
+        <button
+          (click)="saveChanges()"
+          [disabled]="submitLoading"
+          type="submit"
+          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full"
+        >
           <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-              </path>
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
             </svg>
 
             <span>Saving changes...</span>
@@ -325,3 +434,24 @@
     </div>
   </p-dialog>
 </div>
+
+<p-overlayPanel #opAction>
+  <ng-template pTemplate>
+    <div class="md:max-w-[400px]">
+      <div class="grid gap-1">
+        <div
+          (click)="opAction.toggle($event)"
+          class="text-[12px] px-2 py-2 hover:bg-slate-100 cursor-pointer transition-all"
+        >
+          <i class="fal fa-edit mr-1"></i>Set Status
+        </div>
+        <div
+          (click)="deleteAccount(); opAction.toggle($event)"
+          class="text-[12px] px-2 py-2 hover:bg-slate-100 cursor-pointer transition-all"
+        >
+          <i class="fal fa-trash mr-1"></i>Delete account
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>

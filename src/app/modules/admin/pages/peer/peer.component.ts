@@ -309,13 +309,7 @@ export class PeerComponent implements OnInit {
   }
 
   getVoters() {
-    const data = {
-      course: 0,
-      section: 0,
-      year: 0,
-    };
-
-    this.electionService.getVoters(data).subscribe(
+    this.electionService.getVoters().subscribe(
       (response: any) => {
         this.voters = response;
 

@@ -4,8 +4,6 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 import { ElectionService } from '../../shared/services/election.service';
 import { ProfileService } from '../../shared/services/profile.service';
 
-
-
 @Component({
   selector: 'app-voters',
   templateUrl: './voters.component.html',
@@ -37,10 +35,9 @@ export class VotersComponent implements OnInit {
   }
 
   filterVotersArr() {
-    if(this.user.coverage == 0 && this.filter.CourseId == 0) this.filter.CourseId = 0
-    if(this.user.coverage != 0) this.filter.CourseId = this.user.coverage
-
-    console.log(this.filter)
+    if (this.user.coverage == 0 && this.filter.CourseId == 0)
+      this.filter.CourseId = 0;
+    if (this.user.coverage != 0) this.filter.CourseId = this.user.coverage;
 
     this.filteredVoters = this.voters.filter(
       (item: any) =>
@@ -64,17 +61,16 @@ export class VotersComponent implements OnInit {
   }
 
   getVoters() {
-    const data = {
-      course: 0,
-      section: 0,
-      year: 0,
-    };
-
-    this.electionService.getVoters(data).subscribe(
+    this.electionService.getVoters().subscribe(
       (response: any) => {
         this.voters = response;
+
+
+        console.log(response);
+
         this.isLoading = false;
-        this.filterVotersArr()
+        this.filterVotersArr();
+
       },
       (error: any) => {
         console.log(error);

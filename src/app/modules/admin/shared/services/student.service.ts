@@ -30,6 +30,10 @@ export class StudentService {
     return this.http.post(`${BASEURL}/api/user/student`, data);
   }
 
+  deleteAccount(data: any): any {
+    return this.http.post(`${BASEURL}/api/user/student/delete`, data);
+  }
+
   importStudents(data: any): any {
     return this.http.post(`${BASEURL}/api/user/import`, data);
   }

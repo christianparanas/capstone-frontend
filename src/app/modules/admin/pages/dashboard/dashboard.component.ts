@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getVoters() {
-    this.electionService.getVoters({}).subscribe((response: any) => {
+    this.electionService.getVoters().subscribe((response: any) => {
       this.voters = response;
     });
   }

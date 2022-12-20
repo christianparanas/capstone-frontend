@@ -74,8 +74,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getVoters() {
-    this.electionService.getVoters({}).subscribe((response: any) => {
+    this.electionService.getVoters().subscribe((response: any) => {
       this.voters = response;
+
+      console.log(response)
 
       if (this.profile.coverage != 0) {
         response.forEach((voter: any) => {

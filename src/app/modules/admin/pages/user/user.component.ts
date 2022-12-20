@@ -101,6 +101,8 @@ export class UserComponent implements OnInit {
         this.userData = response;
         this.isLoading = false;
 
+        console.log(response);
+
         this.status = response.status;
 
         response.UserRoles.forEach((role: any) => {
@@ -123,11 +125,8 @@ export class UserComponent implements OnInit {
     this.submitLoading = true;
 
     const data = {
-      isAdmin: this.isAdmin,
-      isFaculty: this.isFaculty,
       status: this.status,
       userId: this.userData.id,
-      coverage: this.userData.StudentCredential.CourseId,
     };
 
     this.userService.updateUser(data).subscribe(
@@ -228,9 +227,7 @@ export class UserComponent implements OnInit {
 
   sendMessage() {
     if (this.message == '') {
-      return this.toast.info('Please type something.', {
-        position: 'top-right',
-      });
+      return this.toast.info('Please type something.');
     }
 
     this.chat.push({
@@ -260,5 +257,32 @@ export class UserComponent implements OnInit {
     setTimeout(() => {
       this.scrollToBottom();
     }, 100);
+  }
+
+  dateFormat(date: any) {
+    return moment(date).format('lll');
+  }
+
+  deleteAccount() {
+    const ans = confirm('Delete this account?');
+
+    if (!ans) return;
+
+    const data = {
+      id: this.userData.id,
+      studentId: this.userData.StudentCredential.schoolId,
+    };
+
+    this.studentService.deleteAccount(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.router.navigate([`/admin/users`], {
+          queryParams: { type: 'student' },
+        });
+      },
+      (error: any) => {
+        this.toast.error('Something went wrong');
+      }
+    );
   }
 }
