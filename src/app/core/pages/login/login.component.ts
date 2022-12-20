@@ -70,7 +70,8 @@ export class LoginComponent implements OnInit {
             } else if (error.status == 500) {
               result = error.statusText;
             }
-            this.toast.error(result);
+            
+            this.toast.error("Something went wrong!");
           }
         );
     } else {
