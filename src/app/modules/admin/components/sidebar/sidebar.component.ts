@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit {
       icon: 'fal fa-poll-people',
     },
     {
-      title: 'Manage Users',
+      title: 'Users',
       route: 'users',
       params: 'student',
       icon: 'fal fa-receipt',
