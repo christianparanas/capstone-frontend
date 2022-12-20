@@ -112,7 +112,6 @@ export class StudentTabComponent implements OnInit {
         },
         (error: any) => {
           this.toast.error(error.error.message);
-          console.log(error.error.message);
         }
       );
   }
