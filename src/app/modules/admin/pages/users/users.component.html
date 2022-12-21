@@ -4,7 +4,7 @@
     <p class="text-slate-100 text-[12px]">Manage Users</p>
   </div>
 
-  <div *ngIf="profile.length != 0" class="mt-10 pb-10">
+  <div class="mt-10 pb-10">
     <p-tabMenu
       #tab
       [model]="tabItems"
@@ -15,12 +15,7 @@
     <div class="w-full">
       <app-student-tab *ngIf="activeItem.label == 'Student'"></app-student-tab>
       <app-faculty-tab *ngIf="activeItem.label == 'Faculty'"></app-faculty-tab>
-      <app-admin-tab
-        *ngIf="
-          activeItem.label == 'Admin' &&
-          (profile.position == 0 || profile.position == 5)
-        "
-      ></app-admin-tab>
+      <app-admin-tab *ngIf="activeItem.label == 'Admin'"></app-admin-tab>
     </div>
   </div>
 </div>

@@ -270,6 +270,7 @@
               </div>
 
               <button
+                *ngIf="profile.position == 0 || profile.position == 5"
                 (click)="createAccountModal = true"
                 class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
               >
@@ -286,7 +287,7 @@
             <th field="email">Position</th>
             <th field="createdAt">Date created</th>
             <th field="status">Status</th>
-            <th>Action</th>
+            <th  *ngIf="profile.position == 0 || profile.position == 5">Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-admin>
@@ -307,7 +308,7 @@
                 {{ admin.status }}
               </div>
             </td>
-            <td>
+            <td  *ngIf="profile.position == 0 || profile.position == 5">
               <div
                 (click)="openEditModal(admin)"
                 class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"

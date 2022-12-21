@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 import { AdminService } from '../../shared/services/admin.service';
+import { ProfileService } from '../../shared/services/profile.service';
 import * as moment from 'moment';
 
 @Component({
@@ -32,14 +33,18 @@ export class AdminTabComponent implements OnInit {
   exportColumns: any[];
   selectedAdmin: any[];
 
+  profile: any = [];
+
   constructor(
     private adminService: AdminService,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
     this.getAdmins();
+    this.getProfile();
 
     this.createForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -60,6 +65,12 @@ export class AdminTabComponent implements OnInit {
       title: col.header,
       dataKey: col.field,
     }));
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.profile = response;
+    });
   }
 
   openEditModal(data: any) {
