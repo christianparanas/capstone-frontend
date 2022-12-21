@@ -22,7 +22,6 @@
             [rowsPerPageOptions]="[10, 25, 50]"
             styleClass="p-datatable-gridlines"
             [globalFilterFields]="[
-              'id',
               'User.name',
               'rating',
               'message',
@@ -48,7 +47,6 @@
             </ng-template>
             <ng-template pTemplate="header">
               <tr class="text-sm">
-                <th field="id">ID</th>
                 <th field="User.name">Name</th>
                 <th field="rating">Rating</th>
                 <th field="message">Comment</th>
@@ -59,7 +57,6 @@
             </ng-template>
             <ng-template pTemplate="body" let-feedback>
               <tr class="text-sm">
-                <td>{{ feedback.id }}</td>
                 <td>
                   {{ feedback.User.name }}
                 </td>
@@ -113,7 +110,6 @@
             [rowsPerPageOptions]="[10, 25, 50]"
             styleClass="p-datatable-gridlines"
             [globalFilterFields]="[
-              'id',
               'User.name',
               'rating',
               'message',
@@ -139,7 +135,6 @@
             </ng-template>
             <ng-template pTemplate="header">
               <tr class="text-sm">
-                <th field="id">ID</th>
                 <th field="User.name">Name</th>
                 <th field="rating">Rating</th>
                 <th field="message">Comment</th>
@@ -149,7 +144,6 @@
             </ng-template>
             <ng-template pTemplate="body" let-feedback>
               <tr class="text-sm">
-                <td>{{ feedback.id }}</td>
                 <td>{{ feedback.User.name }}</td>
                 <td>{{ feedback.rating }}</td>
                 <td>
