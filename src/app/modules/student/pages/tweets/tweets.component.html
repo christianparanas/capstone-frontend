@@ -107,14 +107,19 @@
           />
         </div>
 
-        <textarea
-          *ngIf="mentionItems.length > 0 || !isLoading"
-          [(ngModel)]="tweet"
-          [mention]="mentionItems"
-          rows="5"
-          class="bg-slate-50 resize-none outline-none text-sm p-5 border border-gray-100 rounded-xl"
-          placeholder="What's happening?"
-        ></textarea>
+        <div
+          class="h-[142px] bg-slate-50  rounded-xl"
+        >
+          <textarea
+            *ngIf="mentionItems.length > 0 || !isLoading"
+            [(ngModel)]="tweet"
+            [mention]="mentionItems"
+            rows="5"
+            class="bg-slate-50 resize-none outline-none text-sm p-5 border border-gray-100 rounded-xl w-full"
+            placeholder="What's happening?"
+          ></textarea>
+        </div>
+
         <button
           (click)="postTweet()"
           [disabled]="submitLoading"
@@ -232,7 +237,7 @@
                   "
                   class="bg-white w-[35px] h-[35px] rounded-full ml-3 cursor-pointer transition-all hover:bg-slate-50 grid place-content-center"
                 >
-                <i class="fal fa-ellipsis-h text-sm"></i>
+                  <i class="fal fa-ellipsis-h text-sm"></i>
                 </div>
               </div>
             </div>
@@ -321,9 +326,7 @@
                 </h1>
               </div>
 
-              <div class="text-[12px]">
-                @{{ voter.username }}
-              </div>
+              <div class="text-[12px]">@{{ voter.username }}</div>
             </div>
           </div>
         </div>
