@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
             if (error.status == 0) {
               result = 'Server has fallen!';
             } else if (error.status == 401) {
-              result = error.message;
+              result = error.error.message;
             } else if (error.status == 422) {
               result = error.error.email[0];
             } else if (error.status == 500) {
