@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 
+import { ProfileService } from '../../shared/services/profile.service';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -11,18 +13,21 @@ import { MenuItem } from 'primeng/api';
 export class UsersComponent implements OnInit {
   tabItems: MenuItem[];
   activeItem: MenuItem;
+  profile: any = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    this.getProfile();
+
     this.tabItems = [
       { label: 'Student', icon: 'pi pi-fw pi-user' },
       { label: 'Faculty', icon: 'pi pi-fw pi-users' },
-      { label: 'Admin', icon: 'pi pi-fw pi-users' },
     ];
 
     this.route.queryParams.subscribe((value) => {
@@ -37,6 +42,16 @@ export class UsersComponent implements OnInit {
         case 'admin':
           this.activeItem = this.tabItems[2];
           break;
+      }
+    });
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.profile = response;
+
+      if (this.profile.position == 0 || this.profile.position == 5) {
+        this.tabItems.push({ label: 'Admin', icon: 'pi pi-fw pi-users' });
       }
     });
   }

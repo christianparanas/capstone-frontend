@@ -25,7 +25,7 @@ export class AdminTabComponent implements OnInit {
     id: null,
     name: null,
     email: null,
-    position: null
+    position: null,
   };
 
   cols: any[];
@@ -52,7 +52,7 @@ export class AdminTabComponent implements OnInit {
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Name' },
       { field: 'email', header: 'Email' },
-      { field: 'position', header: 'Position' }, 
+      { field: 'position', header: 'Position' },
       { field: 'createdAt', header: 'Date Created' },
     ];
 
@@ -67,7 +67,7 @@ export class AdminTabComponent implements OnInit {
       id: data.id,
       name: data.name,
       email: data.email,
-      position: data.position
+      position: data.position,
     };
 
     this.editAccountModal = true;
@@ -150,7 +150,7 @@ export class AdminTabComponent implements OnInit {
     }
 
     if (posId == 5) {
-      return "Director";
+      return 'Director';
     }
   }
 
@@ -165,7 +165,11 @@ export class AdminTabComponent implements OnInit {
       columns: this.exportColumns,
       body: this.admins,
       didDrawPage: (dataArg) => {
-        doc.text('\nEvsu Election System Admins', dataArg.settings.margin.top, 10);
+        doc.text(
+          '\nEvsu Election System Admins',
+          dataArg.settings.margin.top,
+          10
+        );
       },
     });
     doc.save('EvsuElection_Admin.pdf');
@@ -192,10 +196,7 @@ export class AdminTabComponent implements OnInit {
     });
     FileSaver.saveAs(
       data,
-      'EvsuElection_Admin' +
-        '_export_' +
-        new Date().getTime() +
-        EXCEL_EXTENSION
+      'EvsuElection_Admin' + '_export_' + new Date().getTime() + EXCEL_EXTENSION
     );
   }
 }

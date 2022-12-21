@@ -18,11 +18,23 @@ export class HeaderComponent implements OnInit {
   user: any = [];
   defaultImg: any = '../../../../../assets/images/admin.png';
 
-  notifications: any = []
+  notifications: any = [];
 
   getPosition(posId: any) {
     if (posId == 0) {
       return 'Head';
+    }
+
+    if (posId == 1) {
+      return 'Scholarship Officer';
+    }
+
+    if (posId == 2) {
+      return ' Administrative Aide';
+    }
+
+    if (posId == 3) {
+      return 'Staff';
     }
 
     if (posId == 5) {
@@ -132,7 +144,7 @@ export class HeaderComponent implements OnInit {
       queryParams: { type: data.params },
     });
 
-    this.openCloseNavOverlay()
+    this.openCloseNavOverlay();
   }
 
   getUser() {
@@ -140,11 +152,10 @@ export class HeaderComponent implements OnInit {
       (response: any) => {
         this.user = response;
 
-        this.getNotifications()
+        this.getNotifications();
         this.getNotificationEvent();
       },
-      (error: any) => {
-      }
+      (error: any) => {}
     );
   }
 
