@@ -99,7 +99,7 @@ export class UserComponent implements OnInit {
         });
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }

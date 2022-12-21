@@ -111,7 +111,7 @@ export class StudentTabComponent implements OnInit {
           }, 5000);
         },
         (error: any) => {
-          this.toast.error(error.error.message);
+          this.toast.error(error.message);
         }
       );
   }
@@ -152,7 +152,7 @@ export class StudentTabComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }

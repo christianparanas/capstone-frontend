@@ -71,7 +71,6 @@ export class AccountComponent implements OnInit {
     this.getTweetEvent();
   }
 
-
   editTweetSubmit() {
     if (
       this.selectedTweet.content == null ||
@@ -99,7 +98,7 @@ export class AccountComponent implements OnInit {
       (error: any) => {
         this.tweetSubmitLoading = false;
 
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -121,46 +120,55 @@ export class AccountComponent implements OnInit {
         };
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
 
   changePassOnsubmit() {
-    if (this.changePassData.oldpass == null || this.changePassData.oldpass == '') {
+    if (
+      this.changePassData.oldpass == null ||
+      this.changePassData.oldpass == ''
+    ) {
       return this.toast.info('Old password is required.');
     }
 
-    if (this.changePassData.newpass == null || this.changePassData.newpass == '') {
+    if (
+      this.changePassData.newpass == null ||
+      this.changePassData.newpass == ''
+    ) {
       return this.toast.info('New password is required.');
     }
 
-    this.submitLoading = true
+    this.submitLoading = true;
 
     const data = {
       id: this.profile.id,
       oldpass: this.changePassData.oldpass,
-      newpass: this.changePassData.newpass
-    }
+      newpass: this.changePassData.newpass,
+    };
 
-    this.profileService.changePassword(data).subscribe((response: any) => {
-      this.toast.success(response.message)
+    this.profileService.changePassword(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
 
-      this.submitLoading = false
+        this.submitLoading = false;
 
-      this.changePassData = {
-        oldpass: null,
-        newpass: null
+        this.changePassData = {
+          oldpass: null,
+          newpass: null,
+        };
+
+        this.getProfile();
+
+        this.changePasswordModal = false;
+      },
+      (error: any) => {
+        this.toast.error(error.message);
+
+        this.submitLoading = false;
       }
-
-      this.getProfile()
-
-      this.changePasswordModal = false
-    }, (error: any) => {
-      this.toast.error(error.error.message)
-
-      this.submitLoading = false
-    })
+    );
   }
 
   onSubmit() {
@@ -190,7 +198,7 @@ export class AccountComponent implements OnInit {
         this.editModal = false;
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
         this.submitLoading = false;
       }
     );
@@ -297,7 +305,7 @@ export class AccountComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
         this.submitLoading = false;
       }
     );
@@ -319,7 +327,7 @@ export class AccountComponent implements OnInit {
         this.profile = response;
 
         this.tweets = response.Tweets;
-        this.getVoters()
+        this.getVoters();
 
         response.Tweets.forEach((tweet: any) => {
           if (tweet.id == this.commentTweetId) {
@@ -393,8 +401,8 @@ export class AccountComponent implements OnInit {
         this.isLoading = false;
 
         response.forEach(async (voter: any) => {
-          if(voter.id == this.profile.id) {
-           return
+          if (voter.id == this.profile.id) {
+            return;
           }
 
           this.mentionItems.push(voter.username);

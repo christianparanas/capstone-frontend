@@ -25,7 +25,7 @@ export class TweetComponent implements OnInit {
   comment: string = '';
   comments: any = [];
   commentTweetId: any = '';
-  tweetPostOwner: any = null
+  tweetPostOwner: any = null;
 
   voters: any = [];
   mentionItems: any = [];
@@ -81,7 +81,7 @@ export class TweetComponent implements OnInit {
       (error: any) => {
         this.tweetSubmitLoading = false;
 
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -103,7 +103,7 @@ export class TweetComponent implements OnInit {
         };
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -121,7 +121,7 @@ export class TweetComponent implements OnInit {
       if (tweet.id == tweetId) {
         this.comments = tweet.TweetComments;
 
-        this.tweetPostOwner = tweet.User.id
+        this.tweetPostOwner = tweet.User.id;
       }
     });
 
@@ -141,7 +141,7 @@ export class TweetComponent implements OnInit {
     const data: any = {
       tweetId: this.commentTweetId,
       comment: this.comment,
-      receiverId: this.tweetPostOwner, 
+      receiverId: this.tweetPostOwner,
       senderId: this.user.id,
     };
 
@@ -242,7 +242,11 @@ export class TweetComponent implements OnInit {
     this.reactLoading = true;
 
     this.tweetService
-    .reactTweet({ tweetId: tweet.id, receiverId: tweet.User.id, senderId: this.user.id })
+      .reactTweet({
+        tweetId: tweet.id,
+        receiverId: tweet.User.id,
+        senderId: this.user.id,
+      })
       .subscribe(
         (response: any) => {
           this.reactLoading = false;
@@ -280,7 +284,7 @@ export class TweetComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
         this.submitLoading = false;
       }
     );

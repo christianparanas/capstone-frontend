@@ -17,4 +17,8 @@ export class PollService {
   addPoll(data: any): any {
     return this.http.post(`${BASEURL}/api/poll`, data);
   }
+
+  deletePoll(pollId: any): any {
+    return this.http.delete(`${BASEURL}/api/poll/${pollId}`);
+  }
 }

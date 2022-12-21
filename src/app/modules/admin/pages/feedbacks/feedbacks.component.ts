@@ -45,7 +45,7 @@ export class FeedbacksComponent implements OnInit {
           this.toast.success(response.message);
         },
         (error: any) => {
-          this.toast.error(error.error.message);
+          this.toast.error(error.message);
         }
       );
   }

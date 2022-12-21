@@ -1,7 +1,7 @@
 <div class="">
   <div class="p-5 max-w-[1200px] mx-auto pb-[200px]">
     <div
-      class="flex w-[40px] h-[40px] rounded-full items-center justify-center bg-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
+      class="flex w-[40px] h-[40px] rounded-full items-center justify-center border border-gray-200 text-slate-800 font-semibold my-10 cursor-pointer hover:bg-gray-300 transition-all"
       (click)="goBack()"
     >
       <i class="fal fa-arrow-left"></i>
@@ -34,13 +34,13 @@
         <div class="text-[12px] text-center">Loading...</div>
       </div>
     </div>
-    
+
     <div *ngIf="election != null && !isLoading" class="">
       <div class="">
         <img
           src="../../../../../assets/images/propaganda.png"
           alt=""
-          class="w-[200px] h-[200px]"
+          class="w-[120px] h-[120px]"
         />
 
         <div class="mt-10">
@@ -53,7 +53,9 @@
           <h1 class="font-semibold text-4xl text-slate-800">
             {{ election.title }}
           </h1>
-          <div class="text-slate-700">- {{ election.description }}</div>
+          <div class="text-slate-700 max-w-[600px]">
+            - {{ election.description }}
+          </div>
         </div>
 
         <div class="mt-10">

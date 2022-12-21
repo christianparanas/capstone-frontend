@@ -53,17 +53,16 @@ export class AboutComponent implements OnInit {
           //   );
           // }
 
-            this.toast.success('Your rating has been added. Many thanks!', {
-              position: 'top-right',
-            });
-          
+          this.toast.success('Your rating has been added. Many thanks!', {
+            position: 'top-right',
+          });
 
           // clear data
           this.rating = 0;
           this.message = '';
         },
         (error: any) => {
-          this.toast.error(error.error.message);
+          this.toast.error(error.message);
           this.submitLoading = false;
         }
       );

@@ -13,14 +13,17 @@ import { CourseService } from 'src/app/core/shared/services/course.service';
 export class CoursesComponent implements OnInit {
   courses: any = [];
 
-  editCourseModal: boolean = false
-  createCourseModal: boolean = false
-  submitLoading: boolean = false
+  editCourseModal: boolean = false;
+  createCourseModal: boolean = false;
+  submitLoading: boolean = false;
 
   createForm: FormGroup;
   editForm: FormGroup;
 
-  constructor(private courseService: CourseService, private toast: HotToastService) {}
+  constructor(
+    private courseService: CourseService,
+    private toast: HotToastService
+  ) {}
 
   ngOnInit(): void {
     this.getCourses();
@@ -47,23 +50,25 @@ export class CoursesComponent implements OnInit {
 
   editCourse(courseId: any) {
     this.courses.forEach((course: any) => {
-      if(course.id == courseId) {
+      if (course.id == courseId) {
         this.editForm.setValue({
           courseId: course.id,
           acronym: course.acronym,
           title: course.title,
-          college: course.college
-        })
+          college: course.college,
+        });
       }
     });
 
-    this.editCourseModal = true
+    this.editCourseModal = true;
   }
 
   deleteCourse(courseId: any) {
-    let ans = confirm("Are you sure do you want to delete this course? This action cannot be undone and it may result to some problem in the system since it is a dependency data.")
-  
-    if(ans) {
+    let ans = confirm(
+      'Are you sure do you want to delete this course? This action cannot be undone and it may result to some problem in the system since it is a dependency data.'
+    );
+
+    if (ans) {
       this.courseService.deleteCourse(courseId).subscribe(
         (response: any) => {
           this.getCourses();
@@ -71,12 +76,11 @@ export class CoursesComponent implements OnInit {
         },
         (error: any) => {
           this.submitLoading = false;
-          this.toast.error(error.error.message);
+          this.toast.error(error.message);
         }
       );
     }
   }
-  
 
   editFormSubmit() {
     if (!this.editForm.valid) {
@@ -98,7 +102,7 @@ export class CoursesComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -123,7 +127,7 @@ export class CoursesComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }

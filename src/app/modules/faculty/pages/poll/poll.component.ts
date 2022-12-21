@@ -25,8 +25,10 @@ export class PollComponent implements OnInit {
   user: any;
   isLoading: boolean = true;
 
-  tempPollsArr: any = []
-  state: any = "all"
+  tempPollsArr: any = [];
+  state: any = 'all';
+
+  selectedPollId: any = null;
 
   constructor(
     private courseService: CourseService,
@@ -56,6 +58,23 @@ export class PollComponent implements OnInit {
     });
 
     this.getUser();
+  }
+
+  deletePoll() {
+    const ans = confirm('Delete this poll?');
+
+    if (!ans) return;
+
+    this.pollService.deletePoll(this.selectedPollId).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.getPolls();
+        this.selectedPollId = null;
+      },
+      (error: any) => {
+        this.toast.error(error.message);
+      }
+    );
   }
 
   getPollEvent() {
@@ -94,7 +113,7 @@ export class PollComponent implements OnInit {
     this.pollService.getPolls().subscribe(
       (response: any) => {
         this.polls = response;
-        this.getPollsByState()
+        this.getPollsByState();
 
         this.isLoading = false;
       },
@@ -166,7 +185,7 @@ export class PollComponent implements OnInit {
         this.pollForm.reset();
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
         this.submitLoading = false;
       }
     );

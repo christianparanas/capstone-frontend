@@ -93,7 +93,7 @@ export class SignupComponent implements OnInit {
           });
         },
         (error: any) => {
-          this.toast.info(error.error.message);
+          this.toast.info(error.message);
           this.submitLoading = false;
         }
       );

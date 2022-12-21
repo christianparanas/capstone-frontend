@@ -639,7 +639,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -666,7 +666,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -814,7 +814,7 @@ export class ElectionComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message, { duration: 5000 });
+        this.toast.error(error.message, { duration: 5000 });
         this.submitLoading = false;
 
         this.addCandidateData = {

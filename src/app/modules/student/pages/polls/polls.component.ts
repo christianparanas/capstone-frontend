@@ -125,7 +125,7 @@ export class PollsComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
 
         this.submitLoading = false;
       }

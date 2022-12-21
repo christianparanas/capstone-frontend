@@ -144,7 +144,7 @@ export class FacultyTabComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -155,7 +155,7 @@ export class FacultyTabComponent implements OnInit {
         this.faculties = response;
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -178,7 +178,7 @@ export class FacultyTabComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }

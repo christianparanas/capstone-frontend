@@ -70,12 +70,13 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUser();
     window.addEventListener('scroll', this.listenScrollEvent);
-    this.getCourses();
 
     const route = this.route.snapshot.children[0].routeConfig?.path;
     route == '' ? (this.currentRoute = '/') : (this.currentRoute = route);
+
+    this.getUser();
+    this.getCourses();
   }
 
   getNotificationEvent() {

@@ -82,7 +82,7 @@ export class TweetsComponent implements OnInit {
       (error: any) => {
         this.tweetSubmitLoading = false;
 
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -104,7 +104,7 @@ export class TweetsComponent implements OnInit {
         };
       },
       (error: any) => {
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
       }
     );
   }
@@ -269,7 +269,7 @@ export class TweetsComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.error.message);
+        this.toast.error(error.message);
         this.submitLoading = false;
       }
     );
