@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
               result = error.statusText;
             }
             
-            this.toast.error("Something went wrong!");
+            this.toast.error(result);
           }
         );
     } else {
