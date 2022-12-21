@@ -333,117 +333,16 @@
   </p-dialog>
 </div>
 
-<div class="relative z-50" *ngIf="userData">
-  <p-dialog
-    header="Action"
-    [(visible)]="actionModal"
-    [modal]="true"
-    [style]="{ maxWidth: '400px', width: '400px' }"
-  >
-    <div class="mt-3">
-      <div class="grid gap-4">
-        <!-- <div class="mb-3"> -->
-        <!-- <h3 class="font-semibold text-slate-900 mb-1">Role</h3>
-          <div class="grid gap-2">
-            <div *ngFor="let role of userData.UserRoles" class="flex items-center">
-              <div class="relative w-fit">
-                <div class="bg-slate-100 py-1 px-3 rounded-md text-[12px] font-semibold text-slate-800">
-                  {{ role.Role.title }}
-                </div>
-
-                <div *ngIf="role.RoleId != 3" (click)="removeRole(role.Role.title)"
-                  class="absolute -top-[4px] -right-2 bg-red-500 w-[18px] h-[18px] rounded-full grid place-items-center cursor-pointer">
-                  <i class="fal fa-times text-white text-[10px]"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex items-center mt-4">
-              <div *ngIf="!isFaculty" (click)="setRole(100)"
-                class="mr-1 bg-green-200 text-green-900 px-2 rounded-md text-center cursor-pointer font-semibold text-[12px] py-1 hover:bg-green-300/80 transition-all">
-                Set as a Faculty
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="w-full flex items-center">
-          <label class="block text-sm font-semibold text-gray-700 mr-2"
-            >Status:</label
-          >
-          <div class="flex justify-between items-center w-full">
-            <div class="inline-block relative w-full">
-              <select
-                [(ngModel)]="status"
-                class="text-[12px] block cursor-pointer appearance-none w-full relative rounded-md border border-gray-100 font-semibold px-3 py-1 pr-8 outline-none bg-slate-50 hover:bg-slate-100/80 transition-all"
-              >
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-              <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-              >
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button
-          (click)="saveChanges()"
-          [disabled]="submitLoading"
-          type="submit"
-          class="grid place-items-center cursor-pointer bg-red-500 text-white font-semibold rounded-md py-2 hover:bg-red-500/80 transition-all w-full"
-        >
-          <div class="flex items-center w-fit mx-autoo" *ngIf="submitLoading">
-            <svg
-              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-
-            <span>Saving changes...</span>
-          </div>
-
-          <span *ngIf="!submitLoading">Save changes</span>
-        </button>
-      </div>
-    </div>
-  </p-dialog>
-</div>
 
 <p-overlayPanel #opAction>
   <ng-template pTemplate>
     <div class="md:max-w-[400px]">
       <div class="grid gap-1">
         <div
-          (click)="opAction.toggle($event)"
-          class="text-[12px] px-2 py-2 hover:bg-slate-100 cursor-pointer transition-all"
+          class="text-[12px] px-2 py-2 flex items-center"
         >
-          <i class="fal fa-edit mr-1"></i>Set Status
+          <div class="mr-2">Set status</div>
+          <p-inputSwitch [(ngModel)]="status" (onChange)="setStatus()"></p-inputSwitch>
         </div>
         <div
           (click)="deleteAccount(); opAction.toggle($event)"

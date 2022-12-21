@@ -34,9 +34,7 @@ export class UserComponent implements OnInit {
   chatId: any = null;
   chat: any = [];
 
-  isAdmin: boolean = false;
-  isFaculty: boolean = false;
-  status: any;
+  status: boolean = false;
   submitLoading: boolean = false;
 
   @ViewChild('scrollToBottom') scrollElement: any;
@@ -60,6 +58,26 @@ export class UserComponent implements OnInit {
 
     this.getUserData();
     this.getProfile();
+  }
+
+  setStatus() {
+    const data = {
+      status: this.status == true ? 'active' : 'inactive',
+      userId: this.userData.id,
+    };
+
+    this.userService.updateUser(data).subscribe(
+      (response: any) => {
+        if (this.status == true) {
+          this.toast.success('User account set to active');
+        } else {
+          this.toast.info('User account set to inactive');
+        }
+      },
+      (err: any) => {
+        this.toast.error(err.error.message);
+      }
+    );
   }
 
   sendDecision() {
@@ -101,94 +119,11 @@ export class UserComponent implements OnInit {
         this.userData = response;
         this.isLoading = false;
 
-        console.log(response);
-
-        this.status = response.status;
-
-        response.UserRoles.forEach((role: any) => {
-          if (role.Role.title == 'Faculty') {
-            this.isFaculty = true;
-          }
-
-          if (role.Role.title == 'Admin') {
-            this.isAdmin = true;
-          }
-        });
+        this.status = response.status == 'active' ? true : false;
       },
       (error: any) => {
         console.log(error);
       }
-    );
-  }
-
-  saveChanges() {
-    this.submitLoading = true;
-
-    const data = {
-      status: this.status,
-      userId: this.userData.id,
-    };
-
-    this.userService.updateUser(data).subscribe(
-      (response: any) => {
-        this.toast.success(response.message);
-        this.actionModal = false;
-        this.submitLoading = false;
-      },
-      (err: any) => {
-        this.toast.error(err.error.message);
-        this.submitLoading = false;
-      }
-    );
-  }
-
-  setRole(roleId: any) {
-    let data: any = {};
-
-    if (roleId == 100) {
-      data = {
-        id: roleId,
-        Role: {
-          id: roleId,
-          title: 'Faculty',
-        },
-      };
-
-      this.isFaculty = true;
-    }
-
-    if (roleId == 200) {
-      data = {
-        id: roleId,
-        Role: {
-          id: roleId,
-          title: 'Admin',
-        },
-      };
-
-      this.isAdmin = true;
-    }
-
-    this.userData.UserRoles.push(data);
-  }
-
-  removeRole(role: any) {
-    let title = '';
-
-    if (role == 'Faculty') {
-      title = 'Faculty';
-
-      this.isFaculty = false;
-    }
-
-    if (role == 'Admin') {
-      title = 'Admin';
-
-      this.isAdmin = false;
-    }
-
-    this.userData.UserRoles = this.userData.UserRoles.filter(
-      (role: any) => role.Role.title !== title
     );
   }
 

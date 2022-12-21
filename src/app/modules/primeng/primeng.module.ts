@@ -17,6 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { MenuModule } from 'primeng/menu';
 import { PasswordModule } from 'primeng/password';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [],
@@ -37,7 +38,8 @@ import { PasswordModule } from 'primeng/password';
     DropdownModule,
     InputMaskModule,
     MenuModule,
-    PasswordModule
+    PasswordModule,
+    InputSwitchModule,
   ],
 })
 export class PrimengModule {}
