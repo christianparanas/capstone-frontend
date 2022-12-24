@@ -86,8 +86,6 @@ export class ElectionsComponent implements OnInit {
 
     };
 
-    this.submitLoading = true;
-
     this.electionService.addElection(data).subscribe(
       (response: any) => {
         this.submitLoading = false;
@@ -108,11 +106,11 @@ export class ElectionsComponent implements OnInit {
 
   onSubmit() {
     if (!this.electionForm.valid) {
-      this.toast.info('Please fill out all the fields.', {
-        position: 'top-right',
-      });
+      this.toast.info('Please fill out all the fields.');
       return;
     }
+
+    this.submitLoading = true
 
     if (this.electionForm.value.course == '') {
       this.electionForm.value.course = this.user.coverage;

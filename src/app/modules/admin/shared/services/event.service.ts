@@ -28,6 +28,10 @@ export class EventService {
     return this.socket.fromEvent<any>('electionEvent');
   }
 
+  sendNewElectionEvent(data: any) {
+    this.socket.emit('newElectionEvent', data);
+  }
+
   openChat(chatId: any) {
     this.socket.emit('openChat', chatId);
   }

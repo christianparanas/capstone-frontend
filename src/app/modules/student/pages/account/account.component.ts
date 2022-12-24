@@ -177,7 +177,7 @@ export class AccountComponent implements OnInit {
         this.changePasswordModal = false;
       },
       (error: any) => {
-        this.toast.error(error.message);
+        this.toast.error(error.error.message);
 
         this.submitLoading = false;
       }
@@ -232,7 +232,7 @@ export class AccountComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.message);
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );
@@ -404,7 +404,7 @@ export class AccountComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
-        this.toast.error(error.message);
+        this.toast.error(error.error.message);
         this.submitLoading = false;
       }
     );

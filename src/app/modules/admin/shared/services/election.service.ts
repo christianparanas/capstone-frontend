@@ -22,16 +22,57 @@ export class ElectionService {
     return this.http.get(`${BASEURL}/api/election/studentreceipt/${data.electionId}/${data.voterId}`);
   }
 
-  getVoters(): any {
-    return this.http.get(`${BASEURL}/api/election/voters`);
-  }
-
   getPrediction(data: any): any {
     return this.http.post(`${BASEURL}/api/election/prediction`, data);
   }
 
   getSentiments(data: any): any {
     return this.http.post(`${BASEURL}/api/election/sentiments`, data);
+  }
+
+  addElection(data: any): any {
+    return this.http.post(`${BASEURL}/api/election`, data);
+  }
+
+  getStudentAccounts(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/studentaccounts`, data);
+  }
+
+  getVoters(): any {
+    return this.http.get(`${BASEURL}/api/election/voters`);
+  }
+
+
+  addElectionPosition(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/position`, data);
+  }
+
+  addCandidate(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/candidate`, data);
+  }
+
+  addPartylist(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/partylist`, data);
+  }
+
+  finishSetup(data: any): any {
+    return this.http.post(`${BASEURL}/api/election/finishsetup`, data);
+  }
+
+  deleteElection(electionId: any): any {
+    return this.http.delete(`${BASEURL}/api/election/${electionId}`);
+  }
+
+  deletePosition(data: any): any {
+    return this.http.delete(
+      `${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}`
+    );
+  }
+
+  deleteCandidate(data: any): any {
+    return this.http.delete(
+      `${BASEURL}/api/election/${data.electionId}/${data.electionPositionId}/${data.electionCandidateId}`
+    );
   }
 
 }

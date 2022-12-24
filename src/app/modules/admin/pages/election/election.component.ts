@@ -11,6 +11,8 @@ import { ElectionService } from '../../shared/services/election.service';
 import { EventService } from '../../shared/services/event.service';
 import { PdfService } from 'src/app/core/shared/services/pdf.service';
 
+import { ProfileService } from '../../shared/services/profile.service';
+
 @Component({
   selector: 'app-election',
   templateUrl: './election.component.html',
@@ -19,28 +21,54 @@ import { PdfService } from 'src/app/core/shared/services/pdf.service';
 export class ElectionComponent implements OnInit {
   isLoading: boolean = true;
   submitLoading: boolean = false;
-
+  electionPositionModal: boolean = false;
+  addCandidateModal: boolean = false;
+  candidatesModal: boolean = false;
   votersModal: boolean = false;
+  finishSetupPrompt: boolean = false;
+  deleteElectionPrompt: boolean = false;
   voteReceiptModal: boolean = false;
+  coreElectioModal: boolean = false;
+  partylistCreationModal: boolean = false;
+  partylistsModal: boolean = false;
+
+  electionPositionForm: FormGroup;
+  partylistCreationForm: FormGroup;
 
   currentDate: string;
   courses: any = [];
   students: any = [];
+  partylists: any = [];
   electionId: number;
   election: any = [];
   tabItems: MenuItem[];
   activeItem: MenuItem;
 
+  electionData: any = {
+    campaign: {
+      hasCampaign: null,
+      start: null,
+      end: null,
+    },
+    election: {
+      start: null,
+      end: null,
+    },
+  };
+
   electionPositionId: any = null;
   addCandidatePreviewImg: any = null;
+
   addCandidateData: any = {
     image: null,
     platform: null,
-    UserId: null,
+    partylist: 0,
+    user: null,
   };
+
   candidates: any = [];
   limitOfCandidates: any;
-  electionResult: any = [];
+  winners: any = [];
   receipt: any = [];
 
   isPredictionsPanelOpen: boolean = false;
@@ -48,12 +76,20 @@ export class ElectionComponent implements OnInit {
   chartOptions: any;
 
   predictionModal: boolean = false;
-  isPredictionAvailable: boolean = false
-  positionTitle: any = ""
-  hasSentiments: boolean = false
+  isPredictionAvailable: boolean = false;
+  positionTitle: any = '';
+  hasSentiments: boolean = false;
 
-  chartLoading: boolean = false
-  winnersModal: boolean = false
+  chartLoading: boolean = false;
+
+  electionResult: any = [];
+  winnersModal: boolean = false;
+
+  countries: any[];
+  selectedStudent: any = {};
+
+
+  profile: any = []
 
   constructor(
     private courseService: CourseService,
@@ -63,7 +99,8 @@ export class ElectionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private eventService: EventService,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
@@ -71,8 +108,23 @@ export class ElectionComponent implements OnInit {
       this.electionId = value.id;
     });
 
+    this.currentDate = new Date().toISOString().slice(0, 16);
+
+    this.getProfile()
     this.getElection();
     this.getCourses();
+
+    this.electionPositionForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      allowedCourse: new FormControl(0),
+      no_of_winners: new FormControl('', Validators.required),
+    });
+
+    this.partylistCreationForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+    });
 
     this.chartData = {
       labels: [],
@@ -131,6 +183,12 @@ export class ElectionComponent implements OnInit {
     };
   }
 
+  getProfile() {
+    this.profileService.getProfile().subscribe((response: any) => {
+      this.profile = response
+    })
+  }
+
   getElectionEvent() {
     this.eventService.getElectionEvent().subscribe((response: any) => {
       if (response.electionId == this.election.id) {
@@ -140,7 +198,10 @@ export class ElectionComponent implements OnInit {
   }
 
   downloadPdf() {
-    this.pdfService.downloadPDF(this.election.id, `${this.election.title}-winners`)
+    this.pdfService.downloadPDF(
+      this.election.id,
+      `${this.election.title}-winners`
+    );
   }
 
   byCourseArr(candidates: any) {
@@ -192,7 +253,7 @@ export class ElectionComponent implements OnInit {
     }
 
     this.isPredictionAvailable = true;
-    this.chartLoading = true
+    this.chartLoading = true;
 
     this.electionService
       .getPrediction({
@@ -201,8 +262,7 @@ export class ElectionComponent implements OnInit {
       })
       .subscribe(
         (response: any) => {
-
-          console.log(response)
+          console.log(response);
 
           response.ElectionCandidates.forEach((candidate: any) => {
             if (candidate.Sentiments.length > 0) {
@@ -211,8 +271,8 @@ export class ElectionComponent implements OnInit {
           });
 
           if (this.hasSentiments == false) {
-            this.chartLoading = false
-            return
+            this.chartLoading = false;
+            return;
           }
 
           response.ElectionCandidates.forEach(
@@ -243,16 +303,15 @@ export class ElectionComponent implements OnInit {
 
               let entries = Object.entries(scores);
 
-
               for (let [index, [key, value]] of entries.entries()) {
                 this.chartData.datasets[index].data[canIndex] = value;
               }
             }
           );
 
-          this.chartLoading = false
+          this.chartLoading = false;
 
-          console.log(this.chartData)
+          console.log(this.chartData);
         },
         (error: any) => {}
       );
@@ -453,8 +512,6 @@ export class ElectionComponent implements OnInit {
         });
       }
     });
-
-    console.log(this.electionResult);
   }
 
   checkResult(candidate: any) {
@@ -485,6 +542,152 @@ export class ElectionComponent implements OnInit {
     return result;
   }
 
+  deleteElection() {
+    this.electionService.deleteElection(this.election.id).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.router.navigate(['/admin/elections']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkAddedPosition() {
+    if (this.election.ElectionPositions.length == 0) {
+      this.finishSetupPrompt = false;
+      return this.toast.info("There's no added election position.", {
+        duration: 5000,
+      });
+    }
+
+    if (this.election.ElectionCandidates.length == 0) {
+      this.finishSetupPrompt = false;
+      return this.toast.info("There's no added election candidate.", {
+        duration: 5000,
+      });
+    }
+
+    this.coreElectioModal = true;
+  }
+
+  finishSetup() {
+    if (this.electionData.campaign.hasCampaign == null) {
+      return this.toast.info('Please answer the questions to proceed.');
+    }
+
+    if (this.electionData.election.start == null) {
+      return this.toast.info('Please input election start date.');
+    }
+
+    if (this.electionData.election.end == null) {
+      return this.toast.info('Please input election end date.');
+    }
+
+    const ans = confirm('Finish Setup? Are you sure?');
+
+    if (!ans) return;
+
+    this.electionService
+      .finishSetup({
+        core: { ...this.electionData },
+        ElectionId: this.election.id,
+        status: 'active',
+      })
+      .subscribe(
+        (response: any) => {
+          this.toast.success(response.message);
+
+          this.getElection();
+          this.coreElectioModal = false;
+
+          this.eventService.sendNewElectionEvent({
+            course: this.election.course,
+            section: this.election.section,
+            year: this.election.year,
+          });
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+  }
+
+  changeTab(tab: any) {
+    if (tab.activeItem.label == 'Candidates') {
+      this.activeItem = this.tabItems[0];
+    } else {
+      this.activeItem = this.tabItems[1];
+    }
+  }
+
+  positionModal(data: any) {
+    this.electionPositionId = data.id;
+    this.limitOfCandidates = data.no_of_candidates;
+    this.candidatesModal = true;
+
+    this.candidates = data.ElectionCandidates;
+  }
+
+  onElectionPositionSubmit() {
+    if (!this.electionPositionForm.valid) {
+      return this.toast.info('Please fill out all the input fields');
+    }
+
+    this.submitLoading = true;
+
+    const data = {
+      ...this.electionPositionForm.value,
+      ElectionId: this.electionId,
+    };
+
+    this.electionService.addElectionPosition(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.getElection();
+        this.submitLoading = false;
+        this.electionPositionModal = false;
+        this.electionPositionForm.reset();
+      },
+      (error: any) => {
+        this.submitLoading = false;
+        this.toast.error(error.message);
+      }
+    );
+  }
+
+  onPartylistCreationSubmit() {
+    if (!this.partylistCreationForm.valid) {
+      return this.toast.info('Please fill out all the required input fields');
+    }
+
+    this.submitLoading = true;
+
+    const data = {
+      ...this.partylistCreationForm.value,
+      ElectionId: this.electionId,
+    };
+
+    this.electionService.addPartylist(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.getElection();
+        this.submitLoading = false;
+        this.partylistCreationModal = false;
+        this.partylistCreationForm.reset();
+      },
+      (error: any) => {
+        this.submitLoading = false;
+        this.toast.error(error.message);
+      }
+    );
+  }
+
+  candidatesTrack(item: any, index: any) {
+    return `${item.id}-${index}`;
+  }
+
   getSentiments() {
     const data: any = {
       ElectionId: this.election.id,
@@ -492,7 +695,7 @@ export class ElectionComponent implements OnInit {
 
     this.electionService.getSentiments(data).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
       },
       (error: any) => {
         this.submitLoading = false;
@@ -507,8 +710,11 @@ export class ElectionComponent implements OnInit {
       (response: any) => {
         this.election = response;
 
+        this.getStudents();
         this.getElectionEvent();
         this.getResult();
+
+        this.partylists = response.Partylists;
 
         if (this.electionPositionId) {
           response.ElectionPositions.forEach((position: any) => {
@@ -541,16 +747,32 @@ export class ElectionComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        if(type == 2) {
+        if (type == 2) {
           courseTitle = course.acronym;
-        }
-        else {
+        } else {
           courseTitle = course.title;
         }
       }
     });
 
     return courseTitle;
+  }
+
+  getStudents() {
+    this.electionService
+      .getStudentAccounts({
+        course: this.election.course,
+        section: this.election.section,
+        year: this.election.year,
+      })
+      .subscribe(
+        (response: any) => {
+          this.students = response;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   getCourses() {
@@ -570,6 +792,89 @@ export class ElectionComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).calendar();
+  }
+
+  onAddCandidateSubmit() {
+    if (this.addCandidateData.user == null) {
+      return this.toast.info('Please select a candidate');
+    }
+
+    this.submitLoading = true;
+
+    const data: any = {
+      image: this.addCandidateData.image,
+      platform: this.addCandidateData.platform,
+      partylist: this.addCandidateData.partylist,
+      UserId: this.addCandidateData.user.id,
+      ElectionPositionId: this.electionPositionId,
+      ElectionId: this.electionId,
+    };
+
+    this.electionService.addCandidate(data).subscribe(
+      (response: any) => {
+        this.toast.success(response.message);
+        this.submitLoading = false;
+        this.addCandidateModal = false;
+        this.getElection();
+
+        console.log(response);
+
+        this.addCandidateData = {
+          image: null,
+          platform: null,
+          UserId: null,
+        };
+      },
+      (error: any) => {
+        console.log(error);
+        this.toast.error(error.message, { duration: 5000 });
+        this.submitLoading = false;
+
+        this.addCandidateData = {
+          platform: null,
+          UserId: null,
+        };
+      }
+    );
+  }
+
+  removePosition(data: any) {
+    let ans = confirm('Are you sure you want to remove this position?');
+
+    if (ans) {
+      this.electionService
+        .deletePosition({
+          electionId: data.ElectionId,
+          electionPositionId: data.id,
+        })
+        .subscribe(
+          (response: any) => {
+            this.toast.success(response.message);
+            this.getElection();
+          },
+          (error: any) => {}
+        );
+    }
+  }
+
+  removeCandidate(data: any) {
+    let ans = confirm('Are you sure you want to remove this candidate?');
+
+    if (ans) {
+      this.electionService
+        .deleteCandidate({
+          electionId: data.ElectionId,
+          electionPositionId: data.ElectionPositionId,
+          electionCandidateId: data.id,
+        })
+        .subscribe(
+          (response: any) => {
+            this.toast.success(response.message);
+            this.getElection();
+          },
+          (error: any) => {}
+        );
+    }
   }
 
   loadInputImgToSrc(event: any) {
