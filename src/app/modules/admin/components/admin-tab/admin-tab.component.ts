@@ -121,6 +121,8 @@ export class AdminTabComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.createForm)
+
     if (!this.createForm.valid) {
       this.toast.warning('Please fill out the fields with valid data.');
       return;
@@ -143,27 +145,6 @@ export class AdminTabComponent implements OnInit {
     );
   }
 
-  getPosition(posId: any) {
-    if (posId == 0) {
-      return 'Head';
-    }
-
-    if (posId == 1) {
-      return 'Scholarship Officer';
-    }
-
-    if (posId == 2) {
-      return ' Administrative Aide';
-    }
-
-    if (posId == 3) {
-      return 'Staff';
-    }
-
-    if (posId == 5) {
-      return 'Director';
-    }
-  }
 
   momentFormatLLL(date: any) {
     return moment(date).format('lll');

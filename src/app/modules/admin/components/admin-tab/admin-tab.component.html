@@ -62,11 +62,15 @@
               formControlName="position"
               class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
             >
-              <option value="5" class="">Director</option>
-              <option value="0" class="">Head</option>
-              <option value="1" class="">Scholarship Officer</option>
-              <option value="2" class="">Administrative Aide</option>
-              <option value="3" class="">Staff</option>
+              <option value="Director" class="">Director</option>
+              <option value="Head" class="">Head</option>
+              <option value="Scholarship Officer" class="">
+                Scholarship Officer
+              </option>
+              <option value="Administrative Aide" class="">
+                Administrative Aide
+              </option>
+              <option value="Staff" class="">Staff</option>
             </select>
           </div>
         </div>
@@ -155,11 +159,15 @@
               [ngModelOptions]="{ standalone: true }"
               class="py-2 px-3 outline-none block w-full pr-12 text-[12px] border-gray-300 bg-slate-50 rounded-md cursor-pointer"
             >
-              <option value="5" class="">Director</option>
-              <option value="0" class="">Head</option>
-              <option value="1" class="">Scholarship Officer</option>
-              <option value="2" class="">Administrative Aide</option>
-              <option value="3" class="">Staff</option>
+              <option value="Director" class="">Director</option>
+              <option value="Head" class="">Head</option>
+              <option value="Scholarship Officer" class="">
+                Scholarship Officer
+              </option>
+              <option value="Administrative Aide" class="">
+                Administrative Aide
+              </option>
+              <option value="Staff" class="">Staff</option>
             </select>
           </div>
         </div>
@@ -270,7 +278,9 @@
               </div>
 
               <button
-                *ngIf="profile.position == 0 || profile.position == 5"
+                *ngIf="
+                  profile.position == 'Head' || profile.position == 'Director'
+                "
                 (click)="createAccountModal = true"
                 class="bg-red-500 text-white text-[12px] md:text-sm font-semibold py-3 px-5 rounded-3xl hover:bg-red-600/80 cursor-pointer transition-all"
               >
@@ -287,14 +297,16 @@
             <th field="email">Position</th>
             <th field="createdAt">Date created</th>
             <th field="status">Status</th>
-            <th  *ngIf="profile.position == 0 || profile.position == 5">Action</th>
+            <th *ngIf="profile.position == 'Head' || profile.position == 'Director'">
+              Action
+            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-admin>
           <tr class="text-sm" [pSelectableRow]="admin">
             <td>{{ admin.name }}</td>
             <td>{{ admin.email }}</td>
-            <td>{{ getPosition(admin.position) }}</td>
+            <td>{{ admin.position }}</td>
             <td>{{ momentFormatLLL(admin.createdAt) }}</td>
             <td>
               <div
@@ -308,7 +320,11 @@
                 {{ admin.status }}
               </div>
             </td>
-            <td  *ngIf="profile.position == 0 || profile.position == 5">
+            <td
+              *ngIf="
+                profile.position == 'Head' || profile.position == 'Director'
+              "
+            >
               <div
                 (click)="openEditModal(admin)"
                 class="py-1 px-3 w-fit rounded-lg text-[12px] font-semibold capitalize bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"

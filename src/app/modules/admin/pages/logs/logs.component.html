@@ -22,7 +22,6 @@
           ></p-skeleton>
         </div>
 
-
         <!-- TODO: add show more functionality instead of pulling all the logs in the database every time calling the api endpoint -->
         <div
           *ngIf="!isLoading && allLogs.length == 0"
@@ -57,7 +56,7 @@
                       <div
                         *ngIf="
                           role.Role.title == 'Admin' &&
-                          log.User.position == 0
+                          log.User.position == 'Head'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
@@ -67,7 +66,7 @@
                       <div
                         *ngIf="
                           role.Role.title == 'Admin' &&
-                          log.User.position == 5
+                          log.User.position == 'Director'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
@@ -76,29 +75,19 @@
 
                       <div
                         *ngIf="
-                          role.Role.title == 'Faculty' &&
+                          role.Role.title == 'Admin' &&
                           log.User.coverage == 0 &&
-                          log.User.position == 0
+                          log.User.position == 'Scholarship Officer'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
-                        SAO Head
+                        SAO Scholarship Officer
                       </div>
                       <div
                         *ngIf="
-                          role.Role.title == 'Faculty' &&
+                          role.Role.title == 'Admin' &&
                           log.User.coverage == 0 &&
-                          log.User.position == 1
-                        "
-                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
-                      >
-                        Scholarship Officer
-                      </div>
-                      <div
-                        *ngIf="
-                          role.Role.title == 'Faculty' &&
-                          log.User.coverage == 0 &&
-                          log.User.position == 2
+                          log.User.position == 'Administrative Aide'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
@@ -106,9 +95,9 @@
                       </div>
                       <div
                         *ngIf="
-                          role.Role.title == 'Faculty' &&
+                          role.Role.title == 'Admin' &&
                           log.User.coverage == 0 &&
-                          log.User.position == 3
+                          log.User.position == 'Staff'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
@@ -119,7 +108,7 @@
                         *ngIf="
                           role.Role.title == 'Faculty' &&
                           log.User.coverage != 0 &&
-                          log.User.position == 0
+                          log.User.position == 'Head'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
@@ -130,7 +119,7 @@
                         *ngIf="
                           role.Role.title == 'Faculty' &&
                           log.User.coverage != 0 &&
-                          log.User.position == 3
+                          log.User.position == 'Staff'
                         "
                         class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >

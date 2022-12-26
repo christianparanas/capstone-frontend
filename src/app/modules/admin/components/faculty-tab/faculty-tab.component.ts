@@ -88,28 +88,6 @@ export class FacultyTabComponent implements OnInit {
     this.editAccountModal = true;
   }
 
-  getPosition(posId: any) {
-    if (posId == 0) {
-      return 'Head';
-    }
-
-    if (posId == 1) {
-      return 'Scholarship Officer';
-    }
-
-    if (posId == 2) {
-      return ' Administrative Aide';
-    }
-
-    if (posId == 3) {
-      return 'Staff';
-    }
-
-    if (posId == 5) {
-      return 'Director';
-    }
-  }
-
   getCourse(courseId: any) {
     let acr;
 
@@ -196,7 +174,7 @@ export class FacultyTabComponent implements OnInit {
       { title: 'ID', dataKey: 'id' },
       { title: 'Name', dataKey: 'name' },
       { title: 'Email', dataKey: 'email' },
-      { title: 'Coverage', dataKey: 'coverage' },
+      { title: 'Department', dataKey: 'coverage' },
       { field: 'createdAt', header: 'Date Created' },
     ];
 
@@ -205,8 +183,7 @@ export class FacultyTabComponent implements OnInit {
         id: item.id,
         name: item.name,
         email: item.email,
-        coverage:
-          item.coverage == 0 ? 'All Courses' : this.getCourse(item.coverage),
+        coverage: this.getCourse(item.coverage),
         createdAt: item.createdAt,
       });
     });

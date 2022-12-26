@@ -98,13 +98,13 @@
       <div class="flex items-center">
         <div *ngIf="user.length != 0" class="flex items-center">
           <h1 class="mr-2 font-semibold">
-            {{
-              user.coverage == "0"
-                ? "Student Affairs Office"
-                : getCourse(user.coverage) + " Department"
-            }}
+            {{ getCourse(user.coverage) + " Department" }}
           </h1>
-          <p class="bg-red-900 text-[12px] font-semibold p-2 rounded-md text-red-100">{{ getPosition(user.position) }}</p>
+          <p
+            class="bg-red-900 text-[12px] font-semibold p-2 rounded-md text-red-100"
+          >
+            {{ user.position }}
+          </p>
         </div>
 
         <!-- <div class="relative">

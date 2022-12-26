@@ -7,6 +7,7 @@ import { TweetService } from '../../shared/services/tweet.service';
 import { ProfileService } from '../../shared/services/profile.service';
 import { EventService } from '../../shared/services/event.service';
 import { ElectionService } from '../../shared/services/election.service';
+import { CourseService } from 'src/app/core/shared/services/course.service';
 
 @Component({
   selector: 'app-tweets',
@@ -26,6 +27,7 @@ export class TweetsComponent implements OnInit {
   comments: any = [];
   commentTweetId: any = '';
   tweetPostOwner: any = null;
+  courses: any = []
 
   voters: any = [];
 
@@ -46,13 +48,15 @@ export class TweetsComponent implements OnInit {
     private profileService: ProfileService,
     private eventService: EventService,
     private router: Router,
-    private electionService: ElectionService
+    private electionService: ElectionService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getTweetEvent();
     this.getVoters();
+    this.getCourses()
   }
 
   editTweetSubmit() {
@@ -304,5 +308,28 @@ export class TweetsComponent implements OnInit {
 
   dateFormat(date: any) {
     return moment(date).fromNow();
+  }
+
+  getCourse(CourseId: any) {
+    let courseTitle = null;
+
+    this.courses.forEach((course: any) => {
+      if (course.id == CourseId) {
+        courseTitle = course.acronym;
+      }
+    });
+
+    return courseTitle;
+  }
+
+  getCourses() {
+    this.courseService.getCourses().subscribe(
+      (response: any) => {
+        this.courses = response;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }
