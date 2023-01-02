@@ -18,8 +18,8 @@ export class ElectionsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  tempElectionsArr: any = []
-  state: any = "all"
+  tempElectionsArr: any = [];
+  state: any = 'all';
 
   constructor(
     private electionService: ElectionService,
@@ -59,7 +59,7 @@ export class ElectionsComponent implements OnInit {
     this.electionService.getElections(data).subscribe(
       (response: any) => {
         this.elections = response;
-        this.getElectionsByState()
+        this.getElectionsByState();
 
         this.isLoading = false;
       },
@@ -72,7 +72,8 @@ export class ElectionsComponent implements OnInit {
   getElectionsByState() {
     this.tempElectionsArr = this.elections.filter((item: any) => {
       if (this.state == 'all') return true;
-      if (this.state == 'course') return item.course == this.user.StudentCredential.CourseId;
+      if (this.state == 'course')
+        return item.course == this.user.StudentCredential.CourseId;
       if (this.state == 'ongoing') return item.stage == 'election_started';
       if (this.state == 'ended') return item.stage == 'election_ended';
     });
@@ -95,10 +96,9 @@ export class ElectionsComponent implements OnInit {
 
     this.courses.forEach((course: any) => {
       if (course.id == CourseId) {
-        if(op == 1) {
+        if (op == 1) {
           courseTitle = course.title;
-        }
-        else {
+        } else {
           courseTitle = course.acronym;
         }
       }
