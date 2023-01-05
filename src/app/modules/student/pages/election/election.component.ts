@@ -45,7 +45,7 @@ export class ElectionComponent implements OnInit {
     private eventService: EventService,
     private profileService: ProfileService,
     private pdfService: PdfService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -210,6 +210,19 @@ export class ElectionComponent implements OnInit {
     });
   }
 
+  checkIfBallotEmpty() {
+    this.votes.forEach((vote: any) => {
+      if (vote.selectedCandidateCount <= 0) {
+        this.isVoteNotEmpty = false;
+        return;
+      }
+
+
+    });
+
+    this.isVoteNotEmpty = true;
+  }
+
   selectPartyMembers(data: any, op: any) {
     this.votes.forEach((item: any) => {
       if (data.ElectionPositionId == item.id) {
@@ -262,18 +275,10 @@ export class ElectionComponent implements OnInit {
         });
       }
     });
+
+    this.checkIfBallotEmpty();
   }
 
-  checkIfBallotEmpty() {
-    this.votes.forEach((vote: any) => {
-      if (vote.selectedCandidateCount > 0) {
-        this.isVoteNotEmpty = true;
-        return;
-      }
-
-      this.isVoteNotEmpty = false;
-    });
-  }
 
   vote() {
     let ans = confirm('Done Voting? this action cannot be undone.');

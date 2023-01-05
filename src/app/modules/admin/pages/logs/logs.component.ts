@@ -27,7 +27,7 @@ export class LogsComponent implements OnInit {
     private profileService: ProfileService,
     private eventService: EventService,
     private courseService: CourseService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -70,8 +70,6 @@ export class LogsComponent implements OnInit {
       (response: any) => {
         this.allLogs = response;
         this.isLoading = false
-
-        console.log(response)
       },
       (error: any) => {
         console.log(error);

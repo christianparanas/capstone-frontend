@@ -95,7 +95,7 @@ export class ElectionComponent implements OnInit {
     private router: Router,
     private eventService: EventService,
     private pdfService: PdfService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -300,7 +300,7 @@ export class ElectionComponent implements OnInit {
 
           console.log(this.chartData);
         },
-        (error: any) => {}
+        (error: any) => { }
       );
   }
 
@@ -310,7 +310,7 @@ export class ElectionComponent implements OnInit {
         this.receipt = response;
         this.voteReceiptModal = true;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
 
@@ -839,7 +839,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => {}
+          (error: any) => { }
         );
     }
   }
@@ -859,7 +859,7 @@ export class ElectionComponent implements OnInit {
             this.toast.success(response.message);
             this.getElection();
           },
-          (error: any) => {}
+          (error: any) => { }
         );
     }
   }
