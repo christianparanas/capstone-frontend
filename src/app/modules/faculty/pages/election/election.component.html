@@ -392,7 +392,7 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse != 0"
+                        *ngIf="position.allowedCourse != 0 && position.allowedCourse != null"
                         class="grid gap-4"
                       >
                         <div
@@ -495,7 +495,7 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse == 0"
+                        *ngIf="position.allowedCourse == null || position.allowedCourse == 0"
                         class="grid gap-2"
                       >
                         <div
@@ -739,20 +739,6 @@
           </div>
         </div>
 
-        <div *ngIf="election.course == 0">
-          <label class="block text-[12px] font-medium text-gray-700"
-            >Allowed course</label
-          >
-          <div class="mt-1 relative rounded-md">
-            <select
-              formControlName="allowedCourse"
-              class="outline-none block text-[12px] w-full p-3 rounded-md bg-slate-100 cursor-pointer"
-            >
-              <option value="0" class="">All Courses</option>
-              <option value="1" class="">By Course</option>
-            </select>
-          </div>
-        </div>
 
         <button
           type="submit"

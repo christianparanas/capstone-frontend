@@ -42,7 +42,7 @@
             <div class="bg-slate-50 text-sm p-2">
               <div class="">
                 <div
-                  class="flex items-center cursor-pointer"
+                  class="lg:flex lg:items-center cursor-pointer"
                   (click)="navigateToUser(com.User.id)"
                 >
                   <div class="font-semibold mr-2 capitalize">
@@ -52,7 +52,7 @@
                     <div *ngFor="let role of com.User.UserRoles" class="">
                       <div
                         *ngIf="role.Role.title != 'Student'"
-                        class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                        class="bg-green-200 w-fit text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                       >
                         <div *ngIf="role.Role.title == 'Admin'" class="">
                           SAO {{ com.User.position }}
@@ -219,7 +219,7 @@
               <div class="flex justify-between">
                 <div class="">
                   <div
-                    class="flex items-center cursor-pointer"
+                    class="lg:flex lg:items-center cursor-pointer"
                     (click)="navigateToUser(tweet.User.id)"
                   >
                     <div class="font-semibold mr-2 capitalize">
@@ -229,7 +229,7 @@
                       <div *ngFor="let role of tweet.User.UserRoles" class="">
                         <div
                           *ngIf="role.Role.title != 'Student'"
-                          class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
+                          class="bg-green-200 w-fit text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1"
                         >
                           <div *ngIf="role.Role.title == 'Admin'" class="">
                             SAO {{ tweet.User.position }}

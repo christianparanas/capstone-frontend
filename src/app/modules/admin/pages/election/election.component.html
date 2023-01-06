@@ -424,7 +424,7 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse != 0"
+                        *ngIf="position.allowedCourse != 0 && position.allowedCourse != null"
                         class="grid gap-4"
                       >
                         <div
@@ -527,7 +527,7 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse == 0"
+                        *ngIf="position.allowedCourse == 0 || position.allowedCourse == null"
                         class="grid gap-2"
                       >
                         <div

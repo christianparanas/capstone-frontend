@@ -259,7 +259,7 @@
                     <div class="">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
                         {{
-                          position.allowedCourse != 0
+                          position.allowedCourse != 0 && position.allowedCourse != null
                             ? getCourse(2, profile.StudentCredential.CourseId)
                             : ""
                         }}
@@ -441,7 +441,7 @@
                     <div class="flex items-center justify-between">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
                         {{
-                          position.allowedCourse != 0
+                          position.allowedCourse != 0 && position.allowedCourse != null
                             ? getCourse(2, profile.StudentCredential.CourseId)
                             : ""
                         }}
