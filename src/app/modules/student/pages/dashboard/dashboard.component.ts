@@ -87,9 +87,11 @@ export class DashboardComponent implements OnInit {
     };
 
     this.pollService.getPolls(data).subscribe((response: any) => {
-      this.polls = response;
-
-      console.log(response)
+      response.forEach((poll: any) => {
+        if(poll.published == true) {
+          this.polls.push(poll);
+        }
+      })
     });
   }
 }
