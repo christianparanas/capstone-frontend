@@ -219,14 +219,14 @@
               </div>
 
               <div class="">
-                <div class="text-sm font-semibold capitalize">
+                <div class="text-sm font-semibold">
                   {{ election.User.name }}
                 </div>
                 <div class="text-[10px] flex items-center">
                   <div
                     class="bg-green-200 text-green-800 font-semibold px-2 gap-1 py-[2px] rounded-md mr-1"
                   >
-                    {{ election.User.UserRoles[0].Role.title }}
+                    {{ getCourse(2, election.User.coverage) }}  {{ election.User.position }}
                   </div>
                 </div>
               </div>
