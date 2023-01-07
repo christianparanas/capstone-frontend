@@ -256,15 +256,28 @@
                   <div
                     class="border border-gray-100 bg-white p-3 rounded-md shadow-sm"
                   >
-                    <div class="">
+                    <div class="flex items-center justify-between">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
                         {{
-                          position.allowedCourse != 0 && position.allowedCourse != null
+                          position.allowedCourse != 0 &&
+                          position.allowedCourse != null
                             ? getCourse(2, profile.StudentCredential.CourseId)
                             : ""
                         }}
                         {{ position.title }}
                       </h1>
+                      <div class="">
+                        <div
+                          *ngIf="
+                            election.hasCampaign &&
+                            position.ElectionCandidates.length != 0
+                          "
+                          class="text-sm font-semibold bg-slate-100 py-1 px-2 rounded-md cursor-pointer hover:bg-slate-200 transition-all"
+                        >
+                          <i class="fal fa-vote-yea mr-1 text-[12px]"></i>
+                          Prediction
+                        </div>
+                      </div>
                     </div>
 
                     <div
@@ -441,7 +454,8 @@
                     <div class="flex items-center justify-between">
                       <h1 class="text-md font-semibold text-slate-800 text-xl">
                         {{
-                          position.allowedCourse != 0 && position.allowedCourse != null
+                          position.allowedCourse != 0 &&
+                          position.allowedCourse != null
                             ? getCourse(2, profile.StudentCredential.CourseId)
                             : ""
                         }}

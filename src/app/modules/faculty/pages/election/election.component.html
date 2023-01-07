@@ -392,7 +392,10 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse != 0 && position.allowedCourse != null"
+                        *ngIf="
+                          position.allowedCourse != 0 &&
+                          position.allowedCourse != null
+                        "
                         class="grid gap-4"
                       >
                         <div
@@ -473,7 +476,8 @@
                               <img
                                 *ngIf="
                                   election.stage == 'election_ended' &&
-                                  checkResult(candidate) == 'winner'
+                                  checkResult(candidate) == 'winner' &&
+                                  candidate.ElectionVotes.length != 0
                                 "
                                 src="../../../../../assets/images/medal.png"
                                 alt=""
@@ -483,7 +487,8 @@
                               <div
                                 *ngIf="
                                   election.stage == 'election_ended' &&
-                                  checkResult(candidate) == 'draw'
+                                  checkResult(candidate) == 'draw' &&
+                                  candidate.ElectionVotes.length != 0
                                 "
                                 class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
                               >
@@ -495,7 +500,10 @@
                       </div>
 
                       <div
-                        *ngIf="position.allowedCourse == null || position.allowedCourse == 0"
+                        *ngIf="
+                          position.allowedCourse == null ||
+                          position.allowedCourse == 0
+                        "
                         class="grid gap-2"
                       >
                         <div
@@ -563,7 +571,8 @@
                           <img
                             *ngIf="
                               election.stage == 'election_ended' &&
-                              checkResult(candidate) == 'winner'
+                              checkResult(candidate) == 'winner' &&
+                              candidate.ElectionVotes.length != 0
                             "
                             src="../../../../../assets/images/medal.png"
                             alt=""
@@ -573,7 +582,8 @@
                           <div
                             *ngIf="
                               election.stage == 'election_ended' &&
-                              checkResult(candidate) == 'draw'
+                              checkResult(candidate) == 'draw' &&
+                              candidate.ElectionVotes.length != 0
                             "
                             class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
                           >
@@ -738,7 +748,6 @@
             />
           </div>
         </div>
-
 
         <button
           type="submit"

@@ -323,7 +323,7 @@ export class ElectionComponent implements OnInit {
     let temp: any = [];
 
     this.election.ElectionPositions.forEach((position: any) => {
-      if (position.allowedCourse != 0) {
+      if (position.allowedCourse != 0 && position.allowedCourse != null) {
         let arr: any = [];
 
         position.ElectionCandidates.forEach((candi: any) => {
