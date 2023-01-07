@@ -317,6 +317,8 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
+        console.log(response)
+
         this.election.ElectionPositions.forEach((position: any, idx: any) => {
           if (position.allowedCourse != 0) {
             position.ElectionCandidates = position.ElectionCandidates.filter(

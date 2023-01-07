@@ -269,41 +269,41 @@ export class ElectionComponent implements OnInit {
           console.log(response);
 
 
-          // response.ElectionCandidates.forEach(
-          //   (candidate: any, canIndex: number) => {
-          //     this.chartData.labels.push(candidate.User.name);
+          response.ElectionCandidates.forEach(
+            (candidate: any, canIndex: number) => {
+              this.chartData.labels.push(candidate.User.name);
 
-          //     const scores: any = {
-          //       positive: 0,
-          //       negative: 0,
-          //       neutral: 0,
-          //     };
+              const scores: any = {
+                positive: 0,
+                negative: 0,
+                neutral: 0,
+              };
 
-          //     if (candidate.Sentiments.length != 0) {
-            //      this.hasSentiments = true;
+              if (candidate.Sentiments.length != 0) {
+                 this.hasSentiments = true;
 
-          //       candidate.Sentiments.forEach((sentiment: any) => {
-          //         if (sentiment.score > 0) {
-          //           scores.positive = scores.positive + 1;
-          //         }
+                candidate.Sentiments.forEach((sentiment: any) => {
+                  if (sentiment.score > 0) {
+                    scores.positive = scores.positive + 1;
+                  }
 
-          //         if (sentiment.score == 0) {
-          //           scores.neutral = scores.neutral + 1;
-          //         }
+                  if (sentiment.score == 0) {
+                    scores.neutral = scores.neutral + 1;
+                  }
 
-          //         if (sentiment.score < 0) {
-          //           scores.negative = scores.negative + 1;
-          //         }
-          //       });
-          //     }
+                  if (sentiment.score < 0) {
+                    scores.negative = scores.negative + 1;
+                  }
+                });
+              }
 
-          //     let entries = Object.entries(scores);
+              let entries = Object.entries(scores);
 
-          //     for (let [index, [key, value]] of entries.entries()) {
-          //       this.chartData.datasets[index].data[canIndex] = value;
-          //     }
-          //   }
-          // );
+              for (let [index, [key, value]] of entries.entries()) {
+                this.chartData.datasets[index].data[canIndex] = value;
+              }
+            }
+          );
 
           this.chartLoading = false;
 

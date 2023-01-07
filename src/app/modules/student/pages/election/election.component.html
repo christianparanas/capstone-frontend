@@ -719,34 +719,41 @@
           </div>
 
           <div class="mt-2 grid gap-2">
-            <div
-              *ngFor="let candidate of party.ElectionCandidates"
-              class="grid grid-cols-[40px_1fr] gap-2 items-center"
-            >
+            <div *ngFor="let candidate of party.ElectionCandidates" class="">
               <div
-                class="w-[40px] h-[40px] rounded-full border border-gray-200"
+                *ngIf="
+                  election.course == 0 &&
+                  candidate.ElectionPosition.allowedCourse == 0 &&
+                  candidate.User.StudentCredential.CourseId !=
+                    profile.StudentCredential.CourseId
+                "
+                class="grid grid-cols-[40px_1fr] gap-2 items-center"
               >
-                <img
-                  [src]="
-                    candidate.User.image == null
-                      ? '../../../../../assets/images/student.png'
-                      : candidate.User.image
-                  "
-                  alt=""
-                  class="w-[40px] h-[40px] rounded-full object-cover"
-                />
-              </div>
-              <div class="">
-                <h1 class="font-semibold text-sm text-slate-800 capitalize">
-                  {{ candidate.User.name }}
-                </h1>
                 <div
-                  class="w-fit bg-slate-100 font-semibold border border-slate-200 rounded-md px-1 text-[12px]"
+                  class="w-[40px] h-[40px] rounded-full border border-gray-200"
                 >
-                  For
-                  <span class="capitalize">{{
-                    candidate.ElectionPosition.title
-                  }}</span>
+                  <img
+                    [src]="
+                      candidate.User.image == null
+                        ? '../../../../../assets/images/student.png'
+                        : candidate.User.image
+                    "
+                    alt=""
+                    class="w-[40px] h-[40px] rounded-full object-cover"
+                  />
+                </div>
+                <div class="">
+                  <h1 class="font-semibold text-sm text-slate-800 capitalize">
+                    {{ candidate.User.name }}
+                  </h1>
+                  <div
+                    class="w-fit bg-slate-100 font-semibold border border-slate-200 rounded-md px-1 text-[12px]"
+                  >
+                    For
+                    <span class="capitalize">{{
+                      candidate.ElectionPosition.title
+                    }}</span>
+                  </div>
                 </div>
               </div>
             </div>
