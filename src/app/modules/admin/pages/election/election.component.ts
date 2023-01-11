@@ -330,6 +330,8 @@ export class ElectionComponent implements OnInit {
     });
   }
 
+  
+
   getResult() {
     let temp: any = [];
 

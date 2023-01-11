@@ -36,6 +36,15 @@ export class ElectionComponent implements OnInit {
   winnersModal: boolean = false;
   selectedPartyId: any = null;
 
+  isPredictionsPanelOpen: boolean = false;
+  chartData: any;
+  chartOptions: any;
+  predictionModal: boolean = false;
+  isPredictionAvailable: boolean = false;
+  positionTitle: any = '';
+  hasSentiments: boolean = false;
+  chartLoading: boolean = false;
+
   constructor(
     private courseService: CourseService,
     private electionService: ElectionService,
@@ -44,8 +53,8 @@ export class ElectionComponent implements OnInit {
     private route: ActivatedRoute,
     private eventService: EventService,
     private profileService: ProfileService,
-    private pdfService: PdfService,
-  ) { }
+    private pdfService: PdfService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((value) => {
@@ -55,6 +64,62 @@ export class ElectionComponent implements OnInit {
     this.getCourses();
     this.getElectionEvent();
     this.getProfile();
+
+    this.chartData = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Positive',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [],
+        },
+        {
+          label: 'Negative',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          data: [],
+        },
+
+        {
+          label: 'Neutral',
+          backgroundColor: 'rgba(201, 203, 207, 0.2)',
+          borderColor: 'rgba(201, 203, 207, 1)',
+          borderWidth: 1,
+          data: [],
+        },
+      ],
+    };
+
+    this.chartOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#000',
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+        y: {
+          ticks: {
+            color: '#000',
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.2)',
+          },
+        },
+      },
+    };
   }
 
   getProfile() {
@@ -70,6 +135,91 @@ export class ElectionComponent implements OnInit {
       this.election.id,
       `${this.election.title}-winners`
     );
+  }
+
+  getSentiments() {
+    const data: any = {
+      ElectionId: this.election.id,
+    };
+
+    this.electionService.getSentiments(data).subscribe(
+      (response: any) => {
+        // console.log(response);
+      },
+      (error: any) => {
+        this.submitLoading = false;
+      }
+    );
+  }
+
+  getPrediction(position: any) {
+    this.chartData.labels = [];
+    this.chartData.datasets[0].data = [];
+    this.chartData.datasets[1].data = [];
+    this.chartData.datasets[2].data = [];
+
+    this.positionTitle = position.title;
+    this.predictionModal = true;
+
+    if (new Date(this.election.campaignperiod_enddate) >= new Date()) {
+      this.isPredictionAvailable = false;
+      return;
+    }
+
+    this.isPredictionAvailable = true;
+    this.chartLoading = true;
+
+    this.electionService
+      .getPrediction({
+        ElectionId: this.election.id,
+        ElectionPositionId: position.id,
+      })
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+
+          response.ElectionCandidates.forEach(
+            (candidate: any, canIndex: number) => {
+              this.chartData.labels.push(candidate.User.name);
+
+              const scores: any = {
+                positive: 0,
+                negative: 0,
+                neutral: 0,
+              };
+
+              if (candidate.Sentiments.length != 0) {
+                 this.hasSentiments = true;
+
+                candidate.Sentiments.forEach((sentiment: any) => {
+                  if (sentiment.score > 0) {
+                    scores.positive = scores.positive + 1;
+                  }
+
+                  if (sentiment.score == 0) {
+                    scores.neutral = scores.neutral + 1;
+                  }
+
+                  if (sentiment.score < 0) {
+                    scores.negative = scores.negative + 1;
+                  }
+                });
+              }
+
+              let entries = Object.entries(scores);
+
+              for (let [index, [key, value]] of entries.entries()) {
+                this.chartData.datasets[index].data[canIndex] = value;
+              }
+            }
+          );
+
+          this.chartLoading = false;
+
+          console.log(this.chartData);
+        },
+        (error: any) => {}
+      );
   }
 
   getResult() {
@@ -216,8 +366,6 @@ export class ElectionComponent implements OnInit {
         this.isVoteNotEmpty = false;
         return;
       }
-
-
     });
 
     this.isVoteNotEmpty = true;
@@ -279,7 +427,6 @@ export class ElectionComponent implements OnInit {
     this.checkIfBallotEmpty();
   }
 
-
   vote() {
     let ans = confirm('Done Voting? this action cannot be undone.');
 
@@ -317,8 +464,6 @@ export class ElectionComponent implements OnInit {
         this.election = response;
         this.isLoading = false;
 
-        console.log(response)
-
         this.election.ElectionPositions.forEach((position: any, idx: any) => {
           if (position.allowedCourse != 0) {
             position.ElectionCandidates = position.ElectionCandidates.filter(
@@ -351,6 +496,12 @@ export class ElectionComponent implements OnInit {
             this.isAlreadyVoted = true;
           }
         });
+
+        if (response.hasCampaign == true) {
+          if (new Date(response.campaignperiod_enddate) <= new Date()) {
+            this.getSentiments();
+          }
+        }
 
         this.getResult();
       },

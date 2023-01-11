@@ -517,7 +517,8 @@
                               <img
                                 *ngIf="
                                   election.stage == 'election_ended' &&
-                                  checkResult(candidate) == 'winner' &&  candidate.ElectionVotes.length != 0
+                                  checkResult(candidate) == 'winner' &&
+                                  candidate.ElectionVotes.length != 0
                                 "
                                 src="../../../../../assets/images/medal.png"
                                 alt=""
@@ -527,7 +528,8 @@
                               <div
                                 *ngIf="
                                   election.stage == 'election_ended' &&
-                                  checkResult(candidate) == 'draw' && candidate.ElectionVotes.length != 0
+                                  checkResult(candidate) == 'draw' &&
+                                  candidate.ElectionVotes.length != 0
                                 "
                                 class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
                               >
@@ -610,7 +612,8 @@
                           <img
                             *ngIf="
                               election.stage == 'election_ended' &&
-                              checkResult(candidate) == 'winner' && candidate.ElectionVotes.length != 0
+                              checkResult(candidate) == 'winner' &&
+                              candidate.ElectionVotes.length != 0
                             "
                             src="../../../../../assets/images/medal.png"
                             alt=""
@@ -620,7 +623,8 @@
                           <div
                             *ngIf="
                               election.stage == 'election_ended' &&
-                              checkResult(candidate) == 'draw' && candidate.ElectionVotes.length != 0
+                              checkResult(candidate) == 'draw' &&
+                              candidate.ElectionVotes.length != 0
                             "
                             class="bg-slate-100 px-2 font-semibold rounded-md text-[11px] absolute right-0 -top-1"
                           >
